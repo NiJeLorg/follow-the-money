@@ -1,12 +1,13 @@
-from database_settings import *
-
-# Django settings for mit_civic project.
+# Django settings for project.
 import os, sys
 
 PROJECT_ROOT = os.path.dirname(__file__)
 
-# Django settings for follow_money project.
+# Import database settings
+from database_settings import *
 
+
+# Django settings for follow_money project.
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -107,7 +108,7 @@ TEMPLATE_DIRS = '/home5/nijelorg/www/follow-the-money/templates'
 # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-
+    
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -117,23 +118,22 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'south',
     # follow_the_money app
-    'follow_the_money',
-   
+    'follow_the_money', 
     # bootstrap for admin pages
-    'django_admin_bootstrapped',
+    # 'django_admin_bootstrapped',
     #bootstrap pip install for main site
-     'twitter_bootstrap',
+    # 'twitter_bootstrap',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     #uncomment next line testing contacts    
-    'contacts',
-    'leaflet',
+    # 'contacts',
+    # 'leaflet',
     #'djgeojson',
     #'maptest',
-    'jquery',
-    'd3',
+    # 'jquery',
+    # 'd3',
 )
 
 # A sample logging configuration. The only tangible logging
