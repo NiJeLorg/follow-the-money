@@ -1,0 +1,54 @@
+{% extends 'follow_the_money/base.html' %}
+{% load staticfiles %}
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'follow_the_money/css/bootstrap.min.css' %}">	
+    <link rel="stylesheet" type="text/css" href="{% static 'follow_the_money/css/mapbox.css' %}">	
+    <link rel="stylesheet" type="text/css" href="{% static 'follow_the_money/css/main.css' %}">
+	<!-- style embedded in django template for static file usage -->
+	<style type="text/css">
+		.navbar-default .navbar-nav > .media-button > a {
+			top: 10px;
+			width: 79px;
+			height: 36px;
+			background-image: url({% static 'follow_the_money/img/Media.png' %})
+		}
+
+		.navbar-default .navbar-nav > .media-button > a:hover,
+		.navbar-default .navbar-nav > .media-button > a:focus {
+			background-image: url({% static 'follow_the_money/img/Media_hover.png' %})
+		}
+		
+		.navbar-default .navbar-nav > .screenshot-button > a {
+			top: 10px;
+			width: 39px;
+			height: 36px;
+			background-image: url({% static 'follow_the_money/img/Snaps.png' %})
+		}
+
+		.navbar-default .navbar-nav > .screenshot-button > a:hover,
+		.navbar-default .navbar-nav > .screenshot-button > a:focus {
+			background-image: url({% static 'follow_the_money/img/Snaps_hover.png' %})
+		}
+		
+	</style>
+{% endblock %}	
+
+{% block body_block %}
+	<div id="map"></div>
+{% endblock %}
+
+
+{% block js_block %}
+	<script type="text/javascript" src="{% static 'follow_the_money/js/jquery-1.11.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'follow_the_money/js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'follow_the_money/js/d3.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'follow_the_money/js/mapbox.js' %}"></script>
+	<script type="text/javascript" src="{% static 'follow_the_money/js/leaflet-omnivore.min.js' %}"></script>
+	<!-- set varible for topojson url -->
+	<script type="text/javascript">
+	var neighborhoods = "{% static 'follow_the_money/topojson/neighborhoods.json' %}";	
+	</script>
+	<script type="text/javascript" src="{% static 'follow_the_money/js/CityDigitsMap.js' %}"></script>
+	<script type="text/javascript" src="{% static 'follow_the_money/js/application.js' %}"></script>
+{% endblock %}

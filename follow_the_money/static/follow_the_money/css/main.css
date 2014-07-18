@@ -1,0 +1,51 @@
+
+/*
+*  Bootstrap Overrides
+*/
+
+#main-container {
+    margin-top: -18px;
+    width: 100%;
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
+.navbar-default {
+	background-color: #fff;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+	color: #025ff1;
+	background-color: #ffffff;
+}
+
+.navbar-default .navbar-brand {
+	font-size: 24px;
+	color: #025ff1;
+	float: none;
+}
+
+.navbar-default .navbar-center {
+	position: absolute;
+	width: 100%;
+	left: 0;
+	top: 0;
+	text-align: center;
+	margin: auto;
+	height:100%;
+}
+
+
+/*
+* Map styles
+*/
+
+#map {
+    position:absolute;
+    top:0;
+    bottom:0;
+    width:100%;
+    margin-top: 50px;
+}
