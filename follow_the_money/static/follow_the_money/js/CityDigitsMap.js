@@ -13,6 +13,11 @@ function CityDigitsMap() {
 
     //where brooklyn at?!40.7429 N, 73.9188
     this.map = L.mapbox.map('map', basemap,{minZoom:11,maxZoom:16,zoomControl:false}).setView([40.7429,-73.9188], 13);
+    //load zoomer
+    $("#citydigits-zoomer").attr({'class':'citydigits-zoomer'});
+    $("#citydigits-zoomer").on("click","#zoom-in",CityDigitsMap.onZoomIn);
+    $("#citydigits-zoomer").on("click","#zoom-out",CityDigitsMap.onZoomOut);
+	
 	
     //set params
     this.height = $(window).height()-$(".navbar").height();
@@ -293,9 +298,6 @@ CityDigitsMap.prototype.loadMarkers = function(){
 	this.LOC6_MCDONALDS = omnivore.csv(PawnShops, null, this.LOC6_MCDONALDS_style);
 	//this.LOC7_SUBWAY_LINES = omnivore.csv(PawnShops, null, this.LOC7_SUBWAY_LINES_style);
 
-	//start with value population in poverty for initial load
-    this.markerLayer = this.LOC1_PAWN_SHOPS.addTo(this.map);
-
 }
 
 CityDigitsMap.getIconFor_LOC1_PAWN_SHOPS = function (feature, latlng){
@@ -370,17 +372,53 @@ CityDigitsMap.getIconFor_LOC6_MCDONALDS = function (feature, latlng){
 	
 }
 
+CityDigitsMap.loadLayerFor = function(layerId){
+    if(layerId == "MAP1_POP_POVERTY"){
+        mainLayer = MY_MAP.MAP1_POP_POVERTY.addTo(MY_MAP.map);
+    }	
+    if(layerId == "MAP2_MED_HH_INCOME"){
+        mainLayer = MY_MAP.MAP2_MED_HH_INCOME.addTo(MY_MAP.map);
+    }	
+    if(layerId == "MAP3_PCT_UNEMPLOYED"){
+        mainLayer = MY_MAP.MAP3_PCT_UNEMPLOYED.addTo(MY_MAP.map);
+    }	
+    if(layerId == "MAP4_PCT_FOREIGN_BORN"){
+        mainLayer = MY_MAP.MAP4_PCT_FOREIGN_BORN.addTo(MY_MAP.map);
+    }	
+
+}
+
 
 CityDigitsMap.loadLocationsLayerFor = function(layerId){
 	// add layer requested based on ID
 	if (layerId == "LOC1_PAWN_SHOPS") {
 		MY_MAP.LOC1_PAWN_SHOPS.addTo(MY_MAP.map);
 	}
-
 	if (layerId == "LOC2_CHECK_CASHING") {
 		MY_MAP.LOC2_CHECK_CASHING.addTo(MY_MAP.map);
 	}
-	
+	if (layerId == "LOC3_WIRE_TRANSFER") {
+		MY_MAP.LOC3_WIRE_TRANSFER.addTo(MY_MAP.map);
+	}
+	if (layerId == "LOC4_AFIS") {
+		MY_MAP.LOC4_AFIS.addTo(MY_MAP.map);
+	}
+	if (layerId == "LOC5_BANKS") {
+		MY_MAP.LOC5_BANKS.addTo(MY_MAP.map);
+	}
+	if (layerId == "LOC6_MCDONALDS") {
+		MY_MAP.LOC6_MCDONALDS.addTo(MY_MAP.map);
+	}
+	if (layerId == "LOC7_SUBWAY_LINES") {
+		MY_MAP.LOC7_SUBWAY_LINES.addTo(MY_MAP.map);
+	}
 	
 }
+
+CityDigitsMap.removeLayerFor = function(layerId){
+	console.log(layerId);
+	MY_MAP.map.removeLayer( layerId ); 
+}
+
+
 

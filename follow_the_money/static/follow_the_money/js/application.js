@@ -59,19 +59,6 @@ $( "input[name='maps']" ).on("change", function() {
 
 });
 
-$('#pawnshopsCheckbox').on("click", function() {
-	alert( "Handler for .change() called." );
-	/*
-	var layerID = $(this).attr("value")
-    if($(this).is(":checked")) {
-		CityDigitsMap.loadLocationsLayerFor(layerId);
-    } else {
-		MY_MAP.map.removeLayer(layerId);   	
-    }
-	*/
-});
-
-
 
 
 

@@ -119,6 +119,33 @@
 		.mcdonalds-icon {
 			background-image: url({% static 'follow_the_money/img/locations_gray.png' %});
 		}
+		
+		/*
+		* zoom icons
+		*/
+		
+		.citydigits-zoomer .zoom-in > a {
+			float: left;
+			width: 28px;
+			height: 32px;
+			background-image: url({% static 'follow_the_money/img/Zoom_in.png' %});
+		}
+
+		.citydigits-zoomer .zoom-in > a:hover {
+			background-image: url({% static 'follow_the_money/img/Zoom_in_hover.png' %});
+		}
+
+		.citydigits-zoomer .zoom-out > a {
+			float: left;
+			margin-left: -30px;
+			width: 28px;
+			height: 32px;
+			background-image: url({% static 'follow_the_money/img/Zoom_out.png' %});
+		}
+
+		.citydigits-zoomer .zoom-out > a:hover {
+			background-image: url({% static 'follow_the_money/img/Zoom_out_hover.png' %});
+		}
 
 
 		</style>
@@ -127,12 +154,16 @@
 {% block body_block %}
     <div class="row">
         <div class="col-xs-6 col-md-4">
-           <div id="map-nav" class="map-nav map-ui"></div><!-- map-nav -->
+           <div id="map-nav" class="map-nav map-ui"></div><!-- map-nav -->		  
         </div>
     </div>
     <div id="citydigits-zoomer" class="citydigits-zoomer hidden">
-       <img src="{% static 'follow_the_money/img/Zoom_out.png' %}" id="zoom-out" style="margin-top: -1px;"/>
-       <img src="{% static 'follow_the_money/img/Zoom_in.png' %}" id="zoom-in" style="margin-top: -1px"/>
+		<div class="zoom-out">
+      	  <a id="zoom-out" href="#"></a>
+	  	</div>
+		<div class="zoom-in">
+      	  <a id="zoom-in" href="#"></a>
+	  	</div>
     </div>
 	<div id="map"></div>
 	
