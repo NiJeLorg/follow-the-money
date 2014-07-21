@@ -31,11 +31,111 @@
 			background-image: url({% static 'follow_the_money/img/Snaps_hover.png' %})
 		}
 		
-	</style>
+		.nav-tabs.nav-justified > li > a > .edit-button {
+			display: inline-block;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'follow_the_money/img/edit_white.png' %})
+		}
+		
+		.nav-tabs.nav-justified > .active > a > .edit-button,
+		.nav-tabs.nav-justified > .active > a:hover > .edit-button,
+		.nav-tabs.nav-justified > .active > a:focus > .edit-button, 
+		.nav-tabs.nav-justified > li > a:hover > .edit-button,
+		.nav-tabs.nav-justified > li > a:focus > .edit-button {
+			background-image: url({% static 'follow_the_money/img/edit_gray.png' %})
+		}
+		
+		.nav-tabs.nav-justified > li > a > .image-button {
+			display: inline-block;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'follow_the_money/img/image_white.png' %})
+		}
+		
+		.nav-tabs.nav-justified > .active > a > .image-button,
+		.nav-tabs.nav-justified > .active > a:hover > .image-button,
+		.nav-tabs.nav-justified > .active > a:focus > .image-button, 
+		.nav-tabs.nav-justified > li > a:hover > .image-button,
+		.nav-tabs.nav-justified > li > a:focus > .image-button {
+			background-image: url({% static 'follow_the_money/img/image_gray.png' %})
+		}
+		
+		.nav-tabs.nav-justified > li > a > .location-button {
+			display: inline-block;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'follow_the_money/img/locations_white.png' %})
+		}
+		
+		.nav-tabs.nav-justified > .active > a > .location-button,
+		.nav-tabs.nav-justified > .active > a:hover > .location-button,
+		.nav-tabs.nav-justified > .active > a:focus > .location-button, 
+		.nav-tabs.nav-justified > li > a:hover > .location-button,
+		.nav-tabs.nav-justified > li > a:focus > .location-button {
+			background-image: url({% static 'follow_the_money/img/locations_gray.png' %})
+		}
+		
+		.nav-tabs.nav-justified > li > a > .map-button {
+			display: inline-block;
+			margin-right: 3px;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'follow_the_money/img/map_white.png' %})
+		}
+		
+		.nav-tabs.nav-justified > .active > a > .map-button,
+		.nav-tabs.nav-justified > .active > a:hover > .map-button,
+		.nav-tabs.nav-justified > .active > a:focus > .map-button, 
+		.nav-tabs.nav-justified > li > a:hover > .map-button,
+		.nav-tabs.nav-justified > li > a:focus > .map-button {
+			background-image: url({% static 'follow_the_money/img/map_gray.png' %})
+		}
+		
+		/*
+		* Map Icon classes
+		*/
+		
+		.pawnshop-icon {
+			background-image: url({% static 'follow_the_money/img/pawnshop.png' %});
+		}
+
+		.checkcashing-icon {
+			background-image: url({% static 'follow_the_money/img/checkcashing.png' %});
+		}
+
+		.wiretransfer-icon {
+			background-image: url({% static 'follow_the_money/img/wiretransfer.png' %});
+		}
+
+		.afis-icon {
+			background-image: url({% static 'follow_the_money/img/wiretransfer.png' %});
+		}
+
+		.banks-icon {
+			background-image: url({% static 'follow_the_money/img/bank.png' %});
+		}
+
+		.mcdonalds-icon {
+			background-image: url({% static 'follow_the_money/img/locations_gray.png' %});
+		}
+
+
+		</style>
 {% endblock %}	
 
 {% block body_block %}
+    <div class="row">
+        <div class="col-xs-6 col-md-4">
+           <div id="map-nav" class="map-nav map-ui"></div><!-- map-nav -->
+        </div>
+    </div>
+    <div id="citydigits-zoomer" class="citydigits-zoomer hidden">
+       <img src="{% static 'follow_the_money/img/Zoom_out.png' %}" id="zoom-out" style="margin-top: -1px;"/>
+       <img src="{% static 'follow_the_money/img/Zoom_in.png' %}" id="zoom-in" style="margin-top: -1px"/>
+    </div>
 	<div id="map"></div>
+	
 {% endblock %}
 
 
@@ -45,9 +145,14 @@
 	<script type="text/javascript" src="{% static 'follow_the_money/js/d3.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/mapbox.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/leaflet-omnivore.min.js' %}"></script>
-	<!-- set varible for topojson url -->
+	<!-- set varible for topojson and csv urls -->
 	<script type="text/javascript">
 	var neighborhoods = "{% static 'follow_the_money/topojson/neighborhoods.json' %}";	
+	var CheckCashing = "{% static 'follow_the_money/locationData/CheckCashing.csv' %}";	
+	var CommercialBanks = "{% static 'follow_the_money/locationData/CommercialBanks.csv' %}";	
+	var Mcdonalds = "{% static 'follow_the_money/locationData/Mcdonalds.csv' %}";	
+	var MoneyTransferServices = "{% static 'follow_the_money/locationData/MoneyTransferServices.csv' %}";	
+	var PawnShops = "{% static 'follow_the_money/locationData/PawnShops.csv' %}";	
 	</script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/CityDigitsMap.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/application.js' %}"></script>

@@ -1,0 +1,277 @@
+"id","name","address","city","latitude","longitude"
+1,"Pay-O-Matic","187 Bedford Ave # A","Brooklyn",40.717533,-73.957664
+2,"Pay-O-Matic","168 Greenpoint Ave","Brooklyn",40.730049,-73.953613
+3,"Pay-O-Matic","1640 Broadway","Brooklyn",40.684696,-73.913719
+4,"Franklin Check Cashing","1297 Boston Rd","Bronx",40.831563,-73.899805
+5,"Wink Check Cashing Corp","29 Bedford Park Blvd E","Bronx",40.872932,-73.888749
+6,"Money Gram Intl","420 E 149th St # 1","Bronx",40.815472,-73.91671
+7,"Western Union","9305 Jamaica Ave","Jamaica",40.693851,-73.851758
+8,"Uneeda Check Cashing Inc","862 Lexington Ave","New York",40.765907,-73.96582
+9,"NYC Check Express","660 Lexington Ave","New York",40.759807,-73.970007
+10,"NYC Check Express","553 2nd Ave","New York",40.742723,-73.977716
+11,"Community Finaincal Svc","518 W 145th St # 3","New York",40.825479,-73.948934
+12,"EGI Check Cashing","46 Trinity Pl","New York",40.707673,-74.013412
+13,"NYC Check Express","404 E 69th St # 2","New York",40.765641,-73.956971
+14,"Garden Check Cashing Svc","250 W 49th St","New York",40.761331,-73.986145
+15,"NYC Check Express","24 Beaver St # B","New York",40.704786,-74.012046
+16,"NYC Check Express","200 Water St # 4","New York",40.707274,-74.003956
+17,"Money Gram Intl","174 Saint Nicholas Ave","New York",40.805752,-73.952747
+18,"Uneeda Check Cashing","165 Nagle Ave # 4","New York",40.861937,-73.923814
+19,"Castle Check Cashing Corp","1221 Saint Nicholas Ave # 1","New York",40.843331,-73.938491
+20,"Check Express Inc","117 E 41st St","New York",40.749024,-73.972419
+21,"NYC Check Exp Western Union","Pearl St","New York",40.709211,-74.005704
+22,"DOLEX Dollar Express","990 Southern Blvd","Bronx",40.822543,-73.89169
+23,"Western Union","99 Avenue C","New York",40.724001,-73.979252
+24,"B & B Express Svc","977 Mcdonald Ave","Brooklyn",40.630111,-73.976811
+25,"Western Union","9703 57th Ave # A","Flushing",40.73723,-73.863984
+26,"Western Union","969 2nd Ave","New York",40.755711,-73.967977
+27,"LA Nacional Corp Envios De","9615 Roosevelt Ave # H","Flushing",40.749385,-73.868799
+28,"Renessa Technologies","9501 Roosevelt Ave","Flushing",40.74898,-73.871566
+29,"Western Union","9421 Astoria Blvd","East Elmhurst",40.762969,-73.874351
+30,"Payzap Inc","935 Morris Park Ave","Bronx",40.847519,-73.858398
+31,"DOLEX Dollar Express","935 Amsterdam Ave","New York",40.800227,-73.965815
+32,"Western Union","9305 Jamaica Ave","Jamaica",40.693851,-73.851758
+33,"NYC Check Express","93 Nassau St # 1","New York",40.710265,-74.007803
+34,"Chou Chou Svc Inc","924 Utica Ave","Brooklyn",40.650555,-73.930656
+35,"Western Union","91a Pinehurst Ave","New York",40.85104,-73.939226
+36,"Tas Check Cashing Svc","918 Main Ave","Long Island City",40.771995,-73.932739
+37,"Money Gram Intl","904 4th Ave","Brooklyn",40.655989,-74.003119
+38,"Agencia Mexicana Intl","8945 Elmhurst Ave # 2","Elmhurst",40.748131,-73.876617
+39,"Dolex Dollar Express","894 Avenue Of The Americas","New York",40.748517,-73.988444
+40,"Western Union","887 9th Ave # 1","New York",40.765788,-73.984648
+41,"Fast SM Money","8804 Roosevelt Ave","Flushing",40.747982,-73.878342
+42,"Us Money Express Co","880 Manhattan Ave # A","Brooklyn",40.72976,-73.953709
+43,"BPI Express","875 3rd Ave # Mezz5","New York",40.757218,-73.969176
+44,"Western Union","8703 Northern Blvd # 87","Jackson Heights",40.756333,-73.880535
+45,"Ambia","8630 115th St","Jamaica",40.698965,-73.83423
+46,"Uneeda Check Cashing Inc","862 Lexington Ave","New York",40.765907,-73.96582
+47,"Fast Money Transfer Inc","862 Coney Island Ave","Brooklyn",40.636392,-73.9681
+48,"Western Union","8608 37th Ave","Jackson Heights",40.750125,-73.880258
+49,"All Boro Payroll Svc Inc","857 Bedford Ave","Brooklyn",40.694505,-73.956085
+50,"Western Union","84 W Fordham Rd","Bronx",40.862713,-73.904727
+51,"G & R Check Cashing","829 Avenue Of The Americas","New York",40.746524,-73.990241
+52,"Western Union","826 10th Ave","New York",40.767541,-73.989281
+53,"Western Union","8121 New Utrecht Ave","Brooklyn",40.609951,-74.00119
+54,"DOLEX Dollar Express","8111 37th Ave","Flushing",40.749954,-73.884819
+55,"Western Union","805 Grand St","Brooklyn",40.712132,-73.94117
+56,"DOLEX Dollar Express","8018 Roosevelt Ave","Flushing",40.747455,-73.885186
+57,"Delgado Communications Inc","7908 Roosevelt Ave","Jackson Heights",40.747332,-73.886373
+58,"Money Gram Of New York","79 Division St","New York",40.714131,-73.993789
+59,"DOLEX Dollar Express","7819 Roosevelt Ave","Jackson Heights",40.747381,-73.886773
+60,"Cibao Money Transmitting Co","7814 Roosevelt Ave # 201","Jackson Heights",40.747266,-73.887
+61,"DOLEX Dollar Express","7615 Roosevelt Ave","Flushing",40.747148,-73.889026
+62,"Universal Express","7422 37th Ave","Flushing",40.749004,-73.890917
+63,"Money Gram Intl","727 Allerton Ave","Bronx",40.865715,-73.866127
+64,"DOLEX Dollar Express","7017 37th Ave","Jackson Heights",40.748882,-73.894829
+65,"DOLEX Dollar Express","7 Hamilton Pl","New York",40.820945,-73.953837
+66,"Money Gram Intl","689 E Tremont Ave","Bronx",40.84554,-73.891277
+67,"Western Union","687 9th Ave # 1","New York",40.761949,-73.990449
+68,"Western Union","6816 Fresh Pond Rd","Ridgewood",40.704617,-73.896342
+69,"Lucky Money","6702 Roosevelt Ave","Woodside",40.746021,-73.897865
+70,"Western Union","668 Seneca Ave","Ridgewood",40.703148,-73.908714
+71,"Western Union","6627 Fresh Pond Rd","Ridgewood",40.708221,-73.897554
+72,"NYC Check Express","660 Lexington Ave","New York",40.759807,-73.970007
+73,"Western Union","66 Willoughby St","Brooklyn",40.692011,-73.986079
+74,"Western Union","6400 Amboy Rd","Staten Island",40.521686,-74.216951
+75,"LA Nacional","640 Grand St","Brooklyn",40.711141,-73.946561
+76,"Western Union","6368 Woodhaven Blvd","Rego Park",40.72263,-73.868172
+77,"DOLEX Dollar Express","6129 Roosevelt Ave","Flushing",40.745715,-73.902605
+78,"New York Bay Remittance Corp","61 Broadway # 1050","New York",40.707104,-74.012794
+79,"Western Union","6089 Myrtle Ave","Flushing",40.700977,-73.895134
+80,"Envios De Valores LA Nacional","601 W 182nd St # 1443","New York",40.850037,-73.933506
+81,"Enterprise Co","601 W 180th St","New York",40.848721,-73.934333
+82,"B B Money Transfers","600 5th Ave","New York",40.757987,-73.978475
+83,"Western Union Telegraph Co","60 Hudson St","New York",40.71796,-74.008881
+84,"Shopwell","592 Fort Washington Ave","New York",40.854878,-73.936684
+85,"Western Union","5904 Kissena Blvd","Flushing",40.740572,-73.815103
+86,"Western Union","5805 4th Ave","Brooklyn",40.641674,-74.017097
+87,"Lin Song Inc","5718 8th Ave","Brooklyn",40.636955,-74.008423
+88,"DOLEX Dollar Express","57 E 167th St","Bronx",40.835545,-73.920579
+89,"Western Union","565 W 207th St","New York",40.866406,-73.919994
+90,"NYC Check Express","553 2nd Ave","New York",40.742723,-73.977716
+91,"Western Union","542 Southern Blvd","Bronx",40.812131,-73.903946
+92,"Western Union","5410 Flushing Ave","Maspeth",40.714923,-73.913011
+93,"Western Union","531 Eastern Pkwy","Brooklyn",40.670095,-73.9505
+94,"Western Union","5305 5th Ave","Brooklyn",40.643099,-74.012009
+95,"Western Union","5215 4th Ave","Brooklyn",40.644794,-74.013786
+96,"Community Finaincal Svc","518 W 145th St # 3","New York",40.825479,-73.948934
+97,"Western Union","510 Claremont Pkwy","Bronx",40.838192,-73.901573
+98,"Natec Multi Link","5010 Avenue D","Brooklyn",40.642114,-73.928952
+99,"Western Union","4925 Broadway","New York",40.867834,-73.921718
+100,"Western Union","4918 Avenue K","Brooklyn",40.625763,-73.928016
+101,"Envios J & D","4908 4th Ave # A","Brooklyn",40.647057,-74.012497
+102,"Western Union","470 Amsterdam Ave","New York",40.785467,-73.976707
+103,"Western Union","4640 Francis Lewis Blvd","Bayside",40.75366,-73.780951
+104,"Pamela's Money Transfer Inc","4629 Greenpoint Ave","Sunnyside",40.742517,-73.918004
+105,"EGI Check Cashing","46 Trinity Pl","New York",40.707673,-74.013412
+106,"Western Union","454 New Dorp Ln","Staten Island",40.567721,-74.121118
+107,"Western Union","452 W 43rd St","New York",40.759861,-73.994053
+108,"Z Express Inc","451 Irving Ave","Brooklyn",40.695865,-73.908741
+109,"Western Union","450 Forest Ave","Staten Island",40.630501,-74.104553
+110,"Le Goi Tien Le","43 W 33rd St","New York",40.748873,-73.987106
+111,"Fu Zhou Intl Money Transfer","43 E Broadway","New York",40.713354,-73.995997
+112,"Western Union","424 Sutter Ave # A","Brooklyn",40.667907,-73.903198
+113,"Western Union","423 Utica Ave","Brooklyn",40.663983,-73.931516
+114,"Western Union","421 Audubon Ave","New York",40.851825,-73.929703
+115,"Corner Payment Ctr Corp","4201 7th Ave","Brooklyn",40.646728,-74.001098
+116,"Money Gram Intl","420 E 149th St # 1","Bronx",40.815472,-73.91671
+117,"Bhd Corp","4162 Broadway","New York",40.847176,-73.937863
+118,"Cash Zone","416 E 149th St","Bronx",40.815823,-73.91718
+119,"Le Goi Tien Le","4125 Broadway # 1","New York",40.845698,-73.938671
+120,"DOLEX Dollar Express","4123 Broadway","New York",40.845627,-73.938691
+121,"NYC Check Express","404 E 69th St # 2","New York",40.765641,-73.956971
+122,"Western Union","404 E 69th St","New York",40.765641,-73.956971
+123,"Western Union","3991 White Plains Rd","Bronx",40.888466,-73.860481
+124,"Western Union","3948 Richmond Ave","Staten Island",40.541989,-74.163059
+125,"Western Union","3948 Richmond Ave","Staten Island",40.541989,-74.163059
+126,"Western Union","388 Bedford Park Blvd # A","Bronx",40.867628,-73.883993
+127,"Money Gram Intl","3855 Broadway","New York",40.83646,-73.94332
+128,"DOLEX Dollar Express","3826 Broadway","New York",40.835489,-73.94363
+129,"Western Union","3776 Broadway # 3","New York",40.833883,-73.944827
+130,"Western Union","3775 White Plains Rd","Bronx",40.883422,-73.862981
+131,"Waldbaum's","375 Tompkins Ave # 4","Staten Island",40.616817,-74.073441
+132,"Western Union","375 Tompkins Ave","Staten Island",40.616817,-74.073441
+133,"Western Union","3746 72nd St","Jackson Heights",40.747372,-73.89402
+134,"Cibao Money Transmitting Corp","3720 Broadway","Astoria",40.759258,-73.920094
+135,"Renessa Technologies","3718 73rd St","Flushing",40.748299,-73.893005
+136,"Renessa Technologies","3718 73rd St","Jackson Heights",40.748299,-73.893005
+137,"Zoha Inc","3706 74th St","Flushing",40.74865,-73.892052
+138,"Western Union","365 1st Ave","New York",40.735964,-73.979611
+139,"Western Union","359 E 204th St","Bronx",40.871876,-73.877467
+140,"Oll Multi Transfer","357 W 125th St","New York",40.811043,-73.953115
+141,"DOLEX Dollar Express","3569 Broadway # A","New York",40.827431,-73.949916
+142,"Western Union","356 W 145th St","New York",40.823717,-73.944128
+143,"Money Gram Intl","3552 31st St","Astoria",40.756901,-73.929878
+144,"DOLEX Dollar Express","3511 Broadway","New York",40.825613,-73.951234
+145,"Choice Money Transfer","350 5th Ave # 2723","New York",40.748419,-73.984632
+146,"Western Union","35 W 31st St # 31","New York",40.747356,-73.987499
+147,"Hong Wei Intl Money Transfer","35 E Broadway","New York",40.713294,-73.996315
+148,"Western Union","3461 Boston Rd","Bronx",40.876512,-73.848148
+149,"Via Envia","3430 Broadway","New York",40.822866,-73.952449
+150,"Western Union","3412 Steinway St","Long Island City",40.756024,-73.921471
+151,"Sonali Exchange Co Inc","336 E 45th St # 8","New York",40.750843,-73.969194
+152,"DOLEX Dollar Express","3356 Broadway","New York",40.82051,-73.95458
+153,"Western Union","334 E 188th St","Bronx",40.860388,-73.89435
+154,"Vigo","330 Audubon Ave # 4","New York",40.849227,-73.932169
+155,"Vigo Remittance Corp","33 W 46th St # 2","New York",40.756816,-73.980366
+156,"Western Union","3285 Richmond Ave # E","Staten Island",40.559001,-74.169384
+157,"Western Union","322 W 48th St","New York",40.761351,-73.988169
+158,"Western Union","319 Audubon Ave","New York",40.848873,-73.932174
+159,"Harry D Hiller Inc","318 3rd Ave","New York",40.739521,-73.982991
+160,"Food Emporium","316 1/2 Greenwich St","New York",40.717596,-74.010674
+161,"DOLEX Dollar Express","3110 Bainbridge Ave # 205","Bronx",40.873908,-73.879249
+162,"Western Union","3031 Stratton St","Flushing",40.769091,-73.834114
+163,"Western Union","3015 3rd Ave","Bronx",40.81953,-73.914001
+164,"Wink Check Cashing Corp","29 Bedford Park Blvd E","Bronx",40.872932,-73.888749
+165,"Western Union","271 E 149th St","Bronx",40.817481,-73.922728
+166,"Payomatic","269 E Tremont Ave","Bronx",40.848807,-73.903633
+167,"Western Union","264 W Fordham Rd","Bronx",40.8616,-73.911065
+168,"Western Union","261 W 109th St","New York",40.803504,-73.966863
+169,"Western Union","26 Broadway Ter","New York",40.857781,-73.930679
+170,"Tele Transfer Brooklyn","258 Knickerbocker Ave # B","Brooklyn",40.702351,-73.925079
+171,"Fernandez Ventura & Assoc","257 E 167th St","Bronx",40.833519,-73.914602
+172,"Western Union","254 Livonia Ave","Brooklyn",40.66251,-73.908143
+173,"Western Union","254 Kingston Ave","Brooklyn",40.670823,-73.942394
+174,"Western Union","25314 Rockaway Blvd","Rosedale",40.635729,-73.740297
+175,"Western Union","2516 65th St","Brooklyn",40.609003,-73.973839
+176,"Garden Check Cashing Svc","250 W 49th St","New York",40.761331,-73.986145
+177,"Western Union","2488 Linden Blvd","Brooklyn",40.666296,-73.871778
+178,"Western Union","244 10th Ave","New York",40.748378,-74.003297
+179,"Ciobo Multi Svc","2429 Grand Concourse","Bronx",40.860916,-73.898248
+180,"Western Union","2418 Williamsbridge Rd","Bronx",40.861416,-73.857547
+181,"NYC Check Express","24 Beaver St # B","New York",40.704786,-74.012046
+182,"Western Union","239 W 238th St","Bronx",40.885093,-73.90048
+183,"Mundo Endios Corp","2320 Amsterdam Ave","New York",40.844543,-73.933577
+184,"Western Union","228 W End Ave","New York",40.775356,-73.983814
+185,"Money Gram Intl","216 E 198th St","Bronx",40.869722,-73.89034
+186,"Western Union","215 Park Ave S","New York",40.736796,-73.988339
+187,"Western Union","214 Parkside Ave","Brooklyn",40.655277,-73.960726
+188,"Quisqueya Multiservice","211 E 170th St","Bronx",40.838499,-73.912773
+189,"Western Union","2081 Lexington Ave","New York",40.804647,-73.93716
+190,"Western Union","20601 Hollis Ave","Queens Village",40.707702,-73.750976
+191,"Western Union","2056 Steinway St","Long Island City",40.775406,-73.903381
+192,"Western Union","2033 2nd Ave","New York",40.789797,-73.943461
+193,"Envio Internancionales","203 Dyckman St","New York",40.864949,-73.926833
+194,"NYC Check Express","200 Water St # 4","New York",40.707274,-74.003956
+195,"Money Gram Intl","1993 Dr Martin L King Jr Blvd","Bronx",40.854735,-73.911408
+196,"Thriftway Pharmacy","1909 Kings Hwy","Brooklyn",40.610634,-73.954353
+197,"Western Union","1908 Cross Bronx Expy # 224","Bronx",40.832512,-73.859886
+198,"Renesas Bujols","189 Sherman Ave # 3","New York",40.86502,-73.921209
+199,"Money Gram Intl","187 Havemeyer St","Brooklyn",40.710358,-73.958223
+200,"Pay-O-Matic","187 Bedford Ave # A","Brooklyn",40.717533,-73.957664
+201,"Western Union","1818 Kings Hwy","Brooklyn",40.610146,-73.954921
+202,"P & H","1809 Flatbush Ave","Brooklyn",40.625893,-73.94025
+203,"Gold Star Wireless","179 Sherman Ave","New York",40.864964,-73.92212
+204,"Money Gram Intl","174 Saint Nicholas Ave","New York",40.805752,-73.952747
+205,"Western Union","174 E 103rd St","New York",40.789674,-73.94628
+206,"Western Union","173 Broad St","Staten Island",40.624519,-74.080734
+207,"Hispano American Connection","17217 Jamaica Ave","Jamaica",40.708069,-73.787453
+208,"Divine Express Financial Svc","1693 Nostrand Ave","Brooklyn",40.644665,-73.948624
+209,"Mpw Check Cashing","169 Port Richmond Ave","Staten Island",40.636973,-74.134045
+210,"Western Union","169 Port Richmond Ave","Staten Island",40.636973,-74.134045
+211,"Pay-O-Matic","168 Greenpoint Ave","Brooklyn",40.730049,-73.953613
+212,"Western Union","16601 Hillside Ave","Jamaica",40.709678,-73.796254
+213,"Western Union","16590 Baisley Blvd","Jamaica",40.679512,-73.777353
+214,"Uneeda Check Cashing","165 Nagle Ave # 4","New York",40.861937,-73.923814
+215,"Pay-O-Matic","1640 Broadway","Brooklyn",40.684696,-73.913719
+216,"Western Union","1640 Broadway","Brooklyn",40.684696,-73.913719
+217,"DOLEX Dollar Express","1633 Lexington Ave # 103","New York",40.790355,-73.947325
+218,"Rapid Multi Svc Inc","1618 Amsterdam Ave","New York",40.821995,-73.950041
+219,"Western Union","161 York St","Brooklyn",40.701459,-73.984067
+220,"DOLEX Dollar Express","1603 Westchester Ave","Bronx",40.829317,-73.875405
+221,"Coinstar Money Transfer","1601 Central Ave","Far Rockaway",40.605083,-73.751801
+222,"Izop Inc","1593 Saint Nicholas Ave","New York",40.854787,-73.929805
+223,"Western Union","159 E 170th St","Bronx",40.839348,-73.914467
+224,"Western Union","1588 Fulton St","Brooklyn",40.679493,-73.937309
+225,"DOLEX Dollar Express","1581 Saint Nicholas Ave","New York",40.854683,-73.930189
+226,"Money Gram Intl","1575 Stillwell Ave","Bronx",40.854843,-73.841957
+227,"Western Union","1541 Saint Nicholas Ave","New York",40.853278,-73.931143
+228,"Family Money Transfer","15323 Hillside Ave","Jamaica",40.707523,-73.803836
+229,"Giros Promex Inc","1512 Newkirk Ave","Brooklyn",40.63573,-73.962816
+230,"Western Union","1501 Pitkin Ave # C","Brooklyn",40.66862,-73.918233
+231,"DOLEX Dollar Express","1497 Westchester Ave","Bronx",40.828812,-73.880409
+232,"Western Union","1488 Williamsbridge Rd","Bronx",40.844172,-73.845851
+233,"DOLEX Dollar Express","1481 Saint Nicholas Ave","New York",40.851334,-73.932329
+234,"Western Union","14739 Union Tpke","Flushing",40.71868,-73.813917
+235,"Western Union","14615 Jamaica Ave","Jamaica",40.701935,-73.808399
+236,"Western Union","1450 3rd Ave # 82","New York",40.776695,-73.955901
+237,"Franklin Check Cashing","145 W Kingsbridge Rd # 6","Bronx",40.869587,-73.90359
+238,"Western Union","1440 Broadway # 3","New York",40.754391,-73.986231
+239,"American Metropolitan Ent Inc","1437 College Point Blvd","Flushing",40.784567,-73.84573
+240,"Western Union","14241 Roosevelt Ave","Flushing",40.760781,-73.825454
+241,"Western Union","1399 Rockaway Pkwy # A","Brooklyn",40.645809,-73.902978
+242,"DOLEX Dollar Express","137 E 116th St","New York",40.798928,-73.941607
+243,"BHD Corp","136 Malcolm X Blvd # 2","New York",40.802742,-73.948996
+244,"J C Multiservice Inc","13510 Jamaica Ave","Jamaica",40.702217,-73.817284
+245,"Zoha Inc","134 E 27th St","New York",40.741942,-73.982843
+246,"LA Nacional Corp","1325 Saint Nicholas Ave","New York",40.846446,-73.935903
+247,"DOLEX Dollar Express","1320 Saint Nicholas Ave","New York",40.846219,-73.935535
+248,"Western Union","1316 5th Ave # 2","New York",40.797472,-73.949171
+249,"Franklin Check Cashing","1297 Boston Rd","Bronx",40.831563,-73.899805
+250,"Western Union","126 W Fordham Rd","Bronx",40.862572,-73.906731
+251,"Castle Check Cashing Corp","1221 Saint Nicholas Ave # 1","New York",40.843331,-73.938491
+252,"Cadena Accounting Svc Inc","12205 Liberty Ave","Jamaica",40.687511,-73.821587
+253,"Western Union","1211 Madison Ave","New York",40.781557,-73.957917
+254,"DOLEX Dollar Express","121 Dyckman St","New York",40.862305,-73.92514
+255,"DOLEX Dollar Express","118 E 170th St","Bronx",40.83909,-73.915135
+256,"Check Express Inc","117 E 41st St","New York",40.749024,-73.972419
+257,"NYC Check Express","117 E 41st St","New York",40.749731,-73.991509
+258,"DOLEX Dollar Express","116 Audubon Ave","New York",40.842617,-73.936882
+259,"Western Union","115 W 23rd St","New York",40.743386,-73.9932
+260,"Money Gram Intl","115 E 183rd St","Bronx",40.857956,-73.90136
+261,"Western Union","1135 Morris Park Ave","Bronx",40.850177,-73.851766
+262,"Western Union","1121 Mcdonald Ave","Brooklyn",40.625839,-73.975899
+263,"Western Union","11 E Gun Hill Rd","Bronx",40.882563,-73.880904
+264,"Western Union","1083 Manhattan Ave # 1","Brooklyn",40.73558,-73.95546
+265,"Dirham Express","108 W 39th St # 115","New York",40.752963,-73.986231
+266,"Western Union","1075 Broadway","Brooklyn",40.694764,-73.930797
+267,"Money Gram Intl","1073 White Plains Rd","Bronx",40.828102,-73.860901
+268,"Ayaan Inc","1067 Coney Island Ave","Brooklyn",40.63158,-73.966141
+269,"Western Union","10516 Crossbay Blvd","Jamaica",40.679718,-73.844955
+270,"Western Union","10516 Crossbay Blvd","Ozone Park",40.679718,-73.844955
+271,"Western Union","1045 Westchester Ave","Bronx",40.82448,-73.892378
+272,"Envios De Valores LA Nacional","102 Clinton St","New York",40.718222,-73.985453
+273,"Enbios Rapidos Inc","10104 43rd Ave","Corona",40.746924,-73.863499
+274,"Western Union","1 Wui Plz","New York",40.704508,-74.009403
+275,"Western Union",,"Bronx",40.845904,-73.841365
+276,"Western Union",,"New York",40.758052,-73.981746

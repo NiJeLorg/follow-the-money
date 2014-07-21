@@ -1,0 +1,320 @@
+"id","name","address","city","latitude","longitude"
+1,"McDonald's","1 W Mount Eden Ave","Bronx",40.844658,-73.914991
+2,"McDonald's","101 E 170th St","Bronx",40.839721,-73.915527
+3,"McDonald's","1101 E Tremont Ave","Bronx",40.840515,-73.876892
+4,"McDonald's","1201 E 233rd St","Bronx",40.889435,-73.843367
+5,"McDonald's","1212 E Gun Hill Rd","Bronx",40.872607,-73.852312
+6,"McDonald's","1317 Castle Hill Ave","Bronx",40.834738,-73.852139
+7,"McDonald's","1325 Hutchinson River Pkwy","Bronx",40.841068,-73.83773
+8,"McDonald's","1325 Hutchinson River Pkwy","Bronx",40.841068,-73.83773
+9,"McDonald's","1400 Pelham Pkwy S","Bronx",40.857395,-73.846737
+10,"McDonald's","15 W 183rd St","Bronx",40.858604,-73.904458
+11,"McDonald's","1515 Williamsbridge Rd","Bronx",40.844501,-73.84661
+12,"McDonald's","1540 Westchester Ave","Bronx",40.828517,-73.878073
+13,"McDonald's","1600 Boston Rd","Bronx",40.83551,-73.890686
+14,"McDonald's","1600 Bruckner Blvd","Bronx",40.823406,-73.874702
+15,"McDonald's","1625 Webster Ave","Bronx",40.841762,-73.904722
+16,"McDonald's","164 3rd Ave","Bronx",40.807426,-73.91887
+17,"McDonald's","1749 Dr Martin L King Jr Blvd","Bronx",40.850319,-73.916328
+18,"McDonald's","1820 Eastchester Rd","Bronx",40.849339,-73.844711
+19,"McDonald's","1865 Bruckner Blvd","Bronx",40.826412,-73.861801
+20,"McDonald's","1982 Westchester Ave","Bronx",40.83347,-73.858126
+21,"McDonald's","200 E 161st St # 11959","Bronx",40.825317,-73.92041
+22,"McDonald's","2010 Bartow Ave","Bronx",40.868896,-73.830505
+23,"McDonald's","2065 Jerome Ave","Bronx",40.854339,-73.907294
+24,"McDonald's","2170 White Plains Rd","Bronx",40.855624,-73.867428
+25,"McDonald's","2357 Arthur Ave","Bronx",40.854577,-73.888472
+26,"McDonald's","2505 Southern Blvd","Bronx",40.856457,-73.8812
+27,"McDonald's","2516 White Plains Rd","Bronx",40.864034,-73.867078
+28,"McDonald's","2614 Jerome Ave","Bronx",40.866698,-73.897926
+29,"McDonald's","2630 Jerome Ave","Bronx",40.866928,-73.89727
+30,"McDonald's","279 E 149th St","Bronx",40.817509,-73.922203
+31,"McDonald's","2870 3rd Ave","Bronx",40.816218,-73.917134
+32,"McDonald's","300 E 204th St","Bronx",40.872905,-73.878731
+33,"McDonald's","3430 Jerome Ave","Bronx",40.881555,-73.882437
+34,"McDonald's","3509 Webster Ave","Bronx",40.87915,-73.871735
+35,"McDonald's","355 Food Center Dr # C107","Bronx",40.808432,-73.872055
+36,"McDonald's","3550 Conner St","Bronx",40.88554,-73.826965
+37,"McDonald's","36 W Fordham Rd","Bronx",40.862562,-73.902896
+38,"McDonald's","3660 E Tremont Ave","Bronx",40.827595,-73.82365
+39,"McDonald's","372 E Fordham Rd","Bronx",40.861654,-73.892578
+40,"McDonald's","4174 White Plains Rd","Bronx",40.892944,-73.857201
+41,"McDonald's","513 E 138th St","Bronx",40.807716,-73.918816
+42,"McDonald's","5201 Broadway","Bronx",40.874734,-73.910093
+43,"McDonald's","5765 Broadway","Bronx",40.884025,-73.901635
+44,"McDonald's","597 Grand Concourse","Bronx",40.821474,-73.9213
+45,"McDonald's","599 E Tremont Ave","Bronx",40.846543,-73.893472
+46,"McDonald's","65 E 161st St","Bronx",40.821474,-73.9213
+47,"McDonald's","724 E 241st St","Bronx",40.902709,-73.849182
+48,"McDonald's","839 Westchester Ave","Bronx",40.819708,-73.901691
+49,"McDonald's","85 Bruckner Blvd","Bronx",40.806496,-73.925568
+50,"McDonald's","86 E 167th St","Bronx",40.835109,-73.919913
+51,"McDonald's","875 Garrison Ave","Bronx",40.816799,-73.892815
+52,"McDonald's","982 Southern Blvd","Bronx",40.822618,-73.891565
+53,"McDonald's","1 Dekalb Ave","Brooklyn",40.68975,-73.982973
+54,"McDonald's","1025 Boardwalk W","Brooklyn",40.573539,-73.979001
+55,"McDonald's","1101 Rutland Rd","Brooklyn",40.664831,-73.923525
+56,"McDonald's","1133 Eastern Pkwy","Brooklyn",40.669235,-73.930733
+57,"McDonald's","1275 Fulton St","Brooklyn",40.680679,-73.950381
+58,"McDonald's","1380 Broadway","Brooklyn",40.688995,-73.921913
+59,"McDonald's","139 Flatbush Ave","Brooklyn",40.684505,-73.976807
+60,"McDonald's","1403 Mermaid Ave","Brooklyn",40.577267,-73.981883
+61,"McDonald's","1467 Rockaway Pkwy","Brooklyn",40.644562,-73.90126
+62,"McDonald's","1509 Sheepshead Bay Rd","Brooklyn",40.587297,-73.953673
+63,"McDonald's","1531 Fulton St","Brooklyn",40.680103,-73.940088
+64,"McDonald's","1607 Kings Hwy","Brooklyn",40.609272,-73.957219
+65,"McDonald's","1642 Pitkin Ave","Brooklyn",40.669275,-73.912402
+66,"McDonald's","1656 Utica Ave","Brooklyn",40.632206,-73.92865
+67,"McDonald's","169 Tillary St","Brooklyn",40.696111,-73.98349
+68,"McDonald's","180 Parkside Ave # A","Brooklyn",40.654743,-73.961517
+69,"McDonald's","1883 Atlantic Ave","Brooklyn",40.677364,-73.922485
+70,"McDonald's","1930 Nostrand Ave","Brooklyn",40.638299,-73.948571
+71,"McDonald's","1983 86th St","Brooklyn",40.604721,-73.998348
+72,"McDonald's","2028 Rockaway Pkwy","Brooklyn",40.633089,-73.889918
+73,"McDonald's","2154 Nostrand Ave # 2036","Brooklyn",40.632342,-73.947999
+74,"McDonald's","2240 Flatbush Ave","Brooklyn",40.61512,-73.929062
+75,"McDonald's","2410 Coney Island Ave","Brooklyn",40.598083,-73.961486
+76,"McDonald's","2411 86th St","Brooklyn",40.60189,-73.996258
+77,"McDonald's","267 Broadway","Brooklyn",40.708969,-73.9589
+78,"McDonald's","275 4th Ave","Brooklyn",40.675181,-73.9842
+79,"McDonald's","2797 Linden Blvd","Brooklyn",40.670153,-73.860316
+80,"McDonald's","2800 Atlantic Ave","Brooklyn",40.676067,-73.890594
+81,"McDonald's","2848 Church Ave","Brooklyn",40.650545,-73.949748
+82,"McDonald's","289 9th St","Brooklyn",40.66957,-73.986722
+83,"McDonald's","3143 Atlantic Ave","Brooklyn",40.679571,-73.87939
+84,"McDonald's","35 Nostrand Ave","Brooklyn",40.698575,-73.953161
+85,"McDonald's","3525 Fort Hamilton Pkwy","Brooklyn",40.64458,-73.987694
+86,"McDonald's","3540 Nostrand Ave","Brooklyn",40.597446,-73.941668
+87,"McDonald's","357 Hamilton Ave","Brooklyn",40.673417,-73.998951
+88,"McDonald's","395 Flatbush Ave","Brooklyn",40.679968,-73.964902
+89,"McDonald's","395 Flatbush Avenue Ext","Brooklyn",40.689514,-73.980712
+90,"McDonald's","420 Fulton St","Brooklyn",40.690816,-73.986131
+91,"McDonald's","428 Knickerbocker Ave","Brooklyn",40.699326,-73.919746
+92,"McDonald's","430 86th St","Brooklyn",40.622086,-74.027771
+93,"McDonald's","430 Fulton St","Brooklyn",40.690275,-73.992064
+94,"McDonald's","50 Jamaica Ave","Brooklyn",40.677508,-73.898319
+95,"McDonald's","5121 5th Ave","Brooklyn",40.644029,-74.011218
+96,"McDonald's","516 Myrtle Ave","Brooklyn",40.693459,-73.964501
+97,"McDonald's","5407 Kings Plz","Brooklyn",40.611611,-73.919943
+98,"McDonald's","57 Empire Blvd","Brooklyn",40.663731,-73.960068
+99,"McDonald's","5713 Church Ave","Brooklyn",40.652715,-73.923206
+100,"McDonald's","5804 Clarendon Rd","Brooklyn",40.64467,-73.92165
+101,"McDonald's","606 Neptune Ave","Brooklyn",40.579607,-73.975071
+102,"McDonald's","6419 18th Ave","Brooklyn",40.619137,-73.989758
+103,"McDonald's","652 Meeker Ave","Brooklyn",40.722041,-73.940452
+104,"McDonald's","6620 Bay Pkwy","Brooklyn",40.612963,-73.982789
+105,"McDonald's","700 Broadway","Brooklyn",40.701477,-73.943725
+106,"McDonald's","701 Utica Ave","Brooklyn",40.656232,-73.930802
+107,"McDonald's","71 Utica Ave","Brooklyn",40.676478,-73.930348
+108,"McDonald's","7124 3rd Ave","Brooklyn",40.633604,-74.026979
+109,"McDonald's","741 Grand St","Brooklyn",40.711967,-73.943218
+110,"McDonald's","7602 Flatlands Ave","Brooklyn",40.633667,-73.915604
+111,"McDonald's","79 Belmont Ave","Brooklyn",40.669109,-73.907372
+112,"McDonald's","81 4th Ave","Brooklyn",40.681743,-73.97997
+113,"McDonald's","819 Pennsylvania Ave","Brooklyn",40.657871,-73.889665
+114,"McDonald's","82 Court St","Brooklyn",40.691418,-73.991957
+115,"McDonald's","840 Atlantic Ave","Brooklyn",40.681356,-73.966966
+116,"McDonald's","8520 20th Ave","Brooklyn",40.604872,-73.998151
+117,"McDonald's","880 Coney Island Ave","Brooklyn",40.635822,-73.968285
+118,"McDonald's","904 Manhattan Ave","Brooklyn",40.730378,-73.954085
+119,"McDonald's","943 Flatbush Ave","Brooklyn",40.648613,-73.958215
+120,"McDonald's","968 4th Ave","Brooklyn",40.653747,-74.005439
+121,"McDonald's","1 Penn Plz # 10","New York",40.751001,-73.990758
+122,"McDonald's","102 1st Ave","New York",40.726439,-73.985789
+123,"McDonald's","1083 2nd Ave","New York",40.759559,-73.96543
+124,"McDonald's","1109 Avenue Of The Americas","New York",40.758052,-73.981746
+125,"McDonald's","114 Delancey St","New York",40.718943,-73.988306
+126,"McDonald's","1188 Avenue Of The Americas","New York",40.757558,-73.981671
+127,"McDonald's","12 Penn Plz","New York",40.749731,-73.991509
+128,"McDonald's","1286 1st Ave","New York",40.765938,-73.956931
+129,"McDonald's","135 E 63rd St # 0","New York",40.764709,-73.966198
+130,"McDonald's","136 W 3rd St","New York",40.730757,-74.001115
+131,"McDonald's","139th & Adam Clayton Powell","New York",40.818449,-73.94322
+132,"McDonald's","14 E 47th St","New York",40.756213,-73.977846
+133,"McDonald's","145 E 125th St","New York",40.804516,-73.936961
+134,"McDonald's","148 W 125th St","New York",40.808419,-73.947773
+135,"McDonald's","1499 3rd Ave","New York",40.777747,-73.954397
+136,"McDonald's","151 W 34th St","New York",40.750746,-73.98991
+137,"McDonald's","154 7th Ave","New York",40.741922,-73.997626
+138,"McDonald's","1560 Broadway","New York",40.758943,-73.984754
+139,"McDonald's","160 Broadway","New York",40.709318,-74.009833
+140,"McDonald's","1651 Broadway","New York",40.762606,-73.983729
+141,"McDonald's","166 W 46th St","New York",40.758193,-73.984269
+142,"McDonald's","167 Chambers St","New York",40.71627,-74.010789
+143,"McDonald's","18 E 42nd St","New York",40.752943,-73.980356
+144,"McDonald's","1871 2nd Ave","New York",40.784709,-73.947161
+145,"McDonald's","1872 3rd Ave","New York",40.790018,-73.946238
+146,"McDonald's","1997 3rd Ave","New York",40.793822,-73.942653
+147,"McDonald's","2049 Broadway","New York",40.777936,-73.982238
+148,"McDonald's","2049 Broadway","New York",40.777936,-73.982238
+149,"McDonald's","208 Dyckman St","New York",40.865074,-73.927208
+150,"McDonald's","208 Varick St","New York",40.728869,-74.004959
+151,"McDonald's","213 Madison St","New York",40.712952,-73.98922
+152,"McDonald's","2142 3rd Ave","New York",40.798641,-73.93992
+153,"McDonald's","2142 3rd Ave","New York",40.798641,-73.93992
+154,"McDonald's","215 W 125th St # C","New York",40.809706,-73.948932
+155,"McDonald's","22 E 23rd St","New York",40.740638,-73.988115
+156,"McDonald's","22 E 42nd St","New York",40.749024,-73.972419
+157,"McDonald's","220 W 42nd St # 3","New York",40.756585,-73.988357
+158,"McDonald's","2271 Broadway","New York",40.785617,-73.979005
+159,"McDonald's","2379 A C Powell Blvd","New York",40.817929,-73.941335
+160,"McDonald's","2549 Broadway","New York",40.794419,-73.972466
+161,"McDonald's","26 Bowery","New York",40.714948,-73.997273
+162,"McDonald's","262 Canal St","New York",40.71851,-74.001157
+163,"McDonald's","27 3rd Ave","New York",40.729779,-73.989671
+164,"McDonald's","2726 Broadway","New York",40.799933,-73.967719
+165,"McDonald's","280 Madison Ave","New York",40.751437,-73.980343
+166,"McDonald's","303 Greenwich St","New York",40.716389,-74.01065
+167,"McDonald's","317 Broadway","New York",40.715763,-74.005342
+168,"McDonald's","335 8th Ave","New York",40.747542,-73.9972
+169,"McDonald's","336 E 23rd St","New York",40.739956,-73.986439
+170,"McDonald's","341 5th Ave","New York",40.747896,-73.984544
+171,"McDonald's","3410 Broadway # 2","New York",40.822189,-73.953172
+172,"McDonald's","354 W 125th St","New York",40.81079,-73.953041
+173,"McDonald's","3549 Broadway","New York",40.826676,-73.950624
+174,"McDonald's","3794 Broadway","New York",40.838042,-73.940734
+175,"McDonald's","39 Union Sq W","New York",40.737112,-73.990872
+176,"McDonald's","401 Park Ave S","New York",40.742964,-73.983761
+177,"McDonald's","404 E 14th St # 1","New York",40.730797,-73.982431
+178,"McDonald's","4040 Broadway","New York",40.842771,-73.938893
+179,"McDonald's","405 Avenue Of The Americas","New York",40.733649,-73.999586
+180,"McDonald's","4259 Broadway","New York",40.850057,-73.936274
+181,"McDonald's","4259 Broadway","New York",40.850057,-73.936274
+182,"McDonald's","427 10th Ave","New York",40.75428,-73.999705
+183,"McDonald's","429 7th Ave","New York",40.750457,-73.990559
+184,"McDonald's","444 Malcolm X Blvd","New York",40.812395,-73.941596
+185,"McDonald's","451 Lexington Ave # 4","New York",40.753113,-73.97452
+186,"McDonald's","47 W 57th St","New York",40.76437,-73.97638
+187,"McDonald's","480 3rd Ave","New York",40.744982,-73.979107
+188,"McDonald's","490 8th Ave","New York",40.752452,-73.992825
+189,"McDonald's","506 Malcolm X Blvd","New York",40.814326,-73.940541
+190,"McDonald's","52 Fulton St","New York",40.708273,-74.004867
+191,"McDonald's","541 Avenue Of The Americas","New York",40.737894,-73.996844
+192,"McDonald's","543 E 6th St","New York",40.724808,-73.981847
+193,"McDonald's","556 Fashion Ave","New York",40.754723,-73.98832
+194,"McDonald's","6 Water St","New York",40.702979,-74.012221
+195,"McDonald's","600 W 125th St","New York",40.815944,-73.95892
+196,"McDonald's","606 W 207th St","New York",40.867409,-73.921101
+197,"McDonald's","64 W 108th St # 21","New York",40.800288,-73.961437
+198,"McDonald's","686 Avenue Of The Americas","New York",40.741897,-73.993165
+199,"McDonald's","688 8th Ave # 1","New York",40.758049,-73.988772
+200,"McDonald's","69 Grand St # 35","New York",40.719753,-74.003344
+201,"McDonald's","724 Broadway","New York",40.729068,-73.993238
+202,"McDonald's","729 2nd Ave","New York",40.748152,-73.973798
+203,"McDonald's","735 9th Ave","New York",40.763524,-73.989365
+204,"McDonald's","79 E Broadway # 1","New York",40.717096,-73.98802
+205,"McDonald's","79 W 125th St","New York",40.807725,-73.944945
+206,"McDonald's","809 Avenue Of The Americas","New York",40.746033,-73.990796
+207,"McDonald's","824 3rd Ave","New York",40.7562,-73.970793
+208,"McDonald's","90 Maiden Ln","New York",40.706868,-74.007626
+209,"McDonald's","901 Avenue Of The Americas","New York",40.749155,-73.988316
+210,"McDonald's","901 E 6th St","New York",40.727277,-73.980836
+211,"McDonald's","946 8th Ave","New York",40.765812,-73.983123
+212,"McDonald's","966 3rd Ave","New York",40.760879,-73.967473
+213,"McDonald's","969 1st Ave","New York",40.756068,-73.964902
+214,"McDonald's","972 Avenue Of The Americas","New York",40.750736,-73.986701
+215,"Mcdonald's","113 Nassau St","New York",40.710942,-74.007247
+216,"Mcdonalds","360 W 119th St","New York",40.807076,-73.956279
+217,"McDonald's","3167 Steinway St","Astoria",40.759468,-73.918259
+218,"McDonald's","3255 31st St","Astoria",40.760485,-73.926176
+219,"McDonald's","20006 Cross Island Pkwy # 1","Bayside",40.785852,-73.793757
+220,"McDonald's","4127 Bell Blvd","Bayside",40.762886,-73.770287
+221,"McDonald's","21601 Linden Blvd","Cambria Heights",40.693651,-73.735321
+222,"McDonald's","1516 College Point Blvd","College Point",40.783752,-73.846123
+223,"McDonald's","3719 Junction Blvd","Corona",40.751129,-73.870247
+224,"McDonald's","5418 108th St","Corona",40.74619,-73.860509
+225,"McDonald's","7901 Broadway","Elmhurst",40.745117,-73.88562
+226,"McDonald's","7901 Broadway","Elmhurst",40.745117,-73.88562
+227,"McDonald's","9119 Queens Blvd","Elmhurst",40.733768,-73.869751
+228,"McDonald's","9505 57th Ave","Elmhurst",40.736756,-73.865611
+229,"McDonald's","2141 Mott Ave","Far Rockaway",40.605093,-73.755115
+230,"McDonald's","10615 7th Ave","Flushing",40.723454,-73.845357
+231,"McDonald's","10615 Continental Ave","Flushing",40.720076,-73.845064
+232,"McDonald's","13661 Roosevelt Ave","Flushing",40.760498,-73.82788
+233,"McDonald's","13811 20th Ave","Flushing",40.782012,-73.829959
+234,"McDonald's","14401 Northern Blvd","Flushing",40.764878,-73.82328
+235,"McDonald's","15514 Roosevelt Ave","Flushing",40.763818,-73.809532
+236,"McDonald's","20311 Northern Blvd","Flushing",40.757886,-73.779774
+237,"McDonald's","22129 Horace Harding Expy","Flushing",40.749763,-73.756467
+238,"McDonald's","30 1 Stratton St","Flushing",40.76663,-73.826003
+239,"McDonald's","3001 Whitestone Expy","Flushing",40.770966,-73.833218
+240,"McDonald's","4012 National St","Flushing",40.749537,-73.863011
+241,"McDonald's","4018 Main St","Flushing",40.759022,-73.830292
+242,"McDonald's","5135 Northern Blvd","Flushing",40.753438,-73.908333
+243,"McDonald's","5634 Myrtle Ave","Flushing",40.699982,-73.904928
+244,"McDonald's","7269 Kissena Blvd","Flushing",40.727581,-73.81234
+245,"McDonald's","7511 Roosevelt Ave","Flushing",40.74725,-73.889877
+246,"McDonald's","8003 Queens Blvd","Flushing",40.738309,-73.88327
+247,"McDonald's","8805 Astoria Blvd","Flushing",40.764348,-73.880916
+248,"McDonald's","9015 Queens Blvd","Flushing",40.734555,-73.87061
+249,"McDonald's","9505 63rd Dr # A","Flushing",40.729607,-73.863029
+250,"McDonald's","Laguardia Airport","Flushing",40.751252,-73.883615
+251,"McDonald's","US Air E End Terminal","Flushing",40.768565,-73.887465
+252,"McDonald's","US Air Terminal","Flushing",40.768565,-73.887465
+253,"McDonald's","6421 108th St","Forest Hills",40.732163,-73.849146
+254,"McDonald's","9801 Metropolitan Ave","Forest Hills",40.711246,-73.854443
+255,"McDonald's","25603 Union Tpke","Glen Oaks",40.74565,-73.715086
+256,"McDonald's","7002 Cooper Ave","Glendale",40.701721,-73.88031
+257,"McDonald's","8201 153rd Ave","Howard Beach",40.666108,-73.852073
+258,"McDonald's","3759 82nd St","Jackson Heights",40.7481,-73.883728
+259,"McDonald's","7519 Roosevelt Ave","Jackson Heights",40.74708,-73.889742
+260,"McDonald's","11401 Sutphin Blvd","Jamaica",40.686279,-73.793212
+261,"McDonald's","11905 Liberty Ave","Jamaica",40.686592,-73.823997
+262,"McDonald's","13832 Jamaica Ave","Jamaica",40.70227,-73.814208
+263,"McDonald's","15901 Jamaica Ave","Jamaica",40.703674,-73.799987
+264,"McDonald's","15940 Crossbay Blvd","Jamaica",40.657913,-73.840004
+265,"McDonald's","16605 Rockaway Blvd","Jamaica",40.660152,-73.773804
+266,"McDonald's","16607 Baisley Blvd","Jamaica",40.680138,-73.777077
+267,"McDonald's","16630 Jamaica Ave","Jamaica",40.705975,-73.792862
+268,"McDonald's","18125 Hillside Ave","Jamaica",40.713569,-73.781149
+269,"McDonald's","20411 Hillside Ave","Jamaica",40.720872,-73.76116
+270,"McDonald's","21607 Linden Blvd","Jamaica",40.696637,-73.743108
+271,"McDonald's","8 Central Terminal Area","Jamaica",40.652756,-73.812765
+272,"McDonald's","8784 Sutphin Blvd","Jamaica",40.704895,-73.809616
+273,"McDonald's","8788 Parsons Blvd","Jamaica",40.706875,-73.802366
+274,"McDonald's","9067 Sutphin Blvd","Jamaica",40.701225,-73.807518
+275,"McDonald's","9101 Jamaica Ave","Jamaica",40.693226,-73.853773
+276,"McDonald's","British International Termin","Jamaica",40.652756,-73.812765
+277,"McDonald's","Jfk International Airport","Jamaica",40.652756,-73.812765
+278,"McDonald's","Terminal 1","Jamaica",40.652756,-73.812765
+279,"McDonald's","Terminal 8","Jamaica",40.652756,-73.812765
+280,"McDonald's","12042 Queens Blvd","Kew Gardens",40.7132,-73.829208
+281,"McDonald's","25001 Northern Blvd","Little Neck",40.76889,-73.737522
+282,"McDonald's","3136 21st St","Long Island City",40.766384,-73.930966
+283,"McDonald's","33-80 Queens Blvd & 39th St","Long Island City",40.749371,-73.940395
+284,"McDonald's","3380 Queens Blvd","Long Island City",40.749371,-73.940395
+285,"McDonald's","3800 Queens Blvd","Long Island City",40.743933,-73.927088
+286,"McDonald's","3802 Queens Blvd","Long Island City",40.743347,-73.926826
+287,"McDonald's","5960 55th Dr","Maspeth",40.724093,-73.901804
+288,"McDonald's","5960 55th Rd","Maspeth",40.726277,-73.906761
+289,"McDonald's","6935 Grand Ave","Maspeth",40.726795,-73.894287
+290,"McDonald's","21518 73rd Ave","Oakland Gardens",40.740996,-73.757644
+291,"McDonald's","22128 Horace Harding Expy","Oakland Gardens",40.749177,-73.755347
+292,"McDonald's","7550 101st Ave","Ozone Park",40.679532,-73.861699
+293,"McDonald's","8814 Springfield Blvd","Queens Village",40.729218,-73.744423
+294,"McDonald's","5404 Myrtle Ave","Ridgewood",40.699698,-73.909538
+295,"McDonald's","5429 Metropolitan Ave","Ridgewood",40.713359,-73.909822
+296,"McDonald's","9118 Beach Channel Dr","Rockaway Beach",40.589036,-73.816746
+297,"McDonald's","24410 Merrick Blvd","Rosedale",40.673866,-73.729049
+298,"McDonald's","22112 S Conduit Ave","Springfield Gdns",40.665218,-73.756139
+299,"McDonald's","1388 Hylan Blvd","Staten Island",40.594608,-74.086052
+300,"McDonald's","1660 Richmond Ave","Staten Island",40.607853,-74.162918
+301,"McDonald's","1815 Forest Ave","Staten Island",40.625572,-74.149338
+302,"McDonald's","1815 Forest Ave","Staten Island",40.625572,-74.149338
+303,"McDonald's","2154 Hylan Blvd","Staten Island",40.577469,-74.102234
+304,"McDonald's","260 Page Ave","Staten Island",40.517723,-74.234756
+305,"McDonald's","2655 Richmond Ave # 1190","Staten Island",40.582092,-74.166076
+306,"McDonald's","2795 Richmond Ave","Staten Island",40.577022,-74.167235
+307,"McDonald's","3267 Richmond Ave","Staten Island",40.559625,-74.168314
+308,"McDonald's","491 Bay St","Staten Island",40.609039,-74.08473
+309,"McDonald's","501 Bay St","Staten Island",40.629936,-74.076364
+310,"McDonald's","645 Rossville Ave","Staten Island",40.542736,-74.207809
+311,"McDonald's","803 Forest Ave","Staten Island",40.629265,-74.11586
+312,"McDonald's","4506 Greenpoint Ave","Sunnyside",40.741768,-73.919738
+313,"McDonald's","16011 Willets Point Blvd","Whitestone",40.780792,-73.802322
+314,"McDonald's","5725 Roosevelt Ave","Woodside",40.745531,-73.906717
+315,"McDonald's","6421 108th St","Forest Hills",40.732163,-73.849146
+316,"McDonald's","8201 153rd Ave","Howard Beach",40.666108,-73.852073
+317,"McDonald's","21st St","Astoria",40.76131,-73.928147
+318,"McDonald's","3001 Stratton St","Flushing",40.769714,-73.834289
+319,"McDonald's","653 Edgegrove Ave","Staten Island",40.5378,-74.193024

@@ -9,14 +9,14 @@
  */
 
 var mainLayer = null;
+var locationsLayer = null;
 var MY_MAP = null;
 var SCREEN_HEIGHT = null;
 var CURRENT_LAYER = null;
-RELATIVE_URL = '';  //for development leave this blank. For production it should be '/follow_the_money'
+RELATIVE_URL = '/follow-the-money';  //for development leave this blank. For production it should be '/follow_the_money'
 
 /*
-  This function is called when the page DOM has loaded. It enables 'back' button, sets up the map
-  and map popups.
+  This function is called when the page DOM has loaded. It enables 'back' button, sets up the map and map popups.
  */
 $().ready(new function(){
 
@@ -26,13 +26,52 @@ $().ready(new function(){
     //myMap.resizeMap();
     myMap.loadLayers();
     //console.log("STARTING LOAD OF MARKERS: " + Date.now());
-    //myMap.loadMarkers();
+    myMap.loadMarkers();
     //console.log("ENDING LOAD OF MARKERS: " + Date.now());
     mainLayer = myMap.neighborhoodLayer;
+    locationsLayer = myMap.neighborhoodLayer;
     MY_MAP = myMap;
 
-    //$(".tab-content").height=$(window).height();
 });
+
+/*
+  This function handles switching between layers.
+ */
+$( "input[name='maps']" ).on("change", function() {
+	alert( "Handler for .change() called." );
+    //turn off any unwanted layers
+	/*
+    if(mainLayer !=null){
+		MY_MAP.map.removeLayer(mainLayer);
+		mainLayer = null;
+    }
+	
+	if ($("input[name=maps]:radio")[0].checked) {
+		// % population in poverty
+	    //var layerId = $(".map-ui li.active").attr("id");
+	    //CityDigitsMap.loadLayerFor(layerId);
+	    //return false;
+	} else if($("input[name=maps]:radio")[1].checked){
+
+
+	}
+	*/
+
+});
+
+$('#pawnshopsCheckbox').on("click", function() {
+	alert( "Handler for .change() called." );
+	/*
+	var layerID = $(this).attr("value")
+    if($(this).is(":checked")) {
+		CityDigitsMap.loadLocationsLayerFor(layerId);
+    } else {
+		MY_MAP.map.removeLayer(layerId);   	
+    }
+	*/
+});
+
+
 
 
 

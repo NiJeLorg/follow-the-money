@@ -5,6 +5,7 @@
 function CityDigitsMap() {
     //initial values
     this.neighborhoodLayer = null;
+	this.markerLayer = null;
 	var topojsonLayer = null;
 	
     //set base Mapbox tiles
@@ -51,6 +52,14 @@ function CityDigitsMap() {
 	
 }
 
+CityDigitsMap.onZoomIn = function(event){
+    MY_MAP.map.zoomIn();
+}
+
+CityDigitsMap.onZoomOut = function(event){
+    MY_MAP.map.zoomOut();
+}
+
 CityDigitsMap.onEachFeature = function(feature,layer){
 }
 
@@ -58,7 +67,7 @@ CityDigitsMap.onEachFeature = function(feature,layer){
 CityDigitsMap.prototype.loadLayers = function (){
     var self = this;
     //show map ui nav
-    //$("#map-nav").load( RELATIVE_URL + "/map/nav/");
+    $("#map-nav").load( RELATIVE_URL + "/map/nav/");
 	
 	// load topoJSON data for neighborhoods
 	// path to neighborhoods defined in index.html django template
@@ -232,5 +241,146 @@ CityDigitsMap.getStyleColorFor_MAP4_PCT_FOREIGN_BORN = function (feature){
 	        fillColor: fillColor
         }
     }
+}
+
+
+CityDigitsMap.prototype.loadMarkers = function(){
+	
+	this.LOC1_PAWN_SHOPS = null;
+	this.LOC2_CHECK_CASHING = null;
+	this.LOC3_WIRE_TRANSFER = null;
+	this.LOC4_AFIS = null;
+	this.LOC5_BANKS = null;
+	this.LOC6_MCDONALDS = null;
+	this.LOC7_SUBWAY_LINES = null;
+
+	// define layer styles and oneachfeature popup styling
+	this.LOC1_PAWN_SHOPS_style = L.geoJson(null, {
+		pointToLayer: CityDigitsMap.getIconFor_LOC1_PAWN_SHOPS,
+		onEachFeature: CityDigitsMap.onEachFeature
+	});
+	this.LOC2_CHECK_CASHING_style = L.geoJson(null, {
+		pointToLayer: CityDigitsMap.getIconFor_LOC2_CHECK_CASHING,
+		onEachFeature: CityDigitsMap.onEachFeature
+	});
+	this.LOC3_WIRE_TRANSFER_style = L.geoJson(null, {
+		pointToLayer: CityDigitsMap.getIconFor_LOC3_WIRE_TRANSFER,
+		onEachFeature: CityDigitsMap.onEachFeature
+	});
+	this.LOC4_AFIS_style = L.geoJson(null, {
+		pointToLayer: CityDigitsMap.getIconFor_LOC4_AFIS,
+		onEachFeature: CityDigitsMap.onEachFeature
+	});	
+	this.LOC5_BANKS_style = L.geoJson(null, {
+		pointToLayer: CityDigitsMap.getIconFor_LOC5_BANKS,
+		onEachFeature: CityDigitsMap.onEachFeature
+	});	
+	this.LOC6_MCDONALDS_style = L.geoJson(null, {
+		pointToLayer: CityDigitsMap.getIconFor_LOC6_MCDONALDS,
+		onEachFeature: CityDigitsMap.onEachFeature
+	});	
+	this.LOC7_SUBWAY_LINES_style = L.geoJson(null, {
+		style: CityDigitsMap.getStyleFor_LOC7_SUBWAY_LINES,
+		onEachFeature: CityDigitsMap.onEachFeature
+	});	
+	
+	// load layers
+	this.LOC1_PAWN_SHOPS = omnivore.csv(PawnShops, null, this.LOC1_PAWN_SHOPS_style);
+	this.LOC2_CHECK_CASHING = omnivore.csv(CheckCashing, null, this.LOC2_CHECK_CASHING_style);
+	this.LOC3_WIRE_TRANSFER = omnivore.csv(MoneyTransferServices, null, this.LOC3_WIRE_TRANSFER_style);
+	//this.LOC4_AFIS = omnivore.csv(, null, this.LOC4_AFIS_style);
+	this.LOC5_BANKS = omnivore.csv(CommercialBanks, null, this.LOC5_BANKS_style);
+	this.LOC6_MCDONALDS = omnivore.csv(PawnShops, null, this.LOC6_MCDONALDS_style);
+	//this.LOC7_SUBWAY_LINES = omnivore.csv(PawnShops, null, this.LOC7_SUBWAY_LINES_style);
+
+	//start with value population in poverty for initial load
+    this.markerLayer = this.LOC1_PAWN_SHOPS.addTo(this.map);
+
+}
+
+CityDigitsMap.getIconFor_LOC1_PAWN_SHOPS = function (feature, latlng){
+	var pawnShopMarker = L.marker(latlng, {
+		icon: L.divIcon({
+			className: 'pawnshop-icon',
+			iconSize: [22, 22]
+		})
+	});
+	
+	return pawnShopMarker;
+	
+}
+
+CityDigitsMap.getIconFor_LOC2_CHECK_CASHING = function (feature, latlng){
+	var checkCashingMarker = L.marker(latlng, {
+		icon: L.divIcon({
+			className: 'checkcashing-icon',
+			iconSize: [22, 22]
+		})
+	});
+	
+	return checkCashingMarker;
+	
+}
+
+CityDigitsMap.getIconFor_LOC3_WIRE_TRANSFER = function (feature, latlng){
+	var wireTransferMarker = L.marker(latlng, {
+		icon: L.divIcon({
+			className: 'wiretransfer-icon',
+			iconSize: [22, 22]
+		})
+	});
+	
+	return wireTransferMarker;
+	
+}
+
+CityDigitsMap.getIconFor_LOC4_AFIS = function (feature, latlng){
+	var afisMarker = L.marker(latlng, {
+		icon: L.divIcon({
+			className: 'afis-icon',
+			iconSize: [22, 22]
+		})
+	});
+	
+	return afisMarker;
+	
+}
+
+CityDigitsMap.getIconFor_LOC5_BANKS = function (feature, latlng){
+	var banksMarker = L.marker(latlng, {
+		icon: L.divIcon({
+			className: 'banks-icon',
+			iconSize: [22, 22]
+		})
+	});
+	
+	return banksMarker;
+	
+}
+
+CityDigitsMap.getIconFor_LOC6_MCDONALDS = function (feature, latlng){
+	var mcdonaldsMarker = L.marker(latlng, {
+		icon: L.divIcon({
+			className: 'mcdonalds-icon',
+			iconSize: [22, 22]
+		})
+	});
+	
+	return mcdonaldsMarker;
+	
+}
+
+
+CityDigitsMap.loadLocationsLayerFor = function(layerId){
+	// add layer requested based on ID
+	if (layerId == "LOC1_PAWN_SHOPS") {
+		MY_MAP.LOC1_PAWN_SHOPS.addTo(MY_MAP.map);
+	}
+
+	if (layerId == "LOC2_CHECK_CASHING") {
+		MY_MAP.LOC2_CHECK_CASHING.addTo(MY_MAP.map);
+	}
+	
+	
 }
 

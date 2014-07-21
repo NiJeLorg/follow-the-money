@@ -15,3 +15,13 @@ def index(request):
     # We make use of the shortcut function to make our lives easier.
     # Note that the first parameter is the template we wish to use.
     return render_to_response('follow_the_money/index.html', context_dict, context)
+
+
+def mapNavigation(request):
+    """
+      Loads the map navigation elements
+    """
+    context = RequestContext(request)
+    context_dict = {}
+   
+    return render_to_response('follow_the_money/map_navigation.html', context_dict, context)
