@@ -261,27 +261,27 @@ CityDigitsMap.prototype.loadMarkers = function(){
 
 	// define layer styles and oneachfeature popup styling
 	this.LOC1_PAWN_SHOPS_style = L.geoJson(null, {
-		pointToLayer: CityDigitsMap.getIconFor_LOC1_PAWN_SHOPS,
+		pointToLayer: CityDigitsMap.getMarkerFor_LOC1_PAWN_SHOPS,
 		onEachFeature: CityDigitsMap.onEachFeature
 	});
 	this.LOC2_CHECK_CASHING_style = L.geoJson(null, {
-		pointToLayer: CityDigitsMap.getIconFor_LOC2_CHECK_CASHING,
+		pointToLayer: CityDigitsMap.getMarkerFor_LOC2_CHECK_CASHING,
 		onEachFeature: CityDigitsMap.onEachFeature
 	});
 	this.LOC3_WIRE_TRANSFER_style = L.geoJson(null, {
-		pointToLayer: CityDigitsMap.getIconFor_LOC3_WIRE_TRANSFER,
+		pointToLayer: CityDigitsMap.getMarkerFor_LOC3_WIRE_TRANSFER,
 		onEachFeature: CityDigitsMap.onEachFeature
 	});
 	this.LOC4_AFIS_style = L.geoJson(null, {
-		pointToLayer: CityDigitsMap.getIconFor_LOC4_AFIS,
+		pointToLayer: CityDigitsMap.getMarkerFor_LOC4_AFIS,
 		onEachFeature: CityDigitsMap.onEachFeature
 	});	
 	this.LOC5_BANKS_style = L.geoJson(null, {
-		pointToLayer: CityDigitsMap.getIconFor_LOC5_BANKS,
+		pointToLayer: CityDigitsMap.getMarkerFor_LOC5_BANKS,
 		onEachFeature: CityDigitsMap.onEachFeature
 	});	
 	this.LOC6_MCDONALDS_style = L.geoJson(null, {
-		pointToLayer: CityDigitsMap.getIconFor_LOC6_MCDONALDS,
+		pointToLayer: CityDigitsMap.getMarkerFor_LOC6_MCDONALDS,
 		onEachFeature: CityDigitsMap.onEachFeature
 	});	
 	this.LOC7_SUBWAY_LINES_style = L.geoJson(null, {
@@ -300,72 +300,72 @@ CityDigitsMap.prototype.loadMarkers = function(){
 
 }
 
-CityDigitsMap.getIconFor_LOC1_PAWN_SHOPS = function (feature, latlng){
-	var pawnShopMarker = L.marker(latlng, {
-		icon: L.divIcon({
-			className: 'pawnshop-icon',
-			iconSize: [22, 22]
-		})
+CityDigitsMap.getMarkerFor_LOC1_PAWN_SHOPS = function (feature, latlng){
+	var pawnShopMarker = L.circleMarker(latlng, {
+		radius: 5,
+		stroke: false,
+		fillColor: '#eb4a42',
+		fillOpacity: 0.75
 	});
 	
 	return pawnShopMarker;
 	
 }
 
-CityDigitsMap.getIconFor_LOC2_CHECK_CASHING = function (feature, latlng){
-	var checkCashingMarker = L.marker(latlng, {
-		icon: L.divIcon({
-			className: 'checkcashing-icon',
-			iconSize: [22, 22]
-		})
+CityDigitsMap.getMarkerFor_LOC2_CHECK_CASHING = function (feature, latlng){
+	var checkCashingMarker = L.circleMarker(latlng, {
+		radius: 5,
+		stroke: false,
+		fillColor: '#4daf4a',
+		fillOpacity: 0.75
 	});
 	
 	return checkCashingMarker;
 	
 }
 
-CityDigitsMap.getIconFor_LOC3_WIRE_TRANSFER = function (feature, latlng){
-	var wireTransferMarker = L.marker(latlng, {
-		icon: L.divIcon({
-			className: 'wiretransfer-icon',
-			iconSize: [22, 22]
-		})
+CityDigitsMap.getMarkerFor_LOC3_WIRE_TRANSFER = function (feature, latlng){
+	var wireTransferMarker = L.circleMarker(latlng, {
+		radius: 5,
+		stroke: false,
+		fillColor: '#f0027f',
+		fillOpacity: 0.75
 	});
 	
 	return wireTransferMarker;
 	
 }
 
-CityDigitsMap.getIconFor_LOC4_AFIS = function (feature, latlng){
-	var afisMarker = L.marker(latlng, {
-		icon: L.divIcon({
-			className: 'afis-icon',
-			iconSize: [22, 22]
-		})
+CityDigitsMap.getMarkerFor_LOC4_AFIS = function (feature, latlng){
+	var afisMarker = L.circleMarker(latlng, {
+		radius: 5,
+		stroke: false,
+		fillColor: '#fa8a12',
+		fillOpacity: 0.75
 	});
 	
 	return afisMarker;
 	
 }
 
-CityDigitsMap.getIconFor_LOC5_BANKS = function (feature, latlng){
-	var banksMarker = L.marker(latlng, {
-		icon: L.divIcon({
-			className: 'banks-icon',
-			iconSize: [22, 22]
-		})
+CityDigitsMap.getMarkerFor_LOC5_BANKS = function (feature, latlng){
+	var banksMarker = L.circleMarker(latlng, {
+		radius: 5,
+		stroke: false,
+		fillColor: '#fa8aa3',
+		fillOpacity: 0.75
 	});
 	
 	return banksMarker;
 	
 }
 
-CityDigitsMap.getIconFor_LOC6_MCDONALDS = function (feature, latlng){
-	var mcdonaldsMarker = L.marker(latlng, {
-		icon: L.divIcon({
-			className: 'mcdonalds-icon',
-			iconSize: [22, 22]
-		})
+CityDigitsMap.getMarkerFor_LOC6_MCDONALDS = function (feature, latlng){
+	var mcdonaldsMarker = L.circleMarker(latlng, {
+		radius: 5,
+		stroke: false,
+		fillColor: '#ebcf42',
+		fillOpacity: 0.75
 	});
 	
 	return mcdonaldsMarker;
@@ -373,44 +373,45 @@ CityDigitsMap.getIconFor_LOC6_MCDONALDS = function (feature, latlng){
 }
 
 CityDigitsMap.loadLayerFor = function(layerId){
+	
     if(layerId == "MAP1_POP_POVERTY"){
-        mainLayer = MY_MAP.MAP1_POP_POVERTY.addTo(MY_MAP.map);
+        mainLayer = MY_MAP.MAP1_POP_POVERTY.addTo(MY_MAP.map).bringToBack();
     }	
     if(layerId == "MAP2_MED_HH_INCOME"){
-        mainLayer = MY_MAP.MAP2_MED_HH_INCOME.addTo(MY_MAP.map);
+        mainLayer = MY_MAP.MAP2_MED_HH_INCOME.addTo(MY_MAP.map).bringToBack();
     }	
     if(layerId == "MAP3_PCT_UNEMPLOYED"){
-        mainLayer = MY_MAP.MAP3_PCT_UNEMPLOYED.addTo(MY_MAP.map);
+        mainLayer = MY_MAP.MAP3_PCT_UNEMPLOYED.addTo(MY_MAP.map).bringToBack();
     }	
     if(layerId == "MAP4_PCT_FOREIGN_BORN"){
-        mainLayer = MY_MAP.MAP4_PCT_FOREIGN_BORN.addTo(MY_MAP.map);
-    }	
+        mainLayer = MY_MAP.MAP4_PCT_FOREIGN_BORN.addTo(MY_MAP.map).bringToBack();
+    }
 
 }
 
 
 CityDigitsMap.loadLocationsLayerFor = function(layerId){
 	// add layer requested based on ID
-	if (layerId == "LOC1_PAWN_SHOPS") {
-		MY_MAP.LOC1_PAWN_SHOPS.addTo(MY_MAP.map);
+	if (layerId == "LOC1") {
+		LOC1 = MY_MAP.LOC1_PAWN_SHOPS.addTo(MY_MAP.map).bringToFront();
 	}
-	if (layerId == "LOC2_CHECK_CASHING") {
-		MY_MAP.LOC2_CHECK_CASHING.addTo(MY_MAP.map);
+	if (layerId == "LOC2") {
+		LOC2 = MY_MAP.LOC2_CHECK_CASHING.addTo(MY_MAP.map).bringToFront();
 	}
-	if (layerId == "LOC3_WIRE_TRANSFER") {
-		MY_MAP.LOC3_WIRE_TRANSFER.addTo(MY_MAP.map);
+	if (layerId == "LOC3") {
+		LOC3 = MY_MAP.LOC3_WIRE_TRANSFER.addTo(MY_MAP.map).bringToFront();
 	}
-	if (layerId == "LOC4_AFIS") {
-		MY_MAP.LOC4_AFIS.addTo(MY_MAP.map);
+	if (layerId == "LOC4") {
+		LOC4 = MY_MAP.LOC4_AFIS.addTo(MY_MAP.map).bringToFront();
 	}
-	if (layerId == "LOC5_BANKS") {
-		MY_MAP.LOC5_BANKS.addTo(MY_MAP.map);
+	if (layerId == "LOC5") {
+		LOC5 = MY_MAP.LOC5_BANKS.addTo(MY_MAP.map).bringToFront();
 	}
-	if (layerId == "LOC6_MCDONALDS") {
-		MY_MAP.LOC6_MCDONALDS.addTo(MY_MAP.map);
+	if (layerId == "LOC6") {
+		LOC6 = MY_MAP.LOC6_MCDONALDS.addTo(MY_MAP.map).bringToFront();
 	}
-	if (layerId == "LOC7_SUBWAY_LINES") {
-		MY_MAP.LOC7_SUBWAY_LINES.addTo(MY_MAP.map);
+	if (layerId == "LOC7") {
+		LOC7 = MY_MAP.LOC7_SUBWAY_LINES.addTo(MY_MAP.map).bringToFront();
 	}
 	
 }

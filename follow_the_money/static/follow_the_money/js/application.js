@@ -9,7 +9,13 @@
  */
 
 var mainLayer = null;
-var locationsLayer = null;
+var LOC1 = null;
+var LOC2 = null;
+var LOC3 = null;
+var LOC4 = null;
+var LOC5 = null;
+var LOC6 = null;
+var LOC7 = null;
 var MY_MAP = null;
 var SCREEN_HEIGHT = null;
 var CURRENT_LAYER = null;
@@ -29,37 +35,7 @@ $().ready(new function(){
     myMap.loadMarkers();
     //console.log("ENDING LOAD OF MARKERS: " + Date.now());
     mainLayer = myMap.neighborhoodLayer;
-    locationsLayer = myMap.neighborhoodLayer;
     MY_MAP = myMap;
 
 });
-
-/*
-  This function handles switching between layers.
- */
-$( "input[name='maps']" ).on("change", function() {
-	alert( "Handler for .change() called." );
-    //turn off any unwanted layers
-	/*
-    if(mainLayer !=null){
-		MY_MAP.map.removeLayer(mainLayer);
-		mainLayer = null;
-    }
-	
-	if ($("input[name=maps]:radio")[0].checked) {
-		// % population in poverty
-	    //var layerId = $(".map-ui li.active").attr("id");
-	    //CityDigitsMap.loadLayerFor(layerId);
-	    //return false;
-	} else if($("input[name=maps]:radio")[1].checked){
-
-
-	}
-	*/
-
-});
-
-
-
-
 
