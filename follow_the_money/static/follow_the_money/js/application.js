@@ -13,7 +13,7 @@ var locationsLayer = null;
 var MY_MAP = null;
 var SCREEN_HEIGHT = null;
 var CURRENT_LAYER = null;
-RELATIVE_URL = '/follow-the-money';  //for development leave this blank. For production it should be '/follow_the_money'
+RELATIVE_URL = '/follow-the-money/follow-the-money';  //for development leave this blank. For production it should be '/follow_the_money'
 
 /*
   This function is called when the page DOM has loaded. It enables 'back' button, sets up the map and map popups.
