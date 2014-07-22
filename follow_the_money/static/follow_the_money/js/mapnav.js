@@ -13,17 +13,44 @@ $( document ).ready(function() {
 
 	$("input[name='locations']").change( function() {
 		var layerId = $(this).attr("value");
+				
 	    if($(this).is(":checked")) {
 			CityDigitsMap.loadLocationsLayerFor(layerId);
 	    } else {
-			CityDigitsMap.removeLayerFor(layerId);
+			if(layerId == 'LOC1' && LOC1 != null) {
+				CityDigitsMap.removeLayerFor(LOC1);
+				LOC1 = null;
+			}
+			if(layerId == 'LOC2' && LOC2 != null) {
+				CityDigitsMap.removeLayerFor(LOC2);
+				LOC2 = null;
+			}
+			if(layerId == 'LOC3' && LOC3 != null) {
+				CityDigitsMap.removeLayerFor(LOC3);
+				LOC3 = null;
+			}
+			if(layerId == 'LOC4' && LOC4 != null) {
+				CityDigitsMap.removeLayerFor(LOC4);
+				LOC4 = null;
+			}
+			if(layerId == 'LOC5' && LOC5 != null) {
+				CityDigitsMap.removeLayerFor(LOC5);
+				LOC5 = null;
+			}
+			if(layerId == 'LOC6' && LOC6 != null) {
+				CityDigitsMap.removeLayerFor(LOC6);
+				LOC6 = null;
+			}
+			if(layerId == 'LOC7' && LOC7 != null) {
+				CityDigitsMap.removeLayerFor(LOC7);
+				LOC7 = null;
+			}		
 	    }
 	});
 	
 	$( "input[name='maps']" ).change( function() {
-		//alert( "Handler for .change() called." );
 	    if(mainLayer != null){
-			MY_MAP.map.removeLayer(mainLayer);
+			CityDigitsMap.removeLayerFor(mainLayer);
 			mainLayer = null;
 	    }
 				
