@@ -7,7 +7,8 @@
 /*
   On DOM load handlers
  */
-
+var map_popups = [];
+var open_tooltips = [];
 var mainLayer = null;
 var LOC1 = null;
 var LOC2 = null;
@@ -15,7 +16,6 @@ var LOC3 = null;
 var LOC4 = null;
 var LOC5 = null;
 var LOC6 = null;
-var LOC7 = null;
 var MY_MAP = null;
 var SCREEN_HEIGHT = null;
 var CURRENT_LAYER = null;

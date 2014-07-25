@@ -104,7 +104,10 @@ ROOT_URLCONF = 'app-settings.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'app-settings.wsgi.application'
 
-TEMPLATE_DIRS = '/home5/nijelorg/www/follow-the-money/templates'    
+TEMPLATE_URL = '/templates/'
+
+TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, 'templates'),)  
+# TEMPLATE_DIRS = '/home5/nijelorg/public_html/follow-the-money/templates'    
 # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -119,6 +122,8 @@ INSTALLED_APPS = (
     'south',
     # follow_the_money app
     'follow_the_money', 
+    # django-registration app
+    'registration',
     # bootstrap for admin pages
     # 'django_admin_bootstrapped',
     #bootstrap pip install for main site
@@ -135,6 +140,8 @@ INSTALLED_APPS = (
     # 'jquery',
     # 'd3',
 )
+
+ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
