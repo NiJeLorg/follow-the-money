@@ -114,7 +114,38 @@ body {
 .rollover-tooltip {
     text-align: center;
     font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
-    color: #000000;
+    color: #fff;
     font-size: 13px;
+}
+
+.map-popup {
+    text-align: center;
+    font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
+    color: #fff;
+}
+
+.map-popup h4 {
+	font-size: 20px;
+}
+
+.map-popup p {
+	font-size: 14px;
+}
+
+
+/*
+* Leaflet overrides
+*/
+
+.leaflet-popup-content-wrapper, .map-legends, .map-tooltip {
+	background: none repeat scroll 0 0 #3f3f3f;
+}
+	
+.leaflet-popup-content {
+	background-color:#3f3f3f;
+}
+
+.leaflet-popup-tip {
+	border-top: 10px solid #3f3f3f;
 }
 

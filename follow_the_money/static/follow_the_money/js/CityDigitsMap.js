@@ -64,10 +64,10 @@ function CityDigitsMap() {
 	});
 	
 	this.popup2 = new L.Popup({ 
-		maxWidth:250,
-		minWidth: 110, 
+		maxWidth: 350,
+		minWidth: 250, 
 		minHeight: 30, 
-		closeButton:false 
+		closeButton:true
 	});
 	
 }
@@ -80,29 +80,37 @@ CityDigitsMap.onZoomOut = function(event){
     MY_MAP.map.zoomOut();
 }
 
-CityDigitsMap.onEachFeature_MAPS = function(feature,layer){
+CityDigitsMap.onEachFeature_MAP1_POP_POVERTY = function(feature,layer){
     //add on hover -- same on hover and mousemove for each layer
     layer.on('mouseover', function(ev) {
-    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-		MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
-		
-		//display popup
-        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
-            MY_MAP.popup.openOn(MY_MAP.map);
-        }else{
-            MY_MAP.map.closePopup();
-        }
-    });
-	
-    layer.on('mousemove', function(ev) {
-        //get lat/long
-        if(($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
-			MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+		// only have on mouseover work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
 			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
-    	}
-        //display popup
-		if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.N_Name,open_tooltips)<0)){
-			MY_MAP.popup.openOn(MY_MAP.map);
+		
+			//display popup
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	            MY_MAP.popup.openOn(MY_MAP.map);
+	        }else{
+	            MY_MAP.map.closePopup();
+	        }			
+		}
+    });
+		
+    layer.on('mousemove', function(ev) {
+		
+		// only have on mousemove work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+	        //get lat/long
+	        if(($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+	    	}
+			
+	        //display popup
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.N_Name,open_tooltips)<0)){
+				MY_MAP.popup.openOn(MY_MAP.map);
+			}			
 		}
     });
 	
@@ -111,10 +119,158 @@ CityDigitsMap.onEachFeature_MAPS = function(feature,layer){
 		// close all open popups
 		MY_MAP.map.closePopup();
 		
-		// stopped for the day
+		// bind popup with data to the feature
+		MY_MAP.popup2.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+		var percent = feature.properties.PovertyPer * 100;
+		percent = percent.toFixed(0);
+		MY_MAP.popup2.setContent('<div class="map-popup"><h4 class="text-left">' + feature.properties.NYC_NEIG + '</h4><p>' + percent + '%<br />Population in Poverty</p></div>');
+		MY_MAP.popup2.openOn(MY_MAP.map);
+	});
+	
+}
+
+CityDigitsMap.onEachFeature_MAP2_MED_HH_INCOME = function(feature,layer){
+    //add on hover -- same on hover and mousemove for each layer
+    layer.on('mouseover', function(ev) {
+		// only have on mouseover work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
 		
+			//display popup
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	            MY_MAP.popup.openOn(MY_MAP.map);
+	        }else{
+	            MY_MAP.map.closePopup();
+	        }			
+		}
+    });
 		
+    layer.on('mousemove', function(ev) {
 		
+		// only have on mousemove work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+	        //get lat/long
+	        if(($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+	    	}
+			
+	        //display popup
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.N_Name,open_tooltips)<0)){
+				MY_MAP.popup.openOn(MY_MAP.map);
+			}			
+		}
+    });
+	
+	// add on click popups for each layer -- these will be different
+	layer.on("click",function(ev){
+		// close all open popups
+		MY_MAP.map.closePopup();
+		
+		// bind popup with data to the feature
+		MY_MAP.popup2.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+		var MedHHInc = accounting.formatMoney(feature.properties.MedHouInco, "$", 0, ",", "");
+		MY_MAP.popup2.setContent('<div class="map-popup"><h4 class="text-left">' + feature.properties.NYC_NEIG + '</h4><p>' + MedHHInc + '<br />Median Household Income</p></div>');
+		MY_MAP.popup2.openOn(MY_MAP.map);
+	});
+	
+}
+
+CityDigitsMap.onEachFeature_MAP3_PCT_UNEMPLOYED = function(feature,layer){
+    //add on hover -- same on hover and mousemove for each layer
+    layer.on('mouseover', function(ev) {
+		// only have on mouseover work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+		
+			//display popup
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	            MY_MAP.popup.openOn(MY_MAP.map);
+	        }else{
+	            MY_MAP.map.closePopup();
+	        }			
+		}
+    });
+		
+    layer.on('mousemove', function(ev) {
+		
+		// only have on mousemove work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+	        //get lat/long
+	        if(($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+	    	}
+			
+	        //display popup
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.N_Name,open_tooltips)<0)){
+				MY_MAP.popup.openOn(MY_MAP.map);
+			}			
+		}
+    });
+	
+	// add on click popups for each layer -- these will be different
+	layer.on("click",function(ev){
+		// close all open popups
+		MY_MAP.map.closePopup();
+		
+		// bind popup with data to the feature
+		MY_MAP.popup2.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+		var percent = feature.properties.UnempRate * 100;
+		percent = percent.toFixed(1);
+		MY_MAP.popup2.setContent('<div class="map-popup"><h4 class="text-left">' + feature.properties.NYC_NEIG + '</h4><p>' + percent + '%<br />Percent Unemployed</p></div>');
+		MY_MAP.popup2.openOn(MY_MAP.map);
+	});
+	
+}
+
+CityDigitsMap.onEachFeature_MAP4_PCT_FOREIGN_BORN = function(feature,layer){
+    //add on hover -- same on hover and mousemove for each layer
+    layer.on('mouseover', function(ev) {
+		// only have on mouseover work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+		
+			//display popup
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	            MY_MAP.popup.openOn(MY_MAP.map);
+	        }else{
+	            MY_MAP.map.closePopup();
+	        }			
+		}
+    });
+		
+    layer.on('mousemove', function(ev) {
+		
+		// only have on mousemove work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+	        //get lat/long
+	        if(($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+	    	}
+			
+	        //display popup
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.N_Name,open_tooltips)<0)){
+				MY_MAP.popup.openOn(MY_MAP.map);
+			}			
+		}
+    });
+	
+	// add on click popups for each layer -- these will be different
+	layer.on("click",function(ev){
+		// close all open popups
+		MY_MAP.map.closePopup();
+		
+		// bind popup with data to the feature
+		MY_MAP.popup2.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+		var percent = feature.properties.ForBornPer * 100;
+		percent = percent.toFixed(0);
+		MY_MAP.popup2.setContent('<div class="map-popup"><h4 class="text-left">' + feature.properties.NYC_NEIG + '</h4><p>' + percent + '%<br />Population Foreign Born</p></div>');
+		MY_MAP.popup2.openOn(MY_MAP.map);
 	});
 	
 }
@@ -131,19 +287,19 @@ CityDigitsMap.prototype.loadLayers = function (){
 	// define layer styles and oneachfeature popup styling
 	this.MAP1_POP_POVERTY_style = L.geoJson(null, {
 	    style: CityDigitsMap.getStyleColorFor_MAP1_POP_POVERTY,
-		onEachFeature: CityDigitsMap.onEachFeature_MAPS
+		onEachFeature: CityDigitsMap.onEachFeature_MAP1_POP_POVERTY
 	});
 	this.MAP2_MED_HH_INCOME_style = L.geoJson(null, {
 		style: CityDigitsMap.getStyleColorFor_MAP2_MED_HH_INCOME,
-		onEachFeature: CityDigitsMap.onEachFeature_MAPS
+		onEachFeature: CityDigitsMap.onEachFeature_MAP2_MED_HH_INCOME
 	});
 	this.MAP3_PCT_UNEMPLOYED_style = L.geoJson(null, {
 		style: CityDigitsMap.getStyleColorFor_MAP3_PCT_UNEMPLOYED,
-		onEachFeature: CityDigitsMap.onEachFeature_MAPS
+		onEachFeature: CityDigitsMap.onEachFeature_MAP3_PCT_UNEMPLOYED
 	});
 	this.MAP4_PCT_FOREIGN_BORN_style = L.geoJson(null, {
 		style: CityDigitsMap.getStyleColorFor_MAP4_PCT_FOREIGN_BORN,
-		onEachFeature: CityDigitsMap.onEachFeature_MAPS
+		onEachFeature: CityDigitsMap.onEachFeature_MAP4_PCT_FOREIGN_BORN
 	});
 		
 	// load layers
@@ -248,7 +404,7 @@ CityDigitsMap.getStyleColorFor_MAP3_PCT_UNEMPLOYED = function (feature){
         if(value > 0.12 && value <= 0.15) { 
 			fillColor = "#178def";
         }
-        if(value > 0.20) { 
+        if(value > 0.15) { 
 			fillColor = "#254aeb";
         }
     }catch (e){
@@ -401,6 +557,8 @@ CityDigitsMap.getMarkerFor_LOC5_MCDONALDS = function (feature, latlng){
 }
 
 CityDigitsMap.loadLayerFor = function(layerId){
+	// remove all popups first
+	MY_MAP.map.closePopup();
 	
     if(layerId == "MAP1"){
         mainLayer = MY_MAP.MAP1_POP_POVERTY.addTo(MY_MAP.map).bringToBack();

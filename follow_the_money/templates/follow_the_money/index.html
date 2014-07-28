@@ -93,7 +93,7 @@
 		}
 		
 		/*
-		* Map Icon classes
+		* Icon classes
 		*/
 		
 		.pawnshop-icon {
@@ -118,6 +118,14 @@
 
 		.mcdonalds-icon {
 			background-image: url({% static 'follow_the_money/img/locations_gray.png' %});
+		}
+		
+		.close-icon-white {
+			background-image: url({% static 'follow_the_money/img/close_white.png' %});
+		}
+		
+		.close-icon-gray {
+			background-image: url({% static 'follow_the_money/img/close_gray.png' %});
 		}
 		
 		/*
@@ -145,6 +153,19 @@
 
 		.citydigits-zoomer .zoom-out > a:hover {
 			background-image: url({% static 'follow_the_money/img/Zoom_out_hover.png' %});
+		}
+		
+		/*
+		* Leaflet override
+		*/		
+		
+		.leaflet-popup-close-button {
+			background-image: url({% static 'follow_the_money/img/close_white.png' %});
+			background-size: auto auto;
+			background-position: 0% 0%;
+			opacity: 1;
+			height: 22px;
+			width: 22px;
 		}
 
 
@@ -176,6 +197,7 @@
 	<script type="text/javascript" src="{% static 'follow_the_money/js/d3.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/mapbox.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/leaflet-omnivore.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'follow_the_money/js/accounting.min.js' %}"></script>
 	<!-- set varible for topojson and csv urls -->
 	<script type="text/javascript">
 	var neighborhoods = "{% static 'follow_the_money/topojson/neighborhoods.json' %}";	
