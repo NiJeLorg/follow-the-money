@@ -3,14 +3,39 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>City Digits, from Civic Data Design Lab</title>
+    <title>City Digits, from Civic Data Design Lab {% block title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
 	{% block css_block %}
     <link rel="stylesheet" type="text/css" href="{% static 'follow_the_money/css/bootstrap.min.css' %}">
-	 <link rel="stylesheet" type="text/css" href="{% static 'follow_the_money/css/main.css' %}">
-	{% endblock %}	
+	<link rel="stylesheet" type="text/css" href="{% static 'follow_the_money/css/main.css' %}">
+	<style type="text/css">
+		.navbar-default .navbar-nav > .media-button > a {
+			top: 10px;
+			width: 79px;
+			height: 36px;
+			background-image: url({% static 'follow_the_money/img/Media.png' %})
+		}
+
+		.navbar-default .navbar-nav > .media-button > a:hover,
+		.navbar-default .navbar-nav > .media-button > a:focus {
+			background-image: url({% static 'follow_the_money/img/Media_hover.png' %})
+		}
+		
+		.navbar-default .navbar-nav > .screenshot-button > a {
+			top: 10px;
+			width: 39px;
+			height: 36px;
+			background-image: url({% static 'follow_the_money/img/Snaps.png' %})
+		}
+
+		.navbar-default .navbar-nav > .screenshot-button > a:hover,
+		.navbar-default .navbar-nav > .screenshot-button > a:focus {
+			background-image: url({% static 'follow_the_money/img/Snaps_hover.png' %})
+		}
+	</style>
+{% endblock %}	
   </head>
 
   <body>

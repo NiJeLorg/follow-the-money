@@ -32,10 +32,9 @@ function CityDigitsMap() {
 	this.LOC1_PAWN_SHOPS = null;
 	this.LOC2_CHECK_CASHING = null;
 	this.LOC3_WIRE_TRANSFER = null;
-	this.LOC4_AFIS = null;
-	this.LOC5_BANKS = null;
-	this.LOC6_MCDONALDS = null;
-	this.LOC7_SUBWAY_LINES = null;
+	this.LOC4_BANKS = null;
+	this.LOC5_MCDONALDS = null;
+	this.LOC6_SUBWAY_LINES = null;
 	
 	//predefined map layers
 	this.MAP1_POP_POVERTY = null;
@@ -55,6 +54,22 @@ function CityDigitsMap() {
 	this.CREATEMAP9_AFIS_PER_BANK = null;
 	this.CREATEMAP10_BANKS_PER_AFI = null;
 	
+	// popup containers to catch popups
+	this.popup = new L.Popup({ 
+		autoPan: false, 
+		maxWidth:250, 
+		minWidth: 110, 
+		minHeight: 50,
+		closeButton:false 
+	});
+	
+	this.popup2 = new L.Popup({ 
+		maxWidth:250,
+		minWidth: 110, 
+		minHeight: 30, 
+		closeButton:false 
+	});
+	
 }
 
 CityDigitsMap.onZoomIn = function(event){
@@ -65,7 +80,43 @@ CityDigitsMap.onZoomOut = function(event){
     MY_MAP.map.zoomOut();
 }
 
-CityDigitsMap.onEachFeature = function(feature,layer){
+CityDigitsMap.onEachFeature_MAPS = function(feature,layer){
+    //add on hover -- same on hover and mousemove for each layer
+    layer.on('mouseover', function(ev) {
+    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+		MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+		
+		//display popup
+        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+            MY_MAP.popup.openOn(MY_MAP.map);
+        }else{
+            MY_MAP.map.closePopup();
+        }
+    });
+	
+    layer.on('mousemove', function(ev) {
+        //get lat/long
+        if(($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+			MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+    	}
+        //display popup
+		if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.N_Name,open_tooltips)<0)){
+			MY_MAP.popup.openOn(MY_MAP.map);
+		}
+    });
+	
+	// add on click popups for each layer -- these will be different
+	layer.on("click",function(ev){
+		// close all open popups
+		MY_MAP.map.closePopup();
+		
+		// stopped for the day
+		
+		
+		
+	});
+	
 }
 
 
@@ -80,19 +131,19 @@ CityDigitsMap.prototype.loadLayers = function (){
 	// define layer styles and oneachfeature popup styling
 	this.MAP1_POP_POVERTY_style = L.geoJson(null, {
 	    style: CityDigitsMap.getStyleColorFor_MAP1_POP_POVERTY,
-		onEachFeature: CityDigitsMap.onEachFeature
+		onEachFeature: CityDigitsMap.onEachFeature_MAPS
 	});
 	this.MAP2_MED_HH_INCOME_style = L.geoJson(null, {
 		style: CityDigitsMap.getStyleColorFor_MAP2_MED_HH_INCOME,
-		onEachFeature: CityDigitsMap.onEachFeature
+		onEachFeature: CityDigitsMap.onEachFeature_MAPS
 	});
 	this.MAP3_PCT_UNEMPLOYED_style = L.geoJson(null, {
 		style: CityDigitsMap.getStyleColorFor_MAP3_PCT_UNEMPLOYED,
-		onEachFeature: CityDigitsMap.onEachFeature
+		onEachFeature: CityDigitsMap.onEachFeature_MAPS
 	});
 	this.MAP4_PCT_FOREIGN_BORN_style = L.geoJson(null, {
 		style: CityDigitsMap.getStyleColorFor_MAP4_PCT_FOREIGN_BORN,
-		onEachFeature: CityDigitsMap.onEachFeature
+		onEachFeature: CityDigitsMap.onEachFeature_MAPS
 	});
 		
 	// load layers
@@ -113,22 +164,22 @@ CityDigitsMap.getStyleColorFor_MAP1_POP_POVERTY = function (feature){
         var value = feature.properties.PovertyPer;
         var fillColor = null;
         if(value >= 0 && value <=0.1){
-			fillColor = "#c7ebff";
+			fillColor = "#a5f3fa";
         }
         if(value >0.1 && value <=0.15){
-            fillColor = "#8fd9f7";
+            fillColor = "#83E8F9";
         }
         if(value >0.15 && value<=0.2){
-        	fillColor = "#00bff2";
+        	fillColor = "#62def8";
         }
         if(value > 0.2 && value <=0.3){
-        	fillColor = "#008ce3";
+        	fillColor = "#0bb6ec";
         }
         if(value > 0.3 && value <=0.4) { 
-			fillColor = "#0342b5";
+			fillColor = "#178def";
         }
         if(value > 0.4) { 
-			fillColor = "#173061";
+			fillColor = "#254aeb";
         }
     }catch (e){
 
@@ -148,22 +199,22 @@ CityDigitsMap.getStyleColorFor_MAP2_MED_HH_INCOME = function (feature){
         var value = feature.properties.MedHouInco;
         var fillColor = null;
         if(value >= 0 && value <=40000){
-			fillColor = "#c7ebff";
+			fillColor = "#a5f3fa";
         }
         if(value > 40000 && value <= 55000){
-            fillColor = "#8fd9f7";
+            fillColor = "#83E8F9";
         }
         if(value > 55000 && value <= 70000){
-        	fillColor = "#00bff2";
+        	fillColor = "#62def8";
         }
         if(value > 70000 && value <= 85000){
-        	fillColor = "#008ce3";
+        	fillColor = "#0bb6ec";
         }
         if(value > 85000 && value <= 100000) { 
-			fillColor = "#0342b5";
+			fillColor = "#178def";
         }
         if(value > 100000) { 
-			fillColor = "#173061";
+			fillColor = "#254aeb";
         }
     }catch (e){
 
@@ -183,22 +234,22 @@ CityDigitsMap.getStyleColorFor_MAP3_PCT_UNEMPLOYED = function (feature){
         var value = feature.properties.UnempRate;
         var fillColor = null;
         if(value >= 0 && value <= 0.03){
-			fillColor = "#c7ebff";
+			fillColor = "#a5f3fa";
         }
         if(value > 0.03 && value <= 0.06){
-            fillColor = "#8fd9f7";
+            fillColor = "#83E8F9";
         }
         if(value > 0.06 && value <= 0.09){
-        	fillColor = "#00bff2";
+        	fillColor = "#62def8";
         }
         if(value > 0.09 && value <= 0.12){
-        	fillColor = "#008ce3";
+        	fillColor = "#0bb6ec";
         }
         if(value > 0.12 && value <= 0.15) { 
-			fillColor = "#0342b5";
+			fillColor = "#178def";
         }
         if(value > 0.20) { 
-			fillColor = "#173061";
+			fillColor = "#254aeb";
         }
     }catch (e){
 
@@ -218,22 +269,22 @@ CityDigitsMap.getStyleColorFor_MAP4_PCT_FOREIGN_BORN = function (feature){
         var value = feature.properties.ForBornPer;
         var fillColor = null;
         if(value >= 0 && value <= 0.15){
-			fillColor = "#c7ebff";
+			fillColor = "#a5f3fa";
         }
         if(value > 0.15 && value <= 0.25){
-            fillColor = "#8fd9f7";
+            fillColor = "#83E8F9";
         }
         if(value > 0.25 && value<= 0.35){
-        	fillColor = "#00bff2";
+        	fillColor = "#62def8";
         }
         if(value > 0.35 && value <= 0.45){
-        	fillColor = "#008ce3";
+        	fillColor = "#0bb6ec";
         }
         if(value > 0.45 && value <= 0.55) { 
-			fillColor = "#0342b5";
+			fillColor = "#178def";
         }
         if(value > 0.55) { 
-			fillColor = "#173061";
+			fillColor = "#254aeb";
         }
     }catch (e){
 
@@ -254,10 +305,9 @@ CityDigitsMap.prototype.loadMarkers = function(){
 	this.LOC1_PAWN_SHOPS = null;
 	this.LOC2_CHECK_CASHING = null;
 	this.LOC3_WIRE_TRANSFER = null;
-	this.LOC4_AFIS = null;
-	this.LOC5_BANKS = null;
-	this.LOC6_MCDONALDS = null;
-	this.LOC7_SUBWAY_LINES = null;
+	this.LOC4_BANKS = null;
+	this.LOC5_MCDONALDS = null;
+	this.LOC6_SUBWAY_LINES = null;
 
 	// define layer styles and oneachfeature popup styling
 	this.LOC1_PAWN_SHOPS_style = L.geoJson(null, {
@@ -271,21 +321,17 @@ CityDigitsMap.prototype.loadMarkers = function(){
 	this.LOC3_WIRE_TRANSFER_style = L.geoJson(null, {
 		pointToLayer: CityDigitsMap.getMarkerFor_LOC3_WIRE_TRANSFER,
 		onEachFeature: CityDigitsMap.onEachFeature
-	});
-	this.LOC4_AFIS_style = L.geoJson(null, {
-		pointToLayer: CityDigitsMap.getMarkerFor_LOC4_AFIS,
+	});	
+	this.LOC4_BANKS_style = L.geoJson(null, {
+		pointToLayer: CityDigitsMap.getMarkerFor_LOC4_BANKS,
 		onEachFeature: CityDigitsMap.onEachFeature
 	});	
-	this.LOC5_BANKS_style = L.geoJson(null, {
-		pointToLayer: CityDigitsMap.getMarkerFor_LOC5_BANKS,
+	this.LOC5_MCDONALDS_style = L.geoJson(null, {
+		pointToLayer: CityDigitsMap.getMarkerFor_LOC5_MCDONALDS,
 		onEachFeature: CityDigitsMap.onEachFeature
 	});	
-	this.LOC6_MCDONALDS_style = L.geoJson(null, {
-		pointToLayer: CityDigitsMap.getMarkerFor_LOC6_MCDONALDS,
-		onEachFeature: CityDigitsMap.onEachFeature
-	});	
-	this.LOC7_SUBWAY_LINES_style = L.geoJson(null, {
-		style: CityDigitsMap.getStyleFor_LOC7_SUBWAY_LINES,
+	this.LOC6_SUBWAY_LINES_style = L.geoJson(null, {
+		style: CityDigitsMap.getStyleFor_LOC6_SUBWAY_LINES,
 		onEachFeature: CityDigitsMap.onEachFeature
 	});	
 	
@@ -293,16 +339,14 @@ CityDigitsMap.prototype.loadMarkers = function(){
 	this.LOC1_PAWN_SHOPS = omnivore.csv(PawnShops, null, this.LOC1_PAWN_SHOPS_style);
 	this.LOC2_CHECK_CASHING = omnivore.csv(CheckCashing, null, this.LOC2_CHECK_CASHING_style);
 	this.LOC3_WIRE_TRANSFER = omnivore.csv(MoneyTransferServices, null, this.LOC3_WIRE_TRANSFER_style);
-	//this.LOC4_AFIS = omnivore.csv(, null, this.LOC4_AFIS_style);
-	this.LOC5_BANKS = omnivore.csv(CommercialBanks, null, this.LOC5_BANKS_style);
-	this.LOC6_MCDONALDS = omnivore.csv(PawnShops, null, this.LOC6_MCDONALDS_style);
-	//this.LOC7_SUBWAY_LINES = omnivore.csv(PawnShops, null, this.LOC7_SUBWAY_LINES_style);
+	this.LOC4_BANKS = omnivore.csv(CommercialBanks, null, this.LOC4_BANKS_style);
+	this.LOC5_MCDONALDS = omnivore.csv(PawnShops, null, this.LOC5_MCDONALDS_style);
+	//this.LOC6_SUBWAY_LINES = omnivore.csv(PawnShops, null, this.LOC6_SUBWAY_LINES_style);
 
 }
 
 CityDigitsMap.getMarkerFor_LOC1_PAWN_SHOPS = function (feature, latlng){
-	var pawnShopMarker = L.circleMarker(latlng, {
-		radius: 5,
+	var pawnShopMarker = L.circle(latlng, 80, {
 		stroke: false,
 		fillColor: '#eb4a42',
 		fillOpacity: 0.75
@@ -313,10 +357,9 @@ CityDigitsMap.getMarkerFor_LOC1_PAWN_SHOPS = function (feature, latlng){
 }
 
 CityDigitsMap.getMarkerFor_LOC2_CHECK_CASHING = function (feature, latlng){
-	var checkCashingMarker = L.circleMarker(latlng, {
-		radius: 5,
+	var checkCashingMarker = L.circle(latlng, 80, {
 		stroke: false,
-		fillColor: '#4daf4a',
+		fillColor: '#ffa77f',
 		fillOpacity: 0.75
 	});
 	
@@ -325,10 +368,9 @@ CityDigitsMap.getMarkerFor_LOC2_CHECK_CASHING = function (feature, latlng){
 }
 
 CityDigitsMap.getMarkerFor_LOC3_WIRE_TRANSFER = function (feature, latlng){
-	var wireTransferMarker = L.circleMarker(latlng, {
-		radius: 5,
+	var wireTransferMarker = L.circle(latlng, 80, {
 		stroke: false,
-		fillColor: '#f0027f',
+		fillColor: '#fa8a12',
 		fillOpacity: 0.75
 	});
 	
@@ -336,21 +378,8 @@ CityDigitsMap.getMarkerFor_LOC3_WIRE_TRANSFER = function (feature, latlng){
 	
 }
 
-CityDigitsMap.getMarkerFor_LOC4_AFIS = function (feature, latlng){
-	var afisMarker = L.circleMarker(latlng, {
-		radius: 5,
-		stroke: false,
-		fillColor: '#fa8a12',
-		fillOpacity: 0.75
-	});
-	
-	return afisMarker;
-	
-}
-
-CityDigitsMap.getMarkerFor_LOC5_BANKS = function (feature, latlng){
-	var banksMarker = L.circleMarker(latlng, {
-		radius: 5,
+CityDigitsMap.getMarkerFor_LOC4_BANKS = function (feature, latlng){
+	var banksMarker = L.circle(latlng, 80, {
 		stroke: false,
 		fillColor: '#fa8aa3',
 		fillOpacity: 0.75
@@ -360,9 +389,8 @@ CityDigitsMap.getMarkerFor_LOC5_BANKS = function (feature, latlng){
 	
 }
 
-CityDigitsMap.getMarkerFor_LOC6_MCDONALDS = function (feature, latlng){
-	var mcdonaldsMarker = L.circleMarker(latlng, {
-		radius: 5,
+CityDigitsMap.getMarkerFor_LOC5_MCDONALDS = function (feature, latlng){
+	var mcdonaldsMarker = L.circle(latlng, 80, {
 		stroke: false,
 		fillColor: '#ebcf42',
 		fillOpacity: 0.75
@@ -374,16 +402,16 @@ CityDigitsMap.getMarkerFor_LOC6_MCDONALDS = function (feature, latlng){
 
 CityDigitsMap.loadLayerFor = function(layerId){
 	
-    if(layerId == "MAP1_POP_POVERTY"){
+    if(layerId == "MAP1"){
         mainLayer = MY_MAP.MAP1_POP_POVERTY.addTo(MY_MAP.map).bringToBack();
     }	
-    if(layerId == "MAP2_MED_HH_INCOME"){
+    if(layerId == "MAP2"){
         mainLayer = MY_MAP.MAP2_MED_HH_INCOME.addTo(MY_MAP.map).bringToBack();
     }	
-    if(layerId == "MAP3_PCT_UNEMPLOYED"){
+    if(layerId == "MAP3"){
         mainLayer = MY_MAP.MAP3_PCT_UNEMPLOYED.addTo(MY_MAP.map).bringToBack();
     }	
-    if(layerId == "MAP4_PCT_FOREIGN_BORN"){
+    if(layerId == "MAP4"){
         mainLayer = MY_MAP.MAP4_PCT_FOREIGN_BORN.addTo(MY_MAP.map).bringToBack();
     }
 
@@ -402,22 +430,18 @@ CityDigitsMap.loadLocationsLayerFor = function(layerId){
 		LOC3 = MY_MAP.LOC3_WIRE_TRANSFER.addTo(MY_MAP.map).bringToFront();
 	}
 	if (layerId == "LOC4") {
-		LOC4 = MY_MAP.LOC4_AFIS.addTo(MY_MAP.map).bringToFront();
+		LOC4 = MY_MAP.LOC4_BANKS.addTo(MY_MAP.map).bringToFront();
 	}
 	if (layerId == "LOC5") {
-		LOC5 = MY_MAP.LOC5_BANKS.addTo(MY_MAP.map).bringToFront();
+		LOC5 = MY_MAP.LOC5_MCDONALDS.addTo(MY_MAP.map).bringToFront();
 	}
 	if (layerId == "LOC6") {
-		LOC6 = MY_MAP.LOC6_MCDONALDS.addTo(MY_MAP.map).bringToFront();
-	}
-	if (layerId == "LOC7") {
-		LOC7 = MY_MAP.LOC7_SUBWAY_LINES.addTo(MY_MAP.map).bringToFront();
+		LOC6 = MY_MAP.LOC6_SUBWAY_LINES.addTo(MY_MAP.map).bringToFront();
 	}
 	
 }
 
 CityDigitsMap.removeLayerFor = function(layerId){
-	console.log(layerId);
 	MY_MAP.map.removeLayer( layerId ); 
 }
 
