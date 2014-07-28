@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^follow-the-money/', include('follow_the_money.urls')),
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/', include('registration.backends.default.urls')),
 )
 
 urlpatterns += staticfiles_urlpatterns()
