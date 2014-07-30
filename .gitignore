@@ -1,5 +1,4 @@
 app-settings/database_settings.py
-app-settings/settings.py
 app-settings/urls_orig_working
 app-settings/ftm.db
 maptest/
