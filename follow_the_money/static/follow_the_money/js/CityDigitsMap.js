@@ -57,10 +57,10 @@ function CityDigitsMap() {
 	// popup containers to catch popups
 	this.popup = new L.Popup({ 
 		autoPan: false, 
-		maxWidth:250, 
+		maxWidth: 350, 
 		minWidth: 110, 
 		minHeight: 50,
-		closeButton:false 
+		closeButton: false 
 	});
 	
 	this.popup2 = new L.Popup({ 
@@ -84,6 +84,7 @@ CityDigitsMap.onEachFeature_MAP1_POP_POVERTY = function(feature,layer){
     //add on hover -- same on hover and mousemove for each layer
     layer.on('mouseover', function(ev) {
 		// only have on mouseover work if popup2 isn't open
+		
 		if (!MY_MAP.popup2._isOpen) {
 	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
 			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
@@ -106,9 +107,9 @@ CityDigitsMap.onEachFeature_MAP1_POP_POVERTY = function(feature,layer){
 				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
 				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
 	    	}
-			
+
 	        //display popup
-			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.N_Name,open_tooltips)<0)){
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
 				MY_MAP.popup.openOn(MY_MAP.map);
 			}			
 		}
@@ -157,7 +158,7 @@ CityDigitsMap.onEachFeature_MAP2_MED_HH_INCOME = function(feature,layer){
 	    	}
 			
 	        //display popup
-			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.N_Name,open_tooltips)<0)){
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
 				MY_MAP.popup.openOn(MY_MAP.map);
 			}			
 		}
@@ -205,7 +206,7 @@ CityDigitsMap.onEachFeature_MAP3_PCT_UNEMPLOYED = function(feature,layer){
 	    	}
 			
 	        //display popup
-			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.N_Name,open_tooltips)<0)){
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
 				MY_MAP.popup.openOn(MY_MAP.map);
 			}			
 		}
@@ -254,7 +255,7 @@ CityDigitsMap.onEachFeature_MAP4_PCT_FOREIGN_BORN = function(feature,layer){
 	    	}
 			
 	        //display popup
-			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.N_Name,open_tooltips)<0)){
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
 				MY_MAP.popup.openOn(MY_MAP.map);
 			}			
 		}
@@ -456,6 +457,44 @@ CityDigitsMap.getStyleColorFor_MAP4_PCT_FOREIGN_BORN = function (feature){
 }
 
 
+CityDigitsMap.onEachFeatureFor_LOCS = function(feature,layer){
+    //add on hover -- same on hover and mousemove for each layer
+    layer.on('mouseover', function(ev) {
+		// only have on mouseover work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+			// close all popups first
+			MY_MAP.map.closePopup();
+	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize"><h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+		
+			//display popup
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.name,open_tooltips)<0)){
+	            MY_MAP.popup.openOn(MY_MAP.map);
+	        }else{
+	            MY_MAP.map.closePopup();
+	        }		
+		}
+    });
+	
+    layer.on('mousemove', function(ev) {
+		
+		// only have on mousemove work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+	        //get lat/long
+	        if(($.inArray(feature.properties.name,open_tooltips)<0)){
+				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize"><h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+	    	}
+
+	        //display popup
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.name,open_tooltips)<0)){
+				MY_MAP.popup.openOn(MY_MAP.map);
+			}			
+		}
+    });
+	
+}
+
 CityDigitsMap.prototype.loadMarkers = function(){
 	
 	this.LOC1_PAWN_SHOPS = null;
@@ -468,23 +507,23 @@ CityDigitsMap.prototype.loadMarkers = function(){
 	// define layer styles and oneachfeature popup styling
 	this.LOC1_PAWN_SHOPS_style = L.geoJson(null, {
 		pointToLayer: CityDigitsMap.getMarkerFor_LOC1_PAWN_SHOPS,
-		onEachFeature: CityDigitsMap.onEachFeature
+		onEachFeature: CityDigitsMap.onEachFeatureFor_LOCS
 	});
 	this.LOC2_CHECK_CASHING_style = L.geoJson(null, {
 		pointToLayer: CityDigitsMap.getMarkerFor_LOC2_CHECK_CASHING,
-		onEachFeature: CityDigitsMap.onEachFeature
+		onEachFeature: CityDigitsMap.onEachFeatureFor_LOCS
 	});
 	this.LOC3_WIRE_TRANSFER_style = L.geoJson(null, {
 		pointToLayer: CityDigitsMap.getMarkerFor_LOC3_WIRE_TRANSFER,
-		onEachFeature: CityDigitsMap.onEachFeature
+		onEachFeature: CityDigitsMap.onEachFeatureFor_LOCS
 	});	
 	this.LOC4_BANKS_style = L.geoJson(null, {
 		pointToLayer: CityDigitsMap.getMarkerFor_LOC4_BANKS,
-		onEachFeature: CityDigitsMap.onEachFeature
+		onEachFeature: CityDigitsMap.onEachFeatureFor_LOCS
 	});	
 	this.LOC5_MCDONALDS_style = L.geoJson(null, {
 		pointToLayer: CityDigitsMap.getMarkerFor_LOC5_MCDONALDS,
-		onEachFeature: CityDigitsMap.onEachFeature
+		onEachFeature: CityDigitsMap.onEachFeatureFor_LOCS
 	});	
 	this.LOC6_SUBWAY_LINES_style = L.geoJson(null, {
 		style: CityDigitsMap.getStyleFor_LOC6_SUBWAY_LINES,
@@ -496,7 +535,7 @@ CityDigitsMap.prototype.loadMarkers = function(){
 	this.LOC2_CHECK_CASHING = omnivore.csv(CheckCashing, null, this.LOC2_CHECK_CASHING_style);
 	this.LOC3_WIRE_TRANSFER = omnivore.csv(MoneyTransferServices, null, this.LOC3_WIRE_TRANSFER_style);
 	this.LOC4_BANKS = omnivore.csv(CommercialBanks, null, this.LOC4_BANKS_style);
-	this.LOC5_MCDONALDS = omnivore.csv(PawnShops, null, this.LOC5_MCDONALDS_style);
+	this.LOC5_MCDONALDS = omnivore.csv(Mcdonalds, null, this.LOC5_MCDONALDS_style);
 	//this.LOC6_SUBWAY_LINES = omnivore.csv(PawnShops, null, this.LOC6_SUBWAY_LINES_style);
 
 }
@@ -557,8 +596,6 @@ CityDigitsMap.getMarkerFor_LOC5_MCDONALDS = function (feature, latlng){
 }
 
 CityDigitsMap.loadLayerFor = function(layerId){
-	// remove all popups first
-	MY_MAP.map.closePopup();
 	
     if(layerId == "MAP1"){
         mainLayer = MY_MAP.MAP1_POP_POVERTY.addTo(MY_MAP.map).bringToBack();
@@ -600,6 +637,9 @@ CityDigitsMap.loadLocationsLayerFor = function(layerId){
 }
 
 CityDigitsMap.removeLayerFor = function(layerId){
+	// remove all popups first
+	MY_MAP.map.closePopup();
+	// then remove layer
 	MY_MAP.map.removeLayer( layerId ); 
 }
 
