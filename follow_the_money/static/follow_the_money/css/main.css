@@ -48,6 +48,7 @@ body {
 .nav-tabs.nav-mapui > li > a {
 	color: #fff;
 	border-radius: 0px;
+	padding: 10px 5px;
 }
 
 .nav-tabs.nav-mapui > li > a:hover,
@@ -96,7 +97,7 @@ body {
     position: absolute;
     left: 15px;
     top: 80px;
-    width: 600px;
+    width: 620px;
     margin: 0 0 0 15px;
     padding: 0;
     z-index: 100;
