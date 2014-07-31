@@ -41,37 +41,37 @@ body {
 	height:100%;
 }
 
-.nav-tabs.nav-justified > li {
+.nav-tabs.nav-mapui > li {
 	background-color: #025ff1;
 }
 
-.nav-tabs.nav-justified > li > a {
+.nav-tabs.nav-mapui > li > a {
 	color: #fff;
 	border-radius: 0px;
 }
 
-.nav-tabs.nav-justified > li > a:hover,
-.nav-tabs.nav-justified > li > a:focus {
+.nav-tabs.nav-mapui > li > a:hover,
+.nav-tabs.nav-mapui > li > a:focus {
 	background-color: #fff;
 	color: #333;
 	border-radius: 0px;
 }
 
-.nav-tabs.nav-justified > .active > a,
-.nav-tabs.nav-justified > .active > a:hover,
-.nav-tabs.nav-justified > .active > a:focus {
+.nav-tabs.nav-mapui > .active > a,
+.nav-tabs.nav-mapui > .active > a:hover,
+.nav-tabs.nav-mapui > .active > a:focus {
 	color: #333;
 }
 
 @media (min-width: 768px) {
-  .nav-tabs.nav-justified > li > a {
+  .nav-tabs.nav-mapui > li > a {
   	color: #fff;
   	border-radius: 0px;
   }
   
-  .nav-tabs.nav-justified > .active > a,
-  .nav-tabs.nav-justified > .active > a:hover,
-  .nav-tabs.nav-justified > .active > a:focus {
+  .nav-tabs.nav-mapui > .active > a,
+  .nav-tabs.nav-mapui > .active > a:hover,
+  .nav-tabs.nav-mapui > .active > a:focus {
   	color: #333;
   }
 }
