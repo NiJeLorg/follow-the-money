@@ -18,7 +18,6 @@ function CityDigitsMap() {
     $("#citydigits-zoomer").on("click","#zoom-in",CityDigitsMap.onZoomIn);
     $("#citydigits-zoomer").on("click","#zoom-out",CityDigitsMap.onZoomOut);
 	
-	
     //set params
     this.height = $(window).height()-$(".navbar").height();
     this.width = $(window).width();
@@ -79,6 +78,16 @@ CityDigitsMap.onZoomIn = function(event){
 CityDigitsMap.onZoomOut = function(event){
     MY_MAP.map.zoomOut();
 }
+
+CityDigitsMap.prototype.addGeoSearch = function(){
+	new L.Control.GeoSearch({
+	    provider: new L.GeoSearch.Provider.Google()
+	}).addTo(this.map);
+	$(".leaflet-control-geosearch").appendTo("#geosearch-target");
+}
+
+
+
 
 CityDigitsMap.onEachFeature_MAP1_POP_POVERTY = function(feature,layer){
     //add on hover -- same on hover and mousemove for each layer
@@ -279,9 +288,7 @@ CityDigitsMap.onEachFeature_MAP4_PCT_FOREIGN_BORN = function(feature,layer){
 
 CityDigitsMap.prototype.loadLayers = function (){
     var self = this;
-    //show map ui nav
-    $("#map-nav").load( RELATIVE_URL + "/map/nav/");
-	
+		
 	// load topoJSON data for neighborhoods
 	// path to neighborhoods defined in index.html django template
 

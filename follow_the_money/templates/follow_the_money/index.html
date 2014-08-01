@@ -175,7 +175,111 @@
 {% block body_block %}
     <div class="row">
         <div class="col-xs-6 col-md-4">
-           <div id="map-nav" class="map-nav map-ui"></div><!-- map-nav -->		  
+           <div id="map-nav" class="map-nav map-ui">
+			<ul class="nav nav-tabs nav-mapui nav-justified" role="tablist">
+			  <li class="active"><a href="#locations" role="tab" data-toggle="tab"><div class="location-button"></div>LOCATIONS</a></li>
+			  <li><a href="#maps" role="tab" data-toggle="tab"><div class="map-button"></div>MAPS</a></li>
+			  <li><a href="#createMap" role="tab" data-toggle="tab"><div class="edit-button"></div>CREATE MAP</a></li>
+			  <li><a href="#media" role="tab" data-toggle="tab"><div class="image-button"></div>MEDIA</a></li>
+			  <li><a href="#search" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-search marginright"></span>SEARCH</a></li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content">
+			  <div class="tab-pane fade in active" id="locations">
+				  <div class="container nav-mapui-width">
+				    <div class="row">
+				      <div class="col-md-6">
+			  			<div class="checkbox">
+			  			  <label>
+			  			    <input name='locations' type="checkbox" id="All_AFS" value="All_AFS">
+			  			    <abbr title="Checking this box will turn on Pawn Shops, Check Cashing and Wire Transfer locations, which are Alternative Financial Services.">Alternative Financial Services</abbr>
+			  			  </label>
+			  			</div>
+						<div class="checkbox">
+						  <label>
+						    <input name='locations' type="checkbox" id="LOC1" value="LOC1">
+						   	Pawn Shops
+						  </label>
+						</div>
+						<div class="checkbox">
+						  <label>
+						    <input name='locations' type="checkbox" id="LOC2" value="LOC2">
+							Check Cashing
+						  </label>
+						</div>
+						<div class="checkbox">
+						  <label>
+						    <input name='locations' type="checkbox" id="LOC3" value="LOC3">
+							Wire Transfer
+						  </label>
+						</div>
+				      </div>
+					  <div class="col-md-6">
+						<div class="checkbox">
+						  <label>
+						    <input name='locations' type="checkbox" id="LOC4" value="LOC4">
+						   	Banks
+						  </label>
+						</div>
+						<div class="checkbox">
+						  <label>
+						    <input name='locations' type="checkbox" id="LOC5" value="LOC5">
+							McDonald's
+						  </label>
+						</div>
+						<div class="checkbox">
+						  <label>
+						    <input name='locations' type="checkbox" id="LOC6" value="LOC6">
+							Subway Lines
+						  </label>
+						</div>
+					  </div>
+				    </div>
+				  </div>
+			  </div>
+			  <div class="tab-pane fade" id="maps">
+			  <div class="container nav-mapui-width">
+			    <div class="row">
+				      <div class="col-md-6">
+						<div class="checkbox">
+						  <label>
+						    <input type="checkbox" name="maps" id="MAP1" value="MAP1_POP_POVERTY" checked>
+						    % Population in Poverty
+						  </label>
+						</div>
+						<div class="checkbox">
+						  <label>
+						    <input type="checkbox" name="maps" id="MAP2" value="MAP2_MED_HH_INCOME">
+						    Median Household Income
+						  </label>
+						</div>
+						<div class="checkbox">
+						  <label>
+						    <input type="checkbox" name="maps" id="MAP3" value="MAP3_PCT_UNEMPLOYED">
+						    % Unemployment
+						  </label>
+						</div>
+				      </div>
+					  <div class="col-md-6">
+						<div class="checkbox">
+						  <label>
+						    <input type="checkbox" name="maps" id="MAP4" value="MAP4_PCT_FOREIGN_BORN">
+						    % Population Foreign Born
+						  </label>
+						</div>
+					  </div>
+			    </div>
+			  </div>
+			  </div>
+			  <div class="tab-pane fade" id="createMap">Under Construction</div>
+		      <div class="tab-pane fade" id="media">Under Construction</div>
+			  <div class="tab-pane fade" id="search">
+				<div id="geosearch-target"></div>
+		      </div>
+			</div>
+           	
+           </div><!-- map-nav -->		  
         </div>
     </div>
     <div id="citydigits-zoomer" class="citydigits-zoomer hidden">
@@ -197,6 +301,8 @@
 	<script type="text/javascript" src="{% static 'follow_the_money/js/d3.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/mapbox.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/leaflet-omnivore.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'follow_the_money/js/l.control.geosearch.js' %}"></script>
+	<script type="text/javascript" src="{% static 'follow_the_money/js/l.geosearch.provider.google.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/accounting.min.js' %}"></script>
 	<!-- set varible for topojson and csv urls -->
 	<script type="text/javascript">
@@ -209,4 +315,5 @@
 	</script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/CityDigitsMap.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/application.js' %}"></script>
+	<script type="text/javascript" src="{% static 'follow_the_money/js/mapnav.js' %}"></script>
 {% endblock %}

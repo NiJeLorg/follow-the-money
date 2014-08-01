@@ -29,13 +29,12 @@ $().ready(new function(){
     //get screen measurements
     SCREEN_HEIGHT =  $(window).height();
     var myMap = new CityDigitsMap();
-    //myMap.resizeMap();
     myMap.loadLayers();
-    //console.log("STARTING LOAD OF MARKERS: " + Date.now());
     myMap.loadMarkers();
-    //console.log("ENDING LOAD OF MARKERS: " + Date.now());
+	myMap.addGeoSearch();
     mainLayer = myMap.neighborhoodLayer;
     MY_MAP = myMap;
+	
 
 });
 

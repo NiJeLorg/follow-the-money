@@ -64,6 +64,10 @@ body {
 	color: #333;
 }
 
+.nav-mapui-width {
+	width: 620px;
+}
+
 @media (min-width: 768px) {
   .nav-tabs.nav-mapui > li > a {
   	color: #fff;
@@ -151,5 +155,16 @@ body {
 
 .leaflet-popup-tip {
 	border-top: 10px solid #3f3f3f;
+}
+
+
+/*
+* Map search box form css
+*/
+
+
+.leaflet-control-geosearch {
+	width: 96.5%;
+	margin: 10px 10px;
 }
 
