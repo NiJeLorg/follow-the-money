@@ -154,6 +154,18 @@
 		.citydigits-zoomer .zoom-out > a:hover {
 			background-image: url({% static 'follow_the_money/img/Zoom_out_hover.png' %});
 		}
+
+		.citydigits-legend .legend > a {
+			float: left;
+			width: 22px;
+			height: 22px;
+			background-image: url({% static 'follow_the_money/img/legend_white.png' %});
+		}
+
+		.citydigits-legend .legend > a:hover {
+			background-image: url({% static 'follow_the_money/img/legend_gray.png' %});
+		}
+	
 		
 		/*
 		* Leaflet override
@@ -290,6 +302,14 @@
       	  <a id="zoom-in" href="#"></a>
 	  	</div>
     </div>
+
+<div id="citydigits-legend" class="citydigits-legend hidden">
+		<div class="legend">
+      	  <a id="legend" href="#"></a>
+	  	</div>
+    </div>
+	
+
 	<div id="map"></div>
 	
 {% endblock %}

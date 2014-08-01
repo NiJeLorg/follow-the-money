@@ -17,6 +17,9 @@ function CityDigitsMap() {
     $("#citydigits-zoomer").attr({'class':'citydigits-zoomer'});
     $("#citydigits-zoomer").on("click","#zoom-in",CityDigitsMap.onZoomIn);
     $("#citydigits-zoomer").on("click","#zoom-out",CityDigitsMap.onZoomOut);
+		
+		//load legend
+		$("#citydigits-legend").attr({'class':'citydigits-legend'});
 	
     //set params
     this.height = $(window).height()-$(".navbar").height();

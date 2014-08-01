@@ -119,6 +119,13 @@ body {
     right: 15px;
 }
 
+.citydigits-legend {
+    position: absolute;
+    z-index: 110;
+    bottom: 30px;
+    right: 15px;
+}
+
 .rollover-tooltip {
     text-align: center;
     font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
