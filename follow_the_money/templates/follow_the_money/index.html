@@ -98,27 +98,59 @@
 		*/
 		
 		.pawnshop-icon {
+			width: 22px;
+			height: 17px;
+			display: inline-block;
 			background-image: url({% static 'follow_the_money/img/pawnshop.png' %});
 		}
 
 		.checkcashing-icon {
+			width: 22px;
+			height: 17px;
+			display: inline-block;
 			background-image: url({% static 'follow_the_money/img/checkcashing.png' %});
 		}
 
 		.wiretransfer-icon {
+			width: 22px;
+			height: 17px;
+			display: inline-block;
 			background-image: url({% static 'follow_the_money/img/wiretransfer.png' %});
 		}
 
 		.afis-icon {
-			background-image: url({% static 'follow_the_money/img/wiretransfer.png' %});
+			width: 22px;
+			height: 17px;
+			display: inline-block;
+			background-image: url({% static 'follow_the_money/img/pawnshop.png' %});
 		}
 
 		.banks-icon {
+			width: 22px;
+			height: 17px;
+			display: inline-block;
 			background-image: url({% static 'follow_the_money/img/bank.png' %});
 		}
 
 		.mcdonalds-icon {
-			background-image: url({% static 'follow_the_money/img/locations_gray.png' %});
+			width: 22px;
+			height: 17px;
+			display: inline-block;
+			background-image: url({% static 'follow_the_money/img/locations_white.png' %});
+		}
+		
+		.squaremiles-icon {
+			width: 22px;
+			height: 17px;
+			display: inline-block;
+			background-image: url({% static 'follow_the_money/img/squaremiles.png' %});
+		}
+		
+		.households-icon {
+			width: 22px;
+			height: 17px;
+			display: inline-block;
+			background-image: url({% static 'follow_the_money/img/households.png' %});
 		}
 		
 		.close-icon-white {
@@ -194,7 +226,7 @@
 			  			<div class="checkbox">
 			  			  <label>
 			  			    <input name='locations' type="checkbox" id="All_AFS" value="All_AFS">
-			  			    <abbr title="Checking this box will turn on Pawn Shops, Check Cashing and Wire Transfer locations, which are Alternative Financial Services.">Alternative Financial Services</abbr>
+			  			    <abbr title="Checking this box will turn on Pawn Shops, Check Cashing and Wire Transfer locations, which are Alternative Financial Insitutions.">Alternative Financial Insitutions</abbr>
 			  			  </label>
 			  			</div>
 						<div class="checkbox">
@@ -277,17 +309,17 @@
 			  	<div class="padding10">	
 			        <form class="form-inline" role="form">
 						<label class="sr-only" for="var1Select">Select Variable One</label>
-	                    <select id="var1Select" data-width="23%" class="selectpicker show-tick form-control">
+	                    <select id="var1Select" data-width="22%" class="selectpicker show-tick form-control">
 	                        <option value="Variable 1" class="grey">Variable 1</option>
 	                        <option value="Pawn Shops">Pawn Shops</option>
-	                        <option value="Alternative Financial Services">Alternative Financial Services</option>
+	                        <option value="Alternative Financial Insitutions">Alternative Financial Insitutions</option>
 	                        <option value="Banks">Banks</option>
 	                        <option value="McDonalds">McDonald's</option>
 	                        <option value="Households">Households</option>
 	                    </select>
 						 / 
 						<label class="sr-only" for="var2Select">Select Variable Two</label>
-	                    <select id="var2Select" data-width="23%" class="selectpicker show-tick form-control">
+	                    <select id="var2Select" data-width="22%" class="selectpicker show-tick form-control">
 	                        <option value="Variable 2" class="grey">Variable 2</option>
 	                    </select>
 						= 
