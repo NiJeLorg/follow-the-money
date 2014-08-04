@@ -616,8 +616,10 @@ CityDigitsMap.onEachFeature_CREATEMAP5_HH_PER_AFI = function(feature,layer){
 		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops + <br />';
 		var checkCashText = '<div class="checkcashing-icon"></div>' + CheckCash + ' Check Cashing + <br />';
 		var moneyTransText = '<div class="wiretransfer-icon"></div>' + MoneyTrans + ' Wire Transfer <br /><br />';
-		if (feature.properties.AFS_Sum == '0') {
+		if (feature.properties.AFS_Sum == 0) {
 			var footer = '<p class="grey">The Ratio is Undefined</p>';
+		} else if (feature.properties.HH_AFS == -1){
+			var footer = '<p class="grey">0.00 Households per Alternative Financial Institution</p>';			
 		} else {
 			var footer = '<p class="grey">' + HH_AFS + ' Households per Alternative Financial Institution</p>';			
 		}
@@ -685,8 +687,10 @@ CityDigitsMap.onEachFeature_CREATEMAP6_HH_PER_BANK = function(feature,layer){
 		var householdsText = '<div class="households-icon"></div>' + Households + ' Households<br />';
 		var hr = '<hr class="divide">';
 		var banksText = '<div class="banks-icon"></div>' + Banks + ' Banks<br /><br />';
-		if (feature.properties.Banks == '0') {
+		if (feature.properties.Banks == 0) {
 			var footer = '<p class="grey">The Ratio is Undefined</p>';
+		} else if (feature.properties.HH_BANK == -1){
+			var footer = '<p class="grey">0.00 Households per Alternative Financial Institution</p>';			
 		} else {
 			var footer = '<p class="grey">' + HH_BANK + ' Households per Bank</p>';			
 		}
@@ -754,8 +758,10 @@ CityDigitsMap.onEachFeature_CREATEMAP7_HH_PER_MCDONALDS = function(feature,layer
 		var householdsText = '<div class="households-icon"></div>' + Households + ' Households<br />';
 		var hr = '<hr class="divide">';
 		var mcDonaldsText = '<div class="mcdonalds-icon"></div>' + McDonalds + ' McDonald\'s<br /><br />';
-		if (feature.properties.McDonalds1 == '0') {
+		if (feature.properties.McDonalds1 == 0) {
 			var footer = '<p class="grey">The Ratio is Undefined</p>';
+		} else if (feature.properties.HH_McD == -1){
+			var footer = '<p class="grey">0.00 Households per McDonald\'s</p>';			
 		} else {
 			var footer = '<p class="grey">' + HH_McD + ' Households per McDonald\'s</p>';			
 		}
@@ -823,12 +829,14 @@ CityDigitsMap.onEachFeature_CREATEMAP8_HH_PER_PAWN_SHOP = function(feature,layer
 		var householdsText = '<div class="households-icon"></div>' + Households + ' Households<br />';
 		var hr = '<hr class="divide">';
 		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops<br /><br />';
-		if (feature.properties.Pawnshops == '0') {
+		if (feature.properties.Pawnshops == 0) {
 			var footer = '<p class="grey">The Ratio is Undefined</p>';
+		} else if (feature.properties.HH_PAWN == -1){
+			var footer = '<p class="grey">0.00 Households per Pawn Shop</p>';			
 		} else {
 			var footer = '<p class="grey">' + HH_PAWN + ' Households per Pawn Shop</p>';			
 		}
-				
+						
 		var popupContent = header + householdsText + hr + pawnShopsText + footer;
 		
 		MY_MAP.popup2.setContent(popupContent);
@@ -900,8 +908,10 @@ CityDigitsMap.onEachFeature_CREATEMAP9_AFIS_PER_BANK = function(feature,layer){
 		var moneyTransText = '<div class="wiretransfer-icon"></div>' + MoneyTrans + ' Wire Transfer <br />';
 		var hr = '<hr class="divide">';
 		var banksText = '<div class="banks-icon"></div>' + Banks + ' Banks<br /><br />';
-		if (feature.properties.Banks == '0') {
+		if (feature.properties.Banks == 0) {
 			var footer = '<p class="grey">The Ratio is Undefined</p>';
+		} else if (feature.properties.AFS_BANK == -1){
+			var footer = '<p class="grey">0.00 Alternative Financial Institutions per Bank</p>';			
 		} else {
 			var footer = '<p class="grey">' + AFS_BANK + ' Alternative Financial Institutions per Bank</p>';			
 		}
@@ -970,17 +980,19 @@ CityDigitsMap.onEachFeature_CREATEMAP10_BANKS_PER_AFI = function(feature,layer){
 		// computed
 		var BANK_AFS = feature.properties.BANK_AFS;
 		BANK_AFS = BANK_AFS.toFixed(2);
-		
+		console.log(BANK_AFS);
 		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.NYC_NEIG + '</h4>';
 		var banksText = '<div class="banks-icon"></div>' + Banks + ' Banks<br />';
 		var hr = '<hr class="divide">';
 		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops + <br />';
 		var checkCashText = '<div class="checkcashing-icon"></div>' + CheckCash + ' Check Cashing + <br />';
 		var moneyTransText = '<div class="wiretransfer-icon"></div>' + MoneyTrans + ' Wire Transfer <br /><br />';
-		if (feature.properties.Banks == '0') {
+		if (feature.properties.AFS_Sum == 0) {
 			var footer = '<p class="grey">The Ratio is Undefined</p>';
+		} else if (feature.properties.BANK_AFS == -1){
+			var footer = '<p class="grey">0.00 Banks per Alternative Financial Institution</p>';			
 		} else {
-			var footer = '<p class="grey">' + BANK_AFS + ' Banks per Alternative Financial Institutions</p>';			
+			var footer = '<p class="grey">' + BANK_AFS + ' Banks per Alternative Financial Institution</p>';			
 		}
 				
 		var popupContent = header + banksText + hr + pawnShopsText + checkCashText + moneyTransText + footer;
@@ -1224,10 +1236,10 @@ CityDigitsMap.getStyleColorFor_CREATEMAP1_AFI_PER_SQMILE = function (feature){
     try{
         var value = feature.properties.AFS_SQMI;
         var fillColor = null;
-        if(value < 0){
+        if(value <= 0){
 			fillColor = "#ffffff";
         }
-        if(value >= 0 && value <= 1){
+        if(value > 0 && value <= 1){
 			fillColor = "#a5f3fa";
         }
         if(value > 1 && value<= 5){
@@ -1294,10 +1306,10 @@ CityDigitsMap.getStyleColorFor_CREATEMAP3_PAWN_SHOPS_PER_SQMILE = function (feat
     try{
         var value = feature.properties.PAWN_SQMI;
         var fillColor = null;
-        if(value < 0){
+        if(value <= 0){
 			fillColor = "#ffffff";
         }
-        if(value >= 0 && value <= 1){
+        if(value > 0 && value <= 1){
 			fillColor = "#a5f3fa";
         }
         if(value > 1 && value<= 5){
@@ -1528,16 +1540,13 @@ CityDigitsMap.getStyleColorFor_CREATEMAP9_AFIS_PER_BANK = function (feature){
     try{
         var value = feature.properties.AFS_BANK;
         var fillColor = null;
-        if(value == -1){
+        if(value == -1 || value == 0){
 			fillColor = "#ffffff";
         }
         if(value == -1000){
 			fillColor = "#9c9c9c";
         }
-        if(value >= 1000){
-			fillColor = "#254aeb";
-        }
-        if(value >= 0 && value <= 0.5){
+        if(value > 0 && value <= 0.5){
 			fillColor = "#a5f3fa";
         }
         if(value > 0.5 && value < 1.0){
@@ -1551,6 +1560,9 @@ CityDigitsMap.getStyleColorFor_CREATEMAP9_AFIS_PER_BANK = function (feature){
         }
         if(value >= 2) { 
 			fillColor = "#178def";
+        }
+        if(value >= 1000){
+			fillColor = "#254aeb";
         }
     }catch (e){
 
@@ -1569,14 +1581,11 @@ CityDigitsMap.getStyleColorFor_CREATEMAP10_BANKS_PER_AFI = function (feature){
     try{
         var value = feature.properties.BANK_AFS;
         var fillColor = null;
-        if(value == -1){
+        if(value == -1 || value == 0){
 			fillColor = "#ffffff";
         }
         if(value == -1000){
 			fillColor = "#9c9c9c";
-        }
-        if(value >= 1000){
-			fillColor = "#254aeb";
         }
         if(value >= 0 && value <= 0.5){
 			fillColor = "#a5f3fa";
@@ -1592,6 +1601,9 @@ CityDigitsMap.getStyleColorFor_CREATEMAP10_BANKS_PER_AFI = function (feature){
         }
         if(value >= 2) { 
 			fillColor = "#178def";
+        }
+        if(value >= 1000){
+			fillColor = "#254aeb";
         }
     }catch (e){
 
