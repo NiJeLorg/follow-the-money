@@ -112,6 +112,78 @@ $( document ).ready(function() {
 		
 				
 	});
+	
+	// Enable Bootstrap-Select
+	$('#var1Select').selectpicker();
+	$('#var1Select').selectpicker('val', 'Variable 1');
+	$('#var2Select').selectpicker();
+	$('#var2Select').selectpicker('val', 'Variable 2');
+	
+	// populate the second dropdown menu based on the first selection and mape map selections
+	$('#var1Select').change(function() {
+	    var value = $(this).val();
+	    switch (value) {
+	    case 'Variable1':
+			$("#var2Select").html("<option value='Variable 2' class='grey'>Variable 2</option>");
+			$("#var2Select").selectpicker('refresh');
+			$("#normalizationText").html('');
+	        break;
+	    case 'Pawn Shops':
+			$("#var2Select").html("<option value='Square Miles'>Square Miles</option>");
+			$("#var2Select").selectpicker('refresh');
+			$("#normalizationText").html('Pawn Shops per Square Mile');			
+	        break;
+	    case 'Alternative Financial Services':
+			$("#var2Select").html("<option value='Banks'>Banks</option><option value='Square Miles'>Square Miles</option>");
+			$("#var2Select").selectpicker('refresh');
+			$("#normalizationText").html('Alternative Financial Services per Bank');			
+	        break;
+	    case 'Banks':
+			$("#var2Select").html("<option value='Alternative Financial Services'>Alternative Financial Services</option><option value='Square Miles'>Square Miles</option>");
+			$("#var2Select").selectpicker('refresh');
+			$("#normalizationText").html('Banks per Alternative Financial Service');			
+	        break;
+	    case 'McDonalds':
+			$("#var2Select").html("<option value='Square Miles'>Square Miles</option>");
+			$("#var2Select").selectpicker('refresh');
+			$("#normalizationText").html('McDonald\'s per Square Mile');			
+	        break;
+	    case 'Households':
+			$("#var2Select").html("<option value='Banks'>Banks</option><option value='Alternative Financial Services'>Alternative Financial Services</option><option value='Pawn Shops'>Pawn Shops</option><option value='McDonalds'>McDonald's</option>");
+			$("#var2Select").selectpicker('refresh');
+			$("#normalizationText").html('Households per Bank');			
+	        break;
+	    }
+	});
+
+	// change map selections based on change and change normalizationText
+	$('#var2Select').change(function() {
+	    var value = $(this).val();
+		var firstValue = $( "#var1Select" ).val(); // get value of first selection
+		
+	    switch (value) {
+	    case 'Variable 2':
+			$("#normalizationText").html('');
+	        break;
+	    case 'Square Miles':
+			$("#normalizationText").html(firstValue + ' per Square Mile');			
+	        break;
+	    case 'Alternative Financial Services':
+			$("#normalizationText").html(firstValue + ' per Alternative Financial Service');			
+	        break;
+	    case 'Banks':
+			$("#normalizationText").html(firstValue + ' per Bank');			
+	        break;
+	    case 'McDonalds':
+			$("#normalizationText").html(firstValue + ' per McDonald\'s');			
+	        break;
+	    case 'Pawn Shops':
+			$("#normalizationText").html(firstValue + ' per Pawn Shop');			
+	        break;
+	    }
+	});
+
+
 
 });
 

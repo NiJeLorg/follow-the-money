@@ -2,7 +2,8 @@
 {% load staticfiles %}
 
 {% block css_block %}
-    <link rel="stylesheet" type="text/css" href="{% static 'follow_the_money/css/bootstrap.min.css' %}">	
+    <link rel="stylesheet" type="text/css" href="{% static 'follow_the_money/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'follow_the_money/css/bootstrap-select.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'follow_the_money/css/mapbox.css' %}">	
     <link rel="stylesheet" type="text/css" href="{% static 'follow_the_money/css/main.css' %}">
 	<!-- style embedded in django template for static file usage -->
@@ -272,7 +273,28 @@
 			    </div>
 			  </div>
 			  </div>
-			  <div class="tab-pane fade" id="createMap">Under Construction</div>
+			  <div class="tab-pane fade" id="createMap">
+			  	<div class="padding10">	
+			        <form class="form-inline" role="form">
+						<label class="sr-only" for="var1Select">Select Variable One</label>
+	                    <select id="var1Select" data-width="23%" class="selectpicker show-tick form-control">
+	                        <option value="Variable 1" class="grey">Variable 1</option>
+	                        <option value="Pawn Shops">Pawn Shops</option>
+	                        <option value="Alternative Financial Services">Alternative Financial Services</option>
+	                        <option value="Banks">Banks</option>
+	                        <option value="McDonalds">McDonald's</option>
+	                        <option value="Households">Households</option>
+	                    </select>
+						 / 
+						<label class="sr-only" for="var2Select">Select Variable Two</label>
+	                    <select id="var2Select" data-width="23%" class="selectpicker show-tick form-control">
+	                        <option value="Variable 2" class="grey">Variable 2</option>
+	                    </select>
+						= 
+						<label id="normalizationText" class="lowFontWeight"></label>
+			        <form>
+				</div>
+			  </div>
 		      <div class="tab-pane fade" id="media">Under Construction</div>
 			  <div class="tab-pane fade" id="search">
 				<div id="geosearch-target"></div>
@@ -298,6 +320,7 @@
 {% block js_block %}
 	<script type="text/javascript" src="{% static 'follow_the_money/js/jquery-1.11.1.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'follow_the_money/js/bootstrap-select.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/d3.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/mapbox.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/leaflet-omnivore.min.js' %}"></script>
