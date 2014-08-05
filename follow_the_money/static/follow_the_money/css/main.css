@@ -135,11 +135,19 @@ body {
     right: 15px;
 }
 
+
 .citydigits-charts {
     position: absolute;
     z-index: 110;
     bottom: 15px;
     left: 15px;
+}
+
+.citydigits-legend {
+    position: absolute;
+    z-index: 110;
+    bottom: 15px;
+    right: 15px;
 }
 
 .rollover-tooltip {
@@ -192,7 +200,6 @@ body {
 }
 
 
-
 /*
 * bar chart css
 */
@@ -226,5 +233,4 @@ body {
 .x.axis path {
   display: none;
 }
-
 

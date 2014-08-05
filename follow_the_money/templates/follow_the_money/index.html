@@ -187,6 +187,114 @@
 		.citydigits-zoomer .zoom-out > a:hover {
 			background-image: url({% static 'follow_the_money/img/Zoom_out_hover.png' %});
 		}
+
+		.citydigits-legend .legend > a {
+			float: left;
+			width: 39px;
+			height: 36px;
+			background-image: url({% static 'follow_the_money/img/legendbutton_white.png' %});
+		}
+
+		.citydigits-legend .legend > a:hover {
+			background-image: url({% static 'follow_the_money/img/legendbutton_gray.png' %});
+		}
+
+		.citydigits-legend .legendpoverty > a {
+			float: left;
+			width: 200px;
+			height: 188px;
+			background-image: url({% static 'follow_the_money/img/legend_poverty.png' %});
+		}
+
+		.citydigits-legend .legendmedhhinc > a {
+			float: left;
+			width: 200px;
+			height: 225px;
+			background-image: url({% static 'follow_the_money/img/legend_medhhincome.png' %});
+		}
+
+		.citydigits-legend .legendunemploy > a {
+			float: left;
+			width: 200px;
+			height: 189px;
+			background-image: url({% static 'follow_the_money/img/legend_unemploy.png' %});
+		}
+
+		.citydigits-legend .legendforeignborn > a {
+			float: left;
+			width: 200px;
+			height: 189px;
+			background-image: url({% static 'follow_the_money/img/legend_foreignborn.png' %});
+		}
+
+		.citydigits-legend .legendAFIpersqmi > a {
+			float: left;
+			width: 200px;
+			height: 189px;
+			background-image: url({% static 'follow_the_money/img/legend_AFIsq.png' %});
+		}
+
+		.citydigits-legend .legendbankspersqmi > a {
+			float: left;
+			width: 200px;
+			height: 174px;
+			background-image: url({% static 'follow_the_money/img/legend_banks_sq.png' %});
+		}
+
+		.citydigits-legend .legendpawnsqmi > a {
+			float: left;
+			width: 200px;
+			height: 175px;
+			background-image: url({% static 'follow_the_money/img/legend_pawn_sq.png' %});
+		}
+
+		.citydigits-legend .legendmcdonaldspersqi > a {
+			float: left;
+			width: 200px;
+			height: 174px;
+			background-image: url({% static 'follow_the_money/img/legend_mcdonalds_sq.png' %});
+		}
+
+		.citydigits-legend .legendhouseholdsperAFI > a {
+			float: left;
+			width: 200px;
+			height: 265px;
+			background-image: url({% static 'follow_the_money/img/legend_households_perAFI.png' %});
+		}
+
+		.citydigits-legend .legendhouseholdsperbank > a {
+			float: left;
+			width: 200px;
+			height: 249px;
+			background-image: url({% static 'follow_the_money/img/legend_households_perbank.png' %});
+		}
+		.citydigits-legend .legendhouseholdsperMcD > a {
+			float: left;
+			width: 200px;
+			height: 249px;
+			background-image: url({% static 'follow_the_money/img/legend_households_permcD.png' %});
+		}
+
+		.citydigits-legend .legendhouseholdsperpawn > a {
+			float: left;
+			width: 200px;
+			height: 248px;
+			background-image: url({% static 'follow_the_money/img/legend_households_perpawn.png' %});
+		}
+
+		.citydigits-legend .legendAFIsperbank > a {
+			float: left;
+			width: 200px;
+			height: 233px;
+			background-image: url({% static 'follow_the_money/img/legend_AFI_perbank.png' %});
+		}
+
+		.citydigits-legend .legendbanksperAFIs > a {
+			float: left;
+			width: 200px;
+			height: 235px;
+			background-image: url({% static 'follow_the_money/img/legend_banks_perAFI.png' %});
+		}
 		
 		/*
 		* corner icons
@@ -363,6 +471,11 @@
     <div id="citydigits-charts" class="citydigits-charts hidden">
 		<div id="chartid" class="chart-icon">
       	  <a id="chart" href="#"></a>
+	  	</div>
+    </div>
+	<div id="citydigits-legend" class="citydigits-legend hidden">
+		<div id= "legendid" class="legend">
+      	  <a id="legend" href="#"></a>
 	  	</div>
     </div>
 	<div id="map"></div>

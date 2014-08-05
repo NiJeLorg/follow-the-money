@@ -20,6 +20,9 @@ function CityDigitsMap() {
 
     //load chart-icon
     $("#citydigits-charts").attr({'class':'citydigits-charts'});
+
+	//load legend
+	$("#citydigits-legend").attr({'class':'citydigits-legend'});
 	
     //set params
     this.height = $(window).height()-$(".navbar").height();
@@ -1089,11 +1092,10 @@ CityDigitsMap.prototype.loadLayers = function (){
 	this.CREATEMAP10_BANKS_PER_AFI = omnivore.topojson(neighborhoods, null, this.CREATEMAP10_BANKS_PER_AFI_style);
 	
 	//start with value population in poverty for initial load
-    this.neighborhoodLayer = this.MAP1_POP_POVERTY;
-	this.neighborhoodLayer._leaflet_id = 'MAP1_POP_POVERTY';
-	this.neighborhoodLayer.addTo(this.map);
-		
-
+	this.neighborhoodLayer = this.MAP1_POP_POVERTY;
+	this.neighborhoodLayer._leaflet_id = 'legendpoverty';
+	this.neighborhoodLayer.addTo(this.map).bringToBack();
+	
 }
 
 
@@ -1767,46 +1769,75 @@ CityDigitsMap.getMarkerFor_LOC5_MCDONALDS = function (feature, latlng){
 CityDigitsMap.loadLayerFor = function(layerId){
 	
     if(layerId == "MAP1"){
-        mainLayer = MY_MAP.MAP1_POP_POVERTY.addTo(MY_MAP.map).bringToBack();
-    }	
+        mainLayer = MY_MAP.MAP1_POP_POVERTY;
+			  mainLayer._leaflet_id = 'legendpoverty';
+			  mainLayer.addTo(MY_MAP.map).bringToBack();
+	 }	
     if(layerId == "MAP2"){
-        mainLayer = MY_MAP.MAP2_MED_HH_INCOME.addTo(MY_MAP.map).bringToBack();
+        mainLayer = MY_MAP.MAP2_MED_HH_INCOME;
+			  mainLayer._leaflet_id = 'legendmedhhinc';
+			  mainLayer.addTo(MY_MAP.map).bringToBack();
     }	
     if(layerId == "MAP3"){
-        mainLayer = MY_MAP.MAP3_PCT_UNEMPLOYED.addTo(MY_MAP.map).bringToBack();
-    }	
+        mainLayer = MY_MAP.MAP3_PCT_UNEMPLOYED;
+			  mainLayer._leaflet_id = 'legendunemploy';
+			  mainLayer.addTo(MY_MAP.map).bringToBack();
+		}	
     if(layerId == "MAP4"){
-        mainLayer = MY_MAP.MAP4_PCT_FOREIGN_BORN.addTo(MY_MAP.map).bringToBack();
-    }
+        mainLayer = MY_MAP.MAP4_PCT_FOREIGN_BORN;
+			  mainLayer._leaflet_id = 'legendforeignborn';
+			  mainLayer.addTo(MY_MAP.map).bringToBack();
+    
+		}
     if(layerId == "CREATEMAP1"){
-        mainLayer = MY_MAP.CREATEMAP1_AFI_PER_SQMILE.addTo(MY_MAP.map).bringToBack();
+        mainLayer = MY_MAP.CREATEMAP1_AFI_PER_SQMILE;
+			  mainLayer._leaflet_id = 'legendAFIpersqmi';
+			  mainLayer.addTo(MY_MAP.map).bringToBack();
     }
     if(layerId == "CREATEMAP2"){
-        mainLayer = MY_MAP.CREATEMAP2_BANKS_PER_SQMILE.addTo(MY_MAP.map).bringToBack();
+        mainLayer = MY_MAP.CREATEMAP2_BANKS_PER_SQMILE;
+			 mainLayer._leaflet_id = 'legendbankspersqmi';
+			 mainLayer.addTo(MY_MAP.map).bringToBack();
     }
     if(layerId == "CREATEMAP3"){
-        mainLayer = MY_MAP.CREATEMAP3_PAWN_SHOPS_PER_SQMILE.addTo(MY_MAP.map).bringToBack();
+        mainLayer = MY_MAP.CREATEMAP3_PAWN_SHOPS_PER_SQMILE;
+		    mainLayer._leaflet_id = 'legendpawnsqmi';
+		    mainLayer.addTo(MY_MAP.map).bringToBack();
     }
     if(layerId == "CREATEMAP4"){
-        mainLayer = MY_MAP.CREATEMAP4_MCDONALDS_PER_SQMILE.addTo(MY_MAP.map).bringToBack();
+        mainLayer = MY_MAP.CREATEMAP4_MCDONALDS_PER_SQMILE;
+			  mainLayer._leaflet_id = 'legendmcdonaldspersqi';
+				mainLayer.addTo(MY_MAP.map).bringToBack();
     }
     if(layerId == "CREATEMAP5"){
-        mainLayer = MY_MAP.CREATEMAP5_HH_PER_AFI.addTo(MY_MAP.map).bringToBack();
+        mainLayer = MY_MAP.CREATEMAP5_HH_PER_AFI;
+			  mainLayer._leaflet_id = 'legendhouseholdsperAFI';
+			  mainLayer.addTo(MY_MAP.map).bringToBack();
     }
     if(layerId == "CREATEMAP6"){
-        mainLayer = MY_MAP.CREATEMAP6_HH_PER_BANK.addTo(MY_MAP.map).bringToBack();
+        mainLayer = MY_MAP.CREATEMAP6_HH_PER_BANK;
+		  	mainLayer._leaflet_id = 'legendhouseholdsperbank';
+			  mainLayer.addTo(MY_MAP.map).bringToBack();
     }
     if(layerId == "CREATEMAP7"){
-        mainLayer = MY_MAP.CREATEMAP7_HH_PER_MCDONALDS.addTo(MY_MAP.map).bringToBack();
+        mainLayer = MY_MAP.CREATEMAP7_HH_PER_MCDONALDS;
+				mainLayer._leaflet_id = 'legendhouseholdsperMcD';
+				mainLayer.addTo(MY_MAP.map).bringToBack();
     }
     if(layerId == "CREATEMAP8"){
-        mainLayer = MY_MAP.CREATEMAP8_HH_PER_PAWN_SHOP.addTo(MY_MAP.map).bringToBack();
+        mainLayer = MY_MAP.CREATEMAP8_HH_PER_PAWN_SHOP;
+				mainLayer._leaflet_id = 'legendhouseholdsperpawn';
+				mainLayer.addTo(MY_MAP.map).bringToBack();
     }
     if(layerId == "CREATEMAP9"){
-        mainLayer = MY_MAP.CREATEMAP9_AFIS_PER_BANK.addTo(MY_MAP.map).bringToBack();
+        mainLayer = MY_MAP.CREATEMAP9_AFIS_PER_BANK;
+				mainLayer._leaflet_id = 'legendAFIsperbank';
+				mainLayer.addTo(MY_MAP.map).bringToBack();
     }
     if(layerId == "CREATEMAP10"){
-        mainLayer = MY_MAP.CREATEMAP10_BANKS_PER_AFI.addTo(MY_MAP.map).bringToBack();
+        mainLayer = MY_MAP.CREATEMAP10_BANKS_PER_AFI;
+				mainLayer._leaflet_id = 'legendbanksperAFIs';
+				mainLayer.addTo(MY_MAP.map).bringToBack();
     }
 
 }
