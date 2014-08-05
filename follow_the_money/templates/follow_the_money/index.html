@@ -189,6 +189,22 @@
 		}
 		
 		/*
+		* corner icons
+		*/
+		
+		.citydigits-charts .chart-icon > a {
+			float: left;
+			width: 28px;
+			height: 32px;
+			background-image: url({% static 'follow_the_money/img/chart_white.png' %});
+		}
+
+		.citydigits-charts .chart-icon > a:hover {
+			background-image: url({% static 'follow_the_money/img/chart_gray.png' %});
+		}
+		
+		
+		/*
 		* Leaflet override
 		*/		
 		
@@ -344,6 +360,11 @@
       	  <a id="zoom-in" href="#"></a>
 	  	</div>
     </div>
+    <div id="citydigits-charts" class="citydigits-charts hidden">
+		<div id="chartid" class="chart-icon">
+      	  <a id="chart" href="#"></a>
+	  	</div>
+    </div>
 	<div id="map"></div>
 	
 {% endblock %}
@@ -356,6 +377,7 @@
 	<script type="text/javascript" src="{% static 'follow_the_money/js/d3.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/mapbox.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/leaflet-omnivore.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'follow_the_money/js/topojson.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/l.control.geosearch.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/l.geosearch.provider.google.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/accounting.min.js' %}"></script>

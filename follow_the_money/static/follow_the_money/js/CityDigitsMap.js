@@ -17,6 +17,9 @@ function CityDigitsMap() {
     $("#citydigits-zoomer").attr({'class':'citydigits-zoomer'});
     $("#citydigits-zoomer").on("click","#zoom-in",CityDigitsMap.onZoomIn);
     $("#citydigits-zoomer").on("click","#zoom-out",CityDigitsMap.onZoomOut);
+
+    //load chart-icon
+    $("#citydigits-charts").attr({'class':'citydigits-charts'});
 	
     //set params
     this.height = $(window).height()-$(".navbar").height();
@@ -1086,7 +1089,9 @@ CityDigitsMap.prototype.loadLayers = function (){
 	this.CREATEMAP10_BANKS_PER_AFI = omnivore.topojson(neighborhoods, null, this.CREATEMAP10_BANKS_PER_AFI_style);
 	
 	//start with value population in poverty for initial load
-    this.neighborhoodLayer = this.MAP1_POP_POVERTY.addTo(this.map);
+    this.neighborhoodLayer = this.MAP1_POP_POVERTY;
+	this.neighborhoodLayer._leaflet_id = 'MAP1_POP_POVERTY';
+	this.neighborhoodLayer.addTo(this.map);
 		
 
 }
@@ -1835,6 +1840,75 @@ CityDigitsMap.removeLayerFor = function(layerId){
 	MY_MAP.map.closePopup();
 	// then remove layer
 	MY_MAP.map.removeLayer( layerId ); 
+}
+
+CityDigitsMap.drawChart = function(layerId){
+	var margin = {top: 20, right: 20, bottom: 30, left: 40},
+	    width = 500 - margin.left - margin.right,
+	    height = 400 - margin.top - margin.bottom;
+	
+	var x = d3.scale.ordinal()
+	    .rangeRoundBands([0, width], .1);
+
+	var y = d3.scale.linear()
+	    .range([height, 0]);
+
+	var xAxis = d3.svg.axis()
+	    .scale(x)
+	    .orient("bottom");
+
+	var yAxis = d3.svg.axis()
+	    .scale(y)
+	    .orient("left")
+	    .ticks(10);
+		
+	// change class of 
+
+	var svg = d3.select("#chart").append("svg")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+	  .append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		
+	d3.json(neighborhoods, function(error, data) {
+	  var openedTopoJson = topojson.feature(data, data.objects.all_map_data_boundariesfixed_july22).features;
+	  x.domain(openedTopoJson.map(function(d) { return d.properties.NYC_NEIG; }));
+	  y.domain([0, d3.max(openedTopoJson, function(d) { return d.properties.PovertyPer; })]);
+
+	  svg.append("g")
+	      .attr("class", "x axis")
+	      .attr("transform", "translate(0," + height + ")")
+	      .call(xAxis);
+
+	  svg.append("g")
+	      .attr("class", "y axis")
+	      .call(yAxis)
+	    .append("text")
+	      .attr("transform", "rotate(-90)")
+	      .attr("y", 6)
+	      .attr("dy", ".71em")
+	      .style("text-anchor", "end")
+	      .text("");
+
+	  svg.selectAll(".bar")
+	      .data(openedTopoJson)
+	    .enter().append("rect")
+	      .attr("class", "bar")
+	      .attr("x", function(d) { return x(d.properties.NYC_NEIG); })
+	      .attr("width", x.rangeBand())
+	      .attr("y", function(d) { return y(d.properties.PovertyPer); })
+	      .attr("height", function(d) { return height - y(d.properties.PovertyPer); });
+
+	});
+	
+
+	mainChart = 23;
+}
+
+CityDigitsMap.removeChart = function(layerId){
+	console.log('remove');
+	mainChart = null;
+	
 }
 
 

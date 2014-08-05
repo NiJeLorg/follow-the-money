@@ -135,6 +135,13 @@ body {
     right: 15px;
 }
 
+.citydigits-charts {
+    position: absolute;
+    z-index: 110;
+    bottom: 15px;
+    left: 15px;
+}
+
 .rollover-tooltip {
     text-align: center;
     font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
@@ -183,4 +190,41 @@ body {
 	width: 96.5%;
 	margin: 10px 10px;
 }
+
+
+
+/*
+* bar chart css
+*/
+
+.citydigits-charts .chartDiv {
+	width: 500px;
+	height: 400px;
+	background: none repeat scroll 0 0 #fff;
+	box-shadow: 5px 5px 15px;
+}
+
+.bar {
+  fill: #62def8;
+}
+
+.bar:hover {
+  fill: #9c9c9c;
+}
+
+.axis {
+  font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
 

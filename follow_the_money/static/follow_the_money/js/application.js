@@ -10,6 +10,7 @@
 var map_popups = [];
 var open_tooltips = [];
 var mainLayer = null;
+var mainChart = null;
 var LOC1 = null;
 var LOC2 = null;
 var LOC3 = null;
