@@ -190,14 +190,24 @@
 
 		.citydigits-legend .legend > a {
 			float: left;
-			width: 22px;
-			height: 22px;
-			background-image: url({% static 'follow_the_money/img/legend_white.png' %});
+			width: 39px;
+			height: 36px;
+			background-image: url({% static 'follow_the_money/img/legendbutton_white.png' %});
 		}
 
 		.citydigits-legend .legend > a:hover {
-			background-image: url({% static 'follow_the_money/img/legend_gray.png' %});
+			background-image: url({% static 'follow_the_money/img/legendbutton_gray.png' %});
 		}
+
+		.citydigits-legend .legendAFI > a {
+			float: left;
+			width: 200px;
+			height: 190px;
+			background-image: url({% static 'follow_the_money/img/legend_AFIsm.png' %});
+		}
+
+
+		
 	
 		
 		/*
@@ -358,7 +368,7 @@
     </div>
 
 <div id="citydigits-legend" class="citydigits-legend hidden">
-		<div class="legend">
+		<div id= "legendid" class="legend">
       	  <a id="legend" href="#"></a>
 	  	</div>
     </div>

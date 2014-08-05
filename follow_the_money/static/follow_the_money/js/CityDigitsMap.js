@@ -1089,7 +1089,10 @@ CityDigitsMap.prototype.loadLayers = function (){
 	this.CREATEMAP10_BANKS_PER_AFI = omnivore.topojson(neighborhoods, null, this.CREATEMAP10_BANKS_PER_AFI_style);
 	
 	//start with value population in poverty for initial load
-    this.neighborhoodLayer = this.MAP1_POP_POVERTY.addTo(this.map);
+			  this.neighborhoodLayer = this.MAP1_POP_POVERTY;
+			  this.neighborhoodLayer._leaflet_id = 'legendAFI';
+			  this.neighborhoodLayer.addTo(this.map).bringToBack();
+		
 		
 
 }
@@ -1765,8 +1768,10 @@ CityDigitsMap.getMarkerFor_LOC5_MCDONALDS = function (feature, latlng){
 CityDigitsMap.loadLayerFor = function(layerId){
 	
     if(layerId == "MAP1"){
-        mainLayer = MY_MAP.MAP1_POP_POVERTY.addTo(MY_MAP.map).bringToBack();
-    }	
+        mainLayer = MY_MAP.MAP1_POP_POVERTY;
+			  mainLayer._leaflet_id = 'legendAFI';
+			  mainLayer.addTo(MY_MAP.map).bringToBack();
+	 }	
     if(layerId == "MAP2"){
         mainLayer = MY_MAP.MAP2_MED_HH_INCOME.addTo(MY_MAP.map).bringToBack();
     }	
