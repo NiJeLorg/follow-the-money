@@ -187,15 +187,19 @@
 		.citydigits-zoomer .zoom-out > a:hover {
 			background-image: url({% static 'follow_the_money/img/Zoom_out_hover.png' %});
 		}
+		
+		/*
+		* corner icons
+		*/
 
-		.citydigits-legend .legend > a {
+		.citydigits-legend .legendClosed > a {
 			float: left;
 			width: 39px;
 			height: 36px;
 			background-image: url({% static 'follow_the_money/img/legendbutton_white.png' %});
 		}
 
-		.citydigits-legend .legend > a:hover {
+		.citydigits-legend .legendClosed > a:hover {
 			background-image: url({% static 'follow_the_money/img/legendbutton_gray.png' %});
 		}
 
@@ -295,20 +299,16 @@
 			height: 235px;
 			background-image: url({% static 'follow_the_money/img/legend_banks_perAFI.png' %});
 		}
-		
-		/*
-		* corner icons
-		*/
-		
+				
 		.citydigits-charts .chart-icon > a {
 			float: left;
-			width: 28px;
-			height: 32px;
-			background-image: url({% static 'follow_the_money/img/chart_white.png' %});
+			width: 39px;
+			height: 36px;
+			background-image: url({% static 'follow_the_money/img/chart_whitebutton.png' %});
 		}
 
 		.citydigits-charts .chart-icon > a:hover {
-			background-image: url({% static 'follow_the_money/img/chart_gray.png' %});
+			background-image: url({% static 'follow_the_money/img/chart_graybutton.png' %});
 		}
 		
 		
@@ -474,7 +474,7 @@
 	  	</div>
     </div>
 	<div id="citydigits-legend" class="citydigits-legend hidden">
-		<div id= "legendid" class="legend">
+		<div id= "legendid" class="legendClosed">
       	  <a id="legend" href="#"></a>
 	  	</div>
     </div>

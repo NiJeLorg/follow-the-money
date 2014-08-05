@@ -270,13 +270,13 @@ $( document ).ready(function() {
 
 	//allow legend button to be clicked and show legend
 	$('#legend').click(function() {
-		var mapid = (mainLayer._leaflet_id);
-		if ($( "#legendid" ).hasClass( "legend" )) {
+		var mapid = mainLayer._leaflet_id;
+		if ($( "#legendid" ).hasClass( "legendClosed" )) {
 			// change to legend AFI
 			$('#legendid').attr('class', mapid);	
 		} else {
 			//Switch back to legend
-			$('#legendid').attr('class', 'legend');	
+			$('#legendid').attr('class', 'legendClosed');	
 		}
 	});
 

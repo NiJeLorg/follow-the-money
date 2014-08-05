@@ -1770,74 +1770,158 @@ CityDigitsMap.loadLayerFor = function(layerId){
 	
     if(layerId == "MAP1"){
         mainLayer = MY_MAP.MAP1_POP_POVERTY;
-			  mainLayer._leaflet_id = 'legendpoverty';
-			  mainLayer.addTo(MY_MAP.map).bringToBack();
+		mainLayer._leaflet_id = 'legendpoverty';
+		mainLayer.addTo(MY_MAP.map).bringToBack();
+		if ($( "#legendid" ).hasClass( "legendClosed" )) {
+			// do nothing
+		} else {
+			// change to
+			$('#legendid').attr('class', mainLayer._leaflet_id);	
+		}
 	 }	
     if(layerId == "MAP2"){
         mainLayer = MY_MAP.MAP2_MED_HH_INCOME;
 			  mainLayer._leaflet_id = 'legendmedhhinc';
 			  mainLayer.addTo(MY_MAP.map).bringToBack();
+	  		if ($( "#legendid" ).hasClass( "legendClosed" )) {
+	  			// do nothing
+	  		} else {
+	  			// change to
+	  			$('#legendid').attr('class', mainLayer._leaflet_id);	
+	  		}
     }	
     if(layerId == "MAP3"){
         mainLayer = MY_MAP.MAP3_PCT_UNEMPLOYED;
 			  mainLayer._leaflet_id = 'legendunemploy';
 			  mainLayer.addTo(MY_MAP.map).bringToBack();
+	  		if ($( "#legendid" ).hasClass( "legendClosed" )) {
+	  			// do nothing
+	  		} else {
+	  			// change to
+	  			$('#legendid').attr('class', mainLayer._leaflet_id);	
+	  		}
 		}	
     if(layerId == "MAP4"){
         mainLayer = MY_MAP.MAP4_PCT_FOREIGN_BORN;
 			  mainLayer._leaflet_id = 'legendforeignborn';
 			  mainLayer.addTo(MY_MAP.map).bringToBack();
     
+	  		if ($( "#legendid" ).hasClass( "legendClosed" )) {
+	  			// do nothing
+	  		} else {
+	  			// change to
+	  			$('#legendid').attr('class', mainLayer._leaflet_id);	
+	  		}
 		}
     if(layerId == "CREATEMAP1"){
         mainLayer = MY_MAP.CREATEMAP1_AFI_PER_SQMILE;
 			  mainLayer._leaflet_id = 'legendAFIpersqmi';
 			  mainLayer.addTo(MY_MAP.map).bringToBack();
+	  		if ($( "#legendid" ).hasClass( "legendClosed" )) {
+	  			// do nothing
+	  		} else {
+	  			// change to
+	  			$('#legendid').attr('class', mainLayer._leaflet_id);	
+	  		}
     }
     if(layerId == "CREATEMAP2"){
         mainLayer = MY_MAP.CREATEMAP2_BANKS_PER_SQMILE;
 			 mainLayer._leaflet_id = 'legendbankspersqmi';
 			 mainLayer.addTo(MY_MAP.map).bringToBack();
+	 		if ($( "#legendid" ).hasClass( "legendClosed" )) {
+	 			// do nothing
+	 		} else {
+	 			// change to
+	 			$('#legendid').attr('class', mainLayer._leaflet_id);	
+	 		}
     }
     if(layerId == "CREATEMAP3"){
         mainLayer = MY_MAP.CREATEMAP3_PAWN_SHOPS_PER_SQMILE;
 		    mainLayer._leaflet_id = 'legendpawnsqmi';
 		    mainLayer.addTo(MY_MAP.map).bringToBack();
+			if ($( "#legendid" ).hasClass( "legendClosed" )) {
+				// do nothing
+			} else {
+				// change to
+				$('#legendid').attr('class', mainLayer._leaflet_id);	
+			}
     }
     if(layerId == "CREATEMAP4"){
         mainLayer = MY_MAP.CREATEMAP4_MCDONALDS_PER_SQMILE;
 			  mainLayer._leaflet_id = 'legendmcdonaldspersqi';
 				mainLayer.addTo(MY_MAP.map).bringToBack();
+				if ($( "#legendid" ).hasClass( "legendClosed" )) {
+					// do nothing
+				} else {
+					// change to
+					$('#legendid').attr('class', mainLayer._leaflet_id);	
+				}
     }
     if(layerId == "CREATEMAP5"){
         mainLayer = MY_MAP.CREATEMAP5_HH_PER_AFI;
 			  mainLayer._leaflet_id = 'legendhouseholdsperAFI';
 			  mainLayer.addTo(MY_MAP.map).bringToBack();
+	  		if ($( "#legendid" ).hasClass( "legendClosed" )) {
+	  			// do nothing
+	  		} else {
+	  			// change to
+	  			$('#legendid').attr('class', mainLayer._leaflet_id);	
+	  		}
     }
     if(layerId == "CREATEMAP6"){
         mainLayer = MY_MAP.CREATEMAP6_HH_PER_BANK;
 		  	mainLayer._leaflet_id = 'legendhouseholdsperbank';
 			  mainLayer.addTo(MY_MAP.map).bringToBack();
+	  		if ($( "#legendid" ).hasClass( "legendClosed" )) {
+	  			// do nothing
+	  		} else {
+	  			// change to
+	  			$('#legendid').attr('class', mainLayer._leaflet_id);	
+	  		}
     }
     if(layerId == "CREATEMAP7"){
         mainLayer = MY_MAP.CREATEMAP7_HH_PER_MCDONALDS;
 				mainLayer._leaflet_id = 'legendhouseholdsperMcD';
 				mainLayer.addTo(MY_MAP.map).bringToBack();
+				if ($( "#legendid" ).hasClass( "legendClosed" )) {
+					// do nothing
+				} else {
+					// change to
+					$('#legendid').attr('class', mainLayer._leaflet_id);	
+				}
     }
     if(layerId == "CREATEMAP8"){
         mainLayer = MY_MAP.CREATEMAP8_HH_PER_PAWN_SHOP;
 				mainLayer._leaflet_id = 'legendhouseholdsperpawn';
 				mainLayer.addTo(MY_MAP.map).bringToBack();
+				if ($( "#legendid" ).hasClass( "legendClosed" )) {
+					// do nothing
+				} else {
+					// change to
+					$('#legendid').attr('class', mainLayer._leaflet_id);	
+				}
     }
     if(layerId == "CREATEMAP9"){
         mainLayer = MY_MAP.CREATEMAP9_AFIS_PER_BANK;
 				mainLayer._leaflet_id = 'legendAFIsperbank';
 				mainLayer.addTo(MY_MAP.map).bringToBack();
+				if ($( "#legendid" ).hasClass( "legendClosed" )) {
+					// do nothing
+				} else {
+					// change to
+					$('#legendid').attr('class', mainLayer._leaflet_id);	
+				}
     }
     if(layerId == "CREATEMAP10"){
         mainLayer = MY_MAP.CREATEMAP10_BANKS_PER_AFI;
 				mainLayer._leaflet_id = 'legendbanksperAFIs';
 				mainLayer.addTo(MY_MAP.map).bringToBack();
+				if ($( "#legendid" ).hasClass( "legendClosed" )) {
+					// do nothing
+				} else {
+					// change to
+					$('#legendid').attr('class', mainLayer._leaflet_id);	
+				}
     }
 
 }
@@ -1893,11 +1977,13 @@ CityDigitsMap.drawChart = function(layerId){
 	    .orient("left")
 	    .ticks(10);
 		
-	// change class of 
+	// change class of chartId div to enlarge and set background white
+	$('#chartid').attr('class', 'chartDiv');	
 
 	var svg = d3.select("#chart").append("svg")
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
+		.attr("id", 'svgChart')
 	  .append("g")
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 		
@@ -1932,14 +2018,15 @@ CityDigitsMap.drawChart = function(layerId){
 
 	});
 	
-
-	mainChart = 23;
+	// set mainChart on
+	mainChart = 1;
+	
 }
 
 CityDigitsMap.removeChart = function(layerId){
-	console.log('remove');
-	mainChart = null;
-	
+	$( "#svgChart" ).remove();
+	$( "#chartid" ).attr('class', 'chart-icon');	
+	mainChart = null;	
 }
 
 
