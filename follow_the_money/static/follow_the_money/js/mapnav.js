@@ -112,6 +112,150 @@ $( document ).ready(function() {
 		
 				
 	});
+	
+	// Enable Bootstrap-Select
+	$('#var1Select').selectpicker();
+	$('#var1Select').selectpicker('val', 'Variable 1');
+	$('#var2Select').selectpicker();
+	$('#var2Select').selectpicker('val', 'Variable 2');
+	
+	// populate the second dropdown menu based on the first selection and mape map selections
+	$('#var1Select').change(function() {
+	    var value = $(this).val();
+		
+		// remove layer already present if there is one
+	    if(mainLayer != null){
+			CityDigitsMap.removeLayerFor(mainLayer);
+			mainLayer = null;
+	    }
+		
+		// ensure that the maps are unchecked
+		$('#MAP1').prop('checked', false);		
+		$('#MAP2').prop('checked', false);
+		$('#MAP3').prop('checked', false);
+		$('#MAP4').prop('checked', false);			
+		
+		
+	    switch (value) {
+	    case 'Variable1':
+			$("#var2Select").html("<option value='Variable 2' class='grey'>Variable 2</option>");
+			$("#var2Select").selectpicker('refresh');
+			$("#normalizationText").html('');
+	        break;
+	    case 'Pawn Shops':
+			$("#var2Select").html("<option value='Square Miles'>Square Miles</option>");
+			$("#var2Select").selectpicker('refresh');
+			$("#normalizationText").html('Pawn Shops per Square Mile');	
+			CityDigitsMap.loadLayerFor('CREATEMAP3');
+	        break;
+	    case 'Alternative Financial Insitutions':
+			$("#var2Select").html("<option value='Banks'>Banks</option><option value='Square Miles'>Square Miles</option>");
+			$("#var2Select").selectpicker('refresh');
+			$("#normalizationText").html('Alternative Financial Insitutions per Bank');	
+			CityDigitsMap.loadLayerFor('CREATEMAP9');		
+	        break;
+	    case 'Banks':
+			$("#var2Select").html("<option value='Alternative Financial Insitutions'>Alternative Financial Insitutions</option><option value='Square Miles'>Square Miles</option>");
+			$("#var2Select").selectpicker('refresh');
+			$("#normalizationText").html('Banks per Alternative Financial Service');
+			CityDigitsMap.loadLayerFor('CREATEMAP10');			
+	        break;
+	    case 'McDonalds':
+			$("#var2Select").html("<option value='Square Miles'>Square Miles</option>");
+			$("#var2Select").selectpicker('refresh');
+			$("#normalizationText").html('McDonald\'s per Square Mile');
+			CityDigitsMap.loadLayerFor('CREATEMAP4');			
+	        break;
+	    case 'Households':
+			$("#var2Select").html("<option value='Banks'>Banks</option><option value='Alternative Financial Insitutions'>Alternative Financial Insitutions</option><option value='Pawn Shops'>Pawn Shops</option><option value='McDonalds'>McDonald's</option>");
+			$("#var2Select").selectpicker('refresh');
+			$("#normalizationText").html('Households per Bank');			
+			CityDigitsMap.loadLayerFor('CREATEMAP6');			
+	        break;
+	    }
+	});
+
+	// change map selections based on change and change normalizationText
+	$('#var2Select').change(function() {
+	    var value = $(this).val();
+		
+		// remove layer already present if there is one
+	    if(mainLayer != null){
+			CityDigitsMap.removeLayerFor(mainLayer);
+			mainLayer = null;
+	    }
+		
+		// ensure that the maps are unchecked
+		$('#MAP1').prop('checked', false);		
+		$('#MAP2').prop('checked', false);
+		$('#MAP3').prop('checked', false);
+		$('#MAP4').prop('checked', false);	
+		
+		var firstValue = $( "#var1Select" ).val(); // get value of first selection
+		
+	    switch (value) {
+	    case 'Variable 2':
+			$("#normalizationText").html('');
+	        break;
+	    case 'Square Miles':
+			$("#normalizationText").html(firstValue + ' per Square Mile');
+			if (firstValue == 'Pawn Shops') {
+				CityDigitsMap.loadLayerFor('CREATEMAP6');
+			} else if (firstValue == 'Alternative Financial Insitutions') {
+				CityDigitsMap.loadLayerFor('CREATEMAP1');
+			} else if (firstValue == 'Banks') {
+				CityDigitsMap.loadLayerFor('CREATEMAP2');
+			} else if (firstValue == 'McDonalds') {
+				CityDigitsMap.loadLayerFor('CREATEMAP4');
+			} else if (firstValue == 'Households') {
+			}						
+	        break;
+	    case 'Alternative Financial Insitutions':
+			$("#normalizationText").html(firstValue + ' per Alternative Financial Service');
+			if (firstValue == 'Pawn Shops') {
+			} else if (firstValue == 'Alternative Financial Insitutions') {
+			} else if (firstValue == 'Banks') {
+				CityDigitsMap.loadLayerFor('CREATEMAP10');
+			} else if (firstValue == 'McDonalds') {
+			} else if (firstValue == 'Households') {
+				CityDigitsMap.loadLayerFor('CREATEMAP5');
+			}		
+	        break;
+	    case 'Banks':
+			$("#normalizationText").html(firstValue + ' per Bank');
+			if (firstValue == 'Pawn Shops') {
+			} else if (firstValue == 'Alternative Financial Insitutions') {
+				CityDigitsMap.loadLayerFor('CREATEMAP9');
+			} else if (firstValue == 'Banks') {
+			} else if (firstValue == 'McDonalds') {
+			} else if (firstValue == 'Households') {
+				CityDigitsMap.loadLayerFor('CREATEMAP6');
+			}									
+	        break;
+	    case 'McDonalds':
+			$("#normalizationText").html(firstValue + ' per McDonald\'s');
+			if (firstValue == 'Pawn Shops') {
+			} else if (firstValue == 'Alternative Financial Insitutions') {
+			} else if (firstValue == 'Banks') {
+			} else if (firstValue == 'McDonalds') {
+			} else if (firstValue == 'Households') {
+				CityDigitsMap.loadLayerFor('CREATEMAP7');
+			}
+	        break;
+	    case 'Pawn Shops':
+			$("#normalizationText").html(firstValue + ' per Pawn Shop');
+			if (firstValue == 'Pawn Shops') {
+			} else if (firstValue == 'Alternative Financial Insitutions') {
+			} else if (firstValue == 'Banks') {
+			} else if (firstValue == 'McDonalds') {
+			} else if (firstValue == 'Households') {
+				CityDigitsMap.loadLayerFor('CREATEMAP8');
+			}			
+	        break;
+	    }
+	});
+
+
 
 });
 

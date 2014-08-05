@@ -86,7 +86,23 @@ body {
 	margin-top: 3px;
 }
 
+.padding10 {
+	padding: 10px;
+}
 
+.grey {
+	color: #9c9c9c !important;
+}
+
+.lowFontWeight {
+	font-weight: 400;
+}
+
+.divide {
+	border-color: #9c9c9c;
+	margin: 5px;
+	border-width: 2px 0 0;
+}
 
 /*
 * Map styles
