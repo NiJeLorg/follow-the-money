@@ -1958,24 +1958,101 @@ CityDigitsMap.removeLayerFor = function(layerId){
 }
 
 CityDigitsMap.drawChart = function(layerId){
-	var margin = {top: 20, right: 20, bottom: 30, left: 40},
+	//set properties depending on layerid selected
+		
+	if (layerId == 'legendpoverty') {
+		var propertyName = 'PovertyPer';
+		var formatter = d3.format(".0%");
+		var title = 'Percent Population in Poverty';
+	} 
+	if (layerId == 'legendmedhhinc') {
+		var propertyName = 'MedHouInco';
+		var formatNumber = d3.format(",.0f")
+		var formatter = function(d) { return "$" + formatNumber(d); };
+		var title = 'Median Household Income';
+	}
+	if (layerId == 'legendunemploy') {
+		var propertyName = 'UnempRate';
+		var formatter = d3.format(".1%");
+		var title = 'Percent Unemployed';
+	} 
+	if (layerId == 'legendforeignborn') {
+		var propertyName = 'ForBornPer';
+		var formatter = d3.format(".0%");
+		var title = 'Percent Population Foreign Born';
+	} 
+	if (layerId == 'legendAFIpersqmi') {
+		var propertyName = 'AFS_SQMI';
+		var formatter = d3.format(",.2f")
+		var title = 'Alternative Financial Insitutions per Square Mile';
+	} 
+	if (layerId == 'legendbankspersqmi') {
+		var propertyName = 'BANK_SQMI';
+		var formatter = d3.format(",.2f")
+		var title = 'Banks per Square Mile';
+	} 
+	if (layerId == 'legendpawnsqmi') {
+		var propertyName = 'PAWN_SQMI';
+		var formatter = d3.format(",.2f")
+		var title = 'Pawn Shops per Square Mile';
+	} 
+	if (layerId == 'legendmcdonaldspersqi') {
+		var propertyName = 'McD_SQMI';
+		var formatter = d3.format(",.2f")
+		var title = 'McDonald\'s per Square Mile';
+	} 
+	if (layerId == 'legendhouseholdsperAFI') {
+		var propertyName = 'HH_AFS';
+		var formatter = d3.format(",.2f")
+		var title = 'Households per Alternative Financial Insitution';
+	} 
+	if (layerId == 'legendhouseholdsperbank') {
+		var propertyName = 'HH_BANK';
+		var formatter = d3.format(",.2f")
+		var title = 'Households per Bank';
+	} 
+	if (layerId == 'legendhouseholdsperMcD') {
+		var propertyName = 'HH_McD';
+		var formatter = d3.format(",.2f")
+		var title = 'Households per McDonald\'s';
+	} 
+	if (layerId == 'legendhouseholdsperpawn') {
+		var propertyName = 'HH_PAWN';
+		var formatter = d3.format(",.2f")
+		var title = 'Households per Pawn Shop';
+	} 
+	if (layerId == 'legendAFIsperbank') {
+		var propertyName = 'AFS_BANK';
+		var formatter = d3.format(",.2f")
+		var title = 'Alternative Financial Insitutions per Bank';
+	} 
+	if (layerId == 'legendbanksperAFIs') {
+		var propertyName = 'BANK_AFS';
+		var formatter = d3.format(",.2f")
+		var title = 'Banks per Alternative Financial Insitution';
+	} 
+	
+	
+	var margin = {top: 50, right: 20, bottom: 30, left: 70},
 	    width = 500 - margin.left - margin.right,
 	    height = 400 - margin.top - margin.bottom;
 	
 	var x = d3.scale.ordinal()
-	    .rangeRoundBands([0, width], .1);
+	    .rangeBands([0, width], 0, 1);
 
 	var y = d3.scale.linear()
 	    .range([height, 0]);
 
+		/*
 	var xAxis = d3.svg.axis()
 	    .scale(x)
 	    .orient("bottom");
+		*/
 
 	var yAxis = d3.svg.axis()
 	    .scale(y)
 	    .orient("left")
-	    .ticks(10);
+		.tickFormat(formatter);
 		
 	// change class of chartId div to enlarge and set background white
 	$('#chartid').attr('class', 'chartDiv');	
@@ -1989,14 +2066,36 @@ CityDigitsMap.drawChart = function(layerId){
 		
 	d3.json(neighborhoods, function(error, data) {
 	  var openedTopoJson = topojson.feature(data, data.objects.all_map_data_boundariesfixed_july22).features;
+	  openedTopoJson.sort(function (a, b) {
+	      if (Number(a.properties[propertyName]) > Number(b.properties[propertyName])) {
+			  //console.log(a.properties.PovertyPer + ' > ' + b.properties.PovertyPer)
+			  return 1;	      	
+	      } else if (Number(a.properties[propertyName]) < Number(b.properties[propertyName])) {
+			  //console.log(a.properties.PovertyPer + ' < ' + b.properties.PovertyPer)
+			  return -1;	      	
+	      } else {
+			  //console.log(a.properties.PovertyPer + ' = ' + b.properties.PovertyPer)
+		      // a must be equal to b
+		      return 0;	      	
+	      }
+	  });
 	  x.domain(openedTopoJson.map(function(d) { return d.properties.NYC_NEIG; }));
-	  y.domain([0, d3.max(openedTopoJson, function(d) { return d.properties.PovertyPer; })]);
+	  y.domain([0, d3.max(openedTopoJson, function(d) { return d.properties[propertyName]; })]);
 
+	  /*
 	  svg.append("g")
 	      .attr("class", "x axis")
 	      .attr("transform", "translate(0," + height + ")")
 	      .call(xAxis);
-
+	  */
+	  svg.append("g")
+	      .attr("class", "chartTitle")
+	    .append("text")
+	      .attr("y", -20)
+	      .attr("x", 190)
+	      .style("text-anchor", "middle")
+	      .text(title);
+	  
 	  svg.append("g")
 	      .attr("class", "y axis")
 	      .call(yAxis)
@@ -2013,14 +2112,14 @@ CityDigitsMap.drawChart = function(layerId){
 	      .attr("class", "bar")
 	      .attr("x", function(d) { return x(d.properties.NYC_NEIG); })
 	      .attr("width", x.rangeBand())
-	      .attr("y", function(d) { return y(d.properties.PovertyPer); })
-	      .attr("height", function(d) { return height - y(d.properties.PovertyPer); });
+	      .attr("y", function(d) { return y(d.properties[propertyName]); })
+	      .attr("height", function(d) { return height - y(d.properties[propertyName]); });
 
 	});
 	
 	// set mainChart on
 	mainChart = 1;
-	
+		
 }
 
 CityDigitsMap.removeChart = function(layerId){

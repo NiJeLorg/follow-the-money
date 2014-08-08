@@ -157,7 +157,7 @@ $( document ).ready(function() {
 	    case 'Banks':
 			$("#var2Select").html("<option value='Alternative Financial Insitutions'>Alternative Financial Insitutions</option><option value='Square Miles'>Square Miles</option>");
 			$("#var2Select").selectpicker('refresh');
-			$("#normalizationText").html('Banks per Alternative Financial Service');
+			$("#normalizationText").html('Banks per Alternative Financial Institution');
 			CityDigitsMap.loadLayerFor('CREATEMAP10');			
 	        break;
 	    case 'McDonalds':
@@ -211,7 +211,7 @@ $( document ).ready(function() {
 			}						
 	        break;
 	    case 'Alternative Financial Insitutions':
-			$("#normalizationText").html(firstValue + ' per Alternative Financial Service');
+			$("#normalizationText").html(firstValue + ' per Alternative Financial Institution');
 			if (firstValue == 'Pawn Shops') {
 			} else if (firstValue == 'Alternative Financial Insitutions') {
 			} else if (firstValue == 'Banks') {
