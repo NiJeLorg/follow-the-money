@@ -2113,8 +2113,8 @@ CityDigitsMap.drawChart = function(layerId){
 	      .attr("x", function(d) { return x(d.properties.NYC_NEIG); })
 	      .attr("width", x.rangeBand())
 	      .attr("y", function(d) { return y(d.properties[propertyName]); })
-	      .attr("height", function(d) { return height - y(d.properties[propertyName]); });
-
+	      .attr("height", function(d) { return height - y(d.properties[propertyName]); })
+				.attr("id", function(d) {return d.properties.NYC_NEIG});
 	});
 	
 	// set mainChart on
