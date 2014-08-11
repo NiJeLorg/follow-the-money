@@ -20,14 +20,17 @@ $( document ).ready(function() {
 			if(layerId == 'LOC1' && LOC1 != null) {
 				CityDigitsMap.removeLayerFor(LOC1);
 				LOC1 = null;
+				$('#All_AFS').prop('checked', false);
 			}
 			if(layerId == 'LOC2' && LOC2 != null) {
 				CityDigitsMap.removeLayerFor(LOC2);
 				LOC2 = null;
+				$('#All_AFS').prop('checked', false);
 			}
 			if(layerId == 'LOC3' && LOC3 != null) {
 				CityDigitsMap.removeLayerFor(LOC3);
 				LOC3 = null;
+				$('#All_AFS').prop('checked', false);
 			}
 			if(layerId == 'LOC4' && LOC4 != null) {
 				CityDigitsMap.removeLayerFor(LOC4);
@@ -75,6 +78,11 @@ $( document ).ready(function() {
 					LOC3 = null;
 				}				
 			}
+			
+		}
+		
+		if (LOC1 != null && LOC2 != null && LOC3 != null) {
+			$('#All_AFS').prop('checked', true);
 		}
 		
 	});
