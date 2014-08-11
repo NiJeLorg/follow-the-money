@@ -2325,12 +2325,15 @@ CityDigitsMap.drawChart = function(layerId){
 		/*
 	var xAxis = d3.svg.axis()
 	    .scale(x)
-	    .orient("bottom");
+	    .orient("bottom")
+			.ticks(5);
 		*/
 
 	var yAxis = d3.svg.axis()
 	    .scale(y)
 	    .orient("left")
+			.ticks(5)
+			.tickSize(-width, 0, 0)
 		.tickFormat(formatter);
 		
 	// change class of chartId div to enlarge and set background white
@@ -2365,7 +2368,9 @@ CityDigitsMap.drawChart = function(layerId){
 	  svg.append("g")
 	      .attr("class", "x axis")
 	      .attr("transform", "translate(0," + height + ")")
-	      .call(xAxis);
+	      .call(xAxis()
+						.tickSize(-height, 0, 0)
+						.tickFormat(""));
 	  */
 	  svg.append("g")
 	      .attr("class", "chartTitle")

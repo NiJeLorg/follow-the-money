@@ -231,7 +231,7 @@ body {
 .axis path,
 .axis line {
   fill: none;
-  stroke: #000;
+  stroke: #A7A8A7;
   shape-rendering: crispEdges;
 }
 
@@ -239,7 +239,6 @@ body {
     font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
     font-size: 14pt;	
 }
-
 
 
 
