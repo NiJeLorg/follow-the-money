@@ -1628,7 +1628,17 @@ CityDigitsMap.getStyleColorFor_CREATEMAP10_BANKS_PER_AFI = function (feature){
 
 
 
-CityDigitsMap.onEachFeatureFor_LOCS = function(feature,layer){
+CityDigitsMap.onEachFeatureFor_LOC1_PAWN_SHOPS = function(feature,layer){
+	var highlight = {
+		stroke: true,
+	    color: '#ffffff', 
+	    weight: 4,
+	    opacity: 1,
+	};
+	var noHighlight = {
+		stroke: false
+	};
+	
     //add on hover -- same on hover and mousemove for each layer
     layer.on('mouseover', function(ev) {
 		// only have on mouseover work if popup2 isn't open
@@ -1636,14 +1646,17 @@ CityDigitsMap.onEachFeatureFor_LOCS = function(feature,layer){
 			// close all popups first
 			MY_MAP.map.closePopup();
 	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize"><h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize"><div class="pawnshop-icon"></div>Pawn Shop<h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
 		
 			//display popup
 	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.name,open_tooltips)<0)){
 	            MY_MAP.popup.openOn(MY_MAP.map);
 	        }else{
 	            MY_MAP.map.closePopup();
-	        }		
+	        }
+			
+			//highlight point
+			layer.setStyle(highlight);		
 		}
     });
 	
@@ -1654,7 +1667,68 @@ CityDigitsMap.onEachFeatureFor_LOCS = function(feature,layer){
 	        //get lat/long
 	        if(($.inArray(feature.properties.name,open_tooltips)<0)){
 				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize"><h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize"><div class="pawnshop-icon"></div>Pawn Shop<h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+	    	}
+
+	        //display popup
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.name,open_tooltips)<0)){
+				MY_MAP.popup.openOn(MY_MAP.map);
+			}
+
+			//highlight point
+			layer.setStyle(highlight);		
+						
+		}
+    });
+	
+    layer.on('mouseout', function(ev) {
+		//highlight point
+		layer.setStyle(noHighlight);		
+    });
+	
+}
+
+CityDigitsMap.onEachFeatureFor_LOC2_CHECK_CASHING = function(feature,layer){	
+	var highlight = {
+		stroke: true,
+	    color: '#ffffff', 
+	    weight: 4,
+	    opacity: 1,
+	};
+	var noHighlight = {
+		stroke: false
+	};
+	
+    //add on hover -- same on hover and mousemove for each layer
+    layer.on('mouseover', function(ev) {
+		// only have on mouseover work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+			// close all popups first
+			MY_MAP.map.closePopup();
+	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize"><div class="checkcashing-icon"></div>Check Cashing<h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+		
+			//display popup
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.name,open_tooltips)<0)){
+	            MY_MAP.popup.openOn(MY_MAP.map);
+	        }else{
+	            MY_MAP.map.closePopup();
+	        }		
+		}
+		
+		//highlight point
+		layer.setStyle(highlight);		
+		
+    });
+	
+    layer.on('mousemove', function(ev) {
+		
+		// only have on mousemove work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+	        //get lat/long
+	        if(($.inArray(feature.properties.name,open_tooltips)<0)){
+				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize"><div class="checkcashing-icon"></div>Check Cashing<h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
 	    	}
 
 	        //display popup
@@ -1662,12 +1736,208 @@ CityDigitsMap.onEachFeatureFor_LOCS = function(feature,layer){
 				MY_MAP.popup.openOn(MY_MAP.map);
 			}			
 		}
+		
+		//highlight point
+		layer.setStyle(highlight);		
+		
     });
+	
+    layer.on('mouseout', function(ev) {
+		//highlight point
+		layer.setStyle(noHighlight);		
+    });
+	
+	
+}
+
+CityDigitsMap.onEachFeatureFor_LOC3_WIRE_TRANSFER = function(feature,layer){
+	var highlight = {
+		stroke: true,
+	    color: '#ffffff', 
+	    weight: 4,
+	    opacity: 1,
+	};
+	var noHighlight = {
+		stroke: false
+	};
+
+    //add on hover -- same on hover and mousemove for each layer
+    layer.on('mouseover', function(ev) {
+		// only have on mouseover work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+			// close all popups first
+			MY_MAP.map.closePopup();
+	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize"><div class="wiretransfer-icon"></div>Wire Transfer<h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+		
+			//display popup
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.name,open_tooltips)<0)){
+	            MY_MAP.popup.openOn(MY_MAP.map);
+	        }else{
+	            MY_MAP.map.closePopup();
+	        }		
+		}
+		
+		//highlight point
+		layer.setStyle(highlight);		
+		
+    });
+	
+    layer.on('mousemove', function(ev) {
+		
+		// only have on mousemove work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+	        //get lat/long
+	        if(($.inArray(feature.properties.name,open_tooltips)<0)){
+				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize"><div class="wiretransfer-icon"></div>Wire Transfer<h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+	    	}
+
+	        //display popup
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.name,open_tooltips)<0)){
+				MY_MAP.popup.openOn(MY_MAP.map);
+			}			
+		}
+		
+		//highlight point
+		layer.setStyle(highlight);		
+		
+    });
+	
+    layer.on('mouseout', function(ev) {
+		//highlight point
+		layer.setStyle(noHighlight);		
+    });
+	
+	
+}
+
+CityDigitsMap.onEachFeatureFor_LOC4_BANKS = function(feature,layer){
+	var highlight = {
+		stroke: true,
+	    color: '#ffffff', 
+	    weight: 4,
+	    opacity: 1,
+	};
+	var noHighlight = {
+		stroke: false
+	};
+
+    //add on hover -- same on hover and mousemove for each layer
+    layer.on('mouseover', function(ev) {
+		// only have on mouseover work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+			// close all popups first
+			MY_MAP.map.closePopup();
+	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize"><div class="banks-icon"></div>Bank<h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+		
+			//display popup
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.name,open_tooltips)<0)){
+	            MY_MAP.popup.openOn(MY_MAP.map);
+	        }else{
+	            MY_MAP.map.closePopup();
+	        }		
+		}
+		
+		//highlight point
+		layer.setStyle(highlight);		
+		
+    });
+	
+    layer.on('mousemove', function(ev) {
+		
+		// only have on mousemove work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+	        //get lat/long
+	        if(($.inArray(feature.properties.name,open_tooltips)<0)){
+				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize"><div class="banks-icon"></div>Bank<h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+	    	}
+
+	        //display popup
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.name,open_tooltips)<0)){
+				MY_MAP.popup.openOn(MY_MAP.map);
+			}			
+		}
+		
+		//highlight point
+		layer.setStyle(highlight);		
+		
+    });
+	
+    layer.on('mouseout', function(ev) {
+		//highlight point
+		layer.setStyle(noHighlight);		
+    });
+	
+	
+}
+
+CityDigitsMap.onEachFeatureFor_LOC5_MCDONALDS= function(feature,layer){
+	var highlight = {
+		stroke: true,
+	    color: '#ffffff', 
+	    weight: 4,
+	    opacity: 1,
+	};
+	var noHighlight = {
+		stroke: false
+	};
+
+    //add on hover -- same on hover and mousemove for each layer
+    layer.on('mouseover', function(ev) {
+		// only have on mouseover work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+			// close all popups first
+			MY_MAP.map.closePopup();
+	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize"><div class="mcdonalds-icon"></div>McDonald\'s<h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+		
+			//display popup
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.name,open_tooltips)<0)){
+	            MY_MAP.popup.openOn(MY_MAP.map);
+	        }else{
+	            MY_MAP.map.closePopup();
+	        }		
+		}
+		
+		//highlight point
+		layer.setStyle(highlight);		
+		
+    });
+	
+    layer.on('mousemove', function(ev) {
+		
+		// only have on mousemove work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+	        //get lat/long
+	        if(($.inArray(feature.properties.name,open_tooltips)<0)){
+				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize"><div class="mcdonalds-icon"></div>McDonald\'s<h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+	    	}
+
+	        //display popup
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.name,open_tooltips)<0)){
+				MY_MAP.popup.openOn(MY_MAP.map);
+			}			
+		}
+		
+		//highlight point
+		layer.setStyle(highlight);		
+		
+    });
+	
+    layer.on('mouseout', function(ev) {
+		//highlight point
+		layer.setStyle(noHighlight);		
+    });
+	
 	
 }
 
 CityDigitsMap.prototype.loadMarkers = function(){
-	
+		
 	this.LOC1_PAWN_SHOPS = null;
 	this.LOC2_CHECK_CASHING = null;
 	this.LOC3_WIRE_TRANSFER = null;
@@ -1678,23 +1948,23 @@ CityDigitsMap.prototype.loadMarkers = function(){
 	// define layer styles and oneachfeature popup styling
 	this.LOC1_PAWN_SHOPS_style = L.geoJson(null, {
 		pointToLayer: CityDigitsMap.getMarkerFor_LOC1_PAWN_SHOPS,
-		onEachFeature: CityDigitsMap.onEachFeatureFor_LOCS
+		onEachFeature: CityDigitsMap.onEachFeatureFor_LOC1_PAWN_SHOPS
 	});
 	this.LOC2_CHECK_CASHING_style = L.geoJson(null, {
 		pointToLayer: CityDigitsMap.getMarkerFor_LOC2_CHECK_CASHING,
-		onEachFeature: CityDigitsMap.onEachFeatureFor_LOCS
+		onEachFeature: CityDigitsMap.onEachFeatureFor_LOC2_CHECK_CASHING
 	});
 	this.LOC3_WIRE_TRANSFER_style = L.geoJson(null, {
 		pointToLayer: CityDigitsMap.getMarkerFor_LOC3_WIRE_TRANSFER,
-		onEachFeature: CityDigitsMap.onEachFeatureFor_LOCS
+		onEachFeature: CityDigitsMap.onEachFeatureFor_LOC3_WIRE_TRANSFER
 	});	
 	this.LOC4_BANKS_style = L.geoJson(null, {
 		pointToLayer: CityDigitsMap.getMarkerFor_LOC4_BANKS,
-		onEachFeature: CityDigitsMap.onEachFeatureFor_LOCS
+		onEachFeature: CityDigitsMap.onEachFeatureFor_LOC4_BANKS
 	});	
 	this.LOC5_MCDONALDS_style = L.geoJson(null, {
 		pointToLayer: CityDigitsMap.getMarkerFor_LOC5_MCDONALDS,
-		onEachFeature: CityDigitsMap.onEachFeatureFor_LOCS
+		onEachFeature: CityDigitsMap.onEachFeatureFor_LOC5_MCDONALDS
 	});	
 	this.LOC6_SUBWAY_LINES_style = L.geoJson(null, {
 		style: CityDigitsMap.getStyleFor_LOC6_SUBWAY_LINES,
@@ -1711,6 +1981,16 @@ CityDigitsMap.prototype.loadMarkers = function(){
 
 }
 
+CityDigitsMap.getMarkerFor_HIGHLIGHT = function (feature, latlng){
+	var pawnShopMarker = L.circle(latlng, 80, {
+		stroke: false,
+		fillColor: '#eb4a42',
+		fillOpacity: 0.75
+	});
+	
+	return pawnShopMarker;
+	
+}
 CityDigitsMap.getMarkerFor_LOC1_PAWN_SHOPS = function (feature, latlng){
 	var pawnShopMarker = L.circle(latlng, 80, {
 		stroke: false,
@@ -1925,7 +2205,6 @@ CityDigitsMap.loadLayerFor = function(layerId){
     }
 
 }
-
 
 CityDigitsMap.loadLocationsLayerFor = function(layerId){
 	// add layer requested based on ID
