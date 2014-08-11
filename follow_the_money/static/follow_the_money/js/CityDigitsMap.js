@@ -2237,6 +2237,12 @@ CityDigitsMap.removeLayerFor = function(layerId){
 }
 
 CityDigitsMap.drawChart = function(layerId){
+	// remove chart a tag, which we repace with the svg drawn below
+	$("#chart").remove();
+	
+	// change class of chartId div to enlarge and set background white
+	$('#chartid').attr('class', 'chartDiv');	
+	
 	//set properties depending on layerid selected
 		
 	if (layerId == 'legendpoverty') {
@@ -2322,21 +2328,12 @@ CityDigitsMap.drawChart = function(layerId){
 	var y = d3.scale.linear()
 	    .range([height, 0]);
 
-		/*
-	var xAxis = d3.svg.axis()
-	    .scale(x)
-	    .orient("bottom");
-		*/
-
 	var yAxis = d3.svg.axis()
 	    .scale(y)
 	    .orient("left")
 		.tickFormat(formatter);
 		
-	// change class of chartId div to enlarge and set background white
-	$('#chartid').attr('class', 'chartDiv');	
-
-	var svg = d3.select("#chart").append("svg")
+	var svg = d3.select("#chartid").append("svg")
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
 		.attr("id", 'svgChart')
@@ -2347,13 +2344,10 @@ CityDigitsMap.drawChart = function(layerId){
 	  var openedTopoJson = topojson.feature(data, data.objects.all_map_data_boundariesfixed_july22).features;
 	  openedTopoJson.sort(function (a, b) {
 	      if (Number(a.properties[propertyName]) > Number(b.properties[propertyName])) {
-			  //console.log(a.properties.PovertyPer + ' > ' + b.properties.PovertyPer)
 			  return 1;	      	
 	      } else if (Number(a.properties[propertyName]) < Number(b.properties[propertyName])) {
-			  //console.log(a.properties.PovertyPer + ' < ' + b.properties.PovertyPer)
 			  return -1;	      	
 	      } else {
-			  //console.log(a.properties.PovertyPer + ' = ' + b.properties.PovertyPer)
 		      // a must be equal to b
 		      return 0;	      	
 	      }
@@ -2361,12 +2355,6 @@ CityDigitsMap.drawChart = function(layerId){
 	  x.domain(openedTopoJson.map(function(d) { return d.properties.NYC_NEIG; }));
 	  y.domain([0, d3.max(openedTopoJson, function(d) { return d.properties[propertyName]; })]);
 
-	  /*
-	  svg.append("g")
-	      .attr("class", "x axis")
-	      .attr("transform", "translate(0," + height + ")")
-	      .call(xAxis);
-	  */
 	  svg.append("g")
 	      .attr("class", "chartTitle")
 	    .append("text")
@@ -2374,16 +2362,22 @@ CityDigitsMap.drawChart = function(layerId){
 	      .attr("x", 190)
 	      .style("text-anchor", "middle")
 	      .text(title);
+		  		  
+	  svg.append("g")
+	      .attr("class", "chartCloseContainer")
+		 .append("a")
+		  .attr("id", "chartCloseButton")
+		  .attr("xlink:href", "#")
+		 .append("image")
+		  .attr("xlink:href", closeButtonGray)
+		  .attr("y", -40)
+		  .attr("x", 400)
+		  .attr("width", 22)
+		  .attr("height", 22);
 	  
 	  svg.append("g")
 	      .attr("class", "y axis")
-	      .call(yAxis)
-	    .append("text")
-	      .attr("transform", "rotate(-90)")
-	      .attr("y", 6)
-	      .attr("dy", ".71em")
-	      .style("text-anchor", "end")
-	      .text("");
+	      .call(yAxis);
 
 	  svg.selectAll(".bar")
 	      .data(openedTopoJson)
@@ -2393,7 +2387,18 @@ CityDigitsMap.drawChart = function(layerId){
 	      .attr("width", x.rangeBand())
 	      .attr("y", function(d) { return y(d.properties[propertyName]); })
 	      .attr("height", function(d) { return height - y(d.properties[propertyName]); })
-				.attr("id", function(d) {return d.properties.NYC_NEIG});
+		  .attr("id", function(d) { return d.properties.NYC_NEIG });
+		  
+		  
+	  	// close chart when close chart button is clicked
+	  	$('#chartCloseButton').click(function() {
+			console.log('hello');
+	  		// get id of layer selected
+	  		var layerId = mainLayer._leaflet_id;
+	  		// remove chart
+	  		CityDigitsMap.removeChart(layerId);
+	  	});
+
 	});
 	
 	// set mainChart on
@@ -2403,6 +2408,16 @@ CityDigitsMap.drawChart = function(layerId){
 
 CityDigitsMap.removeChart = function(layerId){
 	$( "#svgChart" ).remove();
+	$( "#chartid" ).append( '<a id="chart" href="#"></a>' );
+	// draw chart based on layer selected
+	$('#chart').click(function() {
+		// get id of layer selected
+		var layerId = mainLayer._leaflet_id;
+		if (!mainChart) {
+			// draw chart
+			CityDigitsMap.drawChart(layerId);
+		}		
+	});
 	$( "#chartid" ).attr('class', 'chart-icon');	
 	mainChart = null;	
 }

@@ -262,7 +262,7 @@ $( document ).ready(function() {
 	        break;
 	    }
 	});
-
+	
 	// draw chart based on layer selected
 	$('#chart').click(function() {
 		// get id of layer selected
@@ -270,12 +270,9 @@ $( document ).ready(function() {
 		if (!mainChart) {
 			// draw chart
 			CityDigitsMap.drawChart(layerId);
-		} else {
-			// remove chart
-			CityDigitsMap.removeChart(layerId);
 		}		
 	});
-
+	
 	//allow legend button to be clicked and show legend
 	$('#legend').click(function() {
 		var mapid = mainLayer._leaflet_id;

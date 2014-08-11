@@ -302,8 +302,7 @@
 
 		.citydigits-charts .chart-icon > a:hover {
 			background-image: url({% static 'follow_the_money/img/chart_graybutton.png' %});
-		}
-		
+		}		
 		
 		/*
 		* Leaflet override
@@ -317,6 +316,8 @@
 			height: 22px;
 			width: 22px;
 		}
+		
+		
 
 
 		</style>
@@ -494,7 +495,8 @@
 	var CommercialBanks = "{% static 'follow_the_money/locationData/CommercialBanks.csv' %}";	
 	var Mcdonalds = "{% static 'follow_the_money/locationData/Mcdonalds.csv' %}";	
 	var MoneyTransferServices = "{% static 'follow_the_money/locationData/MoneyTransferServices.csv' %}";	
-	var PawnShops = "{% static 'follow_the_money/locationData/PawnShops.csv' %}";	
+	var PawnShops = "{% static 'follow_the_money/locationData/PawnShops.csv' %}";
+	var closeButtonGray	= "{% static 'follow_the_money/img/close_gray.png' %}";
 	</script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/CityDigitsMap.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/application.js' %}"></script>
