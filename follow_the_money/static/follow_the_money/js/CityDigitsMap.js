@@ -40,6 +40,7 @@ function CityDigitsMap() {
 	this.LOC4_BANKS = null;
 	this.LOC5_MCDONALDS = null;
 	this.LOC6_SUBWAY_LINES = null;
+	this.LOC7_SUBWAY_STATIONS = null;
 	
 	//predefined map layers
 	this.MAP1_POP_POVERTY = null;
@@ -986,7 +987,7 @@ CityDigitsMap.onEachFeature_CREATEMAP10_BANKS_PER_AFI = function(feature,layer){
 		// computed
 		var BANK_AFS = feature.properties.BANK_AFS;
 		BANK_AFS = BANK_AFS.toFixed(2);
-		console.log(BANK_AFS);
+		//console.log(BANK_AFS);
 		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.NYC_NEIG + '</h4>';
 		var banksText = '<div class="banks-icon"></div>' + Banks + ' Banks<br />';
 		var hr = '<hr class="divide">';
@@ -1626,8 +1627,6 @@ CityDigitsMap.getStyleColorFor_CREATEMAP10_BANKS_PER_AFI = function (feature){
 }
 
 
-
-
 CityDigitsMap.onEachFeatureFor_LOC1_PAWN_SHOPS = function(feature,layer){
 	var highlight = {
 		stroke: true,
@@ -1874,7 +1873,7 @@ CityDigitsMap.onEachFeatureFor_LOC4_BANKS = function(feature,layer){
 	
 }
 
-CityDigitsMap.onEachFeatureFor_LOC5_MCDONALDS= function(feature,layer){
+CityDigitsMap.onEachFeatureFor_LOC5_MCDONALDS = function(feature,layer){
 	var highlight = {
 		stroke: true,
 	    color: '#ffffff', 
@@ -1936,6 +1935,24 @@ CityDigitsMap.onEachFeatureFor_LOC5_MCDONALDS= function(feature,layer){
 	
 }
 
+CityDigitsMap.onEachFeatureFor_LOC6_SUBWAY_LINES = function(feature,layer){
+
+    //add on hover -- same on hover and mousemove for each layer
+    layer.on('mouseover', function(ev) {	
+		
+    });
+	
+    layer.on('mousemove', function(ev) {
+				
+    });
+	
+    layer.on('mouseout', function(ev) {
+		
+    });
+	
+	
+}
+
 CityDigitsMap.prototype.loadMarkers = function(){
 		
 	this.LOC1_PAWN_SHOPS = null;
@@ -1944,31 +1961,36 @@ CityDigitsMap.prototype.loadMarkers = function(){
 	this.LOC4_BANKS = null;
 	this.LOC5_MCDONALDS = null;
 	this.LOC6_SUBWAY_LINES = null;
+	this.LOC7_SUBWAY_STATIONS = null;
 
 	// define layer styles and oneachfeature popup styling
 	this.LOC1_PAWN_SHOPS_style = L.geoJson(null, {
-		pointToLayer: CityDigitsMap.getMarkerFor_LOC1_PAWN_SHOPS,
+		pointToLayer: CityDigitsMap.getStyleFor_LOC1_PAWN_SHOPS,
 		onEachFeature: CityDigitsMap.onEachFeatureFor_LOC1_PAWN_SHOPS
 	});
 	this.LOC2_CHECK_CASHING_style = L.geoJson(null, {
-		pointToLayer: CityDigitsMap.getMarkerFor_LOC2_CHECK_CASHING,
+		pointToLayer: CityDigitsMap.getStyleFor_LOC2_CHECK_CASHING,
 		onEachFeature: CityDigitsMap.onEachFeatureFor_LOC2_CHECK_CASHING
 	});
 	this.LOC3_WIRE_TRANSFER_style = L.geoJson(null, {
-		pointToLayer: CityDigitsMap.getMarkerFor_LOC3_WIRE_TRANSFER,
+		pointToLayer: CityDigitsMap.getStyleFor_LOC3_WIRE_TRANSFER,
 		onEachFeature: CityDigitsMap.onEachFeatureFor_LOC3_WIRE_TRANSFER
 	});	
 	this.LOC4_BANKS_style = L.geoJson(null, {
-		pointToLayer: CityDigitsMap.getMarkerFor_LOC4_BANKS,
+		pointToLayer: CityDigitsMap.getStyleFor_LOC4_BANKS,
 		onEachFeature: CityDigitsMap.onEachFeatureFor_LOC4_BANKS
 	});	
 	this.LOC5_MCDONALDS_style = L.geoJson(null, {
-		pointToLayer: CityDigitsMap.getMarkerFor_LOC5_MCDONALDS,
+		pointToLayer: CityDigitsMap.getStyleFor_LOC5_MCDONALDS,
 		onEachFeature: CityDigitsMap.onEachFeatureFor_LOC5_MCDONALDS
 	});	
 	this.LOC6_SUBWAY_LINES_style = L.geoJson(null, {
 		style: CityDigitsMap.getStyleFor_LOC6_SUBWAY_LINES,
-		onEachFeature: CityDigitsMap.onEachFeature
+		onEachFeature: CityDigitsMap.onEachFeatureFor_LOC6_SUBWAY_LINES
+	});	
+	this.LOC7_SUBWAY_STATIONS_style = L.geoJson(null, {
+		pointToLayer: CityDigitsMap.getStyleFor_LOC7_SUBWAY_STATIONS,
+		onEachFeature: CityDigitsMap.onEachFeatureFor_LOC7_SUBWAY_STATIONS
 	});	
 	
 	// load layers
@@ -1977,11 +1999,13 @@ CityDigitsMap.prototype.loadMarkers = function(){
 	this.LOC3_WIRE_TRANSFER = omnivore.csv(MoneyTransferServices, null, this.LOC3_WIRE_TRANSFER_style);
 	this.LOC4_BANKS = omnivore.csv(CommercialBanks, null, this.LOC4_BANKS_style);
 	this.LOC5_MCDONALDS = omnivore.csv(Mcdonalds, null, this.LOC5_MCDONALDS_style);
-	//this.LOC6_SUBWAY_LINES = omnivore.csv(PawnShops, null, this.LOC6_SUBWAY_LINES_style);
+	this.LOC6_SUBWAY_LINES = omnivore.geojson(SubwayLines, null, this.LOC6_SUBWAY_LINES_style);
+	this.LOC7_SUBWAY_STATIONS = omnivore.geojson(SubwayStations, null, this.LOC7_SUBWAY_STATIONS_style);
 
 }
 
-CityDigitsMap.getMarkerFor_HIGHLIGHT = function (feature, latlng){
+
+CityDigitsMap.getStyleFor_LOC1_PAWN_SHOPS = function (feature, latlng){
 	var pawnShopMarker = L.circle(latlng, 80, {
 		stroke: false,
 		fillColor: '#eb4a42',
@@ -1991,18 +2015,8 @@ CityDigitsMap.getMarkerFor_HIGHLIGHT = function (feature, latlng){
 	return pawnShopMarker;
 	
 }
-CityDigitsMap.getMarkerFor_LOC1_PAWN_SHOPS = function (feature, latlng){
-	var pawnShopMarker = L.circle(latlng, 80, {
-		stroke: false,
-		fillColor: '#eb4a42',
-		fillOpacity: 0.75
-	});
-	
-	return pawnShopMarker;
-	
-}
 
-CityDigitsMap.getMarkerFor_LOC2_CHECK_CASHING = function (feature, latlng){
+CityDigitsMap.getStyleFor_LOC2_CHECK_CASHING = function (feature, latlng){
 	var checkCashingMarker = L.circle(latlng, 80, {
 		stroke: false,
 		fillColor: '#ffa77f',
@@ -2013,7 +2027,7 @@ CityDigitsMap.getMarkerFor_LOC2_CHECK_CASHING = function (feature, latlng){
 	
 }
 
-CityDigitsMap.getMarkerFor_LOC3_WIRE_TRANSFER = function (feature, latlng){
+CityDigitsMap.getStyleFor_LOC3_WIRE_TRANSFER = function (feature, latlng){
 	var wireTransferMarker = L.circle(latlng, 80, {
 		stroke: false,
 		fillColor: '#fa8a12',
@@ -2024,7 +2038,7 @@ CityDigitsMap.getMarkerFor_LOC3_WIRE_TRANSFER = function (feature, latlng){
 	
 }
 
-CityDigitsMap.getMarkerFor_LOC4_BANKS = function (feature, latlng){
+CityDigitsMap.getStyleFor_LOC4_BANKS = function (feature, latlng){
 	var banksMarker = L.circle(latlng, 80, {
 		stroke: false,
 		fillColor: '#fa8aa3',
@@ -2035,7 +2049,7 @@ CityDigitsMap.getMarkerFor_LOC4_BANKS = function (feature, latlng){
 	
 }
 
-CityDigitsMap.getMarkerFor_LOC5_MCDONALDS = function (feature, latlng){
+CityDigitsMap.getStyleFor_LOC5_MCDONALDS = function (feature, latlng){
 	var mcdonaldsMarker = L.circle(latlng, 80, {
 		stroke: false,
 		fillColor: '#ebcf42',
@@ -2043,6 +2057,28 @@ CityDigitsMap.getMarkerFor_LOC5_MCDONALDS = function (feature, latlng){
 	});
 	
 	return mcdonaldsMarker;
+	
+}
+
+CityDigitsMap.getStyleFor_LOC6_SUBWAY_LINES = function (feature, layer){
+	var subwayLinesInitialStyle = {
+	    color: "#9c9c9c",
+	    weight: 3,
+	    opacity: 0.75
+	};
+	
+	return subwayLinesInitialStyle;
+	
+}
+
+CityDigitsMap.getStyleFor_LOC7_SUBWAY_STATIONS = function (feature, latlng){
+	var subwayStationInitialStyle = L.circleMarker(latlng, {
+	    radius: 0,
+	    weight: 0,
+	    fillOpacity: 0.75
+	});
+	
+	return subwayStationInitialStyle;
 	
 }
 
@@ -2224,6 +2260,8 @@ CityDigitsMap.loadLocationsLayerFor = function(layerId){
 		LOC5 = MY_MAP.LOC5_MCDONALDS.addTo(MY_MAP.map).bringToFront();
 	}
 	if (layerId == "LOC6") {
+		// load subway lines and stops together
+		LOC7 = MY_MAP.LOC7_SUBWAY_STATIONS.addTo(MY_MAP.map).bringToFront();
 		LOC6 = MY_MAP.LOC6_SUBWAY_LINES.addTo(MY_MAP.map).bringToFront();
 	}
 	
@@ -2387,12 +2425,14 @@ CityDigitsMap.drawChart = function(layerId){
 	      .attr("width", x.rangeBand())
 	      .attr("y", function(d) { return y(d.properties[propertyName]); })
 	      .attr("height", function(d) { return height - y(d.properties[propertyName]); })
-		  .attr("id", function(d) { return d.properties.NYC_NEIG });
+		  .attr("id", function(d) { return d.properties.NYC_NEIG })
+		  .on("click", function(d) {
+			  CityDigitsMap.zoomToNeighborhoodAndPopup(d.properties.NYC_NEIG);
+		  });
 		  
 		  
 	  	// close chart when close chart button is clicked
 	  	$('#chartCloseButton').click(function() {
-			console.log('hello');
 	  		// get id of layer selected
 	  		var layerId = mainLayer._leaflet_id;
 	  		// remove chart
@@ -2423,4 +2463,316 @@ CityDigitsMap.removeChart = function(layerId){
 }
 
 
+CityDigitsMap.zoomToNeighborhoodAndPopup = function(neighborhoodName) {
+	var layerArray = [];
+	layerArray = mainLayer.getLayers();
+	
+	$.each(layerArray, function(index, layer){
+		if (layer.feature.properties.NYC_NEIG == neighborhoodName) {
+			MY_MAP.map.fitBounds(layer.getBounds(), {maxZoom: 13});
 
+			// close all open popups
+			MY_MAP.map.closePopup();
+
+			// bind popup with data to the feature
+			var center = MY_MAP.map.getCenter();
+			MY_MAP.popup2.setLatLng(center);
+			
+			// get popup content
+			var layerId = mainLayer._leaflet_id;
+			var popupContent = CityDigitsMap.setPopUpContent(layer, layerId);	
+			
+			MY_MAP.popup2.setContent(popupContent);
+			MY_MAP.popup2.openOn(MY_MAP.map);
+			
+		}
+		 
+	});
+	
+}
+
+CityDigitsMap.setPopUpContent = function(layer,layerId) {
+	// brute force setting popup content wehn clicking on D3 bar chart
+	if (layerId == 'legendpoverty') {
+		var percent = layer.feature.properties.PovertyPer * 100;
+		percent = percent.toFixed(0);
+		var popupContent = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4><p>' + percent + '%<br />Population in Poverty</p></div>';
+	} 
+	if (layerId == 'legendmedhhinc') {
+		var MedHHInc = accounting.formatMoney(layer.feature.properties.MedHouInco, "$", 0, ",", "");
+		var popupContent = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4><p>' + MedHHInc + '<br />Median Household Income</p></div>';
+	}
+	if (layerId == 'legendunemploy') {
+		var percent = layer.feature.properties.UnempRate * 100;
+		percent = percent.toFixed(1);
+		var popupContent = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4><p>' + percent + '%<br />Percent Unemployed</p></div>';
+	} 
+	if (layerId == 'legendforeignborn') {
+		var percent = layer.feature.properties.ForBornPer * 100;
+		percent = percent.toFixed(0);
+		var popupContent = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4><p>' + percent + '%<br />Population Foreign Born</p></div>';
+	} 
+	if (layerId == 'legendAFIpersqmi') {
+		// numerator
+		var Pawnshops = layer.feature.properties.Pawnshops;
+		Pawnshops = Pawnshops.toFixed(0);
+		var CheckCash = layer.feature.properties.CheckCash;
+		CheckCash = CheckCash.toFixed(0);
+		var MoneyTrans = layer.feature.properties.MoneyTrans;
+		MoneyTrans = MoneyTrans.toFixed(0);
+		var AFS_Sum = layer.feature.properties.AFS_Sum;
+		AFS_Sum = AFS_Sum.toFixed(0);
+		// denominator
+		var sq_mile = layer.feature.properties.sq_mile;
+		sq_mile = sq_mile.toFixed(2);
+		// computed
+		var AFS_SQMI = layer.feature.properties.AFS_SQMI;
+		AFS_SQMI = AFS_SQMI.toFixed(2);
+		
+		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4>';
+		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops + <br />';
+		var checkCashText = '<div class="checkcashing-icon"></div>' + CheckCash + ' Check Cashing + <br />';
+		var moneyTransText = '<div class="wiretransfer-icon"></div>' + MoneyTrans + ' Wire Transfer <br />';
+		var hr = '<hr class="divide">';
+		var sq_mileText = '<div class="squaremiles-icon"></div>' + sq_mile + ' Square Miles <br /><br />';
+		var footer = '<p class="grey">' + AFS_SQMI + ' Alternative Financial Institutions per Square Mile</p>';
+				
+		var popupContent = header + pawnShopsText + checkCashText + moneyTransText + hr + sq_mileText + footer;
+	} 
+	if (layerId == 'legendbankspersqmi') {
+		// numerator
+		var Banks = layer.feature.properties.Banks;
+		Banks = Banks.toFixed(0);
+		// denominator
+		var sq_mile = layer.feature.properties.sq_mile;
+		sq_mile = sq_mile.toFixed(2);
+		// computed
+		var BANK_SQMI = layer.feature.properties.BANK_SQMI;
+		BANK_SQMI = BANK_SQMI.toFixed(2);
+		
+		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4>';
+		var banksText = '<div class="banks-icon"></div>' + Banks + ' Banks<br />';
+		var hr = '<hr class="divide">';
+		var sq_mileText = '<div class="squaremiles-icon"></div>' + sq_mile + ' Square Miles <br /><br />';
+		var footer = '<p class="grey">' + BANK_SQMI + ' Banks per Square Mile</p>';
+				
+		var popupContent = header + banksText + hr + sq_mileText + footer;
+	} 
+	if (layerId == 'legendpawnsqmi') {
+		// numerator
+		var Pawnshops = layer.feature.properties.Pawnshops;
+		Pawnshops = Pawnshops.toFixed(0);
+		// denominator
+		var sq_mile = layer.feature.properties.sq_mile;
+		sq_mile = sq_mile.toFixed(2);
+		// computed
+		var PAWN_SQMI = layer.feature.properties.PAWN_SQMI;
+		PAWN_SQMI = PAWN_SQMI.toFixed(2);
+		
+		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4>';
+		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops<br />';
+		var hr = '<hr class="divide">';
+		var sq_mileText = '<div class="squaremiles-icon"></div>' + sq_mile + ' Square Miles <br /><br />';
+		var footer = '<p class="grey">' + PAWN_SQMI + ' Pawn Shops per Square Mile</p>';
+				
+		var popupContent = header + pawnShopsText + hr + sq_mileText + footer;
+	} 
+	if (layerId == 'legendmcdonaldspersqi') {
+		// numerator
+		var McDonalds = layer.feature.properties.McDonalds1;
+		McDonalds = McDonalds.toFixed(0);
+		// denominator
+		var sq_mile = layer.feature.properties.sq_mile;
+		sq_mile = sq_mile.toFixed(2);
+		// computed
+		var McD_SQMI = layer.feature.properties.McD_SQMI;
+		McD_SQMI = McD_SQMI.toFixed(2);
+		
+		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4>';
+		var mcDonaldsText = '<div class="mcdonalds-icon"></div>' + McDonalds + ' McDonald\'s<br />';
+		var hr = '<hr class="divide">';
+		var sq_mileText = '<div class="squaremiles-icon"></div>' + sq_mile + ' Square Miles <br /><br />';
+		var footer = '<p class="grey">' + McD_SQMI + ' McDonald\'s per Square Mile</p>';
+				
+		var popupContent = header + mcDonaldsText + hr + sq_mileText + footer;
+	} 
+	if (layerId == 'legendhouseholdsperAFI') {
+		// numerator
+		var Households = layer.feature.properties.Households;
+		Households = accounting.formatNumber(Households, 0, ",", "");
+		// denominator
+		var Pawnshops = layer.feature.properties.Pawnshops;
+		Pawnshops = Pawnshops.toFixed(0);
+		var CheckCash = layer.feature.properties.CheckCash;
+		CheckCash = CheckCash.toFixed(0);
+		var MoneyTrans = layer.feature.properties.MoneyTrans;
+		MoneyTrans = MoneyTrans.toFixed(0);
+		var AFS_Sum = layer.feature.properties.AFS_Sum;
+		AFS_Sum = AFS_Sum.toFixed(0);
+		// computed
+		var HH_AFS = layer.feature.properties.HH_AFS;
+		HH_AFS = accounting.formatNumber(HH_AFS, 2, ",", ".");
+		
+		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4>';
+		var householdsText = '<div class="households-icon"></div>' + Households + ' Households<br />';
+		var hr = '<hr class="divide">';
+		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops + <br />';
+		var checkCashText = '<div class="checkcashing-icon"></div>' + CheckCash + ' Check Cashing + <br />';
+		var moneyTransText = '<div class="wiretransfer-icon"></div>' + MoneyTrans + ' Wire Transfer <br /><br />';
+		if (layer.feature.properties.AFS_Sum == 0) {
+			var footer = '<p class="grey">The Ratio is Undefined</p>';
+		} else if (layer.feature.properties.HH_AFS == -1){
+			var footer = '<p class="grey">0.00 Households per Alternative Financial Institution</p>';			
+		} else {
+			var footer = '<p class="grey">' + HH_AFS + ' Households per Alternative Financial Institution</p>';			
+		}
+				
+		var popupContent = header + householdsText + hr + pawnShopsText + checkCashText + moneyTransText + footer;
+	} 
+	if (layerId == 'legendhouseholdsperbank') {
+		// numerator
+		var Households = layer.feature.properties.Households;
+		Households = accounting.formatNumber(Households, 0, ",", "");
+		// denominator
+		var Banks = layer.feature.properties.Banks;
+		Banks = Banks.toFixed(0);
+		// computed
+		var HH_BANK = layer.feature.properties.HH_BANK;
+		HH_BANK = accounting.formatNumber(HH_BANK, 2, ",", ".");
+		
+		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4>';
+		var householdsText = '<div class="households-icon"></div>' + Households + ' Households<br />';
+		var hr = '<hr class="divide">';
+		var banksText = '<div class="banks-icon"></div>' + Banks + ' Banks<br /><br />';
+		if (layer.feature.properties.Banks == 0) {
+			var footer = '<p class="grey">The Ratio is Undefined</p>';
+		} else if (layer.feature.properties.HH_BANK == -1){
+			var footer = '<p class="grey">0.00 Households per Alternative Financial Institution</p>';			
+		} else {
+			var footer = '<p class="grey">' + HH_BANK + ' Households per Bank</p>';			
+		}
+				
+		var popupContent = header + householdsText + hr + banksText + footer;
+	} 
+	if (layerId == 'legendhouseholdsperMcD') {
+		// numerator
+		var Households = layer.feature.properties.Households;
+		Households = accounting.formatNumber(Households, 0, ",", "");
+		// denominator
+		var McDonalds = layer.feature.properties.McDonalds1;
+		McDonalds = McDonalds.toFixed(0);
+		// computed
+		var HH_McD = layer.feature.properties.HH_McD;
+		HH_McD = accounting.formatNumber(HH_McD, 2, ",", ".");
+		
+		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4>';
+		var householdsText = '<div class="households-icon"></div>' + Households + ' Households<br />';
+		var hr = '<hr class="divide">';
+		var mcDonaldsText = '<div class="mcdonalds-icon"></div>' + McDonalds + ' McDonald\'s<br /><br />';
+		if (layer.feature.properties.McDonalds1 == 0) {
+			var footer = '<p class="grey">The Ratio is Undefined</p>';
+		} else if (layer.feature.properties.HH_McD == -1){
+			var footer = '<p class="grey">0.00 Households per McDonald\'s</p>';			
+		} else {
+			var footer = '<p class="grey">' + HH_McD + ' Households per McDonald\'s</p>';			
+		}
+				
+		var popupContent = header + householdsText + hr + mcDonaldsText + footer;
+	} 
+	if (layerId == 'legendhouseholdsperpawn') {
+		// numerator
+		var Households = layer.feature.properties.Households;
+		Households = accounting.formatNumber(Households, 0, ",", "");
+		// denominator
+		var Pawnshops = layer.feature.properties.Pawnshops;
+		Pawnshops = Pawnshops.toFixed(0);
+		// computed
+		var HH_PAWN = layer.feature.properties.HH_PAWN;
+		HH_PAWN = accounting.formatNumber(HH_PAWN, 2, ",", ".");
+		
+		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4>';
+		var householdsText = '<div class="households-icon"></div>' + Households + ' Households<br />';
+		var hr = '<hr class="divide">';
+		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops<br /><br />';
+		if (layer.feature.properties.Pawnshops == 0) {
+			var footer = '<p class="grey">The Ratio is Undefined</p>';
+		} else if (layer.feature.properties.HH_PAWN == -1){
+			var footer = '<p class="grey">0.00 Households per Pawn Shop</p>';			
+		} else {
+			var footer = '<p class="grey">' + HH_PAWN + ' Households per Pawn Shop</p>';			
+		}
+						
+		var popupContent = header + householdsText + hr + pawnShopsText + footer;
+	} 
+	if (layerId == 'legendAFIsperbank') {
+		// numerator
+		var Pawnshops = layer.feature.properties.Pawnshops;
+		Pawnshops = Pawnshops.toFixed(0);
+		var CheckCash = layer.feature.properties.CheckCash;
+		CheckCash = CheckCash.toFixed(0);
+		var MoneyTrans = layer.feature.properties.MoneyTrans;
+		MoneyTrans = MoneyTrans.toFixed(0);
+		var AFS_Sum = layer.feature.properties.AFS_Sum;
+		AFS_Sum = AFS_Sum.toFixed(0);
+		// denominator
+		var Banks = layer.feature.properties.Banks;
+		Banks = Banks.toFixed(0);
+		// computed
+		var AFS_BANK = layer.feature.properties.AFS_BANK;
+		AFS_BANK = AFS_BANK.toFixed(2);
+		
+		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4>';
+		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops + <br />';
+		var checkCashText = '<div class="checkcashing-icon"></div>' + CheckCash + ' Check Cashing + <br />';
+		var moneyTransText = '<div class="wiretransfer-icon"></div>' + MoneyTrans + ' Wire Transfer <br />';
+		var hr = '<hr class="divide">';
+		var banksText = '<div class="banks-icon"></div>' + Banks + ' Banks<br /><br />';
+		if (layer.feature.properties.Banks == 0) {
+			var footer = '<p class="grey">The Ratio is Undefined</p>';
+		} else if (layer.feature.properties.AFS_BANK == -1){
+			var footer = '<p class="grey">0.00 Alternative Financial Institutions per Bank</p>';			
+		} else {
+			var footer = '<p class="grey">' + AFS_BANK + ' Alternative Financial Institutions per Bank</p>';			
+		}
+				
+		var popupContent = header + pawnShopsText + checkCashText + moneyTransText + hr + banksText + footer;
+	} 
+	if (layerId == 'legendbanksperAFIs') {
+		// numerator
+		var Banks = layer.feature.properties.Banks;
+		Banks = Banks.toFixed(0);
+		// denominator
+		var Pawnshops = layer.feature.properties.Pawnshops;
+		Pawnshops = Pawnshops.toFixed(0);
+		var CheckCash = layer.feature.properties.CheckCash;
+		CheckCash = CheckCash.toFixed(0);
+		var MoneyTrans = layer.feature.properties.MoneyTrans;
+		MoneyTrans = MoneyTrans.toFixed(0);
+		var AFS_Sum = layer.feature.properties.AFS_Sum;
+		AFS_Sum = AFS_Sum.toFixed(0);
+		// computed
+		var BANK_AFS = layer.feature.properties.BANK_AFS;
+		BANK_AFS = BANK_AFS.toFixed(2);
+		//console.log(BANK_AFS);
+		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4>';
+		var banksText = '<div class="banks-icon"></div>' + Banks + ' Banks<br />';
+		var hr = '<hr class="divide">';
+		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops + <br />';
+		var checkCashText = '<div class="checkcashing-icon"></div>' + CheckCash + ' Check Cashing + <br />';
+		var moneyTransText = '<div class="wiretransfer-icon"></div>' + MoneyTrans + ' Wire Transfer <br /><br />';
+		if (layer.feature.properties.AFS_Sum == 0) {
+			var footer = '<p class="grey">The Ratio is Undefined</p>';
+		} else if (layer.feature.properties.BANK_AFS == -1){
+			var footer = '<p class="grey">0.00 Banks per Alternative Financial Institution</p>';			
+		} else {
+			var footer = '<p class="grey">' + BANK_AFS + ' Banks per Alternative Financial Institution</p>';			
+		}
+				
+		var popupContent = header + banksText + hr + pawnShopsText + checkCashText + moneyTransText + footer;
+	} 
+	
+	
+	return popupContent;
+}
+	
+	

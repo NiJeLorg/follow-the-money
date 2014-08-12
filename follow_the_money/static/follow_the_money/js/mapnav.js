@@ -41,7 +41,10 @@ $( document ).ready(function() {
 				LOC5 = null;
 			}
 			if(layerId == 'LOC6' && LOC6 != null) {
+				// remove subway stations and lines together
+				CityDigitsMap.removeLayerFor(LOC7);
 				CityDigitsMap.removeLayerFor(LOC6);
+				LOC7 = null;
 				LOC6 = null;
 			}
 	    }
