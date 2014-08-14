@@ -17,6 +17,7 @@ var LOC3 = null;
 var LOC4 = null;
 var LOC5 = null;
 var LOC6 = null;
+var LOC7 = null;
 var MY_MAP = null;
 var SCREEN_HEIGHT = null;
 var CURRENT_LAYER = null;
