@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-
+from follow_the_money import views
 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('registration.backends.default.urls')),
+		url(r'^restricted/', views.restricted, name='restricted'),
 )
 
 urlpatterns += staticfiles_urlpatterns()

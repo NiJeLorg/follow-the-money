@@ -1,6 +1,8 @@
 # Create your views here.
 from django.template import RequestContext
 from django.shortcuts import render_to_response
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 def index(request):
     # Request the context of the request.
@@ -25,3 +27,7 @@ def mapNavigation(request):
     context_dict = {}
    
     return render_to_response('follow_the_money/map_navigation.html', context_dict, context)
+
+@login_required
+def restricted(request):
+    return HttpResponse("Since you're logged in, you can see this text!")
