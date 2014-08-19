@@ -35,8 +35,7 @@ $().ready(new function(){
     myMap.loadMarkers();
 	myMap.addGeoSearch();
     mainLayer = myMap.neighborhoodLayer;
-    MY_MAP = myMap;
-	
+    MY_MAP = myMap;	
 
 });
 

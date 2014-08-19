@@ -1,8 +1,12 @@
-{% extends "registration/base.html" %}
+{% extends "follow_the_money/base.html" %}
 
-{% block title %}Registration complete{% endblock %}
+{% block body_block %}
 
-{% block content %}
-<h1>Check your email</h1>
-<p>An activation link has been sent to the email address you supplied, along with instructions for activating your account.</p>
+<div class="container loginFormcontainer">
+	<div class="jumbotron">
+		<h3>Activation link sent.</h3>
+		<p>An activation link has been sent to the email address you supplied, along with instructions for activating your account. Check your email to continue.</p>
+	</div>
+</div>
+
 {% endblock %}

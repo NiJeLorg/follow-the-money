@@ -1,8 +1,12 @@
-{% extends "registration/base.html" %}
+{% extends "follow_the_money/base.html" %}
 
-{% block title %}Logged out{% endblock %}
+{% block body_block %}
 
-{% block content %}
-<h1>You've been logged out.</h1>
-<p>Thanks for stopping by; when you come back, don't forget to <a href="/accounts/login/">log in</a> again.</p>
+<div class="container loginFormcontainer">
+	<div class="jumbotron">
+		<h3>You've been logged out.</h3>
+		<p>Please <a href="/accounts/login/">login</a> again if you would like to access your account.</p>
+	</div>
+</div>
+
 {% endblock %}

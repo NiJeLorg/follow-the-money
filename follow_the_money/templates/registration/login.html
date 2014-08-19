@@ -1,34 +1,28 @@
 {% extends "follow_the_money/base.html" %}
 {% load widget_tweaks %}
-{% block title %}Log in{% endblock %}
 
 {% block body_block %}
 <div class="container loginFormcontainer">
-<div class="jumbotron">
-<h4>Log in</h4>
+	<div class="jumbotron">
+		<h3>Login</h3>
 
-{% if form.errors %}
-<p class="error">Please enter a correct username and password.</p>
-{% endif %}
+		{% if form.errors %}
+		<p class="error">Please enter a correct username and password.</p>
+		{% endif %}
 
-<form role="form" method="post" action="?next={{ next|default:"/" }}">{% csrf_token %}
-<div class="form-group">
-<label for="id_username">Username:</label>{% if form.username.errors %} <span class="error">{{ form.username.errors|join:", " }}</span>{% endif %}
-{{ form.username|add_class:"form-control" }}
-</div>
-<div class="form-group">
-<label for="id_password">Password:<a href="/accounts/password/reset"> Forgot Password?</a></label>{% if form.password.errors %} <span class="error">{{ form.password.errors|join:", " }}</span>{% endif %}
-{{ form.password|add_class:"form-control" }}
+		<form role="form" method="post" action="?next={{ next|default:"/" }}">{% csrf_token %}
+			<div class="form-group">
+				<label for="id_username">Username</label>{% if form.username.errors %} <span class="error">{{ form.username.errors|join:", " }}</span>{% endif %}
+				{{ form.username|add_class:"form-control" }}
+			</div>
+			<div class="form-group">
+				<label for="id_password">Password&#160;&#160;&#160;<a href="/accounts/password/reset">Forgot Password?</a></label>{% if form.password.errors %} <span class="error">{{ form.password.errors|join:", " }}</span>{% endif %}
+				{{ form.password|add_class:"form-control" }}
 
+			</div>
+			<button type="submit" class="btn btn-default pull-left">Login</button>
+		</form>
+		<p class="text-right"><a href="/accounts/register/"> Sign up <span class="glyphicon glyphicon-arrow-right"></span></a></p>
+	</div>
 </div>
- <button type="submit" class="btn btn-default pull-left">Login</button>
-<p class="text-right"><a href="/accounts/register/"> Sign up <span class="glyphicon glyphicon-arrow-right"></span></a></p>
-</form>
-</div>
-</div>
-{% endblock %}
-
-{% block content-related %}
-<p>If you don't have an account, you can <a href="/accounts/register/">sign
-up</a> for one.
 {% endblock %}

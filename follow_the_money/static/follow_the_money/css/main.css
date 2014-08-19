@@ -8,12 +8,12 @@ body {
 }
 .loginFormcontainer {
     width: 50%;
-		margin-top: 15%;
+	margin-top: 10%;
 }
 
 .TeacherRegistrationcontainer {
     width: 50%;
-		margin-top: 15%;
+	margin-top: 10%;
 }
 
 #main-container {
@@ -44,6 +44,7 @@ body {
 	width: 100%;
 	left: 0;
 	top: 0;
+	margin-left: 0px !important;
 	text-align: center;
 	margin: auto;
 	height:100%;
@@ -127,7 +128,7 @@ body {
 .map-ui {
     position: absolute;
     left: 25px;
-    top: 80px;
+    top: 60px;
     width: 620px;
     margin: 0;
     padding: 0;

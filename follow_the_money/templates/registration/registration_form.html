@@ -4,71 +4,65 @@
 
 {% block body_block %}
 <div class="container TeacherRegistrationcontainer">
-<div class="jumbotron">
-  {% if form.errors %}
-  <p class="errors">Please correct the errors below: {{ form.non_field_errors }}</p>
-  {% endif %}
+	<div class="jumbotron">
+		<h3>Teacher Sign Up</h3>
+		{% if form.errors %}
+		<p class="errors">Please correct the errors below: {{ form.non_field_errors }}</p>
+		{% endif %}
 
-  <form role="form" method="post" action="" class="wide">
-	{% csrf_token %}
-    <div class="form-group"> 
-		 <label for="id_username">Username:</label>
-      {% if form.username.errors %}
-        <p class="errors">{{ form.username.errors.as_text }}</p>
-      {% endif %}
-      {{ form.username|add_class:"form-control" }}
-		</div>
+		<form role="form" method="post" action="" class="wide">
+			{% csrf_token %}
+			<div class="form-group"> 
+				<label for="id_username">Username:</label>
+				{% if form.username.errors %}
+				<p class="errors">{{ form.username.errors.as_text }}</p>
+				{% endif %}
+				{{ form.username|add_class:"form-control" }}
+			</div>
 			<div class="row">
 				<div class="col-md-6">
-				 <label for="id_first">First:</label>
-       {% if form.username.errors %}
-        <p class="errors">{{ form.username.errors.as_text }}</p>
-      {% endif %}
-       {{ form.username|add_class:"form-control" }}
+					<label for="id_first">First:</label>
+					{% if form.username.errors %}
+					<p class="errors">{{ form.username.errors.as_text }}</p>
+					{% endif %}
+					{{ form.username|add_class:"form-control" }}
 				</div>
-
 				<div class="col-md-6">
-				 <label for="id_last">Last:</label>
-       {% if form.username.errors %}
-        <p class="errors">{{ form.username.errors.as_text }}</p>
-      {% endif %}
-       {{ form.username|add_class:"form-control" }}
+					<label for="id_last">Last:</label>
+					{% if form.username.errors %}
+					<p class="errors">{{ form.username.errors.as_text }}</p>
+					{% endif %}
+					{{ form.username|add_class:"form-control" }}
 				</div>
 			</div>
-		 <div class="form-group">  
-      <label for="id_email">Email address:</label>
-      {% if form.email.errors %}
-        <p class="errors">{{ form.email.errors.as_text }}</p>
-      {% endif %}
-      {{ form.email|add_class:"form-control" }}
+			<div class="form-group">  
+				<label for="id_email">Email address:</label>
+				{% if form.email.errors %}
+				<p class="errors">{{ form.email.errors.as_text }}</p>
+				{% endif %}
+				{{ form.email|add_class:"form-control" }}
 			</div>
 			<div class="form-group">
-      <label for="id_password1">Password:</label>
-      {% if form.password1.errors %}
-        <p class="errors">{{ form.password1.errors.as_text }}</p>
-      {% endif %}
-      {{ form.password1|add_class:"form-control" }}
+			<label for="id_password1">Password:</label>
+				{% if form.password1.errors %}
+				<p class="errors">{{ form.password1.errors.as_text }}</p>
+				{% endif %}
+				{{ form.password1|add_class:"form-control" }}
 			</div>
-      <div class="form-group">
-			<label for="id_password2">Password (type again to catch typos):</label>
-      {% if form.password2.errors %}
-        <p class="errors">{{ form.password2.errors.as_text }}</p>
-      {% endif %}
-      {{ form.password2|add_class:"form-control" }}
+			<div class="form-group">
+				<label for="id_password2">Password (type again to catch typos):</label>
+				{% if form.password2.errors %}
+				<p class="errors">{{ form.password2.errors.as_text }}</p>
+				{% endif %}
+				{{ form.password2|add_class:"form-control" }}
 			</div>
-  <button type="submit" class="btn btn-default pull-left">Sign Up</button>
+			<button type="submit" class="btn btn-default pull-right">Sign Up</button>
 		</form>
+		<p class="text-left"><a href="/accounts/login/"><span class="glyphicon glyphicon-arrow-left"></span> Login</a></p>
+		
+	</div>
+</div>
   
 {% endblock %}
 
-{% block content-related %}
-<p>Fill out the form to the left (all fields are required), and your
-account will be created; you'll be sent an email with instructions on how
-to finish your registration.</p>
 
-<p>We'll only use your email to send you signup instructions. We hate spam
-as much as you do.</p>
-
-<p>This account will let you log into the ticket tracker, claim tickets,
-and be exempt from spam filtering.</p>
-{% endblock %}
