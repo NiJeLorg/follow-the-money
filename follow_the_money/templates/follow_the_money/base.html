@@ -55,9 +55,7 @@
 		  <a class="navbar-brand" href="#">City Digits</a>
 		</div>
 {% if user.is_authenticated %}
-<h1>Rango says... hello {{ user.username }}!</h1>
 {% else %}
-<h1>Rango says... hello world!</h1>
 {% endif %}
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="ftm-navbar-collapse">
@@ -66,10 +64,7 @@
 	        <li><a href="#">MEDIA</a></li>
 	        <li><a href="#">OPINIONS</a></li>
 	        <li><a href="#">ABOUT</a></li>
-	        <li><a href="/accounts/register/">MY ACCOUNT</a></li>
-					<li><a href="/accounts/login/">Login</a></li>
-	       <li><a href=" /accounts/logout/">Logout</a></li>
-					<li><a href="/restricted/">Restricted</a></li>
+	        <li><a data-toggle="modal" href="/accounts/login/">MY ACCOUNT</a></li>
 				</ul>
 	      <ul class="nav navbar-nav navbar-right">
 			  <li class="media-button"><a href="#"></a></li>
@@ -79,10 +74,8 @@
 	  </div><!-- /.container-fluid -->
 	</nav>
 
-    <div class="container-fluid" id="main-container">
 		{% block body_block %}
 		{% endblock %}
-    </div> <!-- /container -->
     <footer class="footer" id="city_digits_footer">
         <p></p>
     </footer><!-- footer -->

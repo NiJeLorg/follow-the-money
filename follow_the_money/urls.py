@@ -7,3 +7,4 @@ urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     url(r'^map/nav/$', views.mapNavigation, name='mav_nav'),
 )
+

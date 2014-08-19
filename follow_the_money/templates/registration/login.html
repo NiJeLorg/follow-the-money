@@ -1,24 +1,31 @@
-{% extends "registration/base.html" %}
-
+{% extends "follow_the_money/base.html" %}
+{% load widget_tweaks %}
 {% block title %}Log in{% endblock %}
 
-{% block content %}
-
-<h1>Log in</h1>
+{% block body_block %}
+<div class="container loginFormcontainer">
+<div class="jumbotron">
+<h4>Log in</h4>
 
 {% if form.errors %}
-<p class="error">Please correct the errors below:</p>
+<p class="error">Please enter a correct username and password.</p>
 {% endif %}
 
-<form method="post" action="?next={{ next|default:"/" }}">{% csrf_token %}
-<dl>
-<dt><label for="id_username">Username:</label>{% if form.username.errors %} <span class="error">{{ form.username.errors|join:", " }}</span>{% endif %}</dt>
-<dd>{{ form.username }}</dd>
-<dt><label for="id_password">Password:</label>{% if form.password.errors %} <span class="error">{{ form.password.errors|join:", " }}</span>{% endif %}</dt>
-<dd>{{ form.password }}</dd>
-<dt><input type="submit" value="Log in" /></dt>
-</dl>
+<form role="form" method="post" action="?next={{ next|default:"/" }}">{% csrf_token %}
+<div class="form-group">
+<label for="id_username">Username:</label>{% if form.username.errors %} <span class="error">{{ form.username.errors|join:", " }}</span>{% endif %}
+{{ form.username|add_class:"form-control" }}
+</div>
+<div class="form-group">
+<label for="id_password">Password:<a href="/accounts/password/reset"> Forgot Password?</a></label>{% if form.password.errors %} <span class="error">{{ form.password.errors|join:", " }}</span>{% endif %}
+{{ form.password|add_class:"form-control" }}
+
+</div>
+ <button type="submit" class="btn btn-default pull-left">Login</button>
+<p class="text-right"><a href="/accounts/register/"> Sign up <span class="glyphicon glyphicon-arrow-right"></span></a></p>
 </form>
+</div>
+</div>
 {% endblock %}
 
 {% block content-related %}

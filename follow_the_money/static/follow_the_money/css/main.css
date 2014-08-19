@@ -6,6 +6,15 @@
 body {
     background-color: #B0B6BD;
 }
+.loginFormcontainer {
+    width: 50%;
+		margin-top: 15%;
+}
+
+.TeacherRegistrationcontainer {
+    width: 50%;
+		margin-top: 15%;
+}
 
 #main-container {
     margin-top: -18px;
