@@ -50,6 +50,11 @@ body {
 	height:100%;
 }
 
+.user-text {
+	margin-top: 15px;
+	margin-right: 100px;			
+}
+
 .nav-tabs.nav-mapui > li {
 	background-color: #025ff1;
 }
