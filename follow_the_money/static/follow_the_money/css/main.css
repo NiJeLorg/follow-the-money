@@ -19,7 +19,6 @@ body {
 #main-container {
     margin-top: -18px;
     width: 100%;
-	padding-right: 0px;
 	padding-left: 0px;
 }
 
@@ -127,10 +126,10 @@ body {
 
 .map-ui {
     position: absolute;
-    left: 15px;
+    left: 25px;
     top: 80px;
     width: 620px;
-    margin: 0 0 0 15px;
+    margin: 0;
     padding: 0;
     z-index: 100;
     background: #fff;
@@ -141,7 +140,7 @@ body {
     position: absolute;
     z-index: 110;
     top: 59px;
-    right: 15px;
+    right: 7px;
 }
 
 
@@ -156,7 +155,7 @@ body {
     position: absolute;
     z-index: 110;
     bottom: 10px;
-    right: 10px;
+    right: 5px;
 }
 
 .rollover-tooltip {
@@ -250,4 +249,47 @@ body {
 }
 
 
+/*
+ * barchartTooltip styling
+ */
+
+.barchartTooltip { 
+    position: absolute;
+    text-align: left;
+    width: 230px;
+    height: auto;
+    padding: 8px;
+    color: #6D6E70;
+    background: #fff;
+    font-weight: 400;
+    border: solid 2px #ccc;
+    border-radius: 4px;
+    pointer-events: none;
+	z-index: 1031;
+} 
+
+.barchartTooltip:after, .barchartTooltip:before { 
+	right: 100%; 
+	top: 50%; 
+	border: solid transparent; 
+	content: " "; 
+	height: 0; 
+	width: 0; 
+	position: absolute; 
+	pointer-events: none; 
+} 
+
+.barchartTooltip:after { 
+	border-color: rgba(255, 255, 255, 0); 
+	border-right-color: #fff; 
+	border-width: 15px; 
+	margin-top: -15px; 
+} 
+
+.barchartTooltip:before { 
+	border-color: rgba(109, 110, 112, 0); 
+	border-right-color: #ccc; 
+	border-width: 18px; 
+	margin-top: -18px; 
+}
 
