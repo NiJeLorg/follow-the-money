@@ -12,9 +12,10 @@ urlpatterns = patterns('',
     url(r'^follow-the-money/', include('follow_the_money.urls')),
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^accounts/', include('registration.backends.default.urls')),
-		url(r'^restricted/', views.restricted, name='restricted'),
-		url(r'^resetpassword/passwordsent/$', 'django.contrib.auth.views.password_reset_done', name='password_reset_done'),
+		(r'^accounts/', include('allauth.urls')),
+ #   url(r'^accounts/', include('registration.backends.default.urls')),
+#		url(r'^restricted/', views.restricted, name='restricted'),
+#		url(r'^resetpassword/passwordsent/$', 'django.contrib.auth.views.password_reset_done', name='password_reset_done'),
 )
 
 urlpatterns += staticfiles_urlpatterns()
