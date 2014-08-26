@@ -42,24 +42,24 @@
 <div class="half-container">
 	<div class="row">
 		<ul class="nav nav-tabs nav-justified nav-tabs-media">
-		    <li class="active"><a href="/follow-the-money/media/form/image/"><div class="image-button"></div>Image</a></li>
-		    <li><a href="/follow-the-money/media/form/audio/"><div class="audio-button"></div>Audio</a></li>
+		    <li><a href="/follow-the-money/media/form/image/"><div class="image-button"></div>Image</a></li>
+		    <li class="active"><a href="/follow-the-money/media/form/audio/"><div class="audio-button"></div>Audio</a></li>
 		    <li><a href="/follow-the-money/media/form/note/"><div class="note-button"></div>Note</a></li>
 		    <li><a href="/follow-the-money/media/form/interview/"><div class="interview-button"></div>Interview</a></li>
 		</ul>
 	</div>
 	<div class="row">
-		<form role="form" enctype="multipart/form-data" method="post" action="/follow-the-money/media/form/image/" >{% csrf_token %}
+		<form role="form" enctype="multipart/form-data" method="post" action="/follow-the-money/media/form/audio/" >{% csrf_token %}
 			<div class="form-group">
 				<label for="title">Title</label>{% if form.title.errors %} <span class="text-danger">{{ form.title.errors|join:", " }}</span>{% endif %}
 				{{ form.title|add_class:"form-control" }}
 			</div>
 			<div class="form-group">
-				{% if form.image.errors %} <span class="text-danger">{{ form.image.errors|join:", " }}</span>{% endif %}
+				{% if form.audio.errors %} <span class="text-danger">{{ form.audio.errors|join:", " }}</span>{% endif %}
 				<div class="input-group">				
 	                <span class="input-group-btn">
 	                    <span class="btn btn-default btn-file">
-	                        Add Image {{ form.image }}
+	                        Add Audio {{ form.audio }}
 	                    </span>
 	                </span>
 	                <input type="text" class="form-control" placeholder='No File Chosen' readonly>

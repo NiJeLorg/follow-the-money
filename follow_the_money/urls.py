@@ -6,7 +6,10 @@ from follow_the_money import views
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     url(r'^map/nav/$', views.mapNavigation, name='map_nav'),
-    url(r'^media/form/image/$', views.mediaFormImage, name='mediaFormImage'),
-    url(r'^media/$', views.media, name='media'),
+    url(r'^media/form/image/', views.mediaFormImage, name='mediaFormImage'),
+    url(r'^media/form/audio/', views.mediaFormAudio, name='mediaFormAudio'),
+    url(r'^media/form/note/', views.mediaFormNote, name='mediaFormNote'),
+    url(r'^media/form/interview/', views.mediaFormInterview, name='mediaFormInterview'),
+    url(r'^media/', views.media, name='media'),
 )
 
