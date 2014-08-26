@@ -1,0 +1,23 @@
+{% extends 'follow_the_money/base.html' %}
+{% load staticfiles %}
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'follow_the_money/css/bootstrap-select.min.css' %}">
+	<!-- style embedded in django template for static file usage -->
+	
+{% endblock %}	
+
+{% block body_block %}
+<div class="full-container">
+	<div class="container-fluid">
+		<div class="row">
+			<h2 class="text-center"><u>Media</u></h2>
+		</div>
+	</div>
+</div>	
+{% endblock %}
+
+
+{% block js_block %}
+	<script type="text/javascript" src="{% static 'follow_the_money/js/bootstrap-select.min.js' %}"></script>
+{% endblock %}

@@ -53,6 +53,19 @@ L.Control.GeoSearch = L.Control.extend({
 
         this._map = map;
         this._container = L.DomUtil.create('div', 'leaflet-control-geosearch');
+		
+		// add listener to addressSearch button
+		var addressSearch = L.DomUtil.get("addressSearch");
+        this._addressSearch = addressSearch;
+
+		// add listener to refreshMap button
+		/*
+		var refreshMap = L.DomUtil.get("refreshMap");
+		if (refreshMap) {
+	        this._refreshMap = refreshMap;
+			L.DomEvent.addListener(this._refreshMap, 'click', this._onRefreshMap, this);		
+		}
+		*/
 
         var searchbox = document.createElement('input');
         searchbox.id = 'leaflet-control-geosearch-qry';
@@ -60,7 +73,7 @@ L.Control.GeoSearch = L.Control.extend({
 		searchbox.className = 'form-control';
         searchbox.placeholder = this._config.searchLabel;
         this._searchbox = searchbox;
-
+		
         var msgbox = document.createElement('div');
         msgbox.id = 'leaflet-control-geosearch-msg';
         msgbox.className = 'leaflet-control-geosearch-msg';
@@ -76,8 +89,9 @@ L.Control.GeoSearch = L.Control.extend({
 
         L.DomEvent
           .addListener(this._container, 'click', L.DomEvent.stop)
-          .addListener(this._searchbox, 'keypress', this._onKeyUp, this);
-
+        //.addListener(this._searchbox, 'keypress', this._onKeyUp, this)
+          .addListener(this._addressSearch, 'click', this._onSearchButton, this);
+		  
         L.DomEvent.disableClickPropagation(this._container);
 
         return this._container;
@@ -171,6 +185,13 @@ L.Control.GeoSearch = L.Control.extend({
         if (results.length > 0) {
             this._map.fireEvent('geosearch_foundlocations', {Locations: results});
             this._showLocation(results[0]);
+			//set latitude and longitude for hidden form
+			var latitude = results[0].Y;
+			var longitude = results[0].X;
+			latitude = latitude.toFixed(6);
+			longitude = longitude.toFixed(6);
+			$('#id_latitude').val(latitude);
+			$('#id_longitude').val(longitude);			
         } else {
             this._printError(this._config.notFoundMessage);
         }
@@ -198,6 +219,7 @@ L.Control.GeoSearch = L.Control.extend({
         }, 3000);
     },
 
+	/*
     _onKeyUp: function (e) {
         var esc = 27,
             enter = 13,
@@ -209,5 +231,21 @@ L.Control.GeoSearch = L.Control.extend({
         } else if (e.keyCode === enter) {
             this.geosearch(queryBox.value);
         }
+    },
+	*/
+	
+    _onSearchButton: function (e) {
+        var queryBox = document.getElementById('leaflet-control-geosearch-qry');
+        this.geosearch(queryBox.value);
+    },
+
+    _onRefreshMap: function (e) {
+        if (typeof this._positionMarker === 'undefined') {
+        	// do nothing
+        } else {
+        	this._map.removeLayer(this._positionMarker);
+        }   		
+		this._map.setView([40.7429,-73.9188], 11);
     }
+	
 });

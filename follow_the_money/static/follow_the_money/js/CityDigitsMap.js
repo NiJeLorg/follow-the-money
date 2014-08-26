@@ -90,7 +90,7 @@ CityDigitsMap.prototype.addGeoSearch = function(){
 	new L.Control.GeoSearch({
 	    provider: new L.GeoSearch.Provider.Google()
 	}).addTo(this.map);
-	$(".leaflet-control-geosearch").appendTo("#geosearch-target");
+	$(".leaflet-control-geosearch").prependTo("#geosearch-target");
 }
 
 

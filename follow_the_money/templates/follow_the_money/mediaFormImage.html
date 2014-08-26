@@ -1,0 +1,112 @@
+{% extends 'follow_the_money/base.html' %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'follow_the_money/css/mapbox.css' %}">
+	<style type="text/css">
+		.nav-tabs.nav-tabs-media > li > a > .image-button {
+			display: inline-block;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'follow_the_money/img/image_gray.png' %})
+		}
+		
+		.nav-tabs.nav-tabs-media > li > a > .audio-button {
+			display: inline-block;
+			width: 22px;
+			height: 17px;
+			margin-right: 3px;
+			background-image: url({% static 'follow_the_money/img/audio_gray.png' %})
+		}
+		
+		.nav-tabs.nav-tabs-media > li > a > .note-button {
+			display: inline-block;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'follow_the_money/img/note_gray.png' %})
+		}
+
+		.nav-tabs.nav-tabs-media > li > a > .interview-button {
+			display: inline-block;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'follow_the_money/img/interview_gray.png' %})
+		}
+				
+	</style>
+{% endblock %}		
+
+
+{% block body_block %}
+<div class="half-container">
+	<div class="row">
+		<ul class="nav nav-tabs nav-justified nav-tabs-media">
+		    <li class="active"><a href="/follow-the-money/media/form/image/"><div class="image-button"></div>Image</a></li>
+		    <li><a href="/follow-the-money/media/form/audio/"><div class="audio-button"></div>Audio</a></li>
+		    <li><a href="/follow-the-money/media/form/note/"><div class="note-button"></div>Note</a></li>
+		    <li><a href="/follow-the-money/media/form/interview/"><div class="interview-button"></div>Interview</a></li>
+		</ul>
+	</div>
+	<div class="row">
+		<form role="form" enctype="multipart/form-data" method="post" action="/follow-the-money/media/form/image/" >{% csrf_token %}
+			<div class="form-group">
+				<label for="title">Title</label>{% if form.title.errors %} <span class="text-danger">{{ form.title.errors|join:", " }}</span>{% endif %}
+				{{ form.title|add_class:"form-control" }}
+			</div>
+			<div class="form-group">
+				{% if form.image.errors %} <span class="text-danger">{{ form.image.errors|join:", " }}</span>{% endif %}
+				<div class="input-group">				
+	                <span class="input-group-btn">
+	                    <span class="btn btn-default btn-file">
+	                        Browse&hellip; {{ form.image }}
+	                    </span>
+	                </span>
+	                <input type="text" class="form-control" placeholder='No File Chosen' readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="caption">Caption</label>{% if form.caption.errors %} <span class="text-danger">{{ form.caption.errors|join:", " }}</span>{% endif %}
+				{{ form.caption|add_class:"form-control" }}
+			</div>
+			<div class="form-group">
+				<label for="address">Location</label>
+				{% if form.address.errors %} <span class="text-danger">{{ form.address.errors|join:", " }}</span>{% endif %}
+				{{ form.address|attr:"type:hidden" }}
+				{% if form.latitude.errors %} <span class="text-danger">{{ form.latitude.errors|join:", " }}</span>{% endif %}
+				{{ form.latitude|attr:"type:hidden" }}
+				{% if form.longitude.errors %} <span class="text-danger">{{ form.longitude.errors|join:", " }}</span>{% endif %}
+				{{ form.longitude|attr:"type:hidden" }}
+				<div id="geosearch-target-form" class="input-group">
+					<span class="input-group-btn">
+						<span id='addressSearch' class="btn btn-default btn-file">
+							Enter
+						</span>
+					</span>
+					<span class="input-group-btn">
+						<span id='refreshMap' class="btn btn-default btn-file">
+							Refresh
+						</span>
+					</span>
+				</div>
+				<div id="formMap"></div>
+			</div>
+			<div class="form-group">
+				<label for="tags">Tags</label>{% if form.tags.errors %} <span class="text-danger">{{ form.tags.errors|join:", " }}</span>{% endif %}
+				{{ form.tags|add_class:"form-control" }}
+			</div>	
+			<button type="submit" class="btn btn-default pull-left">Publish</button>
+		</form>
+	</div>	
+</div>
+	
+{% endblock %}
+
+
+{% block js_block %}
+	<script type="text/javascript" src="{% static 'follow_the_money/js/mapbox.js' %}"></script>
+	<script type="text/javascript" src="{% static 'follow_the_money/js/l.control.geosearch.js' %}"></script>
+	<script type="text/javascript" src="{% static 'follow_the_money/js/l.geosearch.provider.google.js' %}"></script>
+	<script type="text/javascript" src="{% static 'follow_the_money/js/form-map.js' %}"></script>		
+	<script type="text/javascript" src="{% static 'follow_the_money/js/form.js' %}"></script>
+{% endblock %}

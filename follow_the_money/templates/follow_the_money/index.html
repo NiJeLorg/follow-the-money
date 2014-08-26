@@ -2,44 +2,10 @@
 {% load staticfiles %}
 
 {% block css_block %}
-    <link rel="stylesheet" type="text/css" href="{% static 'follow_the_money/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'follow_the_money/css/bootstrap-select.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'follow_the_money/css/mapbox.css' %}">	
-    <link rel="stylesheet" type="text/css" href="{% static 'follow_the_money/css/main.css' %}">
 	<!-- style embedded in django template for static file usage -->
-	<style type="text/css">
-		.navbar-default .navbar-nav > .media-button > a {
-			top: 10px;
-			width: 79px;
-			height: 36px;
-			background-image: url({% static 'follow_the_money/img/Media.png' %})
-		}
-
-		.navbar-default .navbar-nav > .media-button > a:hover,
-		.navbar-default .navbar-nav > .media-button > a:focus {
-			background-image: url({% static 'follow_the_money/img/Media_hover.png' %})
-		}
-		
-		.navbar-default .navbar-nav > .screenshot-button > a {
-			top: 10px;
-			width: 39px;
-			height: 36px;
-			background-image: url({% static 'follow_the_money/img/Snaps.png' %})
-		}
-
-		.navbar-default .navbar-nav > .screenshot-button > a:hover,
-		.navbar-default .navbar-nav > .screenshot-button > a:focus {
-			background-image: url({% static 'follow_the_money/img/Snaps_hover.png' %})
-		}
-		
-		.user-icon {
-			margin-top: 13px;
-			margin-right: 5px;
-			width: 26px;
-			height: 27px;
-			background-image: url({% static 'follow_the_money/img/teacher.png' %})
-		}
-		
+	<style type="text/css">		
 		.nav-tabs.nav-mapui > li > a > .edit-button {
 			display: inline-block;
 			width: 22px;
@@ -326,12 +292,11 @@
 		}
 		
 		
-
-
 		</style>
 {% endblock %}	
 
 {% block body_block %}
+<div class="map-container">
     <div class="row">
         <div class="col-xs-6 col-md-4">
            <div id="map-nav" class="map-nav map-ui">
@@ -455,7 +420,13 @@
 			  </div>
 		      <div class="tab-pane fade" id="media">Under Construction</div>
 			  <div class="tab-pane fade" id="search">
-				<div id="geosearch-target"></div>
+				<div id="geosearch-target" class="geosearch-input">
+					<span class="input-group-btn">
+						<span id='addressSearch' class="btn btn-default btn-file">
+							Enter
+						</span>
+					</span>
+				</div>
 		      </div>
 			</div>
            	
@@ -481,14 +452,11 @@
 	  	</div>
     </div>
 	<div id="map"></div>
-	
+</div>	
 {% endblock %}
 
 
 {% block js_block %}
-	<script type="text/javascript" src="{% static 'follow_the_money/js/jquery-1.11.1.min.js' %}"></script>
-	<script type="text/javascript" src="{% static 'follow_the_money/js/bootstrap.min.js' %}"></script>
-	<script type="text/javascript" src="{% static 'follow_the_money/js/navbar.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/bootstrap-select.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/d3.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'follow_the_money/js/mapbox.js' %}"></script>

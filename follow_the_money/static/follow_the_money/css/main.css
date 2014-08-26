@@ -6,6 +6,12 @@
 body {
     background-color: #B0B6BD;
 }
+
+.map-container {
+    width: 100%;
+	padding-left: 0px;
+}
+
 .loginFormcontainer {
     width: 50%;
 	margin-top: 10%;
@@ -16,10 +22,18 @@ body {
 	margin-top: 10%;
 }
 
-#main-container {
-    margin-top: -18px;
+.half-container {
+    width: 50%;
+	margin-top: 7%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.full-container {
     width: 100%;
-	padding-left: 0px;
+	margin-top: 7%;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .navbar-default {
@@ -37,6 +51,10 @@ body {
 	font-size: 24px;
 	color: #025ff1;
 	float: none;
+}
+
+.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+    margin-left: 0px;
 }
 
 .navbar-default .navbar-center {
@@ -95,6 +113,41 @@ body {
   }
 }
 
+
+.nav-tabs.nav-tabs-media {
+	margin-bottom: 20px;
+}
+
+.nav-tabs.nav-tabs-media > li {
+	background-color: #B0B6BD;
+}
+
+.nav-tabs.nav-tabs-media > li > a {
+	color: #333;
+	border-radius: 0px;
+	padding: 10px 5px;
+	border-bottom: 0px;
+}
+
+.nav-tabs.nav-tabs-media > li > a:hover,
+.nav-tabs.nav-tabs-media > li > a:focus {
+	background-color: #B0B6BD;
+	color: #333;
+	border-radius: 0px;
+	border: 1px solid #B0B6BD;
+	border-bottom: 1px solid #9C9C9C;
+}
+
+.nav-tabs.nav-tabs-media > .active > a,
+.nav-tabs.nav-tabs-media > .active > a:hover,
+.nav-tabs.nav-tabs-media > .active > a:focus {
+	background-color: #B0B6BD;
+	color: #333;
+	border-radius: 0px;
+	border: 1px solid #B0B6BD;
+	border-bottom: 1px solid #9C9C9C;
+}
+
 .marginright {
 	margin-right: 3px;
 	margin-top: 3px;
@@ -117,6 +170,42 @@ body {
 	margin: 5px;
 	border-width: 2px 0 0;
 }
+
+/*
+* Bootstrap file input button
+*/
+
+.btn-file {
+	position: relative;
+	overflow: hidden;
+}
+
+.btn-file input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	min-width: 100%;
+	min-height: 100%;
+	font-size: 100px;
+	text-align: right;
+	filter: alpha(opacity=0);
+	opacity: 0;
+	outline: none;
+	background: white;
+	cursor: inherit;
+	display: block;
+}
+
+/*
+* Form Map styles
+*/
+
+#formMap {
+    width:100%;
+    height:200px;
+}
+
+
 
 /*
 * Map styles
@@ -207,10 +296,14 @@ body {
 * Map search box form css
 */
 
+.geosearch-input {
+	margin: 10px 10px 0px 10px;
+	width: 87%;
+}
 
 .leaflet-control-geosearch {
-	width: 96.5%;
-	margin: 10px 10px;
+	width: 100%;
+	margin: 0px;
 }
 
 
