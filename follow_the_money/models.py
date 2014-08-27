@@ -5,7 +5,16 @@ from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 
 
-# Create your models here.
+
+# Model that stores user profile info beyond username, password, email
+class ExUserProfile(models.Model):
+    user = models.OneToOneField(User)
+    city = models.CharField(max_length=255, null=True, blank=True)
+    school = models.CharField(max_length=255, null=True, blank=True)
+ 
+    def __unicode__(self):
+        return self.city
+
 # Model that stores Media Images
 class MediaImage(models.Model):
     # Links MediaImage to a User model instance.

@@ -4,8 +4,10 @@ from django.conf.urls import patterns, url
 from follow_the_money import views
 
 urlpatterns = patterns('',
+    #map urls
     url(r'^$', views.index, name='index'),
     url(r'^map/nav/$', views.mapNavigation, name='map_nav'),
+    # media form urls
     url(r'^media/form/image/', views.mediaFormImage, name='mediaFormImage'),
     url(r'^media/form/audio/', views.mediaFormAudio, name='mediaFormAudio'),
     url(r'^media/form/note/', views.mediaFormNote, name='mediaFormNote'),

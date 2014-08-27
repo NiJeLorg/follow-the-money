@@ -1,18 +1,35 @@
+from registration.forms import RegistrationForm
 from django import forms
+from follow_the_money.models import ExUserProfile
 from follow_the_money.models import MediaImage
 from follow_the_money.models import MediaAudio
 from follow_the_money.models import MediaNote
 from follow_the_money.models import MediaInterview
 
 
-class SignupForm(forms.Form):
-    first_name = forms.CharField(max_length=30, label='Voornaam')
-    last_name = forms.CharField(max_length=30, label='Achternaam')
+# From to for user profile model
+class ExRegistrationForm(RegistrationForm):
+    city = forms.CharField(
+        label = "City",
+        max_length = 255,
+        required = False,
+    )
+    school = forms.CharField(
+        label = "School",
+        max_length = 255,
+        required = False,
+    )
+ 
+    from registration.signals import user_registered
+ 
+    def user_registered_callback(sender, user, request, **kwargs):
+        profile = ExUserProfile(user = user)
+        profile.city = request.POST["city"]
+        profile.school = request.POST["school"]
+        profile.save()
+ 
+    user_registered.connect(user_registered_callback)
 
-    def signup(self, request, user):
-        user.first_name = self.cleaned_data['first_name']
-        user.last_name = self.cleaned_data['last_name']
-        user.save()
 
 # Form for Images Audio
 class MediaFormImage(forms.ModelForm):
