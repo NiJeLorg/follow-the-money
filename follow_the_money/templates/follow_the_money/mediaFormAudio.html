@@ -42,14 +42,14 @@
 <div class="half-container">
 	<div class="row">
 		<ul class="nav nav-tabs nav-justified nav-tabs-media">
-		    <li><a href="/follow-the-money/media/form/image/"><div class="image-button"></div>Image</a></li>
-		    <li class="active"><a href="/follow-the-money/media/form/audio/"><div class="audio-button"></div>Audio</a></li>
-		    <li><a href="/follow-the-money/media/form/note/"><div class="note-button"></div>Note</a></li>
-		    <li><a href="/follow-the-money/media/form/interview/"><div class="interview-button"></div>Interview</a></li>
+		    <li><a href="{% url 'mediaFormImage' %}"><div class="image-button"></div>Image</a></li>
+		    <li class="active"><a href="{% url 'mediaFormAudio' %}"><div class="audio-button"></div>Audio</a></li>
+		    <li><a href="{% url 'mediaFormNote' %}"><div class="note-button"></div>Note</a></li>
+		    <li><a href="{% url 'mediaFormInterview' %}"><div class="interview-button"></div>Interview</a></li>
 		</ul>
 	</div>
 	<div class="row">
-		<form role="form" enctype="multipart/form-data" method="post" action="/follow-the-money/media/form/audio/" >{% csrf_token %}
+		<form role="form" enctype="multipart/form-data" method="post" action="{% url 'mediaFormAudio' %}" >{% csrf_token %}
 			<div class="form-group">
 				<label for="title">Title</label>{% if form.title.errors %} <span class="text-danger">{{ form.title.errors|join:", " }}</span>{% endif %}
 				{{ form.title|add_class:"form-control" }}

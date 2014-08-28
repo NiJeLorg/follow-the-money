@@ -9,11 +9,12 @@ from taggit.managers import TaggableManager
 # Model that stores user profile info beyond username, password, email
 class ExUserProfile(models.Model):
     user = models.OneToOneField(User)
+    name = models.CharField(max_length=255, null=True, blank=True)
     city = models.CharField(max_length=255, null=True, blank=True)
     school = models.CharField(max_length=255, null=True, blank=True)
  
     def __unicode__(self):
-        return self.city
+        return self.name
 
 # Model that stores Media Images
 class MediaImage(models.Model):
