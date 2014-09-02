@@ -112,10 +112,10 @@ CityDigitsMap.onEachFeature_MAP1_POP_POVERTY = function(feature,layer){
 		
 		if (!MY_MAP.popup2._isOpen) {
 	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 		
 			//display popup
-	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 	            MY_MAP.popup.openOn(MY_MAP.map);
 	        }else{
 	            MY_MAP.map.closePopup();
@@ -132,13 +132,13 @@ CityDigitsMap.onEachFeature_MAP1_POP_POVERTY = function(feature,layer){
 		// only have on mousemove work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	        //get lat/long
-	        if(($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if(($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 	    	}
 
 	        //display popup
-			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.openOn(MY_MAP.map);
 			}			
 		}
@@ -158,7 +158,7 @@ CityDigitsMap.onEachFeature_MAP1_POP_POVERTY = function(feature,layer){
 		MY_MAP.popup2.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
 		var percent = feature.properties.PovertyPer * 100;
 		percent = percent.toFixed(0);
-		MY_MAP.popup2.setContent('<div class="map-popup"><h4 class="text-left">' + feature.properties.NYC_NEIG + '</h4><p>' + percent + '%<br />Population in Poverty</p></div>');
+		MY_MAP.popup2.setContent('<div class="map-popup"><h4 class="text-left">' + feature.properties.Name + '</h4><p>' + percent + '%<br />Population in Poverty</p></div>');
 		MY_MAP.popup2.openOn(MY_MAP.map);
 	});
 	
@@ -179,10 +179,10 @@ CityDigitsMap.onEachFeature_MAP2_MED_HH_INCOME = function(feature,layer){
 		// only have on mouseover work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 		
 			//display popup
-	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	     if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 	            MY_MAP.popup.openOn(MY_MAP.map);
 	        }else{
 	            MY_MAP.map.closePopup();
@@ -199,13 +199,13 @@ CityDigitsMap.onEachFeature_MAP2_MED_HH_INCOME = function(feature,layer){
 		// only have on mousemove work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	        //get lat/long
-	        if(($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if(($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 	    	}
 			
 	        //display popup
-			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.openOn(MY_MAP.map);
 			}			
 		}
@@ -224,7 +224,7 @@ CityDigitsMap.onEachFeature_MAP2_MED_HH_INCOME = function(feature,layer){
 		// bind popup with data to the feature
 		MY_MAP.popup2.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
 		var MedHHInc = accounting.formatMoney(feature.properties.MedHouInco, "$", 0, ",", "");
-		MY_MAP.popup2.setContent('<div class="map-popup"><h4 class="text-left">' + feature.properties.NYC_NEIG + '</h4><p>' + MedHHInc + '<br />Median Household Income</p></div>');
+		MY_MAP.popup2.setContent('<div class="map-popup"><h4 class="text-left">' + feature.properties.Name + '</h4><p>' + MedHHInc + '<br />Median Household Income</p></div>');
 		MY_MAP.popup2.openOn(MY_MAP.map);
 	});
 	
@@ -245,10 +245,10 @@ CityDigitsMap.onEachFeature_MAP3_PCT_UNEMPLOYED = function(feature,layer){
 		// only have on mouseover work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 		
 			//display popup
-	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 	            MY_MAP.popup.openOn(MY_MAP.map);
 	        }else{
 	            MY_MAP.map.closePopup();
@@ -265,13 +265,13 @@ CityDigitsMap.onEachFeature_MAP3_PCT_UNEMPLOYED = function(feature,layer){
 		// only have on mousemove work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	        //get lat/long
-	        if(($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if(($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 	    	}
 			
 	        //display popup
-			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.openOn(MY_MAP.map);
 			}			
 		}
@@ -291,7 +291,7 @@ CityDigitsMap.onEachFeature_MAP3_PCT_UNEMPLOYED = function(feature,layer){
 		MY_MAP.popup2.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
 		var percent = feature.properties.UnempRate * 100;
 		percent = percent.toFixed(1);
-		MY_MAP.popup2.setContent('<div class="map-popup"><h4 class="text-left">' + feature.properties.NYC_NEIG + '</h4><p>' + percent + '%<br />Percent Unemployed</p></div>');
+		MY_MAP.popup2.setContent('<div class="map-popup"><h4 class="text-left">' + feature.properties.Name + '</h4><p>' + percent + '%<br />Percent Unemployed</p></div>');
 		MY_MAP.popup2.openOn(MY_MAP.map);
 	});
 	
@@ -312,10 +312,10 @@ CityDigitsMap.onEachFeature_MAP4_PCT_FOREIGN_BORN = function(feature,layer){
 		// only have on mouseover work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 		
 			//display popup
-	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 	            MY_MAP.popup.openOn(MY_MAP.map);
 	        }else{
 	            MY_MAP.map.closePopup();
@@ -332,13 +332,13 @@ CityDigitsMap.onEachFeature_MAP4_PCT_FOREIGN_BORN = function(feature,layer){
 		// only have on mousemove work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	        //get lat/long
-	        if(($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if(($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 	    	}
 			
 	        //display popup
-			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.openOn(MY_MAP.map);
 			}			
 		}
@@ -358,7 +358,7 @@ CityDigitsMap.onEachFeature_MAP4_PCT_FOREIGN_BORN = function(feature,layer){
 		MY_MAP.popup2.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
 		var percent = feature.properties.ForBornPer * 100;
 		percent = percent.toFixed(0);
-		MY_MAP.popup2.setContent('<div class="map-popup"><h4 class="text-left">' + feature.properties.NYC_NEIG + '</h4><p>' + percent + '%<br />Population Foreign Born</p></div>');
+		MY_MAP.popup2.setContent('<div class="map-popup"><h4 class="text-left">' + feature.properties.Name + '</h4><p>' + percent + '%<br />Population Foreign Born</p></div>');
 		MY_MAP.popup2.openOn(MY_MAP.map);
 	});
 	
@@ -379,10 +379,10 @@ CityDigitsMap.onEachFeature_CREATEMAP1_AFI_PER_SQMILE = function(feature,layer){
 		// only have on mouseover work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 		
 			//display popup
-	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 	            MY_MAP.popup.openOn(MY_MAP.map);
 	        }else{
 	            MY_MAP.map.closePopup();
@@ -399,13 +399,13 @@ CityDigitsMap.onEachFeature_CREATEMAP1_AFI_PER_SQMILE = function(feature,layer){
 		// only have on mousemove work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	        //get lat/long
-	        if(($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if(($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 	    	}
 			
 	        //display popup
-			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.openOn(MY_MAP.map);
 			}			
 		}
@@ -439,7 +439,7 @@ CityDigitsMap.onEachFeature_CREATEMAP1_AFI_PER_SQMILE = function(feature,layer){
 		var AFS_SQMI = feature.properties.AFS_SQMI;
 		AFS_SQMI = AFS_SQMI.toFixed(2);
 		
-		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.NYC_NEIG + '</h4>';
+		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.Name + '</h4>';
 		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops + <br />';
 		var checkCashText = '<div class="checkcashing-icon"></div>' + CheckCash + ' Check Cashing + <br />';
 		var moneyTransText = '<div class="wiretransfer-icon"></div>' + MoneyTrans + ' Wire Transfer <br />';
@@ -470,10 +470,10 @@ CityDigitsMap.onEachFeature_CREATEMAP2_BANKS_PER_SQMILE = function(feature,layer
 		// only have on mouseover work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 		
 			//display popup
-	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 	            MY_MAP.popup.openOn(MY_MAP.map);
 	        }else{
 	            MY_MAP.map.closePopup();
@@ -490,13 +490,13 @@ CityDigitsMap.onEachFeature_CREATEMAP2_BANKS_PER_SQMILE = function(feature,layer
 		// only have on mousemove work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	        //get lat/long
-	        if(($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if(($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 	    	}
 			
 	        //display popup
-			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.openOn(MY_MAP.map);
 			}			
 		}
@@ -524,7 +524,7 @@ CityDigitsMap.onEachFeature_CREATEMAP2_BANKS_PER_SQMILE = function(feature,layer
 		var BANK_SQMI = feature.properties.BANK_SQMI;
 		BANK_SQMI = BANK_SQMI.toFixed(2);
 		
-		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.NYC_NEIG + '</h4>';
+		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.Name + '</h4>';
 		var banksText = '<div class="banks-icon"></div>' + Banks + ' Banks<br />';
 		var hr = '<hr class="divide">';
 		var sq_mileText = '<div class="squaremiles-icon"></div>' + sq_mile + ' Square Miles <br /><br />';
@@ -553,10 +553,10 @@ CityDigitsMap.onEachFeature_CREATEMAP3_PAWN_SHOPS_PER_SQMILE = function(feature,
 		// only have on mouseover work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 		
 			//display popup
-	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 	            MY_MAP.popup.openOn(MY_MAP.map);
 	        }else{
 	            MY_MAP.map.closePopup();
@@ -573,13 +573,13 @@ CityDigitsMap.onEachFeature_CREATEMAP3_PAWN_SHOPS_PER_SQMILE = function(feature,
 		// only have on mousemove work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	        //get lat/long
-	        if(($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if(($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 	    	}
 			
 	        //display popup
-			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.openOn(MY_MAP.map);
 			}			
 		}
@@ -607,7 +607,7 @@ CityDigitsMap.onEachFeature_CREATEMAP3_PAWN_SHOPS_PER_SQMILE = function(feature,
 		var PAWN_SQMI = feature.properties.PAWN_SQMI;
 		PAWN_SQMI = PAWN_SQMI.toFixed(2);
 		
-		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.NYC_NEIG + '</h4>';
+		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.Name + '</h4>';
 		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops<br />';
 		var hr = '<hr class="divide">';
 		var sq_mileText = '<div class="squaremiles-icon"></div>' + sq_mile + ' Square Miles <br /><br />';
@@ -636,10 +636,10 @@ CityDigitsMap.onEachFeature_CREATEMAP4_MCDONALDS_PER_SQMILE = function(feature,l
 		// only have on mouseover work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 		
 			//display popup
-	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 	            MY_MAP.popup.openOn(MY_MAP.map);
 	        }else{
 	            MY_MAP.map.closePopup();
@@ -656,13 +656,13 @@ CityDigitsMap.onEachFeature_CREATEMAP4_MCDONALDS_PER_SQMILE = function(feature,l
 		// only have on mousemove work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	        //get lat/long
-	        if(($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if(($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 	    	}
 			
 	        //display popup
-			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.openOn(MY_MAP.map);
 			}			
 		}
@@ -690,7 +690,7 @@ CityDigitsMap.onEachFeature_CREATEMAP4_MCDONALDS_PER_SQMILE = function(feature,l
 		var McD_SQMI = feature.properties.McD_SQMI;
 		McD_SQMI = McD_SQMI.toFixed(2);
 		
-		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.NYC_NEIG + '</h4>';
+		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.Name + '</h4>';
 		var mcDonaldsText = '<div class="mcdonalds-icon"></div>' + McDonalds + ' McDonald\'s<br />';
 		var hr = '<hr class="divide">';
 		var sq_mileText = '<div class="squaremiles-icon"></div>' + sq_mile + ' Square Miles <br /><br />';
@@ -719,10 +719,10 @@ CityDigitsMap.onEachFeature_CREATEMAP5_HH_PER_AFI = function(feature,layer){
 		// only have on mouseover work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 		
 			//display popup
-	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 	            MY_MAP.popup.openOn(MY_MAP.map);
 	        }else{
 	            MY_MAP.map.closePopup();
@@ -739,13 +739,13 @@ CityDigitsMap.onEachFeature_CREATEMAP5_HH_PER_AFI = function(feature,layer){
 		// only have on mousemove work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	        //get lat/long
-	        if(($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if(($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 	    	}
 			
 	        //display popup
-			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.openOn(MY_MAP.map);
 			}			
 		}
@@ -779,7 +779,7 @@ CityDigitsMap.onEachFeature_CREATEMAP5_HH_PER_AFI = function(feature,layer){
 		var HH_AFS = feature.properties.HH_AFS;
 		HH_AFS = accounting.formatNumber(HH_AFS, 2, ",", ".");
 		
-		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.NYC_NEIG + '</h4>';
+		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.Name + '</h4>';
 		var householdsText = '<div class="households-icon"></div>' + Households + ' Households<br />';
 		var hr = '<hr class="divide">';
 		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops + <br />';
@@ -816,10 +816,10 @@ CityDigitsMap.onEachFeature_CREATEMAP6_HH_PER_BANK = function(feature,layer){
 		// only have on mouseover work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 		
 			//display popup
-	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 	            MY_MAP.popup.openOn(MY_MAP.map);
 	        }else{
 	            MY_MAP.map.closePopup();
@@ -836,13 +836,13 @@ CityDigitsMap.onEachFeature_CREATEMAP6_HH_PER_BANK = function(feature,layer){
 		// only have on mousemove work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	        //get lat/long
-	        if(($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if(($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 	    	}
 			
 	        //display popup
-			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.openOn(MY_MAP.map);
 			}			
 		}
@@ -870,7 +870,7 @@ CityDigitsMap.onEachFeature_CREATEMAP6_HH_PER_BANK = function(feature,layer){
 		var HH_BANK = feature.properties.HH_BANK;
 		HH_BANK = accounting.formatNumber(HH_BANK, 2, ",", ".");
 		
-		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.NYC_NEIG + '</h4>';
+		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.Name + '</h4>';
 		var householdsText = '<div class="households-icon"></div>' + Households + ' Households<br />';
 		var hr = '<hr class="divide">';
 		var banksText = '<div class="banks-icon"></div>' + Banks + ' Banks<br /><br />';
@@ -905,10 +905,10 @@ CityDigitsMap.onEachFeature_CREATEMAP7_HH_PER_MCDONALDS = function(feature,layer
 		// only have on mouseover work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 		
 			//display popup
-	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 	            MY_MAP.popup.openOn(MY_MAP.map);
 	        }else{
 	            MY_MAP.map.closePopup();
@@ -925,13 +925,13 @@ CityDigitsMap.onEachFeature_CREATEMAP7_HH_PER_MCDONALDS = function(feature,layer
 		// only have on mousemove work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	        //get lat/long
-	        if(($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if(($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 	    	}
 			
 	        //display popup
-			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.openOn(MY_MAP.map);
 			}			
 		}
@@ -959,7 +959,7 @@ CityDigitsMap.onEachFeature_CREATEMAP7_HH_PER_MCDONALDS = function(feature,layer
 		var HH_McD = feature.properties.HH_McD;
 		HH_McD = accounting.formatNumber(HH_McD, 2, ",", ".");
 		
-		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.NYC_NEIG + '</h4>';
+		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.Name + '</h4>';
 		var householdsText = '<div class="households-icon"></div>' + Households + ' Households<br />';
 		var hr = '<hr class="divide">';
 		var mcDonaldsText = '<div class="mcdonalds-icon"></div>' + McDonalds + ' McDonald\'s<br /><br />';
@@ -994,10 +994,10 @@ CityDigitsMap.onEachFeature_CREATEMAP8_HH_PER_PAWN_SHOP = function(feature,layer
 		// only have on mouseover work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 		
 			//display popup
-	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 	            MY_MAP.popup.openOn(MY_MAP.map);
 	        }else{
 	            MY_MAP.map.closePopup();
@@ -1014,13 +1014,13 @@ CityDigitsMap.onEachFeature_CREATEMAP8_HH_PER_PAWN_SHOP = function(feature,layer
 		// only have on mousemove work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	        //get lat/long
-	        if(($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if(($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 	    	}
 			
 	        //display popup
-			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.openOn(MY_MAP.map);
 			}			
 		}
@@ -1048,7 +1048,7 @@ CityDigitsMap.onEachFeature_CREATEMAP8_HH_PER_PAWN_SHOP = function(feature,layer
 		var HH_PAWN = feature.properties.HH_PAWN;
 		HH_PAWN = accounting.formatNumber(HH_PAWN, 2, ",", ".");
 		
-		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.NYC_NEIG + '</h4>';
+		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.Name + '</h4>';
 		var householdsText = '<div class="households-icon"></div>' + Households + ' Households<br />';
 		var hr = '<hr class="divide">';
 		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops<br /><br />';
@@ -1083,10 +1083,10 @@ CityDigitsMap.onEachFeature_CREATEMAP9_AFIS_PER_BANK = function(feature,layer){
 		// only have on mouseover work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 		
 			//display popup
-	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 	            MY_MAP.popup.openOn(MY_MAP.map);
 	        }else{
 	            MY_MAP.map.closePopup();
@@ -1103,13 +1103,13 @@ CityDigitsMap.onEachFeature_CREATEMAP9_AFIS_PER_BANK = function(feature,layer){
 		// only have on mousemove work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	        //get lat/long
-	        if(($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if(($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 	    	}
 			
 	        //display popup
-			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.openOn(MY_MAP.map);
 			}			
 		}
@@ -1143,7 +1143,7 @@ CityDigitsMap.onEachFeature_CREATEMAP9_AFIS_PER_BANK = function(feature,layer){
 		var AFS_BANK = feature.properties.AFS_BANK;
 		AFS_BANK = AFS_BANK.toFixed(2);
 		
-		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.NYC_NEIG + '</h4>';
+		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.Name + '</h4>';
 		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops + <br />';
 		var checkCashText = '<div class="checkcashing-icon"></div>' + CheckCash + ' Check Cashing + <br />';
 		var moneyTransText = '<div class="wiretransfer-icon"></div>' + MoneyTrans + ' Wire Transfer <br />';
@@ -1180,10 +1180,10 @@ CityDigitsMap.onEachFeature_CREATEMAP10_BANKS_PER_AFI = function(feature,layer){
 		// only have on mouseover work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 		
 			//display popup
-	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 	            MY_MAP.popup.openOn(MY_MAP.map);
 	        }else{
 	            MY_MAP.map.closePopup();
@@ -1200,13 +1200,13 @@ CityDigitsMap.onEachFeature_CREATEMAP10_BANKS_PER_AFI = function(feature,layer){
 		// only have on mousemove work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	        //get lat/long
-	        if(($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+	        if(($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
-				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.NYC_NEIG + '</div>');
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.Name + '</div>');
 	    	}
 			
 	        //display popup
-			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.NYC_NEIG,open_tooltips)<0)){
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.Name,open_tooltips)<0)){
 				MY_MAP.popup.openOn(MY_MAP.map);
 			}			
 		}
@@ -1240,7 +1240,7 @@ CityDigitsMap.onEachFeature_CREATEMAP10_BANKS_PER_AFI = function(feature,layer){
 		var BANK_AFS = feature.properties.BANK_AFS;
 		BANK_AFS = BANK_AFS.toFixed(2);
 		//console.log(BANK_AFS);
-		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.NYC_NEIG + '</h4>';
+		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.Name + '</h4>';
 		var banksText = '<div class="banks-icon"></div>' + Banks + ' Banks<br />';
 		var hr = '<hr class="divide">';
 		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops + <br />';
@@ -2677,7 +2677,7 @@ CityDigitsMap.drawChart = function(layerId){
 		      return 0;	      	
 	      }
 	  });
-	  x.domain(openedTopoJson.map(function(d) { return d.properties.NYC_NEIG; }));
+	  x.domain(openedTopoJson.map(function(d) { return d.properties.Name; }));
 	  y.domain([0, d3.max(openedTopoJson, function(d) { return d.properties[propertyName]; })]);
 
 	  svg.append("g")
@@ -2708,13 +2708,13 @@ CityDigitsMap.drawChart = function(layerId){
 	      .data(openedTopoJson)
 	    .enter().append("rect")
 	      .attr("class", "bar")
-	      .attr("x", function(d) { return x(d.properties.NYC_NEIG); })
+	      .attr("x", function(d) { return x(d.properties.Name); })
 	      .attr("width", x.rangeBand())
 	      .attr("y", function(d) { return y(d.properties[propertyName]); })
 	      .attr("height", function(d) { return height - y(d.properties[propertyName]); })
-		  .attr("id", function(d) { return d.properties.NYC_NEIG })
+		  .attr("id", function(d) { return d.properties.Name })
 		  .on("click", function(d) {
-			  CityDigitsMap.zoomToNeighborhoodAndPopup(d.properties.NYC_NEIG);
+			  CityDigitsMap.zoomToNeighborhoodAndPopup(d.properties.Name);
 		  })
 		  // set up on mouseover events
 		  .on("mouseover", function(d) {
@@ -2725,7 +2725,7 @@ CityDigitsMap.drawChart = function(layerId){
 			        .style("opacity", 1);
 					
 			      div.html(
-					'<h4 class="text-left">' + d.properties.NYC_NEIG + '</h4>' +
+					'<h4 class="text-left">' + d.properties.Name + '</h4>' +
 					'<p class="text-center">' + formatter(d.properties[propertyName]) + '<br />' + title + '</p>'
 				  )  
 			      .style("left", (d3.event.pageX + 18) + "px")     
@@ -2789,7 +2789,7 @@ CityDigitsMap.zoomToNeighborhoodAndPopup = function(neighborhoodName) {
 	layerArray = mainLayer.getLayers();
 	
 	$.each(layerArray, function(index, layer){
-		if (layer.feature.properties.NYC_NEIG == neighborhoodName) {
+		if (layer.feature.properties.Name == neighborhoodName) {
 			// close all open popups
 			MY_MAP.map.closePopup();
 			
@@ -2818,21 +2818,21 @@ CityDigitsMap.setPopUpContent = function(layer,layerId) {
 	if (layerId == 'legendpoverty') {
 		var percent = layer.feature.properties.PovertyPer * 100;
 		percent = percent.toFixed(0);
-		var popupContent = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4><p>' + percent + '%<br />Population in Poverty</p></div>';
+		var popupContent = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.Name + '</h4><p>' + percent + '%<br />Population in Poverty</p></div>';
 	} 
 	if (layerId == 'legendmedhhinc') {
 		var MedHHInc = accounting.formatMoney(layer.feature.properties.MedHouInco, "$", 0, ",", "");
-		var popupContent = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4><p>' + MedHHInc + '<br />Median Household Income</p></div>';
+		var popupContent = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.Name + '</h4><p>' + MedHHInc + '<br />Median Household Income</p></div>';
 	}
 	if (layerId == 'legendunemploy') {
 		var percent = layer.feature.properties.UnempRate * 100;
 		percent = percent.toFixed(1);
-		var popupContent = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4><p>' + percent + '%<br />Percent Unemployed</p></div>';
+		var popupContent = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.Name + '</h4><p>' + percent + '%<br />Percent Unemployed</p></div>';
 	} 
 	if (layerId == 'legendforeignborn') {
 		var percent = layer.feature.properties.ForBornPer * 100;
 		percent = percent.toFixed(0);
-		var popupContent = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4><p>' + percent + '%<br />Population Foreign Born</p></div>';
+		var popupContent = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.Name + '</h4><p>' + percent + '%<br />Population Foreign Born</p></div>';
 	} 
 	if (layerId == 'legendAFIpersqmi') {
 		// numerator
@@ -2851,7 +2851,7 @@ CityDigitsMap.setPopUpContent = function(layer,layerId) {
 		var AFS_SQMI = layer.feature.properties.AFS_SQMI;
 		AFS_SQMI = AFS_SQMI.toFixed(2);
 		
-		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4>';
+		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.Name + '</h4>';
 		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops + <br />';
 		var checkCashText = '<div class="checkcashing-icon"></div>' + CheckCash + ' Check Cashing + <br />';
 		var moneyTransText = '<div class="wiretransfer-icon"></div>' + MoneyTrans + ' Wire Transfer <br />';
@@ -2872,7 +2872,7 @@ CityDigitsMap.setPopUpContent = function(layer,layerId) {
 		var BANK_SQMI = layer.feature.properties.BANK_SQMI;
 		BANK_SQMI = BANK_SQMI.toFixed(2);
 		
-		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4>';
+		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.Name + '</h4>';
 		var banksText = '<div class="banks-icon"></div>' + Banks + ' Banks<br />';
 		var hr = '<hr class="divide">';
 		var sq_mileText = '<div class="squaremiles-icon"></div>' + sq_mile + ' Square Miles <br /><br />';
@@ -2891,7 +2891,7 @@ CityDigitsMap.setPopUpContent = function(layer,layerId) {
 		var PAWN_SQMI = layer.feature.properties.PAWN_SQMI;
 		PAWN_SQMI = PAWN_SQMI.toFixed(2);
 		
-		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4>';
+		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.Name + '</h4>';
 		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops<br />';
 		var hr = '<hr class="divide">';
 		var sq_mileText = '<div class="squaremiles-icon"></div>' + sq_mile + ' Square Miles <br /><br />';
@@ -2910,7 +2910,7 @@ CityDigitsMap.setPopUpContent = function(layer,layerId) {
 		var McD_SQMI = layer.feature.properties.McD_SQMI;
 		McD_SQMI = McD_SQMI.toFixed(2);
 		
-		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4>';
+		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.Name + '</h4>';
 		var mcDonaldsText = '<div class="mcdonalds-icon"></div>' + McDonalds + ' McDonald\'s<br />';
 		var hr = '<hr class="divide">';
 		var sq_mileText = '<div class="squaremiles-icon"></div>' + sq_mile + ' Square Miles <br /><br />';
@@ -2935,7 +2935,7 @@ CityDigitsMap.setPopUpContent = function(layer,layerId) {
 		var HH_AFS = layer.feature.properties.HH_AFS;
 		HH_AFS = accounting.formatNumber(HH_AFS, 2, ",", ".");
 		
-		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4>';
+		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.Name + '</h4>';
 		var householdsText = '<div class="households-icon"></div>' + Households + ' Households<br />';
 		var hr = '<hr class="divide">';
 		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops + <br />';
@@ -2962,7 +2962,7 @@ CityDigitsMap.setPopUpContent = function(layer,layerId) {
 		var HH_BANK = layer.feature.properties.HH_BANK;
 		HH_BANK = accounting.formatNumber(HH_BANK, 2, ",", ".");
 		
-		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4>';
+		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.Name + '</h4>';
 		var householdsText = '<div class="households-icon"></div>' + Households + ' Households<br />';
 		var hr = '<hr class="divide">';
 		var banksText = '<div class="banks-icon"></div>' + Banks + ' Banks<br /><br />';
@@ -2987,7 +2987,7 @@ CityDigitsMap.setPopUpContent = function(layer,layerId) {
 		var HH_McD = layer.feature.properties.HH_McD;
 		HH_McD = accounting.formatNumber(HH_McD, 2, ",", ".");
 		
-		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4>';
+		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.Name + '</h4>';
 		var householdsText = '<div class="households-icon"></div>' + Households + ' Households<br />';
 		var hr = '<hr class="divide">';
 		var mcDonaldsText = '<div class="mcdonalds-icon"></div>' + McDonalds + ' McDonald\'s<br /><br />';
@@ -3012,7 +3012,7 @@ CityDigitsMap.setPopUpContent = function(layer,layerId) {
 		var HH_PAWN = layer.feature.properties.HH_PAWN;
 		HH_PAWN = accounting.formatNumber(HH_PAWN, 2, ",", ".");
 		
-		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4>';
+		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.Name + '</h4>';
 		var householdsText = '<div class="households-icon"></div>' + Households + ' Households<br />';
 		var hr = '<hr class="divide">';
 		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops<br /><br />';
@@ -3043,7 +3043,7 @@ CityDigitsMap.setPopUpContent = function(layer,layerId) {
 		var AFS_BANK = layer.feature.properties.AFS_BANK;
 		AFS_BANK = AFS_BANK.toFixed(2);
 		
-		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4>';
+		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.Name + '</h4>';
 		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops + <br />';
 		var checkCashText = '<div class="checkcashing-icon"></div>' + CheckCash + ' Check Cashing + <br />';
 		var moneyTransText = '<div class="wiretransfer-icon"></div>' + MoneyTrans + ' Wire Transfer <br />';
@@ -3076,7 +3076,7 @@ CityDigitsMap.setPopUpContent = function(layer,layerId) {
 		var BANK_AFS = layer.feature.properties.BANK_AFS;
 		BANK_AFS = BANK_AFS.toFixed(2);
 		//console.log(BANK_AFS);
-		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.NYC_NEIG + '</h4>';
+		var header = '<div class="map-popup"><h4 class="text-left">' + layer.feature.properties.Name + '</h4>';
 		var banksText = '<div class="banks-icon"></div>' + Banks + ' Banks<br />';
 		var hr = '<hr class="divide">';
 		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops + <br />';
