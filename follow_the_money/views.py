@@ -1,15 +1,19 @@
-# Create your views here.
+# includes
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 
-# forms for city digits app
-from follow_the_money.forms import MediaFormImage
-from follow_the_money.forms import MediaFormAudio
-from follow_the_money.forms import MediaFormNote
-from follow_the_money.forms import MediaFormInterview
+# user and profile models
+from django.contrib.auth.models import User
+
+# teacher registration form
+from registration.forms import RegistrationForm
+
+# import all forms for city digits app
+from follow_the_money.forms import *
+
 
 
 def index(request):
@@ -35,12 +39,32 @@ def mapNavigation(request):
 @login_required
 def accountProfile(request):
     """
-      Loads the user profile page
+      Loads the user profile page for editing
     """
     context = RequestContext(request)
-    context_dict = {}
-   
-    return render_to_response('registration/profile.html', context_dict, context) 
+    
+    if request.method == 'POST':
+        user_form = UserInfoForm(request.POST, instance=request.user)
+        profile_form = UserProfileForm(data=request.POST, instance=ExUserProfile.objects.get(user=request.user))
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()       
+            profile_form.save()
+
+
+            user_form = UserInfoForm(instance=request.user)
+            profile_form = UserProfileForm(instance=ExUserProfile.objects.get(user=request.user))
+            success = True
+
+            return render_to_response('registration/profile.html', {'user_form': user_form, 'profile_form': profile_form, 'success': success}, context)
+            
+        else:
+            print user_form.errors, profile_form.errors
+            
+    else:
+        user_form = UserInfoForm(instance=request.user)
+        profile_form = UserProfileForm(instance=ExUserProfile.objects.get(user=request.user))
+    return render_to_response('registration/profile.html', {'user_form': user_form, 'profile_form': profile_form}, context)
+
 
     
 
@@ -49,7 +73,7 @@ def media(request):
       Loads the media page
     """
     context = RequestContext(request)
-    context_dict = {}
+    context_dict = {}    
    
     return render_to_response('follow_the_money/media.html', context_dict, context)    
 

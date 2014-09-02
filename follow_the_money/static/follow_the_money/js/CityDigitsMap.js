@@ -2567,8 +2567,7 @@ CityDigitsMap.drawChart = function(layerId){
 	var div = d3.select("body").append("div")
 	    .attr("class", "barchartTooltip")
 	    .style("opacity", 1e-6);
-	
-	
+		
 	//set properties depending on layerid selected	
 	if (layerId == 'legendpoverty') {
 		var propertyName = 'PovertyPer';
@@ -2667,6 +2666,14 @@ CityDigitsMap.drawChart = function(layerId){
 		
 	d3.json(neighborhoods, function(error, data) {
 	  var openedTopoJson = topojson.feature(data, data.objects.all_map_data_boundariesfixed_july22).features;
+	  
+	  // filter out over 1000 values for BANK_AFS and AFS_BANK to remove undefined values set in the data
+	  if (propertyName == 'BANK_AFS' || propertyName == 'AFS_BANK') {
+		  openedTopoJson = $.grep(openedTopoJson, function(d) {
+		      return d.properties[propertyName] <= 999;
+		  });
+	  }  
+	  	  
 	  openedTopoJson.sort(function (a, b) {
 	      if (Number(a.properties[propertyName]) > Number(b.properties[propertyName])) {
 			  return 1;	      	
@@ -2679,7 +2686,7 @@ CityDigitsMap.drawChart = function(layerId){
 	  });
 	  x.domain(openedTopoJson.map(function(d) { return d.properties.Name; }));
 	  y.domain([0, d3.max(openedTopoJson, function(d) { return d.properties[propertyName]; })]);
-
+	  
 	  svg.append("g")
 	      .attr("class", "chartTitle")
 	    .append("text")
