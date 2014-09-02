@@ -1,0 +1,22 @@
+{% extends "CashCity/base.html" %}
+{% load widget_tweaks %}
+ {% load i18n %}
+ {% load account %}
+ {% load url from future %}
+
+{% block body_block %}
+<div class="container loginFormcontainer">
+		
+<h3>Teacher Account</h3>
+{{ user.username }}
+			      <label for="id_password1">Password:</label>
+	
+			      {% if form.password1.errors %}
+			        <p class="errors">{{ form.password1.errors.as_text }}</p>
+			      {% endif %}
+			      {{ form.password1|add_class:"form-control" }}
+	
+
+</div>
+{% endblock %}
+

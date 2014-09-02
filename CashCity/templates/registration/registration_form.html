@@ -1,0 +1,66 @@
+{% extends "CashCity/base.html" %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block body_block %}
+<div class="container loginFormcontainer">
+	<div class="jumbotron">
+		<div class="row">
+			<div class="col-xs-12">
+				<h3>Teacher Sign Up</h3>
+			</div>
+			<span class ="text-danger">{{ form.non_field_errors }}</span>	
+			<form role="form" method="post" action=".">{% csrf_token %}
+				<div class="col-xs-12">				
+					<div class="form-group">
+						<label for="username">Username</label>{% if form.username.errors %} <span class ="text-danger">{{ form.username.errors|join:", " }}</span>{% endif %}
+						{{ form.username|add_class:"form-control" }}
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="form-group">
+						<label for="name">Name</label>{% if form.name.errors %} <span class ="text-danger">{{ form.name.errors|join:", " }}</span>{% endif %}
+						{{ form.name|add_class:"form-control" }}
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="form-group">
+						<label for="email">Email</label>{% if form.email.errors %} <span class ="text-danger">{{ form.email.errors|join:", " }}</span>{% endif %}
+						{{ form.email|add_class:"form-control" }}
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="form-group">
+						<label for="password1">Password</label>{% if form.password1.errors %} <span class ="text-danger">{{ form.password1.errors|join:", " }}</span>{% endif %}
+						{{ form.password1|add_class:"form-control" }}
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="form-group">
+						<label for="password2">Re-Enter Password</label>{% if form.password2.errors %} <span class ="text-danger">{{ form.password2.errors|join:", " }}</span>{% endif %}
+						{{ form.password2|add_class:"form-control" }}
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="form-group">
+						<label for="city">City</label>{% if form.city.errors %} <span class ="text-danger">{{ form.city.errors|join:", " }}</span>{% endif %}
+						{{ form.city|add_class:"form-control" }}
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="form-group">
+						<label for="school">School</label>{% if form.school.errors %} <span class ="text-danger">{{ form.school.errors|join:", " }}</span>{% endif %}
+						{{ form.school|add_class:"form-control" }}
+					</div>
+				</div>
+				<div class="col-xs-6">		
+					<p class="text-left"><a href="{% url 'auth_login' %}"><span class="glyphicon glyphicon-arrow-left"></span> Login </a></p>
+				</div>
+				<div class="col-xs-6">				
+					<button type="submit" class="btn btn-default pull-right">Sign Up</button>
+				</div>		
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

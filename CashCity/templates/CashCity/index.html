@@ -1,0 +1,483 @@
+{% extends 'CashCity/base.html' %}
+{% load staticfiles %}
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/bootstrap-select.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/mapbox.css' %}">	
+	<!-- style embedded in django template for static file usage -->
+	<style type="text/css">		
+		.nav-tabs.nav-mapui > li > a > .edit-button {
+			display: inline-block;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'CashCity/img/edit_white.png' %})
+		}
+		
+		.nav-tabs.nav-mapui > .active > a > .edit-button,
+		.nav-tabs.nav-mapui > .active > a:hover > .edit-button,
+		.nav-tabs.nav-mapui > .active > a:focus > .edit-button, 
+		.nav-tabs.nav-mapui > li > a:hover > .edit-button,
+		.nav-tabs.nav-mapui > li > a:focus > .edit-button {
+			background-image: url({% static 'CashCity/img/edit_gray.png' %})
+		}
+		
+		.nav-tabs.nav-mapui > li > a > .image-button {
+			display: inline-block;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'CashCity/img/image_white.png' %})
+		}
+		
+		.nav-tabs.nav-mapui > .active > a > .image-button,
+		.nav-tabs.nav-mapui > .active > a:hover > .image-button,
+		.nav-tabs.nav-mapui > .active > a:focus > .image-button, 
+		.nav-tabs.nav-mapui > li > a:hover > .image-button,
+		.nav-tabs.nav-mapui > li > a:focus > .image-button {
+			background-image: url({% static 'CashCity/img/image_gray.png' %})
+		}
+		
+		.nav-tabs.nav-mapui > li > a > .location-button {
+			display: inline-block;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'CashCity/img/locations_white.png' %})
+		}
+		
+		.nav-tabs.nav-mapui > .active > a > .location-button,
+		.nav-tabs.nav-mapui > .active > a:hover > .location-button,
+		.nav-tabs.nav-mapui > .active > a:focus > .location-button, 
+		.nav-tabs.nav-mapui > li > a:hover > .location-button,
+		.nav-tabs.nav-mapui > li > a:focus > .location-button {
+			background-image: url({% static 'CashCity/img/locations_gray.png' %})
+		}
+		
+		.nav-tabs.nav-mapui > li > a > .map-button {
+			display: inline-block;
+			margin-right: 3px;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'CashCity/img/map_white.png' %})
+		}
+		
+		.nav-tabs.nav-mapui > .active > a > .map-button,
+		.nav-tabs.nav-mapui > .active > a:hover > .map-button,
+		.nav-tabs.nav-mapui > .active > a:focus > .map-button, 
+		.nav-tabs.nav-mapui > li > a:hover > .map-button,
+		.nav-tabs.nav-mapui > li > a:focus > .map-button {
+			background-image: url({% static 'CashCity/img/map_gray.png' %})
+		}
+		
+		/*
+		* Icon classes
+		*/
+		
+		.pawnshop-icon {
+			width: 22px;
+			height: 17px;
+			display: inline-block;
+			background-image: url({% static 'CashCity/img/pawnshop.png' %});
+		}
+
+		.checkcashing-icon {
+			width: 22px;
+			height: 17px;
+			display: inline-block;
+			background-image: url({% static 'CashCity/img/checkcashing.png' %});
+		}
+
+		.wiretransfer-icon {
+			width: 22px;
+			height: 17px;
+			display: inline-block;
+			background-image: url({% static 'CashCity/img/wiretransfer.png' %});
+		}
+
+		.banks-icon {
+			width: 22px;
+			height: 17px;
+			display: inline-block;
+			background-image: url({% static 'CashCity/img/bank.png' %});
+		}
+
+		.mcdonalds-icon {
+			width: 22px;
+			height: 17px;
+			display: inline-block;
+			background-image: url({% static 'CashCity/img/ArchesOrangesm.png' %});
+		}
+		
+		.squaremiles-icon {
+			width: 22px;
+			height: 17px;
+			display: inline-block;
+			background-image: url({% static 'CashCity/img/squaremiles.png' %});
+		}
+		
+		.households-icon {
+			width: 22px;
+			height: 17px;
+			display: inline-block;
+			background-image: url({% static 'CashCity/img/households.png' %});
+		}
+		
+		.close-icon-white {
+			background-image: url({% static 'CashCity/img/close_white.png' %});
+		}
+		
+		.close-icon-gray {
+			background-image: url({% static 'CashCity/img/close_gray.png' %});
+		}
+		
+		/*
+		* zoom icons
+		*/
+		
+		.citydigits-zoomer .zoom-in > a {
+			float: left;
+			width: 28px;
+			height: 32px;
+			background-image: url({% static 'CashCity/img/Zoom_in.png' %});
+		}
+
+		.citydigits-zoomer .zoom-in > a:hover {
+			background-image: url({% static 'CashCity/img/Zoom_in_hover.png' %});
+		}
+
+		.citydigits-zoomer .zoom-out > a {
+			float: left;
+			margin-left: -30px;
+			width: 28px;
+			height: 32px;
+			background-image: url({% static 'CashCity/img/Zoom_out.png' %});
+		}
+
+		.citydigits-zoomer .zoom-out > a:hover {
+			background-image: url({% static 'CashCity/img/Zoom_out_hover.png' %});
+		}
+		
+		/*
+		* corner icons
+		*/
+
+		.citydigits-legend .legendClosed > a {
+			float: left;
+			width: 39px;
+			height: 36px;
+			background-image: url({% static 'CashCity/img/legendbutton_white.png' %});
+		}
+
+		.citydigits-legend .legendClosed > a:hover {
+			background-image: url({% static 'CashCity/img/legendbutton_gray.png' %});
+		}
+
+		.citydigits-legend .legendpoverty > a {
+			float: left;
+			width: 200px;
+			height: 188px;
+			background-image: url({% static 'CashCity/img/legend_poverty.png' %});
+		}
+
+		.citydigits-legend .legendmedhhinc > a {
+			float: left;
+			width: 200px;
+			height: 225px;
+			background-image: url({% static 'CashCity/img/legend_medhhincome.png' %});
+		}
+
+		.citydigits-legend .legendunemploy > a {
+			float: left;
+			width: 200px;
+			height: 189px;
+			background-image: url({% static 'CashCity/img/legend_unemploy.png' %});
+		}
+
+		.citydigits-legend .legendforeignborn > a {
+			float: left;
+			width: 200px;
+			height: 189px;
+			background-image: url({% static 'CashCity/img/legend_foreignborn.png' %});
+		}
+
+		.citydigits-legend .legendAFIpersqmi > a {
+			float: left;
+			width: 200px;
+			height: 189px;
+			background-image: url({% static 'CashCity/img/legend_AFIsq.png' %});
+		}
+
+		.citydigits-legend .legendbankspersqmi > a {
+			float: left;
+			width: 200px;
+			height: 174px;
+			background-image: url({% static 'CashCity/img/legend_banks_sq.png' %});
+		}
+
+		.citydigits-legend .legendpawnsqmi > a {
+			float: left;
+			width: 200px;
+			height: 175px;
+			background-image: url({% static 'CashCity/img/legend_pawn_sq.png' %});
+		}
+
+		.citydigits-legend .legendmcdonaldspersqi > a {
+			float: left;
+			width: 200px;
+			height: 174px;
+			background-image: url({% static 'CashCity/img/legend_mcdonalds_sq.png' %});
+		}
+
+		.citydigits-legend .legendhouseholdsperAFI > a {
+			float: left;
+			width: 200px;
+			height: 265px;
+			background-image: url({% static 'CashCity/img/legend_households_perAFI.png' %});
+		}
+
+		.citydigits-legend .legendhouseholdsperbank > a {
+			float: left;
+			width: 200px;
+			height: 249px;
+			background-image: url({% static 'CashCity/img/legend_households_perbank.png' %});
+		}
+		.citydigits-legend .legendhouseholdsperMcD > a {
+			float: left;
+			width: 200px;
+			height: 249px;
+			background-image: url({% static 'CashCity/img/legend_households_permcD.png' %});
+		}
+
+		.citydigits-legend .legendhouseholdsperpawn > a {
+			float: left;
+			width: 200px;
+			height: 248px;
+			background-image: url({% static 'CashCity/img/legend_households_perpawn.png' %});
+		}
+
+		.citydigits-legend .legendAFIsperbank > a {
+			float: left;
+			width: 200px;
+			height: 233px;
+			background-image: url({% static 'CashCity/img/legend_AFI_perbank.png' %});
+		}
+
+		.citydigits-legend .legendbanksperAFIs > a {
+			float: left;
+			width: 200px;
+			height: 235px;
+			background-image: url({% static 'CashCity/img/legend_banks_perAFI.png' %});
+		}
+				
+		.citydigits-charts .chart-icon > a {
+			float: left;
+			width: 39px;
+			height: 36px;
+			background-image: url({% static 'CashCity/img/chart_whitebutton.png' %});
+		}
+
+		.citydigits-charts .chart-icon > a:hover {
+			background-image: url({% static 'CashCity/img/chart_graybutton.png' %});
+		}		
+		
+		/*
+		* Leaflet override
+		*/		
+		
+		.leaflet-popup-close-button {
+			background-image: url({% static 'CashCity/img/close_white.png' %});
+			background-size: auto auto;
+			background-position: 0% 0%;
+			opacity: 1;
+			height: 22px;
+			width: 22px;
+		}
+		
+		
+		</style>
+{% endblock %}	
+
+{% block body_block %}
+<div class="map-container">
+    <div class="row">
+        <div class="col-xs-6 col-md-4">
+           <div id="map-nav" class="map-nav map-ui">
+			<ul id="navTabs" class="nav nav-tabs nav-mapui nav-justified" role="tablist">
+			  <li class="active"><a href="#locations" role="tab" data-toggle="tab"><div class="location-button"></div>LOCATIONS</a></li>
+			  <li><a href="#maps" role="tab" data-toggle="tab"><div class="map-button"></div>MAPS</a></li>
+			  <li><a href="#createMap" role="tab" data-toggle="tab"><div class="edit-button"></div>CREATE MAP</a></li>
+			  <li><a href="#media" role="tab" data-toggle="tab"><div class="image-button"></div>MEDIA</a></li>
+			  <li><a href="#search" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-search marginright"></span>SEARCH</a></li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content">
+			  <div class="tab-pane fade in active" id="locations">
+				  <div class="container nav-mapui-width">
+				    <div class="row">
+				      <div class="col-md-6">
+			  			<div class="checkbox">
+			  			  <label>
+			  			    <input name='locations' type="checkbox" id="All_AFS" value="All_AFS">
+			  			    <abbr title="Checking this box will turn on Pawn Shops, Check Cashing and Wire Transfer locations, which are Alternative Financial Insitutions.">Alternative Financial Insitutions</abbr>
+			  			  </label>
+			  			</div>
+						<div class="checkbox">
+						  <label>
+						    <input name='locations' type="checkbox" id="LOC1" value="LOC1">
+						   	<img src="{% static 'CashCity/img/pawn_sm.png' %}" /> Pawn Shops
+						  </label>
+						</div>
+						<div class="checkbox">
+						  <label>
+						    <input name='locations' type="checkbox" id="LOC2" value="LOC2">
+							<img src="{% static 'CashCity/img/check_sm.png' %}" /> Check Cashing
+						  </label>
+						</div>
+						<div class="checkbox">
+						  <label>
+						    <input name='locations' type="checkbox" id="LOC3" value="LOC3">
+							<img src="{% static 'CashCity/img/wire_sm.png' %}" /> Wire Transfer
+						  </label>
+						</div>
+				      </div>
+					  <div class="col-md-6">
+						<div class="checkbox">
+						  <label>
+						    <input name='locations' type="checkbox" id="LOC4" value="LOC4">
+						   	<img src="{% static 'CashCity/img/banks_sm.png' %}" /> Banks
+						  </label>
+						</div>
+						<div class="checkbox">
+						  <label>
+						    <input name='locations' type="checkbox" id="LOC5" value="LOC5">
+							<img src="{% static 'CashCity/img/mcd_sm.png' %}" /> McDonald's
+						  </label>
+						</div>
+						<div class="checkbox">
+						  <label>
+						    <input name='locations' type="checkbox" id="LOC6" value="LOC6">
+							Subway Lines
+						  </label>
+						</div>
+					  </div>
+				    </div>
+				  </div>
+			  </div>
+			  <div class="tab-pane fade" id="maps">
+			  <div class="container nav-mapui-width">
+			    <div class="row">
+				      <div class="col-md-6">
+						<div class="checkbox">
+						  <label>
+						    <input type="checkbox" name="maps" id="MAP1" value="MAP1_POP_POVERTY" checked>
+						    % Population in Poverty
+						  </label>
+						</div>
+						<div class="checkbox">
+						  <label>
+						    <input type="checkbox" name="maps" id="MAP2" value="MAP2_MED_HH_INCOME">
+						    Median Household Income
+						  </label>
+						</div>
+						<div class="checkbox">
+						  <label>
+						    <input type="checkbox" name="maps" id="MAP3" value="MAP3_PCT_UNEMPLOYED">
+						    % Unemployment
+						  </label>
+						</div>
+				      </div>
+					  <div class="col-md-6">
+						<div class="checkbox">
+						  <label>
+						    <input type="checkbox" name="maps" id="MAP4" value="MAP4_PCT_FOREIGN_BORN">
+						    % Population Foreign Born
+						  </label>
+						</div>
+					  </div>
+			    </div>
+			  </div>
+			  </div>
+			  <div class="tab-pane fade" id="createMap">
+			  	<div class="padding10">	
+			        <form class="form-inline" role="form">
+						<label class="sr-only" for="var1Select">Select Variable One</label>
+	                    <select id="var1Select" data-width="22%" class="selectpicker show-tick form-control">
+	                        <option value="Variable 1" class="grey">Variable 1</option>
+	                        <option value="Pawn Shops">Pawn Shops</option>
+	                        <option value="Alternative Financial Insitutions">Alternative Financial Insitutions</option>
+	                        <option value="Banks">Banks</option>
+	                        <option value="McDonalds">McDonald's</option>
+	                        <option value="Households">Households</option>
+	                    </select>
+						 / 
+						<label class="sr-only" for="var2Select">Select Variable Two</label>
+	                    <select id="var2Select" data-width="22%" class="selectpicker show-tick form-control">
+	                        <option value="Variable 2" class="grey">Variable 2</option>
+	                    </select>
+						= 
+						<label id="normalizationText" class="lowFontWeight"></label>
+			        <form>
+				</div>
+			  </div>
+		      <div class="tab-pane fade" id="media">Under Construction</div>
+			  <div class="tab-pane fade" id="search">
+				<div id="geosearch-target" class="geosearch-input">
+					<span class="input-group-btn">
+						<span id='addressSearch' class="btn btn-default btn-file">
+							Enter
+						</span>
+					</span>
+				</div>
+		      </div>
+			</div>
+           	
+           </div><!-- map-nav -->		  
+        </div>
+    </div>
+    <div id="citydigits-zoomer" class="citydigits-zoomer hidden">
+		<div class="zoom-out">
+      	  <a id="zoom-out" href="#"></a>
+	  	</div>
+		<div class="zoom-in">
+      	  <a id="zoom-in" href="#"></a>
+	  	</div>
+    </div>
+    <div id="citydigits-charts" class="citydigits-charts hidden">
+		<div id="chartid" class="chart-icon">
+      	  <a id="chart" href="#"></a>
+	  	</div>
+    </div>
+	<div id="citydigits-legend" class="citydigits-legend hidden">
+		<div id= "legendid" class="legendClosed">
+      	  <a id="legend" href="#"></a>
+	  	</div>
+    </div>
+	<div id="map"></div>
+</div>	
+{% endblock %}
+
+
+{% block js_block %}
+	<script type="text/javascript" src="{% static 'CashCity/js/bootstrap-select.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/d3.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/mapbox.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/leaflet-omnivore.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/topojson.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/l.control.geosearch.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/l.geosearch.provider.google.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/accounting.min.js' %}"></script>
+	<!-- set varible for topojson and csv urls -->
+	<script type="text/javascript">
+	var neighborhoods = "{% static 'CashCity/topojson/neighborhoods.json' %}";	
+	var SubwayLines = "{% static 'CashCity/topojson/mta_subway_only_june2014.geojson' %}";	
+	var SubwayStations = "{% static 'CashCity/topojson/subway_stations.geojson' %}";	
+	var CheckCashing = "{% static 'CashCity/locationData/CheckCashing.csv' %}";	
+	var CommercialBanks = "{% static 'CashCity/locationData/CommercialBanks.csv' %}";	
+	var Mcdonalds = "{% static 'CashCity/locationData/Mcdonalds.csv' %}";	
+	var MoneyTransferServices = "{% static 'CashCity/locationData/MoneyTransferServices.csv' %}";	
+	var PawnShops = "{% static 'CashCity/locationData/PawnShops.csv' %}";
+	var closeButtonGray	= "{% static 'CashCity/img/close_gray.png' %}";
+	</script>
+	<script type="text/javascript" src="{% static 'CashCity/js/CityDigitsMap.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/application.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/mapnav.js' %}"></script>
+{% endblock %}

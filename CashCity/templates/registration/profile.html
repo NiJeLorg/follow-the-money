@@ -1,0 +1,75 @@
+{% extends 'CashCity/base.html' %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/bootstrap-select.min.css' %}">
+	<!-- style embedded in django template for static file usage -->
+	
+{% endblock %}	
+
+{% block body_block %}
+<div class="full-container">
+	<h3>Teacher Account</h3>
+	<div class="row">
+		<div class="col-xs-6">
+			<div class="btn-group btn-group-justified">
+				<div class="btn-group">
+				  <a href="{% url 'accountProfile' %}"><button type="button" class="btn btn-default active">Account</button></a>
+				</div>
+				<div class="btn-group">
+					<a href="#"><button type="button" class="btn btn-default">Teams</button></a>
+				</div>
+				<div class="btn-group">	
+			  	  <a href="#"><button type="button" class="btn btn-default">Media</button></a>
+  				</div>
+  				<div class="btn-group">		  
+			 	   <a href="#"><button type="button" class="btn btn-default">Opinions</button></a>
+   				</div>				   
+			</div>
+		</div>
+	</div>
+	<br />
+	<div class="row">
+		{% if success %}
+		<p class="bg-success">Teacher Account Saved!</p>
+		{% endif %}
+		<form role="form" method="post" action=".">{% csrf_token %}
+			<div class="col-xs-4">				
+				<div class="form-group">
+					<label for="username">Username</label>
+					<br />
+					{{ user.username }}
+				</div>
+				<div class="form-group">
+					<label for="password1">Password</label>
+					<br />
+					<a href="{% url 'auth_password_change' %}">Change Your Password</a>
+				</div>
+				<div class="form-group">
+					<label for="name">Name</label>{% if profile_form.name.errors %} <span class ="text-danger">{{ profile_form.name.errors|join:", " }}</span>{% endif %}
+					{{ profile_form.name|add_class:"form-control" }}
+				</div>
+				<div class="form-group">
+					<label for="email">Email</label>{% if user_form.email.errors %} <span class ="text-danger">{{ user_form.email.errors|join:", " }}</span>{% endif %}
+					{{ user_form.email|add_class:"form-control" }}
+				</div>
+				<div class="form-group">
+					<label for="city">City</label>{% if profile_form.city.errors %} <span class ="text-danger">{{ profile_form.city.errors|join:", " }}</span>{% endif %}
+					{{ profile_form.city|add_class:"form-control" }}
+				</div>
+				<div class="form-group">
+					<label for="school">School</label>{% if profile_form.school.errors %} <span class ="text-danger">{{ profile_form.school.errors|join:", " }}</span>{% endif %}
+					{{ profile_form.school|add_class:"form-control" }}
+				</div>
+				<button type="submit" class="btn btn-default pull-left">Update</button>
+			</div>
+		</form>
+	</div>
+</div>	
+{% endblock %}
+
+
+{% block js_block %}
+	<script type="text/javascript" src="{% static 'CashCity/js/bootstrap-select.min.js' %}"></script>
+{% endblock %}

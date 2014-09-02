@@ -1,0 +1,396 @@
+
+/*
+*  Bootstrap Overrides
+*/
+
+body {
+    background-color: #B0B6BD;
+}
+
+.map-container {
+    width: 100%;
+	padding-left: 0px;
+}
+
+.loginFormcontainer {
+    width: 50%;
+	margin-top: 10%;
+}
+
+.TeacherRegistrationcontainer {
+    width: 50%;
+	margin-top: 10%;
+}
+
+.half-container {
+    width: 50%;
+	margin-top: 7%;
+	margin-bottom: 4%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.full-container {
+    width: 85%;
+	margin-top: 7%;
+	margin-bottom: 4%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.navbar-default {
+	background-color: #fff;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+	color: #025ff1;
+	background-color: #ffffff;
+}
+
+.navbar-default .navbar-brand {
+	font-size: 24px;
+	color: #025ff1;
+	float: none;
+}
+
+.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+    margin-left: 0px;
+}
+
+.navbar-default .navbar-center {
+	position: absolute;
+	width: 100%;
+	left: 0;
+	top: 0;
+	margin-left: 0px !important;
+	text-align: center;
+	margin: auto;
+	height:100%;
+}
+
+.user-text {
+	margin-top: 15px;
+	margin-right: 100px;			
+}
+
+.nav-tabs.nav-mapui > li {
+	background-color: #025ff1;
+}
+
+.nav-tabs.nav-mapui > li > a {
+	color: #fff;
+	border-radius: 0px;
+	padding: 10px 5px;
+}
+
+.nav-tabs.nav-mapui > li > a:hover,
+.nav-tabs.nav-mapui > li > a:focus {
+	background-color: #fff;
+	color: #333;
+	border-radius: 0px;
+}
+
+.nav-tabs.nav-mapui > .active > a,
+.nav-tabs.nav-mapui > .active > a:hover,
+.nav-tabs.nav-mapui > .active > a:focus {
+	color: #333;
+}
+
+.nav-mapui-width {
+	width: 620px;
+}
+
+@media (min-width: 768px) {
+  .nav-tabs.nav-mapui > li > a {
+  	color: #fff;
+  	border-radius: 0px;
+  }
+  
+  .nav-tabs.nav-mapui > .active > a,
+  .nav-tabs.nav-mapui > .active > a:hover,
+  .nav-tabs.nav-mapui > .active > a:focus {
+  	color: #333;
+  }
+}
+
+
+.nav-tabs.nav-tabs-media {
+	margin-bottom: 20px;
+}
+
+.nav-tabs.nav-tabs-media > li {
+	background-color: #B0B6BD;
+}
+
+.nav-tabs.nav-tabs-media > li > a {
+	color: #333;
+	border-radius: 0px;
+	padding: 10px 5px;
+	border-bottom: 0px;
+}
+
+.nav-tabs.nav-tabs-media > li > a:hover,
+.nav-tabs.nav-tabs-media > li > a:focus {
+	background-color: #B0B6BD;
+	color: #333;
+	border-radius: 0px;
+	border: 1px solid #B0B6BD;
+	border-bottom: 1px solid #9C9C9C;
+}
+
+.nav-tabs.nav-tabs-media > .active > a,
+.nav-tabs.nav-tabs-media > .active > a:hover,
+.nav-tabs.nav-tabs-media > .active > a:focus {
+	background-color: #B0B6BD;
+	color: #333;
+	border-radius: 0px;
+	border: 1px solid #B0B6BD;
+	border-bottom: 1px solid #9C9C9C;
+}
+
+.marginright {
+	margin-right: 3px;
+	margin-top: 3px;
+}
+
+.padding10 {
+	padding: 10px;
+}
+
+.grey {
+	color: #9c9c9c !important;
+}
+
+.lowFontWeight {
+	font-weight: 400;
+}
+
+.divide {
+	border-color: #9c9c9c;
+	margin: 5px;
+	border-width: 2px 0 0;
+}
+
+/*
+* Bootstrap file input button
+*/
+
+.btn-file {
+	position: relative;
+	overflow: hidden;
+}
+
+.btn-file input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	min-width: 100%;
+	min-height: 100%;
+	font-size: 100px;
+	text-align: right;
+	filter: alpha(opacity=0);
+	opacity: 0;
+	outline: none;
+	background: white;
+	cursor: inherit;
+	display: block;
+}
+
+/*
+* Form Map styles
+*/
+
+#formMap {
+    width:100%;
+    height:200px;
+}
+
+
+
+/*
+* Map styles
+*/
+
+#map {
+    position:absolute;
+    top:0;
+    bottom:0;
+    width:100%;
+    margin-top: 50px;
+}
+
+.map-ui {
+    position: absolute;
+    left: 25px;
+    top: 60px;
+    width: 620px;
+    margin: 0;
+    padding: 0;
+    z-index: 100;
+    background: #fff;
+    box-shadow: 5px 5px 15px;
+}
+
+.citydigits-zoomer {
+    position: absolute;
+    z-index: 110;
+    top: 59px;
+    right: 7px;
+}
+
+
+.citydigits-charts {
+    position: absolute;
+    z-index: 110;
+    bottom: 10px;
+    left: 10px;
+}
+
+.citydigits-legend {
+    position: absolute;
+    z-index: 110;
+    bottom: 10px;
+    right: 5px;
+}
+
+.rollover-tooltip {
+    text-align: center;
+    font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
+    color: #fff;
+    font-size: 13px;
+}
+
+.map-popup {
+    text-align: center;
+    font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
+    color: #fff;
+}
+
+.map-popup h4 {
+	font-size: 20px;
+}
+
+.map-popup p {
+	font-size: 14px;
+}
+
+
+/*
+* Leaflet overrides
+*/
+
+.leaflet-popup-content-wrapper, .map-legends, .map-tooltip {
+	background: none repeat scroll 0 0 #3f3f3f;
+}
+	
+.leaflet-popup-content {
+	background-color:#3f3f3f;
+}
+
+.leaflet-popup-tip {
+	border-top: 10px solid #3f3f3f;
+}
+
+
+/*
+* Map search box form css
+*/
+
+.geosearch-input {
+	margin: 10px 10px 0px 10px;
+	width: 87%;
+}
+
+.leaflet-control-geosearch {
+	width: 100%;
+	margin: 0px;
+}
+
+
+/*
+* bar chart css
+*/
+
+.citydigits-charts .chartDiv {
+	width: 500px;
+	height: 400px;
+	background: none repeat scroll 0 0 #fff;
+	box-shadow: 5px 5px 15px;
+}
+
+.citydigits-charts .chartDiv > a {
+	text-decoration: none;
+}
+
+.bar {
+  fill: #62def8;
+}
+
+.bar:hover {
+  fill: #9c9c9c;
+}
+
+.axis {
+  font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
+  font-size: 9pt;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #A7A8A7;
+  shape-rendering: crispEdges;
+}
+
+.chartTitle {
+    font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
+    font-size: 14pt;	
+}
+
+
+/*
+ * barchartTooltip styling
+ */
+
+.barchartTooltip { 
+    position: absolute;
+    text-align: left;
+    width: 230px;
+    height: auto;
+    padding: 8px;
+    color: #6D6E70;
+    background: #fff;
+    font-weight: 400;
+    border: solid 2px #ccc;
+    border-radius: 4px;
+    pointer-events: none;
+	z-index: 1031;
+} 
+
+.barchartTooltip:after, .barchartTooltip:before { 
+	right: 100%; 
+	top: 50%; 
+	border: solid transparent; 
+	content: " "; 
+	height: 0; 
+	width: 0; 
+	position: absolute; 
+	pointer-events: none; 
+} 
+
+.barchartTooltip:after { 
+	border-color: rgba(255, 255, 255, 0); 
+	border-right-color: #fff; 
+	border-width: 15px; 
+	margin-top: -15px; 
+} 
+
+.barchartTooltip:before { 
+	border-color: rgba(109, 110, 112, 0); 
+	border-right-color: #ccc; 
+	border-width: 18px; 
+	margin-top: -18px; 
+}
+
