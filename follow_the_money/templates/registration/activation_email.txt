@@ -1,7 +1,0 @@
-{% load i18n %}
-
-{% blocktrans %}Thank you for signing up for {{ site.name }}. Please activate your new account by following the activation link below. Thanks! {% endblocktrans %}
-
-http://{{ site.domain }}{% url 'registration_activate' activation_key %}
-
-{% blocktrans %}The link above is valid for {{ expiration_days }} days.{% endblocktrans %}

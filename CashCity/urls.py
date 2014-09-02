@@ -1,5 +1,6 @@
 # add urls for the CashCity app here
 from django.conf.urls import patterns, url
+from django.conf import settings
 
 from CashCity import views
 

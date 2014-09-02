@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.conf.urls import patterns, include, url
 from CashCity import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -10,6 +11,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^$', views.index, name='index'),
     # admin urls
     url(r'^admin/', include(admin.site.urls)),
     # override registration form
@@ -26,3 +28,10 @@ urlpatterns = patterns('',
 )
 
 urlpatterns += staticfiles_urlpatterns()
+
+if settings.DEBUG:
+    urlpatterns += patterns(
+        'django.views.static',
+        (r'media/(?P<path>.*)',
+        'serve',
+        {'document_root': settings.MEDIA_ROOT}), )
