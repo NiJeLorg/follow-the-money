@@ -1,7 +1,11 @@
 import os
 
-PROJECT_ROOT = os.path.dirname(__file__)
-DATABASE_PATH = os.path.join(PROJECT_ROOT, 'ftm.db')
+SETTINGS_DIR = os.path.dirname(__file__)
+
+PROJECT_PATH = os.path.join(SETTINGS_DIR, os.pardir)
+PROJECT_PATH = os.path.abspath(PROJECT_PATH)
+
+DATABASE_PATH = os.path.join(PROJECT_PATH, 'cashcity.db')
 
 DATABASES = {
     'default': {

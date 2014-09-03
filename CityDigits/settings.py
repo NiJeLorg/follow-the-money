@@ -1,7 +1,10 @@
 # Django settings for project.
 import os, sys
 
-PROJECT_ROOT = os.path.dirname(__file__)
+SETTINGS_DIR = os.path.dirname(__file__)
+
+PROJECT_PATH = os.path.join(SETTINGS_DIR, os.pardir)
+PROJECT_PATH = os.path.abspath(PROJECT_PATH)
 
 # Import database settings
 from database_settings import *
@@ -45,6 +48,10 @@ USE_L10N = True
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
+
+# Absolute filesystem path to the directory that will hold user-uploaded files.
+# Example: "/var/www/example.com/media/"
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'CashCity/media') # Absolute path to the media directory
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
 MEDIA_ROOT = '/media/'
@@ -57,19 +64,15 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = '/static/'
+STATIC_ROOT = '/static'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
-# STATIC_URL = 'http://nijel.org/cashcity/static/'
+# STATIC_URL = 'http://nijel.org/follow-the-money/static/'
 STATIC_URL = '/static/'
 
 # Additional locations of static files
-STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'static'),)
-
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+STATICFILES_DIRS = (os.path.join(PROJECT_PATH, 'static'),)
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -106,8 +109,8 @@ WSGI_APPLICATION = 'CityDigits.wsgi.application'
 
 TEMPLATE_DIRS = '/templates'    
 # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+# Always use forward slashes, even on Windows.
+# Don't forget to use absolute paths, not relative paths.
     
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation
 EMAIL_USE_TLS = True
@@ -119,7 +122,7 @@ DEFAULT_FROM_EMAIL = 'cashcity.citydigits@gmail.com'
 
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-		"django.contrib.auth.context_processors.auth",
+	"django.contrib.auth.context_processors.auth",
     # Required by allauth template tags
     "django.core.context_processors.request",
 )
@@ -141,14 +144,17 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.admin',
+    'south',
     # cashcity app
     'CashCity', 
-    'south',
-    'registration',
-    'django.contrib.humanize',
+    # Uncomment the next line to enable the admin:
+    'django.contrib.admin',
+    # Uncomment the next line to enable admin documentation:
+    # 'django.contrib.admindocs',
     'widget_tweaks',
+    'django.contrib.humanize',
     'taggit',
+    'registration',
 )
 
 SITE_ID = 1

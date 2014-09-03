@@ -31,11 +31,25 @@ class ExRegistrationForm(RegistrationForm):
         profile.city = request.POST["city"]
         profile.school = request.POST["school"]
         profile.name = request.POST["name"]
+        profile.teacherOrStudent = True
         profile.save()
  
     user_registered.connect(user_registered_callback)
-    
-# allow users to edit their email addres in the profile form
+
+# form for creating and editing team usernames and passwords
+class TeamForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+    class Meta:
+        model = User
+        fields = ('username', 'password',)
+
+# team profile form
+class TeamProfileForm(forms.ModelForm):
+    class Meta:
+        model = ExUserProfile
+        fields = ('section', 'color',)
+            
+# allow users to edit their email address in the profile form
 class UserInfoForm(forms.ModelForm):
     email = forms.EmailField(required=True)
     class Meta:
@@ -46,7 +60,7 @@ class UserInfoForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = ExUserProfile
-        fields = ('name', 'city', 'school',)
+        fields = ('name', 'city', 'school')
 
 # Form for Images Audio
 class MediaFormImage(forms.ModelForm):

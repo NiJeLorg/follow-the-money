@@ -6,15 +6,20 @@ from taggit.managers import TaggableManager
 
 
 
-# Model that stores user profile info beyond username, password, email
+# Model that stores user profile info beyond username, password, email -- includes teacher and student group data
 class ExUserProfile(models.Model):
     user = models.OneToOneField(User)
     name = models.CharField(max_length=255, null=True, blank=True)
     city = models.CharField(max_length=255, null=True, blank=True)
     school = models.CharField(max_length=255, null=True, blank=True)
+    teacherOrStudent = models.BooleanField()
+    teacherId = models.ForeignKey(User, null=True, blank=True, related_name='teacher')
+    section = models.CharField(max_length=255, null=True, blank=True)
+    color = models.CharField(max_length=20, null=True, blank=True)
  
     def __unicode__(self):
         return self.name
+        
 
 # Model that stores Media Images
 class MediaImage(models.Model):
