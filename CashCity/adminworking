@@ -1,4 +1,0 @@
-from django.contrib import admin
-from follow_the_money.models import UserProfile
-
-admin.site.register(UserProfile)

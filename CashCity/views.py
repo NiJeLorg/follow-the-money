@@ -66,16 +66,65 @@ def accountProfile(request):
     return render_to_response('registration/profile.html', {'user_form': user_form, 'profile_form': profile_form}, context)
 
 
-    
-
-def media(request):
+@login_required
+def teams(request):
     """
-      Loads the media page
+      Loads the list of teams for this teacher
     """
     context = RequestContext(request)
-    context_dict = {}    
-   
-    return render_to_response('CashCity/media.html', context_dict, context)    
+    
+    
+    #build query
+    kwargs = {}
+    kwargs['teacherOrStudent'] = False
+    kwargs['teacherId__exact'] = request.user
+    
+    #get teams
+    teams = ExUserProfile.objects.filter(**kwargs).order_by("-color")
+    
+    return render_to_response('registration/teams.html', {'teams': teams}, context)
+    
+    
+@login_required
+def createTeam(request):
+    """
+      Loads a form for adding/editing teams
+    """
+    context = RequestContext(request)
+    
+    if request.method == 'POST':
+        user_form = TeamForm(request.POST)
+        profile_form = TeamProfileForm(data=request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            user.set_password(user.password)
+            user.save()
+                   
+            profile_form.save()
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            profile.save()
+            
+            success = True
+            
+            #build query to return to teams page
+            kwargs = {}
+            kwargs['teacherOrStudent'] = False
+            kwargs['teacherId__exact'] = request.user
+    
+            #get teams
+            teams = ExUserProfile.objects.filter(**kwargs).order_by("-color")
+            
+
+            return render_to_response('registration/teams.html', {'teams': teams, 'success': success}, context)
+            
+        else:
+            print user_form.errors, profile_form.errors
+            
+    else:
+        user_form = TeamForm()
+        profile_form = TeamProfileForm()
+    return render_to_response('registration/create_team.html', {'user_form': user_form, 'profile_form': profile_form}, context)
 
 
 # view for media image form
@@ -88,7 +137,7 @@ def mediaFormImage(request):
     if request.method == 'POST':
         # if user hits cancel, send back to media page without saving
         if "cancel" in request.POST:
-            return HttpResponseRedirect('/cashcity/media/')
+            return HttpResponseRedirect('/cashCity/media/')
         # if user hits save as draft, flag data in media image table as draft
         elif "saveDraft" in request.POST:
             form = MediaFormImage(request.POST, request.FILES)
@@ -150,6 +199,7 @@ def mediaFormAudio(request):
         # if user hits cancel, send back to media page without saving
         if "cancel" in request.POST:
             return HttpResponseRedirect('/cashcity/media/')
+
         # if user hits save as draft, flag data in media Audio table as draft
         elif "saveDraft" in request.POST:
             form = MediaFormAudio(request.POST, request.FILES)
@@ -211,6 +261,7 @@ def mediaFormNote(request):
         # if user hits cancel, send back to media page without saving
         if "cancel" in request.POST:
             return HttpResponseRedirect('/cashcity/media/')
+
         # if user hits save as draft, flag data in media Audio table as draft
         elif "saveDraft" in request.POST:
             form = MediaFormNote(request.POST)
@@ -272,6 +323,7 @@ def mediaFormInterview(request):
         # if user hits cancel, send back to media page without saving
         if "cancel" in request.POST:
             return HttpResponseRedirect('/cashcity/media/')
+
         # if user hits save as draft, flag data in media image table as draft
         elif "saveDraft" in request.POST:
             form = MediaFormInterview(request.POST, request.FILES)
@@ -321,3 +373,49 @@ def mediaFormInterview(request):
     # Render the form with error messages (if any).
     return render_to_response('CashCity/mediaFormInterview.html', {'form': form}, context)
     
+
+
+def media(request):
+    """
+        This view returns the list of media based on search criteria
+    """
+    # Get the context from the request.
+    context = RequestContext(request)
+    
+    # offset = int(offset)
+    #store toolbar form info
+    toolbar={'searchType':'All',
+             'searchClass':'All',
+             'searchTeam':'All',
+             'searchTags':'All'}
+             
+    #get search teams
+    searchType = request.GET.get("type","All")
+
+    #get search class
+    searchClass = request.GET.get("class","All")
+
+    #get search teams
+    searchTeam = request.GET.get("team","All")
+
+    #get search tags
+    searchTags = request.GET.get("tags","All")
+    
+    #build query
+    kwargs = {}
+    if(searchClass != "ALL"):
+        kwargs['student__team__teacher__className__exact'] = searchClass
+        toolbar['searchClass'] = searchClass
+
+    if(searchTeam != "ALL"):
+        kwargs['student__team__name__exact'] = searchTeam
+        toolbar['searchTeam'] = searchTeam
+
+
+    #get mediaImages
+    mediaImages = MediaImage.objects.filter(**kwargs).order_by("-last_modified")
+
+
+    #render
+    return render_to_response('CashCity/media.html', {'mediaImages':mediaImages, 'toolbar':toolbar}, context)
+

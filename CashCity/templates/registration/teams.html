@@ -1,0 +1,49 @@
+{% extends 'CashCity/base.html' %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/bootstrap-select.min.css' %}">
+	<!-- style embedded in django template for static file usage -->
+	
+{% endblock %}	
+
+{% block body_block %}
+<div class="full-container">
+	<h3>Teacher Account</h3>
+	<div class="row">
+		<div class="col-xs-6">
+			<div class="btn-group btn-group-justified">
+				<div class="btn-group">
+				  <a href="{% url 'accountProfile' %}"><button type="button" class="btn btn-default">Account</button></a>
+				</div>
+				<div class="btn-group">
+					<a href="{% url 'teams' %}"><button type="button" class="btn btn-default active">Teams</button></a>
+				</div>
+				<div class="btn-group">	
+			  	  <a href="#"><button type="button" class="btn btn-default">Media</button></a>
+  				</div>
+  				<div class="btn-group">		  
+			 	   <a href="#"><button type="button" class="btn btn-default">Opinions</button></a>
+   				</div>				   
+			</div>
+		</div>
+		<div class="col-xs-6">
+			<a href="{% url 'createTeam' %}"><button type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"></span> Team</button></a>
+		</div>
+	</div>
+	<br />
+	<div class="row">
+		<div class="col-xs-12">
+			{% for team in teams %}
+				<p>{{ team }}</p>
+			{% endfor %}
+		</div>
+	</div>
+</div>	
+{% endblock %}
+
+
+{% block js_block %}
+	<script type="text/javascript" src="{% static 'CashCity/js/bootstrap-select.min.js' %}"></script>
+{% endblock %}

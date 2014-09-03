@@ -14,12 +14,18 @@ urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     # admin urls
     url(r'^admin/', include(admin.site.urls)),
-    # override registration form
+    # override registration form to add new teachers
     url(r'accounts/register/$', 
         RegistrationView.as_view(form_class = ExRegistrationForm), 
         name = 'registration_register'),
+    # add new team
+    url(r'accounts/register/team/$', views.createTeam, name = 'createTeam'),
     # registration urls
     url(r'^accounts/', include('registration.backends.default.urls')),
+    # account profile url
+    url(r'^accounts/profile/$', views.accountProfile, name='accountProfile'),
+    # team profile url
+    url(r'^accounts/profile/teams/$', views.teams, name='teams'),
     # account profile urls
     url(r'^accounts/profile/', views.accountProfile, name='accountProfile'),
     # CashCity app urls,
