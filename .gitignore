@@ -1,9 +1,6 @@
-app-settings/database_settings.py
-app-settings/settings.py
-app-settings/urls_orig_working
-app-settings/ftm.db
+CityDigits/database_settings.py
+CityDigits/settings.py
+CityDigits/ftm.db
 maptest/
 contacts/
 ftm/
-follow_the_money/media/
-
