@@ -20,6 +20,10 @@ urlpatterns = patterns('',
         name = 'registration_register'),
     # add new team
     url(r'accounts/register/team/$', views.createTeam, name = 'createTeam'),
+    # edit team
+    url(r'accounts/edit/team/(?P<id>\d+)/$', views.createTeam, name = 'editTeam'),
+    # remove team
+    url(r'accounts/remove/team/(?P<id>\d+)/$', views.removeTeam, name = 'removeTeam'),
     # registration urls
     url(r'^accounts/', include('registration.backends.default.urls')),
     # account profile url
