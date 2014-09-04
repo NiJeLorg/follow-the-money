@@ -21,9 +21,12 @@ def index(request):
       Loads the index page
     """
     context = RequestContext(request)
-    context_dict = {}
+    
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)   
+    context_dict = {'profile':profile}
 
-    return render_to_response('cashcity/index.html', context_dict, context)
+    return render_to_response('CashCity/index.html', context_dict, context)
 
 
 def mapNavigation(request):
@@ -33,7 +36,7 @@ def mapNavigation(request):
     context = RequestContext(request)
     context_dict = {}
    
-    return render_to_response('cashcity/map_navigation.html', context_dict, context)
+    return render_to_response('CashCity/map_navigation.html', context_dict, context)
 
 
 @login_required
@@ -42,6 +45,9 @@ def accountProfile(request):
       Loads the user profile page for editing
     """
     context = RequestContext(request)
+    
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)
     
     if request.method == 'POST':
         user_form = UserInfoForm(data=request.POST, instance=request.user)
@@ -54,8 +60,8 @@ def accountProfile(request):
             user_form = UserInfoForm(instance=request.user)
             profile_form = UserProfileForm(instance=ExUserProfile.objects.get(user=request.user))
             success = True
-
-            return render_to_response('registration/profile.html', {'user_form': user_form, 'profile_form': profile_form, 'success': success}, context)
+            
+            return render_to_response('registration/profile.html', {'user_form': user_form, 'profile_form': profile_form, 'success': success, 'profile':profile}, context)
             
         else:
             print user_form.errors, profile_form.errors
@@ -63,7 +69,27 @@ def accountProfile(request):
     else:
         user_form = UserInfoForm(instance=request.user)
         profile_form = UserProfileForm(instance=ExUserProfile.objects.get(user=request.user))
-    return render_to_response('registration/profile.html', {'user_form': user_form, 'profile_form': profile_form}, context)
+    return render_to_response('registration/profile.html', {'user_form': user_form, 'profile_form': profile_form, 'profile':profile}, context)
+    
+
+@login_required
+def studentProfileMedia(request):
+    """
+      Loads the student profile page, which allows access to their media and opinions
+    """
+    context = RequestContext(request)
+    
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)
+    
+    #build query
+    kwargs = {}
+    kwargs['user__exact'] = request.user
+
+    #get mediaImages
+    mediaImages = MediaImage.objects.filter(**kwargs).order_by("-last_modified")
+    
+    return render_to_response('registration/student_profile.html', {'mediaImages': mediaImages, 'profile':profile}, context)
 
 
 @login_required
@@ -72,7 +98,9 @@ def teams(request):
       Loads the list of teams for this teacher
     """
     context = RequestContext(request)
-    
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
     
     #build query
     kwargs = {}
@@ -82,7 +110,7 @@ def teams(request):
     #get teams
     teams = ExUserProfile.objects.filter(**kwargs).order_by('section', 'color')
     
-    return render_to_response('registration/teams.html', {'teams': teams}, context)
+    return render_to_response('registration/teams.html', {'teams': teams, 'profile':profile}, context)
     
     
 @login_required
@@ -91,6 +119,9 @@ def createTeam(request, id=None):
       Loads a form for adding/editing teams
     """
     context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
     
     if id:
         student_profile = ExUserProfile.objects.get(pk=id)
@@ -138,7 +169,7 @@ def createTeam(request, id=None):
                 teams = ExUserProfile.objects.filter(**kwargs).order_by('section', 'color')
             
 
-                return render_to_response('registration/teams.html', {'teams': teams, 'success': success,}, context)
+                return render_to_response('registration/teams.html', {'teams': teams, 'success': success, 'profile':profile}, context)
             
             else:
                 print user_form.errors, profile_form.errors
@@ -148,7 +179,7 @@ def createTeam(request, id=None):
         profile_form = TeamProfileForm(instance=student_profile)        
 
 
-    return render_to_response('registration/create_team.html', {'user_form': user_form, 'profile_form': profile_form}, context)
+    return render_to_response('registration/create_team.html', {'user_form': user_form, 'profile_form': profile_form, 'profile':profile}, context)
     
     
 @login_required
@@ -157,6 +188,9 @@ def removeTeam(request, id=None):
       Allows for removing of teams
     """
     context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
     
     if id:
         student_profile = ExUserProfile.objects.get(pk=id)
@@ -183,11 +217,11 @@ def removeTeam(request, id=None):
             teams = ExUserProfile.objects.filter(**kwargs).order_by('section', 'color')
         
 
-            return render_to_response('registration/teams.html', {'teams': teams, 'remove': remove,}, context)
+            return render_to_response('registration/teams.html', {'teams': teams, 'remove': remove, 'profile':profile}, context)
             
             
 
-    return render_to_response('registration/remove_team.html', {'student_profile': student_profile, 'student_user': student_user}, context)
+    return render_to_response('registration/remove_team.html', {'student_profile': student_profile, 'student_user': student_user, 'profile':profile}, context)
     
 
 # view for media image form
@@ -195,6 +229,9 @@ def removeTeam(request, id=None):
 def mediaFormImage(request):
     # Get the context from the request.
     context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
 
     # A HTTP POST?
     if request.method == 'POST':
@@ -248,7 +285,7 @@ def mediaFormImage(request):
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
-    return render_to_response('cashcity/mediaFormImage.html', {'form': form}, context)
+    return render_to_response('CashCity/mediaFormImage.html', {'form': form, 'profile':profile}, context)
     
 
 # view for media audio form
@@ -256,6 +293,9 @@ def mediaFormImage(request):
 def mediaFormAudio(request):
     # Get the context from the request.
     context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
 
     # A HTTP POST?
     if request.method == 'POST':
@@ -310,7 +350,7 @@ def mediaFormAudio(request):
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
-    return render_to_response('cashcity/mediaFormAudio.html', {'form': form}, context)
+    return render_to_response('CashCity/mediaFormAudio.html', {'form': form, 'profile':profile}, context)
     
     
 # view for media notes form
@@ -318,6 +358,9 @@ def mediaFormAudio(request):
 def mediaFormNote(request):
     # Get the context from the request.
     context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
 
     # A HTTP POST?
     if request.method == 'POST':
@@ -372,7 +415,7 @@ def mediaFormNote(request):
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
-    return render_to_response('cashcity/mediaFormNote.html', {'form': form}, context)
+    return render_to_response('CashCity/mediaFormNote.html', {'form': form, 'profile':profile}, context)
     
     
 # view for media image form
@@ -380,6 +423,9 @@ def mediaFormNote(request):
 def mediaFormInterview(request):
     # Get the context from the request.
     context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
 
     # A HTTP POST?
     if request.method == 'POST':
@@ -434,7 +480,7 @@ def mediaFormInterview(request):
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
-    return render_to_response('cashcity/mediaFormInterview.html', {'form': form}, context)
+    return render_to_response('CashCity/mediaFormInterview.html', {'form': form, 'profile':profile}, context)
     
 
 
@@ -444,6 +490,9 @@ def media(request):
     """
     # Get the context from the request.
     context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
     
     # offset = int(offset)
     #store toolbar form info
@@ -480,5 +529,5 @@ def media(request):
 
 
     #render
-    return render_to_response('cashcity/media.html', {'mediaImages':mediaImages, 'toolbar':toolbar}, context)
+    return render_to_response('CashCity/media.html', {'mediaImages':mediaImages, 'toolbar':toolbar, 'profile':profile}, context)
 

@@ -1,0 +1,264 @@
+{% extends 'CashCity/base.html' %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/bootstrap-select.min.css' %}">
+	<!-- style embedded in django template for static file usage -->
+	<style type="text/css">		
+	
+		a > .edit-button {
+			display: inline-block;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'CashCity/img/edit_gray.png' %})
+		}
+		
+		a > .trash-button {
+			display: inline-block;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'CashCity/img/trash.png' %})
+		}
+		
+		.audio_green {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/audio_green.png' %})
+		}
+		.audio_orange {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/audio_orange.png' %})
+		}
+		.audio_pink {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/audio_pink.png' %})
+		}
+		.audio_purple {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/audio_purple.png' %})
+		}
+		.audio_red {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/audio_red.png' %})
+		}
+		.audio_yellow {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/audio_yellow.png' %})
+		}	
+		
+		.image_green {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/image_green.png' %})
+		}
+		.image_orange {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/image_orange.png' %})
+		}
+		.image_pink {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/image_pink.png' %})
+		}
+		.image_purple {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/image_purple.png' %})
+		}
+		.image_red {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/image_red.png' %})
+		}
+		.image_yellow {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/image_yellow.png' %})
+		}
+		
+		.interview_green {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/interview_green.png' %})
+		}
+		.interview_orange {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/interview_orange.png' %})
+		}
+		.interview_pink {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/interview_pink.png' %})
+		}
+		.interview_purple {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/interview_purple.png' %})
+		}
+		.interview_red {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/interview_red.png' %})
+		}
+		.interview_yellow {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/interview_yellow.png' %})
+		}
+		
+		.note_green {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/note_green.png' %})
+		}
+		.note_orange {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/note_orange.png' %})
+		}
+		.note_pink {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/note_pink.png' %})
+		}
+		.note_purple {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/note_purple.png' %})
+		}
+		.note_red {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/note_red.png' %})
+		}
+		.note_yellow {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/note_yellow.png' %})
+		}	
+		
+		.opinion_green {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/opinion_green.png' %})
+		}
+		.opinion_orange {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/opinion_orange.png' %})
+		}
+		.opinion_pink {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/opinion_pink.png' %})
+		}
+		.opinion_purple {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/opinion_purple.png' %})
+		}
+		.opinion_red {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/opinion_red.png' %})
+		}
+		.opinion_yellow {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/opinion_yellow.png' %})
+		}			
+		
+	</style>	
+{% endblock %}	
+
+{% block body_block %}
+<div class="full-container">
+	<h3>Student Account</h3>
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="btn-group btn-group-justified">
+				<div class="btn-group">	
+			  	  <a href="{% url 'studentProfileMedia' %}"><button type="button" class="btn btn-default active">Media</button></a>
+  				</div>
+  				<div class="btn-group">		  
+			 	   <a href="#"><button type="button" class="btn btn-default">Opinions</button></a>
+   				</div>				   
+			</div>
+		</div>
+		<div class="col-xs-9">
+			<a href="{% url 'auth_logout' %}"><button type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-log-out"></span> Logout</button></a>
+		</div>
+	</div>
+	<br />
+	<div class="row">
+		<div class="col-xs-12">
+			{% if success %}
+			<div class="alert alert-success fade in" role="alert">
+				<strong>Media Saved!</strong>
+				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			</div>
+			{% endif %}
+			{% if mediaImage %}
+			<table class="table">
+				<tbody>
+				{% for image in mediaImage %}
+					<tr>
+						<td><div class="image-{{ profile.color }}"></div></td>
+						<td>{{ image.image }}</td>
+						<td><strong>Title</strong><br />{{ image.title }}</td>
+						<td>{{ image.last_modified|date:"F j, Y" }}</td>
+						<td><a href="/accounts/profile/student/media/{{ image.id }}"><div class="edit-button"></div></a><a href="/accounts/profile/student/media/{{ image.id }}"><div class="trash-button"></div></a></td>
+					</tr>
+				{% endfor %}					
+				</tbody>
+			</table>
+			{% else %}
+			<h4><a href="{% url 'mediaFormImage' %}">Add some media!</a></h4>
+			{% endif %}
+		</div>
+	</div>
+</div>	
+{% endblock %}
+
+
+{% block js_block %}
+	<script type="text/javascript" src="{% static 'CashCity/js/bootstrap-select.min.js' %}"></script>
+{% endblock %}

@@ -31,7 +31,7 @@ urlpatterns = patterns('',
     # team profile url
     url(r'^accounts/profile/teams/$', views.teams, name='teams'),
     # account profile urls
-    url(r'^accounts/profile/', views.accountProfile, name='accountProfile'),
+    url(r'^accounts/profile/student/media/$', views.studentProfileMedia, name='studentProfileMedia'),
     # CashCity app urls,
     url(r'^cashcity/', include('CashCity.urls')),
     # Uncomment the next line to enable the admin:
