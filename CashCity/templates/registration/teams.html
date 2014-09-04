@@ -5,6 +5,23 @@
 {% block css_block %}
     <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/bootstrap-select.min.css' %}">
 	<!-- style embedded in django template for static file usage -->
+	<style type="text/css">		
+	
+		a > .edit-button {
+			display: inline-block;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'CashCity/img/edit_gray.png' %})
+		}
+		
+		a > .trash-button {
+			display: inline-block;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'CashCity/img/trash.png' %})
+		}
+		
+	</style>
 	
 {% endblock %}	
 
@@ -35,9 +52,34 @@
 	<br />
 	<div class="row">
 		<div class="col-xs-12">
-			{% for team in teams %}
-				<p>{{ team }}</p>
-			{% endfor %}
+			{% if success %}
+			<div class="alert alert-success fade in" role="alert">
+				<strong>Team Saved!</strong>
+				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			</div>
+			{% endif %}
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Section</th>
+						<th>Team Color</th>
+						<th>Username</th>
+						<th>Password</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for team in teams %}
+					<tr>
+						<td>{{ team.section }}</td>
+						<td><span class="glyphicon glyphicon-certificate {{ team.color }}-icon"></span></td>
+						<td>{{ team.user }}</td>
+						<td>********</td>
+						<td><a href="/accounts/edit/team/{{ team.id }}"><div class="edit-button"></div></a><a href="/accounts/remove/team/{{ team.id }}"><div class="trash-button"></div></a></td>
+					</tr>
+				{% endfor %}					
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>	

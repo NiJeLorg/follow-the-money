@@ -8,6 +8,20 @@ from taggit.managers import TaggableManager
 
 # Model that stores user profile info beyond username, password, email -- includes teacher and student group data
 class ExUserProfile(models.Model):
+    GREEN = 'green'
+    ORANGE = 'orange'
+    PINK = 'pink'
+    PURPLE = 'purple'
+    RED = 'red'
+    YELLOW = 'yellow'
+    COLOR_CHOICES = (
+        (GREEN, 'Green'),
+        (ORANGE, 'Orange'),
+        (PINK, 'Pink'),
+        (PURPLE, 'Purple'),
+        (RED, 'Red'),
+        (YELLOW, 'Yellow'),
+    )
     user = models.OneToOneField(User)
     name = models.CharField(max_length=255, null=True, blank=True)
     city = models.CharField(max_length=255, null=True, blank=True)
@@ -15,7 +29,7 @@ class ExUserProfile(models.Model):
     teacherOrStudent = models.BooleanField()
     teacherId = models.ForeignKey(User, null=True, blank=True, related_name='teacher')
     section = models.CharField(max_length=255, null=True, blank=True)
-    color = models.CharField(max_length=20, null=True, blank=True)
+    color = models.CharField(max_length=10, null=True, blank=True, choices=COLOR_CHOICES)
  
     def __unicode__(self):
         return self.name

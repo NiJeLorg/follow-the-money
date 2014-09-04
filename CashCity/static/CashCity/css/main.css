@@ -174,6 +174,69 @@ body {
 }
 
 /*
+* boostrap-select button overrides
+*/
+
+.bootstrap-select > .btn {
+	background: none;
+}
+
+
+
+/*
+* Setting form option colors
+*/
+
+.green {
+    background: #2eff5a;
+}
+
+.orange {
+    background: #ff6c00;
+}
+
+.pink {
+    background: #ff0764;
+}
+
+.purple {
+    background: #b001ea;
+}
+
+.red {
+    background: #ff2400;
+}
+
+.yellow {
+    background: #f3b202;
+}
+
+.green-icon {
+    color: #2eff5a;
+}
+
+.orange-icon {
+    color: #ff6c00;
+}
+
+.pink-icon {
+    color: #ff0764;
+}
+
+.purple-icon {
+    color: #b001ea;
+}
+
+.red-icon {
+    color: #ff2400;
+}
+
+.yellow-icon {
+    color: #f3b202;
+}
+
+
+/*
 * Bootstrap file input button
 */
 
