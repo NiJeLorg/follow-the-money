@@ -23,7 +23,10 @@ def index(request):
     context = RequestContext(request)
     
     #get user profile data and pass to view
-    profile = ExUserProfile.objects.get(user=request.user)   
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+    else:
+        profile = False   
     context_dict = {'profile':profile}
 
     return render_to_response('CashCity/index.html', context_dict, context)
@@ -48,6 +51,12 @@ def accountProfile(request):
     
     #get user profile data and pass to view
     profile = ExUserProfile.objects.get(user=request.user)
+    
+    # send students to student profile area
+    if profile.teacherOrStudent:
+        doNothingVar = ''
+    else:
+        return HttpResponseRedirect('/accounts/profile/student/media/')
     
     if request.method == 'POST':
         user_form = UserInfoForm(data=request.POST, instance=request.user)
@@ -491,8 +500,10 @@ def media(request):
     # Get the context from the request.
     context = RequestContext(request)
 
-    #get user profile data and pass to view
-    profile = ExUserProfile.objects.get(user=request.user)    
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+    else:
+        profile = False
     
     # offset = int(offset)
     #store toolbar form info

@@ -17,6 +17,11 @@ body {
 	margin-top: 10%;
 }
 
+.midPageFormcontainer {
+    width: 60%;
+	margin-top: 3%;
+}
+
 .TeacherRegistrationcontainer {
     width: 50%;
 	margin-top: 10%;

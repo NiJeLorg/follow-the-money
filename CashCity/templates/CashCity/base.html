@@ -79,17 +79,19 @@
 	        <li><a href="{% url 'media' %}">MEDIA</a></li>
 	        <li><a href="{% url 'index' %}">OPINIONS</a></li>
 	        <li><a href="{% url 'index' %}">ABOUT</a></li>
-			{% if profile.teacherOrStudent %}			
-				<li><a href="{% url 'accountProfile' %}">MY ACCOUNT</a></li>
-			{% else %}
-				<li><a href="{% url 'studentProfileMedia' %}">MY ACCOUNT</a></li>
-			{% endif %}	  
+			<li><a href="{% url 'accountProfile' %}">MY ACCOUNT</a></li>
 			
 		  </ul>
 	      <ul class="nav navbar-nav navbar-right">
 			  {% if user.is_authenticated %}
 			  	{% if profile.teacherOrStudent %}
-			  		<li><div class="teacher-icon pull-left"></div><p class="user-text pull-right">{{ user.username }} </p></li>
+				<div class="dropdown pull-left">
+			  		<li><a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration: none;"><div class="teacher-icon pull-left"></div><p class="user-text pull-right">{{ user.username }} </p></a>
+					  <ul class="dropdown-menu" role="menu">
+			            <li><a href="{% url 'auth_logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+					  </ul>					
+					</li>
+				</div>
 			  	{% else %}
 			  		<li><div class="student-icon pull-left"></div><p class="user-text pull-right">{{ user.username }} </p></li>	
 				{% endif %}	  
