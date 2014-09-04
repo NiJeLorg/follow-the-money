@@ -1,17 +1,10 @@
 CityDigits/database_settings.py
 CityDigits/settings.py
-<<<<<<< HEAD
 CityDigits/ftm.db
 maptest/
 contacts/
 ftm/
-=======
 CityDigits/media/
 CityDigits/static/
-ftm/
 CashCity/media/
 cashcity.db
-
-
-
->>>>>>> ba5164a28fd7d6631cf2de400fb3f8b517765ca3
