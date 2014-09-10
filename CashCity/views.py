@@ -649,3 +649,19 @@ def filterMedia(request):
     #render
     return render_to_response('CashCity/filterMedia.html', {'mediaResults':mediaResults, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
 
+def SaveMap(request):
+				context = RequestContext(request)
+				latitude = request.GET.get("latitude","")
+				longitude= request.GET.get("longitude","")
+				zoom= request.GET.get("zoom","")
+				MapLayer= request.GET.get("MapLayer","")
+				PawnShops= request.GET.get("PawnShops","")
+				CheckCashing= request.GET.get("CheckCashing","")
+				WireTransfer= request.GET.get("WireTransfer","")
+				Banks= request.GET.get("Banks","")
+				McDonalds= request.GET.get("McDonalds","")
+				SubwayLines= request.GET.get("SubwayLines","")
+
+				MapDetails = MapSettings(latitude=latitude, longitude=longitude, zoom=zoom, MapLayer=MapLayer, PawnShops=PawnShops, CheckCashing=CheckCashing, WireTransfer=WireTransfer, Banks=Banks, McDonalds=McDonalds, SubwayLines=SubwayLines, user=request.user)
+
+				MapDetails.save()

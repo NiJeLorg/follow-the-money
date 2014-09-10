@@ -4,85 +4,40 @@
  */
 
 $(function() { 
-    $("#btnSave").click(function() { 		
-
-	    function urlsToAbsolute(nodeList) {
-	        if (!nodeList.length) {
-	            return [];
+    $("#btnSave").click(function() { 
+var latitude =MY_MAP.map.getCenter().lat;
+var longitude =MY_MAP.map.getCenter().lng;
+var zoom =MY_MAP.map.getZoom();
+var MapLayer =mainLayer._leaflet_id;
+var PawnShops =MY_MAP.map.hasLayer(LOC1);
+var CheckCashing =MY_MAP.map.hasLayer(LOC2);
+var WireTransfer =MY_MAP.map.hasLayer(LOC3);
+var Banks =MY_MAP.map.hasLayer(LOC4);
+var McDonalds =MY_MAP.map.hasLayer(LOC5);
+var SubwayLines =MY_MAP.map.hasLayer(LOC6);
+loadMedia(latitude,longitude,zoom,MapLayer,PawnShops,CheckCashing,WireTransfer,Banks,McDonalds,SubwayLines);
+// function to save the map settings
+	function loadMedia(latitude,longitude,zoom,MapLayer,PawnShops,CheckCashing,WireTransfer,Banks,McDonalds,SubwayLines){
+	    $.ajax({
+	        type: 'GET',
+	        url:  'savemap/?latitude=' + latitude + '&longitude=' + longitude + '&zoom=' + zoom + '&MapLayer=' + MapLayer + '&PawnShops=' + PawnShops + '&CheckCashing=' + CheckCashing + '&WireTransfer=' + WireTransfer + '&Banks=' + Banks + '&McDonalds=' + McDonalds + '&SubwayLines=' + SubwayLines, 
+	        success: function(data){
+console.log(mainLayer._leaflet_id)
+							                  console.log(MY_MAP.map.getCenter().lat)   
+							                  console.log(MY_MAP.map.getCenter().lng)   
+							            console.log(MY_MAP.map.getZoom())   
+							                  console.log(MY_MAP.map.hasLayer(LOC1))    
+							                  console.log(MY_MAP.map.hasLayer(LOC2))
+							                  console.log(MY_MAP.map.hasLayer(LOC3))
+							                  console.log(MY_MAP.map.hasLayer(LOC4))
+							                  console.log(MY_MAP.map.hasLayer(LOC5))
+							                  console.log(MY_MAP.map.hasLayer(LOC6))    
+							        console.log(MY_MAP.map.hasLayer(LOC6))
+							onChangeListener();
 	        }
-	        var attrName = 'href';
-	        if (nodeList[0].__proto__ === HTMLImageElement.prototype
-	        || nodeList[0].__proto__ === HTMLScriptElement.prototype) {
-	            attrName = 'src';
-	        }
-	        nodeList = [].map.call(nodeList, function (el, i) {
-	            var attr = el.getAttribute(attrName);
-	            if (!attr) {
-	                return;
-	            }
-	            var absURL = /^(https?|data):/i.test(attr);
-	            if (absURL) {
-	                return el;
-	            } else {
-	                return el;
-	            }
-	        });
-	        return nodeList;
-	    }
+	    });
+	}
 
-	    function screenshotPage() {
-	        urlsToAbsolute(document.images);
-	        urlsToAbsolute(document.querySelectorAll("link[rel='stylesheet']"));
-	        var screenshot = document.documentElement.cloneNode(true);
-	        var b = document.createElement('base');
-	        b.href = document.location.protocol + '//' + location.host;
-	        var head = screenshot.querySelector('head');
-	        head.insertBefore(b, head.firstChild);
-	        screenshot.style.pointerEvents = 'none';
-	        screenshot.style.overflow = 'hidden';
-	        screenshot.style.webkitUserSelect = 'none';
-	        screenshot.style.mozUserSelect = 'none';
-	        screenshot.style.msUserSelect = 'none';
-	        screenshot.style.oUserSelect = 'none';
-	        screenshot.style.userSelect = 'none';
-	        screenshot.dataset.scrollX = window.scrollX;
-	        screenshot.dataset.scrollY = window.scrollY;
-	        var script = document.createElement('script');
-	        script.textContent = '(' + addOnPageLoad_.toString() + ')();';
-	        screenshot.querySelector('body').appendChild(script);
-			/*
-	        var blob = new Blob([screenshot.outerHTML], {
-	            type: 'text/html'
-	        });
-			*/
-		    html2canvas(document.body, {
-			    onrendered: function(canvas) {
-					canvas.toBlob(function(blob) {
-					    saveAs(blob, "screenshot.png");
-					});
-			    }
-		    });
-	       // return blob;
-	    }
-		
-	    function addOnPageLoad_() {
-	        window.addEventListener('DOMContentLoaded', function (e) {
-	            var scrollX = document.documentElement.dataset.scrollX || 0;
-	            var scrollY = document.documentElement.dataset.scrollY || 0;
-	            window.scrollTo(scrollX, scrollY);
-	        });
-	    }
-		/*
-	    function generate() {
-	        window.URL = window.URL || window.webkitURL;
-	        window.open(window.URL.createObjectURL(screenshotPage()));
-	    }
-	    exports.screenshotPage = screenshotPage;
-	    exports.generate = generate;
-		*/
-		
-		screenshotPage()
-		
 
     });
 });
