@@ -9,49 +9,81 @@
 
 
 {% block body_block %}
-<div class="container loginFormcontainer">
-	<div class="jumbotron">
-		<div class="row">
-			<div class="col-xs-12">
-				<h3>Add A Team</h3>
+<div class="full-container">
+	<h3>Teacher Account</h3>
+	<div class="row">
+		<div class="col-xs-6">
+			<div class="btn-group btn-group-justified">
+				<div class="btn-group">
+				  <a href="{% url 'accountProfile' %}"><button type="button" class="btn btn-default">Account</button></a>
+				</div>
+				<div class="btn-group">
+					<a href="{% url 'teams' %}"><button type="button" class="btn btn-default active">Teams</button></a>
+				</div>
+				<div class="btn-group">	
+			  	  <a href="#"><button type="button" class="btn btn-default">Media</button></a>
+  				</div>
+  				<div class="btn-group">		  
+			 	   <a href="#"><button type="button" class="btn btn-default">Opinions</button></a>
+   				</div>				   
 			</div>
-			<span class ="text-danger">{{ user_form.non_field_errors }}</span>	
-			<form role="form" method="post" action=".">{% csrf_token %}
-				<div class="col-xs-8">				
-					<div class="form-group">
-						<label for="section">Section</label>{% if profile_form.section.errors %} <span class ="text-danger">{{ profile_form.section.errors|join:", " }}</span>{% endif %}
-						{{ profile_form.section|add_class:"form-control" }}
+		</div>
+		<div class="col-xs-6">
+			<a href="{% url 'createTeam' %}"><button type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"></span> Team</button></a>
+		</div>
+	</div>
+	<br />
+	<div class="row">
+		<div class="container midPageFormcontainer">
+			<div class="jumbotron">
+				<div class="row">
+					<div class="col-xs-12">
+						{% if user_form.username.value == '' %}
+							<h3>Add A Team</h3>
+						{% else %}
+							<h3>Edit A Team</h3>
+						{% endif %}
 					</div>
+					<span class ="text-danger">{{ user_form.non_field_errors }}</span>	
+					<form role="form" method="post" action=".">{% csrf_token %}
+						<div class="col-xs-8">				
+							<div class="form-group">
+								<label for="section">Section</label>{% if profile_form.section.errors %} <span class ="text-danger">{{ profile_form.section.errors|join:", " }}</span>{% endif %}
+								{{ profile_form.section|add_class:"form-control" }}
+							</div>
+						</div>
+						<div class="col-xs-4">				
+							<div class="form-group">
+								<label for="color">Team Color</label>{% if profile_form.color.errors %} <span class ="text-danger">{{ profile_form.color.errors|join:", " }}</span>{% endif %}
+								{{ profile_form.color|add_class:"form-control" }}
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="username">Username</label>{% if user_form.username.errors %} <span class ="text-danger">{{ user_form.username.errors|join:", " }}</span>{% endif %}
+								{{ user_form.username|add_class:"form-control" }}
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="password">Password</label>{% if user_form.password.errors %} <span class ="text-danger">{{ user_form.password.errors|join:", " }}</span>{% endif %}
+								{{ user_form.password|add_class:"form-control" }}
+							</div>
+						</div>
+						<div class="col-xs-6">				
+							<button type="submit" class="btn btn-default pull-left" name="cancel">Cancel</button>
+						</div>	
+						<div class="col-xs-6">		
+							<button type="submit" class="btn btn-default pull-right" name="save">Save</button>
+						</div>
+					</form>
 				</div>
-				<div class="col-xs-4">				
-					<div class="form-group">
-						<label for="color">Team Color</label>{% if profile_form.color.errors %} <span class ="text-danger">{{ profile_form.color.errors|join:", " }}</span>{% endif %}
-						{{ profile_form.color|add_class:"form-control" }}
-					</div>
-				</div>
-				<div class="col-xs-6">
-					<div class="form-group">
-						<label for="username">Username</label>{% if user_form.username.errors %} <span class ="text-danger">{{ user_form.username.errors|join:", " }}</span>{% endif %}
-						{{ user_form.username|add_class:"form-control" }}
-					</div>
-				</div>
-				<div class="col-xs-6">
-					<div class="form-group">
-						<label for="password">Password</label>{% if user_form.password.errors %} <span class ="text-danger">{{ user_form.password.errors|join:", " }}</span>{% endif %}
-						{{ user_form.password|add_class:"form-control" }}
-					</div>
-				</div>
-
-				<div class="col-xs-6">		
-					<button type="submit" class="btn btn-default pull-left" name="save">Save</button>
-				</div>
-				<div class="col-xs-6">				
-					<button type="submit" class="btn btn-default pull-right" name="cancel">Cancel</button>
-				</div>		
-			</form>
+			</div>
 		</div>
 	</div>
 </div>
+
+
 {% endblock %}
 
 {% block js_block %}

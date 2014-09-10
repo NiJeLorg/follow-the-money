@@ -5,14 +5,21 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 
+# for chaining together querysets
+from itertools import chain
+
+# for list sorting
+from operator import attrgetter
+
 # user and profile models
 from django.contrib.auth.models import User
 
 # teacher registration form
 from registration.forms import RegistrationForm
 
-# import all forms for city digits app
+# import all forms and models for city digits app
 from CashCity.forms import *
+from CashCity.models import *
 
 
 
@@ -21,9 +28,15 @@ def index(request):
       Loads the index page
     """
     context = RequestContext(request)
-    context_dict = {}
+    
+    #get user profile data and pass to view
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+    else:
+        profile = False   
+    context_dict = {'profile':profile}
 
-    return render_to_response('cashcity/index.html', context_dict, context)
+    return render_to_response('CashCity/index.html', context_dict, context)
 
 
 def mapNavigation(request):
@@ -33,7 +46,7 @@ def mapNavigation(request):
     context = RequestContext(request)
     context_dict = {}
    
-    return render_to_response('cashcity/map_navigation.html', context_dict, context)
+    return render_to_response('CashCity/map_navigation.html', context_dict, context)
 
 
 @login_required
@@ -42,6 +55,15 @@ def accountProfile(request):
       Loads the user profile page for editing
     """
     context = RequestContext(request)
+    
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)
+    
+    # send students to student profile area
+    if profile.teacherOrStudent:
+        doNothingVar = ''
+    else:
+        return HttpResponseRedirect('/accounts/profile/student/media/')
     
     if request.method == 'POST':
         user_form = UserInfoForm(data=request.POST, instance=request.user)
@@ -54,8 +76,8 @@ def accountProfile(request):
             user_form = UserInfoForm(instance=request.user)
             profile_form = UserProfileForm(instance=ExUserProfile.objects.get(user=request.user))
             success = True
-
-            return render_to_response('registration/profile.html', {'user_form': user_form, 'profile_form': profile_form, 'success': success}, context)
+            
+            return render_to_response('registration/profile.html', {'user_form': user_form, 'profile_form': profile_form, 'success': success, 'profile':profile}, context)
             
         else:
             print user_form.errors, profile_form.errors
@@ -63,7 +85,27 @@ def accountProfile(request):
     else:
         user_form = UserInfoForm(instance=request.user)
         profile_form = UserProfileForm(instance=ExUserProfile.objects.get(user=request.user))
-    return render_to_response('registration/profile.html', {'user_form': user_form, 'profile_form': profile_form}, context)
+    return render_to_response('registration/profile.html', {'user_form': user_form, 'profile_form': profile_form, 'profile':profile}, context)
+    
+
+@login_required
+def studentProfileMedia(request):
+    """
+      Loads the student profile page, which allows access to their media and opinions
+    """
+    context = RequestContext(request)
+    
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)
+    
+    #build query
+    kwargs = {}
+    kwargs['user__exact'] = request.user
+
+    #get mediaImages
+    mediaImages = MediaImage.objects.filter(**kwargs).order_by("-last_modified")
+    
+    return render_to_response('registration/student_profile.html', {'mediaImages': mediaImages, 'profile':profile}, context)
 
 
 @login_required
@@ -72,7 +114,9 @@ def teams(request):
       Loads the list of teams for this teacher
     """
     context = RequestContext(request)
-    
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
     
     #build query
     kwargs = {}
@@ -82,7 +126,7 @@ def teams(request):
     #get teams
     teams = ExUserProfile.objects.filter(**kwargs).order_by('section', 'color')
     
-    return render_to_response('registration/teams.html', {'teams': teams}, context)
+    return render_to_response('registration/teams.html', {'teams': teams, 'profile':profile}, context)
     
     
 @login_required
@@ -91,6 +135,9 @@ def createTeam(request, id=None):
       Loads a form for adding/editing teams
     """
     context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
     
     if id:
         student_profile = ExUserProfile.objects.get(pk=id)
@@ -120,7 +167,7 @@ def createTeam(request, id=None):
             
                 profile = profile_form.save(commit=False)
                 profile.user = student_user
-                profile.name = u.username
+                profile.teacherName = teacher_profile.teacherName
                 profile.teacherOrStudent = False
                 profile.teacherId = request.user
                 profile.city = teacher_profile.city
@@ -138,7 +185,7 @@ def createTeam(request, id=None):
                 teams = ExUserProfile.objects.filter(**kwargs).order_by('section', 'color')
             
 
-                return render_to_response('registration/teams.html', {'teams': teams, 'success': success,}, context)
+                return render_to_response('registration/teams.html', {'teams': teams, 'success': success, 'profile':profile}, context)
             
             else:
                 print user_form.errors, profile_form.errors
@@ -148,7 +195,7 @@ def createTeam(request, id=None):
         profile_form = TeamProfileForm(instance=student_profile)        
 
 
-    return render_to_response('registration/create_team.html', {'user_form': user_form, 'profile_form': profile_form}, context)
+    return render_to_response('registration/create_team.html', {'user_form': user_form, 'profile_form': profile_form, 'profile':profile}, context)
     
     
 @login_required
@@ -157,6 +204,9 @@ def removeTeam(request, id=None):
       Allows for removing of teams
     """
     context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
     
     if id:
         student_profile = ExUserProfile.objects.get(pk=id)
@@ -183,11 +233,11 @@ def removeTeam(request, id=None):
             teams = ExUserProfile.objects.filter(**kwargs).order_by('section', 'color')
         
 
-            return render_to_response('registration/teams.html', {'teams': teams, 'remove': remove,}, context)
+            return render_to_response('registration/teams.html', {'teams': teams, 'remove': remove, 'profile':profile}, context)
             
             
 
-    return render_to_response('registration/remove_team.html', {'student_profile': student_profile, 'student_user': student_user}, context)
+    return render_to_response('registration/remove_team.html', {'student_profile': student_profile, 'student_user': student_user, 'profile':profile}, context)
     
 
 # view for media image form
@@ -195,6 +245,9 @@ def removeTeam(request, id=None):
 def mediaFormImage(request):
     # Get the context from the request.
     context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
 
     # A HTTP POST?
     if request.method == 'POST':
@@ -248,7 +301,7 @@ def mediaFormImage(request):
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
-    return render_to_response('cashcity/mediaFormImage.html', {'form': form}, context)
+    return render_to_response('CashCity/mediaFormImage.html', {'form': form, 'profile':profile}, context)
     
 
 # view for media audio form
@@ -256,6 +309,9 @@ def mediaFormImage(request):
 def mediaFormAudio(request):
     # Get the context from the request.
     context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
 
     # A HTTP POST?
     if request.method == 'POST':
@@ -310,7 +366,7 @@ def mediaFormAudio(request):
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
-    return render_to_response('cashcity/mediaFormAudio.html', {'form': form}, context)
+    return render_to_response('CashCity/mediaFormAudio.html', {'form': form, 'profile':profile}, context)
     
     
 # view for media notes form
@@ -318,6 +374,9 @@ def mediaFormAudio(request):
 def mediaFormNote(request):
     # Get the context from the request.
     context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
 
     # A HTTP POST?
     if request.method == 'POST':
@@ -372,7 +431,7 @@ def mediaFormNote(request):
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
-    return render_to_response('cashcity/mediaFormNote.html', {'form': form}, context)
+    return render_to_response('CashCity/mediaFormNote.html', {'form': form, 'profile':profile}, context)
     
     
 # view for media image form
@@ -380,6 +439,9 @@ def mediaFormNote(request):
 def mediaFormInterview(request):
     # Get the context from the request.
     context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
 
     # A HTTP POST?
     if request.method == 'POST':
@@ -434,16 +496,69 @@ def mediaFormInterview(request):
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
-    return render_to_response('cashcity/mediaFormInterview.html', {'form': form}, context)
+    return render_to_response('CashCity/mediaFormInterview.html', {'form': form, 'profile':profile}, context)
     
 
 
 def media(request):
     """
-        This view returns the list of media based on search criteria
+        This view returns the initial list of media
     """
     # Get the context from the request.
     context = RequestContext(request)
+
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+    else:
+        profile = False
+    
+    # offset = int(offset)
+    #store toolbar form info
+    toolbar={'searchType':'All',
+             'searchTeacher':'All',
+             'searchTeam':'All',
+             'searchTags':'All'}
+                     
+    #build query
+    kwargs = {}
+
+    #get mediaImages
+    mediaImages = MediaImage.objects.filter(**kwargs)
+
+    #get mediaAudio
+    mediaAudio = MediaAudio.objects.filter(**kwargs)
+
+    #get mediaNote
+    mediaNote = MediaNote.objects.filter(**kwargs)
+
+    #get mediaInterview
+    mediaInterview = MediaInterview.objects.filter(**kwargs)
+    
+    # chain results together
+    mediaResults = sorted(chain(mediaImages, mediaAudio, mediaNote, mediaInterview), key=attrgetter('last_modified'))
+
+    # get list of tachers and sections
+    classes = ExUserProfile.objects.filter(teacherOrStudent=False).values('teacherId', 'teacherName', 'section').order_by('teacherName', 'section').distinct();
+        
+    # get list of teams across all classes
+    teams = ExUserProfile.objects.filter(teacherOrStudent=False).values_list('color', flat=True).order_by('color').distinct()    
+
+    #render
+    return render_to_response('CashCity/media.html', {'mediaResults':mediaResults, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
+
+
+
+def filterMedia(request):
+    """
+        This view returns the initial list of media
+    """
+    # Get the context from the request.
+    context = RequestContext(request)
+
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+    else:
+        profile = False
     
     # offset = int(offset)
     #store toolbar form info
@@ -454,6 +569,7 @@ def media(request):
              
     #get search teams
     searchType = request.GET.get("type","All")
+    toolbar['searchType'] = searchType
 
     #get search class
     searchClass = request.GET.get("class","All")
@@ -463,22 +579,73 @@ def media(request):
 
     #get search tags
     searchTags = request.GET.get("tags","All")
-    
+        
     #build query
     kwargs = {}
-    if(searchClass != "All"):
-        kwargs['student__team__teacher__className__exact'] = searchClass
+    kwargsClassTeam = {}
+    kwargsClass = {}
+    kwargsTeam = {}
+    if(searchClass != "All" and searchTeam != "All"):
+        # break searchClass apart
+        classArray = searchClass.split('_')
+        kwargsClassTeam['teacherId__exact'] = classArray[0]
+        kwargsClassTeam['section__exact'] = classArray[1]
+        kwargsClassTeam['color__exact'] = searchTeam
+        classRequest = ExUserProfile.objects.filter(**kwargsClassTeam).values_list('user', flat=True)
+        kwargs['user__in'] = classRequest
         toolbar['searchClass'] = searchClass
-
-    if(searchTeam != "All"):
-        kwargs['student__team__name__exact'] = searchTeam
         toolbar['searchTeam'] = searchTeam
+    
+    else:     
+        if(searchClass != "All"):
+            # break searchClass apart
+            classArray = searchClass.split('_')
+            kwargsClass['teacherId__exact'] = classArray[0]
+            kwargsClass['section__exact'] = classArray[1]
+            classRequest = ExUserProfile.objects.filter(**kwargsClass).values_list('user', flat=True)
+            kwargs['user__in'] = classRequest
+            toolbar['searchClass'] = searchClass
+
+        if(searchTeam != "All"):
+            kwargsTeam['color__exact'] = searchTeam
+            classRequest = ExUserProfile.objects.filter(**kwargsTeam).values_list('user', flat=True)
+            kwargs['user__in'] = classRequest
+            toolbar['searchTeam'] = searchTeam
 
 
     #get mediaImages
-    mediaImages = MediaImage.objects.filter(**kwargs).order_by("-last_modified")
+    if (searchType == "All" or searchType == "Images"):
+        mediaImages = MediaImage.objects.filter(**kwargs)
+    else:
+        mediaImages = ''
 
+    #get mediaAudio
+    if (searchType == "All" or searchType == "Audio"):
+        mediaAudio = MediaAudio.objects.filter(**kwargs)
+    else:
+        mediaAudio = ''
+
+    #get mediaNote
+    if (searchType == "All" or searchType == "Notes"):
+        mediaNote = MediaNote.objects.filter(**kwargs)
+    else:
+        mediaNote = ''
+
+    #get mediaInterview
+    if (searchType == "All" or searchType == "Interviews"):
+        mediaInterview = MediaInterview.objects.filter(**kwargs)
+    else:
+        mediaInterview = ''
+    
+    # chain results together
+    mediaResults = sorted(chain(mediaImages, mediaAudio, mediaNote, mediaInterview), key=attrgetter('last_modified'))
+
+    # get list of tachers and sections
+    classes = ExUserProfile.objects.filter(teacherOrStudent=False).values('teacherId', 'teacherName', 'section').order_by('teacherName', 'section').distinct()
+        
+    # get list of teams across all classes
+    teams = ExUserProfile.objects.filter(teacherOrStudent=False).values_list('color', flat=True).order_by('color').distinct()    
 
     #render
-    return render_to_response('cashcity/media.html', {'mediaImages':mediaImages, 'toolbar':toolbar}, context)
+    return render_to_response('CashCity/filterMedia.html', {'mediaResults':mediaResults, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
 
