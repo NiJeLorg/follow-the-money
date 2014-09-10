@@ -1,21 +1,211 @@
 {% extends 'CashCity/base.html' %}
 {% load staticfiles %}
+{% load cropping %}
 
 {% block css_block %}
-    <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/bootstrap-select.min.css' %}">	
+    <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/bootstrap-select.min.css' %}">
+
+	<style type="text/css">		
+	
+		.audio_green {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/audio_green.png' %})
+		}
+		.audio_orange {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/audio_orange.png' %})
+		}
+		.audio_pink {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/audio_pink.png' %})
+		}
+		.audio_purple {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/audio_purple.png' %})
+		}
+		.audio_red {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/audio_red.png' %})
+		}
+		.audio_yellow {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/audio_yellow.png' %})
+		}	
+		
+		.image_green {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/image_green.png' %})
+		}
+		.image_orange {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/image_orange.png' %})
+		}
+		.image_pink {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/image_pink.png' %})
+		}
+		.image_purple {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/image_purple.png' %})
+		}
+		.image_red {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/image_red.png' %})
+		}
+		.image_yellow {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/image_yellow.png' %})
+		}
+		
+		.interview_green {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/interview_green.png' %})
+		}
+		.interview_orange {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/interview_orange.png' %})
+		}
+		.interview_pink {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/interview_pink.png' %})
+		}
+		.interview_purple {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/interview_purple.png' %})
+		}
+		.interview_red {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/interview_red.png' %})
+		}
+		.interview_yellow {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/interview_yellow.png' %})
+		}
+		
+		.note_green {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/note_green.png' %})
+		}
+		.note_orange {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/note_orange.png' %})
+		}
+		.note_pink {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/note_pink.png' %})
+		}
+		.note_purple {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/note_purple.png' %})
+		}
+		.note_red {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/note_red.png' %})
+		}
+		.note_yellow {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/note_yellow.png' %})
+		}	
+		
+		.opinion_green {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/opinion_green.png' %})
+		}
+		.opinion_orange {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/opinion_orange.png' %})
+		}
+		.opinion_pink {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/opinion_pink.png' %})
+		}
+		.opinion_purple {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/opinion_purple.png' %})
+		}
+		.opinion_red {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/opinion_red.png' %})
+		}
+		.opinion_yellow {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/opinion_yellow.png' %})
+		}			
+		
+	</style>	
+	
+		
 {% endblock %}	
 
 {% block body_block %}
-<div class="full-container">
-	<div class="container-fluid">
-		<div class="row">
-			<h3 class="text-center"><u>Media</u></h3>
-		</div>
-	</div>
+<div class="stubs-container">
+	{% include 'CashCity/filterMedia.html' %}
 </div>	
 {% endblock %}
 
 
 {% block js_block %}
 	<script type="text/javascript" src="{% static 'CashCity/js/bootstrap-select.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/filter.js' %}"></script>
+
 {% endblock %}

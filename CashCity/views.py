@@ -5,14 +5,21 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 
+# for chaining together querysets
+from itertools import chain
+
+# for list sorting
+from operator import attrgetter
+
 # user and profile models
 from django.contrib.auth.models import User
 
 # teacher registration form
 from registration.forms import RegistrationForm
 
-# import all forms for city digits app
+# import all forms and models for city digits app
 from CashCity.forms import *
+from CashCity.models import *
 
 
 
@@ -160,7 +167,7 @@ def createTeam(request, id=None):
             
                 profile = profile_form.save(commit=False)
                 profile.user = student_user
-                profile.name = u.username
+                profile.teacherName = teacher_profile.teacherName
                 profile.teacherOrStudent = False
                 profile.teacherId = request.user
                 profile.city = teacher_profile.city
@@ -495,7 +502,55 @@ def mediaFormInterview(request):
 
 def media(request):
     """
-        This view returns the list of media based on search criteria
+        This view returns the initial list of media
+    """
+    # Get the context from the request.
+    context = RequestContext(request)
+
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+    else:
+        profile = False
+    
+    # offset = int(offset)
+    #store toolbar form info
+    toolbar={'searchType':'All',
+             'searchTeacher':'All',
+             'searchTeam':'All',
+             'searchTags':'All'}
+                     
+    #build query
+    kwargs = {}
+
+    #get mediaImages
+    mediaImages = MediaImage.objects.filter(**kwargs)
+
+    #get mediaAudio
+    mediaAudio = MediaAudio.objects.filter(**kwargs)
+
+    #get mediaNote
+    mediaNote = MediaNote.objects.filter(**kwargs)
+
+    #get mediaInterview
+    mediaInterview = MediaInterview.objects.filter(**kwargs)
+    
+    # chain results together
+    mediaResults = sorted(chain(mediaImages, mediaAudio, mediaNote, mediaInterview), key=attrgetter('last_modified'))
+
+    # get list of tachers and sections
+    classes = ExUserProfile.objects.filter(teacherOrStudent=False).values('teacherId', 'teacherName', 'section').order_by('teacherName', 'section').distinct();
+        
+    # get list of teams across all classes
+    teams = ExUserProfile.objects.filter(teacherOrStudent=False).values_list('color', flat=True).order_by('color').distinct()    
+
+    #render
+    return render_to_response('CashCity/media.html', {'mediaResults':mediaResults, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
+
+
+
+def filterMedia(request):
+    """
+        This view returns the initial list of media
     """
     # Get the context from the request.
     context = RequestContext(request)
@@ -514,6 +569,7 @@ def media(request):
              
     #get search teams
     searchType = request.GET.get("type","All")
+    toolbar['searchType'] = searchType
 
     #get search class
     searchClass = request.GET.get("class","All")
@@ -523,22 +579,73 @@ def media(request):
 
     #get search tags
     searchTags = request.GET.get("tags","All")
-    
+        
     #build query
     kwargs = {}
-    if(searchClass != "All"):
-        kwargs['student__team__teacher__className__exact'] = searchClass
+    kwargsClassTeam = {}
+    kwargsClass = {}
+    kwargsTeam = {}
+    if(searchClass != "All" and searchTeam != "All"):
+        # break searchClass apart
+        classArray = searchClass.split('_')
+        kwargsClassTeam['teacherId__exact'] = classArray[0]
+        kwargsClassTeam['section__exact'] = classArray[1]
+        kwargsClassTeam['color__exact'] = searchTeam
+        classRequest = ExUserProfile.objects.filter(**kwargsClassTeam).values_list('user', flat=True)
+        kwargs['user__in'] = classRequest
         toolbar['searchClass'] = searchClass
-
-    if(searchTeam != "All"):
-        kwargs['student__team__name__exact'] = searchTeam
         toolbar['searchTeam'] = searchTeam
+    
+    else:     
+        if(searchClass != "All"):
+            # break searchClass apart
+            classArray = searchClass.split('_')
+            kwargsClass['teacherId__exact'] = classArray[0]
+            kwargsClass['section__exact'] = classArray[1]
+            classRequest = ExUserProfile.objects.filter(**kwargsClass).values_list('user', flat=True)
+            kwargs['user__in'] = classRequest
+            toolbar['searchClass'] = searchClass
+
+        if(searchTeam != "All"):
+            kwargsTeam['color__exact'] = searchTeam
+            classRequest = ExUserProfile.objects.filter(**kwargsTeam).values_list('user', flat=True)
+            kwargs['user__in'] = classRequest
+            toolbar['searchTeam'] = searchTeam
 
 
     #get mediaImages
-    mediaImages = MediaImage.objects.filter(**kwargs).order_by("-last_modified")
+    if (searchType == "All" or searchType == "Images"):
+        mediaImages = MediaImage.objects.filter(**kwargs)
+    else:
+        mediaImages = ''
 
+    #get mediaAudio
+    if (searchType == "All" or searchType == "Audio"):
+        mediaAudio = MediaAudio.objects.filter(**kwargs)
+    else:
+        mediaAudio = ''
+
+    #get mediaNote
+    if (searchType == "All" or searchType == "Notes"):
+        mediaNote = MediaNote.objects.filter(**kwargs)
+    else:
+        mediaNote = ''
+
+    #get mediaInterview
+    if (searchType == "All" or searchType == "Interviews"):
+        mediaInterview = MediaInterview.objects.filter(**kwargs)
+    else:
+        mediaInterview = ''
+    
+    # chain results together
+    mediaResults = sorted(chain(mediaImages, mediaAudio, mediaNote, mediaInterview), key=attrgetter('last_modified'))
+
+    # get list of tachers and sections
+    classes = ExUserProfile.objects.filter(teacherOrStudent=False).values('teacherId', 'teacherName', 'section').order_by('teacherName', 'section').distinct()
+        
+    # get list of teams across all classes
+    teams = ExUserProfile.objects.filter(teacherOrStudent=False).values_list('color', flat=True).order_by('color').distinct()    
 
     #render
-    return render_to_response('CashCity/media.html', {'mediaImages':mediaImages, 'toolbar':toolbar, 'profile':profile}, context)
+    return render_to_response('CashCity/filterMedia.html', {'mediaResults':mediaResults, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
 

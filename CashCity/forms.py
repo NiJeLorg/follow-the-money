@@ -18,7 +18,7 @@ class ExRegistrationForm(RegistrationForm):
         max_length = 255,
         required = False,
     )
-    name = forms.CharField(
+    teacherName = forms.CharField(
         label = "Name",
         max_length = 255,
         required = False,
@@ -30,7 +30,7 @@ class ExRegistrationForm(RegistrationForm):
         profile = ExUserProfile(user = user)
         profile.city = request.POST["city"]
         profile.school = request.POST["school"]
-        profile.name = request.POST["name"]
+        profile.teacherName = request.POST["teacherName"]
         profile.teacherOrStudent = True
         profile.save()
  
@@ -60,7 +60,7 @@ class UserInfoForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = ExUserProfile
-        fields = ('name', 'city', 'school')
+        fields = ('teacherName', 'city', 'school')
 
 # Form for Images Audio
 class MediaFormImage(forms.ModelForm):
