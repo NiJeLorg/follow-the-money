@@ -6,7 +6,8 @@ from taggit.managers import TaggableManager
 # importing django image cropping 
 from image_cropping import ImageRatioField
 
-
+#taggit autocomplete
+from taggit_autocomplete.managers import TaggableManager
 
 # Model that stores user profile info beyond username, password, email -- includes teacher and student group data
 class ExUserProfile(models.Model):

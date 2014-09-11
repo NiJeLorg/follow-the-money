@@ -1,4 +1,5 @@
 {% load cropping %}
+{% load widget_tweaks %}
 
 	<div class="container-fluid">
 		<div class="row">
@@ -79,6 +80,14 @@
 			                {% endif %}
 			            {% endfor %}
 			        </select>
+				</div>
+				<div class='filter-container pull-right'>
+					<form class="form-inline">
+					  <div class="form-group has-feedback">
+						  {{ form.tags|attr:"id:tags" }}
+					    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+					  </div>
+					</form>
 				</div>
 			</div>
 			<div id="media-content" class="container-fluid">

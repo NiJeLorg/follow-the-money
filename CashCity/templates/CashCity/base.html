@@ -8,6 +8,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/jquery-ui.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/jquery-ui.theme.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/jquery.tagit.css' %}">
 	{% block css_block %}
 	{% endblock %}
 	<link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/main.css' %}">
@@ -53,6 +56,11 @@
 		}
 				
 	</style>
+    <!--  javascript
+    ================================================== -->
+    <!-- Only jquery goes here to load autocomplete on forms-->	
+	<script type="text/javascript" src="{% static 'CashCity/js/jquery-1.11.1.min.js' %}"></script>
+		
   </head>
 
   <body>
@@ -125,9 +133,11 @@
     <!--  javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-	<script type="text/javascript" src="{% static 'CashCity/js/jquery-1.11.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/jquery-ui.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/tag-it.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/bootstrap.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/navbar.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/screenshot.js' %}"></script>
 	{% block js_block %}
 	{% endblock %}
 	

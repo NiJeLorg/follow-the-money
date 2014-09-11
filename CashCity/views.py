@@ -517,10 +517,12 @@ def media(request):
     toolbar={'searchType':'All',
              'searchTeacher':'All',
              'searchTeam':'All',
-             'searchTags':'All'}
+             'searchTags':''}
                      
     #build query
     kwargs = {}
+    # show only published media
+    kwargs['published__exact'] = True
 
     #get mediaImages
     mediaImages = MediaImage.objects.filter(**kwargs)
@@ -535,16 +537,19 @@ def media(request):
     mediaInterview = MediaInterview.objects.filter(**kwargs)
     
     # chain results together
-    mediaResults = sorted(chain(mediaImages, mediaAudio, mediaNote, mediaInterview), key=attrgetter('last_modified'))
+    mediaResults = sorted(chain(mediaImages, mediaAudio, mediaNote, mediaInterview), key=attrgetter('last_modified'), reverse=True)
 
     # get list of tachers and sections
     classes = ExUserProfile.objects.filter(teacherOrStudent=False).values('teacherId', 'teacherName', 'section').order_by('teacherName', 'section').distinct();
         
     # get list of teams across all classes
-    teams = ExUserProfile.objects.filter(teacherOrStudent=False).values_list('color', flat=True).order_by('color').distinct()    
+    teams = ExUserProfile.objects.filter(teacherOrStudent=False).values_list('color', flat=True).order_by('color').distinct()   
+    
+    #pass in a form for tag autocomplete
+    form = MediaFormImage() 
 
     #render
-    return render_to_response('CashCity/media.html', {'mediaResults':mediaResults, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
+    return render_to_response('CashCity/media.html', {'mediaResults':mediaResults, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile, 'form': form}, context)
 
 
 
@@ -565,7 +570,7 @@ def filterMedia(request):
     toolbar={'searchType':'All',
              'searchClass':'All',
              'searchTeam':'All',
-             'searchTags':'All'}
+             'searchTags':''}
              
     #get search teams
     searchType = request.GET.get("type","All")
@@ -582,6 +587,10 @@ def filterMedia(request):
         
     #build query
     kwargs = {}
+    # show only published media
+    kwargs['published__exact'] = True
+    
+    # interim query steps
     kwargsClassTeam = {}
     kwargsClass = {}
     kwargsTeam = {}
@@ -612,28 +621,34 @@ def filterMedia(request):
             kwargs['user__in'] = classRequest
             toolbar['searchTeam'] = searchTeam
 
+    #query for tags
+    if(searchTags != ""):
+        tagsArray = searchTags.split(',')
+        kwargs['tags__name__in'] = tagsArray
+        toolbar['searchTags'] = searchTags
+
 
     #get mediaImages
     if (searchType == "All" or searchType == "Images"):
-        mediaImages = MediaImage.objects.filter(**kwargs)
+        mediaImages = MediaImage.objects.filter(**kwargs).distinct()
     else:
         mediaImages = ''
 
     #get mediaAudio
     if (searchType == "All" or searchType == "Audio"):
-        mediaAudio = MediaAudio.objects.filter(**kwargs)
+        mediaAudio = MediaAudio.objects.filter(**kwargs).distinct()
     else:
         mediaAudio = ''
 
     #get mediaNote
     if (searchType == "All" or searchType == "Notes"):
-        mediaNote = MediaNote.objects.filter(**kwargs)
+        mediaNote = MediaNote.objects.filter(**kwargs).distinct()
     else:
         mediaNote = ''
 
     #get mediaInterview
     if (searchType == "All" or searchType == "Interviews"):
-        mediaInterview = MediaInterview.objects.filter(**kwargs)
+        mediaInterview = MediaInterview.objects.filter(**kwargs).distinct()
     else:
         mediaInterview = ''
     
@@ -644,8 +659,11 @@ def filterMedia(request):
     classes = ExUserProfile.objects.filter(teacherOrStudent=False).values('teacherId', 'teacherName', 'section').order_by('teacherName', 'section').distinct()
         
     # get list of teams across all classes
-    teams = ExUserProfile.objects.filter(teacherOrStudent=False).values_list('color', flat=True).order_by('color').distinct()    
+    teams = ExUserProfile.objects.filter(teacherOrStudent=False).values_list('color', flat=True).order_by('color').distinct() 
+    
+    #pass in a form for tag autocomplete
+    form = MediaFormImage(initial={'tags': searchTags})    
 
     #render
-    return render_to_response('CashCity/filterMedia.html', {'mediaResults':mediaResults, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
+    return render_to_response('CashCity/filterMedia.html', {'mediaResults':mediaResults, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile, 'form': form}, context)
 

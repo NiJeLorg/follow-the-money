@@ -12,7 +12,7 @@ $( document ).ready(function() {
 	$('#type').addClass('white').selectpicker('setStyle');
 	$('#class').addClass('white').selectpicker('setStyle');
 	$('#team').addClass('white').selectpicker('setStyle');
-	onChangeListener();
+	onChangeListener();	
 	
 	
 	// add event listeners to run functions on change
@@ -22,8 +22,9 @@ $( document ).ready(function() {
 			var type = $("#type").val();
 			var classes = $("#class").val();
 			var team = $("#team").val();
+			var tags = $("#tags").val();
 		    //reload media
-		    loadMedia(type, classes, team);
+		    loadMedia(type, classes, team, tags);
 		});		
 
 		$("#class").on("change", function(e){
@@ -31,8 +32,9 @@ $( document ).ready(function() {
 			var type = $("#type").val();
 			var classes = $("#class").val();
 			var team = $("#team").val();
+			var tags = $("#tags").val();
 		    //reload media
-		    loadMedia(type, classes, team);
+		    loadMedia(type, classes, team, tags);
 		});		
 
 		$("#team").on("change", function(e){
@@ -40,18 +42,34 @@ $( document ).ready(function() {
 			var type = $("#type").val();
 			var classes = $("#class").val();
 			var team = $("#team").val();
+			var tags = $("#tags").val();
 		    //reload media
-		    loadMedia(type, classes, team);
-		});		
+		    loadMedia(type, classes, team, tags);
+		});	
+		
+		
+		$( ".ui-autocomplete-input" ).keydown(function(e) {
+		    var code = e.which;
+		    if(code==13)e.preventDefault();
+		    if(code==13){
+			    //get search values
+				var type = $("#type").val();
+				var classes = $("#class").val();
+				var team = $("#team").val();
+				var tags = $("#tags").val();
+			    loadMedia(type, classes, team, tags);
+		    } // missing closing if brace
 
+		});
+		
 	}
 
 	
 	// functions that are run on change
-	function loadMedia(type, classes, team){
+	function loadMedia(type, classes, team, tags){
 	    $.ajax({
 	        type: 'GET',
-	        url:  'filter/?type=' + type + '&class=' + classes + '&team=' + team,
+	        url:  'filter/?type=' + type + '&class=' + classes + '&team=' + team + '&tags=' + tags,
 	        success: function(data){
 	            $(".stubs-container").html(data);
 				// refresh bootstrap dropdown menus
@@ -68,7 +86,7 @@ $( document ).ready(function() {
 	    });
 	}
 	
-
-
 });
+
+
 
