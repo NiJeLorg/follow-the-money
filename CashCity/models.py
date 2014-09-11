@@ -9,6 +9,36 @@ from image_cropping import ImageRatioField
 #taggit autocomplete
 from taggit_autocomplete.managers import TaggableManager
 
+# Model that stores a users map settings 
+class MapSettings(models.Model):
+    # Links Map Settings to a User model instance.
+    user = models.ForeignKey(User)
+		#lat and lon for the center point of the map.
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=False, blank=False)
+    longitude = models.DecimalField(max_digits=10, decimal_places=6, null=False, blank=False)
+    zoom = models.IntegerField()
+    MapLayer= models.CharField(max_length=100)
+    PawnShops= models.BooleanField()
+    CheckCashing= models.BooleanField()
+    WireTransfer= models.BooleanField()
+    Banks= models.BooleanField()
+    McDonalds= models.BooleanField()
+    SubwayLines= models.BooleanField()
+    Thumbnail = models.ImageField(upload_to="img/map/%Y_%m_%d_%h_%M_%s")
+    # size is "width x height"
+    cropped_image = ImageRatioField('Thumbnail', '280x280')
+    created = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
+    
+    def getUserProfile(self):
+        """
+            get user profile info for the teacher/team that uploaded the media
+        """
+        return ExUserProfile.objects.get(user=self.user)
+       
+    def __unicode__(self):
+        return self.zoom
+
 # Model that stores user profile info beyond username, password, email -- includes teacher and student group data
 class ExUserProfile(models.Model):
     GREEN = 'green'
@@ -124,8 +154,6 @@ class MediaInterview(models.Model):
     address = models.CharField(max_length=255, null=False, blank=False)
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=False, blank=False)
     longitude = models.DecimalField(max_digits=10, decimal_places=6, null=False, blank=False)
-    tags = TaggableManager()
-    published = models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
     
@@ -136,5 +164,4 @@ class MediaInterview(models.Model):
         return ExUserProfile.objects.get(user=self.user)
     
     def __unicode__(self):
-        return self.title
-        
+        return self.title 
