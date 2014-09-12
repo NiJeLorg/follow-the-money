@@ -29,12 +29,18 @@ urlpatterns = patterns('',
     url(r'accounts/remove/team/(?P<id>\d+)/$', views.removeTeam, name = 'removeTeam'),
     # registration urls
     url(r'^accounts/', include('registration.backends.default.urls')),
-    # account profile url
+    # teacher account profile url
     url(r'^accounts/profile/$', views.accountProfile, name='accountProfile'),
-    # team profile url
+    # teams in teacher profile url
     url(r'^accounts/profile/teams/$', views.teams, name='teams'),
-    # account profile urls
+    # media in teacher profile url
+    url(r'^accounts/profile/media/$', views.accountMedia, name='accountMedia'),
+    # opinions in teacher profile url
+    #url(r'^accounts/profile/opinion/$', views.accountOpinion, name='accountOpinion'),
+    # student account media profile urls
     url(r'^accounts/profile/student/media/$', views.studentProfileMedia, name='studentProfileMedia'),
+    # student account media profile urls
+    #url(r'^accounts/profile/student/opinion/$', views.studentProfileOpinion, name='studentProfileOpinion'),
     # CashCity app urls,
     url(r'^cashcity/', include('CashCity.urls')),
     # Uncomment the next line to enable the admin:

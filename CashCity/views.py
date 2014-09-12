@@ -253,7 +253,11 @@ def mediaFormImage(request):
     if request.method == 'POST':
         # if user hits cancel, send back to media page without saving
         if "cancel" in request.POST:
-            return HttpResponseRedirect('/cashcity/media/')
+            if profile.teacherOrStudent:
+                return HttpResponseRedirect('/accounts/profile/media/')
+            else:   
+                return HttpResponseRedirect('/accounts/profile/student/media/')
+                
         # if user hits save as draft, flag data in media image table as draft
         elif "saveDraft" in request.POST:
             form = MediaFormImage(request.POST, request.FILES)
@@ -270,7 +274,11 @@ def mediaFormImage(request):
                 # save tags
                 form.save_m2m()
             
-                return HttpResponseRedirect('/cashcity/media/') # Redirect after POST
+                if profile.teacherOrStudent:
+                    return HttpResponseRedirect('/accounts/profile/media/')
+                else:   
+                    return HttpResponseRedirect('/accounts/profile/student/media/')
+
             else:
                 # The supplied form contained errors - just print them to the terminal.
                 print form.errors            
@@ -290,7 +298,11 @@ def mediaFormImage(request):
                 # save tags
                 form.save_m2m()
             
-                return HttpResponseRedirect('/cashcity/media/') # Redirect after POST
+                if profile.teacherOrStudent:
+                    return HttpResponseRedirect('/accounts/profile/media/')
+                else:   
+                    return HttpResponseRedirect('/accounts/profile/student/media/')
+
             else:
                 # The supplied form contained errors - just print them to the terminal.
                 print form.errors
@@ -317,7 +329,10 @@ def mediaFormAudio(request):
     if request.method == 'POST':
         # if user hits cancel, send back to media page without saving
         if "cancel" in request.POST:
-            return HttpResponseRedirect('/cashcity/media/')
+            if profile.teacherOrStudent:
+                return HttpResponseRedirect('/accounts/profile/media/')
+            else:   
+                return HttpResponseRedirect('/accounts/profile/student/media/')
 
         # if user hits save as draft, flag data in media Audio table as draft
         elif "saveDraft" in request.POST:
@@ -335,7 +350,11 @@ def mediaFormAudio(request):
                 # save tags
                 form.save_m2m()
             
-                return HttpResponseRedirect('/cashcity/media/') # Redirect after POST
+                if profile.teacherOrStudent:
+                    return HttpResponseRedirect('/accounts/profile/media/')
+                else:   
+                    return HttpResponseRedirect('/accounts/profile/student/media/')
+
             else:
                 # The supplied form contained errors - just print them to the terminal.
                 print form.errors            
@@ -355,7 +374,11 @@ def mediaFormAudio(request):
                 # save tags
                 form.save_m2m()
             
-                return HttpResponseRedirect('/cashcity/media/') # Redirect after POST
+                if profile.teacherOrStudent:
+                    return HttpResponseRedirect('/accounts/profile/media/')
+                else:   
+                    return HttpResponseRedirect('/accounts/profile/student/media/')
+
             else:
                 # The supplied form contained errors - just print them to the terminal.
                 print form.errors
@@ -382,7 +405,10 @@ def mediaFormNote(request):
     if request.method == 'POST':
         # if user hits cancel, send back to media page without saving
         if "cancel" in request.POST:
-            return HttpResponseRedirect('/cashcity/media/')
+            if profile.teacherOrStudent:
+                return HttpResponseRedirect('/accounts/profile/media/')
+            else:   
+                return HttpResponseRedirect('/accounts/profile/student/media/')
 
         # if user hits save as draft, flag data in media Audio table as draft
         elif "saveDraft" in request.POST:
@@ -400,7 +426,11 @@ def mediaFormNote(request):
                 # save tags
                 form.save_m2m()
             
-                return HttpResponseRedirect('/cashcity/media/') # Redirect after POST
+                if profile.teacherOrStudent:
+                    return HttpResponseRedirect('/accounts/profile/media/')
+                else:   
+                    return HttpResponseRedirect('/accounts/profile/student/media/')
+
             else:
                 # The supplied form contained errors - just print them to the terminal.
                 print form.errors            
@@ -420,7 +450,11 @@ def mediaFormNote(request):
                 # save tags
                 form.save_m2m()
             
-                return HttpResponseRedirect('/cashcity/media/') # Redirect after POST
+                if profile.teacherOrStudent:
+                    return HttpResponseRedirect('/accounts/profile/media/')
+                else:   
+                    return HttpResponseRedirect('/accounts/profile/student/media/')
+
             else:
                 # The supplied form contained errors - just print them to the terminal.
                 print form.errors
@@ -447,7 +481,10 @@ def mediaFormInterview(request):
     if request.method == 'POST':
         # if user hits cancel, send back to media page without saving
         if "cancel" in request.POST:
-            return HttpResponseRedirect('/cashcity/media/')
+            if profile.teacherOrStudent:
+                return HttpResponseRedirect('/accounts/profile/media/')
+            else:   
+                return HttpResponseRedirect('/accounts/profile/student/media/')
 
         # if user hits save as draft, flag data in media image table as draft
         elif "saveDraft" in request.POST:
@@ -465,7 +502,11 @@ def mediaFormInterview(request):
                 # save tags
                 form.save_m2m()
             
-                return HttpResponseRedirect('/cashcity/media/') # Redirect after POST
+                if profile.teacherOrStudent:
+                    return HttpResponseRedirect('/accounts/profile/media/')
+                else:   
+                    return HttpResponseRedirect('/accounts/profile/student/media/')
+
             else:
                 # The supplied form contained errors - just print them to the terminal.
                 print form.errors            
@@ -485,7 +526,11 @@ def mediaFormInterview(request):
                 # save tags
                 form.save_m2m()
             
-                return HttpResponseRedirect('/cashcity/media/') # Redirect after POST
+                if profile.teacherOrStudent:
+                    return HttpResponseRedirect('/accounts/profile/media/')
+                else:   
+                    return HttpResponseRedirect('/accounts/profile/student/media/')
+
             else:
                 # The supplied form contained errors - just print them to the terminal.
                 print form.errors
@@ -667,19 +712,235 @@ def filterMedia(request):
     #render
     return render_to_response('CashCity/filterMedia.html', {'mediaResults':mediaResults, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile, 'form': form}, context)
 
+
+def mediaPageImage(request, id=None):
+    """
+      Loads a page for an image
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view -- don't print comment form is user is not logged in
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+        comment_form = MediaFormImageComment()
+    else:
+        profile = False
+        comment_form = False
+    
+    if id:
+        mediaImageObject = MediaImage.objects.get(pk=id)
+    else:
+        return HttpResponseRedirect('/cashcity/media/')
+        
+    if request.method == 'POST':
+        comment_form = MediaFormImageComment(data=request.POST)
+        if comment_form.is_valid():
+            c = comment_form.save(commit=False)       
+            # add current user
+            c.user = request.user
+            # add media id
+            c.mediaImage = mediaImageObject
+            c.save()
+
+            success = True
+            # get MediaImageComments
+            comments = MediaImageComments.objects.filter(mediaImage=id)
+            
+            # send along blank comment form
+            comment_form = MediaFormImageComment()
+            
+            return render_to_response('CashCity/mediaPageImage.html', {'mediaImageObject': mediaImageObject, 'comments':comments, 'comment_form':comment_form, 'success': success, 'profile':profile}, context)
+            
+        else:
+            print comment_form.errors
+            
+    else:
+        # get MediaImageComments
+        comments = MediaImageComments.objects.filter(mediaImage=id)
+
+    return render_to_response('CashCity/mediaPageImage.html', {'mediaImageObject': mediaImageObject, 'comments':comments, 'comment_form':comment_form, 'profile':profile}, context)
+
+
+def mediaPageAudio(request, id=None):
+    """
+      Loads a page for an audio file
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view -- don't print comment form is user is not logged in
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+        comment_form = MediaFormAudioComment()
+    else:
+        profile = False
+        comment_form = False
+    
+    if id:
+        mediaAudioObject = MediaAudio.objects.get(pk=id)
+    else:
+        return HttpResponseRedirect('/cashcity/media/')
+        
+    if request.method == 'POST':
+        comment_form = MediaFormAudioComment(data=request.POST)
+        if comment_form.is_valid():
+            c = comment_form.save(commit=False)       
+            # add current user
+            c.user = request.user
+            # add media id
+            c.mediaAudio = mediaAudioObject
+            c.save()
+
+            success = True
+            # get MediaAudioComments
+            comments = MediaAudioComments.objects.filter(mediaAudio=id)
+            
+            # send along blank comment form
+            comment_form = MediaFormAudioComment()
+            
+            return render_to_response('CashCity/mediaPageAudio.html', {'mediaAudioObject': mediaAudioObject, 'comments':comments, 'comment_form':comment_form, 'success': success, 'profile':profile}, context)
+            
+        else:
+            print comment_form.errors
+            
+    else:
+        # get MediaAudioComments
+        comments = MediaAudioComments.objects.filter(mediaAudio=id)
+
+    return render_to_response('CashCity/mediaPageAudio.html', {'mediaAudioObject': mediaAudioObject, 'comments':comments, 'comment_form':comment_form, 'profile':profile}, context)
+    
+    
+def mediaPageNote(request, id=None):
+    """
+      Loads a page for a note
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view -- don't print comment form is user is not logged in
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+        comment_form = MediaFormNoteComment()
+    else:
+        profile = False
+        comment_form = False
+    
+    if id:
+        mediaNoteObject = MediaNote.objects.get(pk=id)
+    else:
+        return HttpResponseRedirect('/cashcity/media/')
+        
+    if request.method == 'POST':
+        comment_form = MediaFormNoteComment(data=request.POST)
+        if comment_form.is_valid():
+            c = comment_form.save(commit=False)       
+            # add current user
+            c.user = request.user
+            # add media id
+            c.mediaNote = mediaNoteObject
+            c.save()
+
+            success = True
+            # get MediaNoteComments
+            comments = MediaNoteComments.objects.filter(mediaNote=id)
+            
+            # send along blank comment form
+            comment_form = MediaFormNoteComment()
+            
+            return render_to_response('CashCity/mediaPageNote.html', {'mediaNoteObject': mediaNoteObject, 'comments':comments, 'comment_form':comment_form, 'success': success, 'profile':profile}, context)
+            
+        else:
+            print comment_form.errors
+            
+    else:
+        # get MediaNoteComments
+        comments = MediaNoteComments.objects.filter(mediaNote=id)
+
+    return render_to_response('CashCity/mediaPageNote.html', {'mediaNoteObject': mediaNoteObject, 'comments':comments, 'comment_form':comment_form, 'profile':profile}, context)
+
+
+def mediaPageInterview(request, id=None):
+    """
+      Loads a page for an interview
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view -- don't print comment form is user is not logged in
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+        comment_form = MediaFormInterviewComment()
+    else:
+        profile = False
+        comment_form = False
+    
+    if id:
+        mediaInterviewObject = MediaInterview.objects.get(pk=id)
+    else:
+        return HttpResponseRedirect('/cashcity/media/')
+        
+    if request.method == 'POST':
+        comment_form = MediaFormInterviewComment(data=request.POST)
+        if comment_form.is_valid():
+            c = comment_form.save(commit=False)       
+            # add current user
+            c.user = request.user
+            # add media id
+            c.mediaInterview = mediaInterviewObject
+            c.save()
+
+            success = True
+            # get MediaInterviewComments
+            comments = MediaInterviewComments.objects.filter(mediaInterview=id)
+            
+            # send along blank comment form
+            comment_form = MediaFormInterviewComment()
+            
+            return render_to_response('CashCity/mediaPageInterview.html', {'mediaInterviewObject': mediaInterviewObject, 'comments':comments, 'comment_form':comment_form, 'success': success, 'profile':profile}, context)
+            
+        else:
+            print comment_form.errors
+            
+    else:
+        # get MediaInterviewComments
+        comments = MediaInterviewComments.objects.filter(mediaInterview=id)
+
+    return render_to_response('CashCity/mediaPageInterview.html', {'mediaInterviewObject': mediaInterviewObject, 'comments':comments, 'comment_form':comment_form, 'profile':profile}, context)
+
+
+@login_required
+def accountMedia(request):
+    """
+      Loads the list of media in the teacher account
+    """
+    context = RequestContext(request)
+    
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)
+    
+    #build query
+    kwargs = {}
+    kwargs['user__exact'] = request.user
+
+    #get mediaImages
+    mediaImages = MediaImage.objects.filter(**kwargs).order_by("-last_modified")
+    
+    return render_to_response('registration/profile.html', {'mediaImages': mediaImages, 'profile':profile}, context)
+
+
+
+
+
 def SaveMap(request):
-				context = RequestContext(request)
-				latitude = request.GET.get("latitude","")
-				longitude= request.GET.get("longitude","")
-				zoom= request.GET.get("zoom","")
-				MapLayer= request.GET.get("MapLayer","")
-				PawnShops= request.GET.get("PawnShops","")
-				CheckCashing= request.GET.get("CheckCashing","")
-				WireTransfer= request.GET.get("WireTransfer","")
-				Banks= request.GET.get("Banks","")
-				McDonalds= request.GET.get("McDonalds","")
-				SubwayLines= request.GET.get("SubwayLines","")
-
-				MapDetails = MapSettings(latitude=latitude, longitude=longitude, zoom=zoom, MapLayer=MapLayer, PawnShops=PawnShops, CheckCashing=CheckCashing, WireTransfer=WireTransfer, Banks=Banks, McDonalds=McDonalds, SubwayLines=SubwayLines, user=request.user)
-
-				MapDetails.save()
+    context = RequestContext(request)
+    latitude = request.GET.get("latitude","")
+    longitude= request.GET.get("longitude","")
+    zoom= request.GET.get("zoom","")
+    MapLayer= request.GET.get("MapLayer","")
+    PawnShops= request.GET.get("PawnShops","")
+    CheckCashing= request.GET.get("CheckCashing","")
+    WireTransfer= request.GET.get("WireTransfer","")
+    Banks= request.GET.get("Banks","")
+    McDonalds= request.GET.get("McDonalds","")
+    SubwayLines= request.GET.get("SubwayLines","")
+    
+    MapDetails = MapSettings(latitude=latitude, longitude=longitude, zoom=zoom, MapLayer=MapLayer, PawnShops=PawnShops, CheckCashing=CheckCashing, WireTransfer=WireTransfer, Banks=Banks, McDonalds=McDonalds, SubwayLines=SubwayLines, user=request.user)
+    
+    MapDetails.save()
