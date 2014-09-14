@@ -88,7 +88,12 @@
 <div class="half-container">
 	<div class="row">
 		<div class="note_{{ mediaNoteObject.getUserProfile.color }} pull-left margin-right"></div>
-		<p><strong>{{ mediaNoteObject.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaNoteObject.last_modified|date:"F j, Y" }}</span></p>	
+		{% if mediaNoteObject.getUserProfile.color == None %}
+			<p><strong>Teacher Added: </strong>{{ mediaNoteObject.getUserProfile.teacherName }} 		
+		{% else %}
+			<p><strong>{{ mediaNoteObject.getUserProfile.color|title }} Team</strong>	
+		{% endif %}
+		<span class="pull-right">{{ mediaNoteObject.last_modified|date:"F j, Y" }}</span></p>	
 	</div>
 	<div class="row">
 		<hr />

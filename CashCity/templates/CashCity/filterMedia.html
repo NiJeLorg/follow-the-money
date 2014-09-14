@@ -96,7 +96,11 @@
 						<a href="/cashcity/media/interview/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
 							<div class="col-xs-4 media-stub">
 								<div class="interview_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div>
+							{% if mediaResult.getUserProfile.color == None %}
+								<p><strong>Teacher Added</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />Teacher: {{ mediaResult.getUserProfile.teacherName }}</p>
+							{% else %}
 								<p><strong>{{ mediaResult.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />{{ mediaResult.getUserProfile.teacherName }}'s Section {{ mediaResult.getUserProfile.section }}</p>
+							{% endif %}							
 					            <div style="height: 241px; width: 280px; margin-right: auto; margin-left: auto; margin-bottom: 5px; overflow: hidden;">
 					            	<img src="{% cropped_thumbnail mediaResult 'cropped_image' %}">
 					            </div>
@@ -110,7 +114,11 @@
 						<a href="/cashcity/media/image/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
 							<div class="col-xs-4 media-stub">
 								<div class="image_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div>
+							{% if mediaResult.getUserProfile.color == None %}
+								<p><strong>Teacher Added</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />Teacher: {{ mediaResult.getUserProfile.teacherName }}</p>
+							{% else %}
 								<p><strong>{{ mediaResult.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />{{ mediaResult.getUserProfile.teacherName }}'s Section {{ mediaResult.getUserProfile.section }}</p>
+							{% endif %}							
 					            <div style="height: 280px; width: 280px; margin: auto; overflow: hidden;">
 					            	<img src="{% cropped_thumbnail mediaResult 'cropped_image' %}">
 					            </div>
@@ -121,7 +129,11 @@
 						<a href="/cashcity/media/audio/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
 							<div class="col-xs-4 media-stub">
 								<div class="audio_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div>
+							{% if mediaResult.getUserProfile.color == None %}
+								<p><strong>Teacher Added</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />Teacher: {{ mediaResult.getUserProfile.teacherName }}</p>
+							{% else %}
 								<p><strong>{{ mediaResult.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />{{ mediaResult.getUserProfile.teacherName }}'s Section {{ mediaResult.getUserProfile.section }}</p>
+							{% endif %}							
 					            <div style="margin-right: auto; margin-left: auto; margin-top: 10px;">
 					            	<audio src="/media/{{ mediaResult.audio }}" preload="auto" controls></audio>
 					            </div>
@@ -132,7 +144,11 @@
 						<a href="/cashcity/media/note/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
 							<div class="col-xs-4 media-stub">
 								<div class="note_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div>
+							{% if mediaResult.getUserProfile.color == None %}
+								<p><strong>Teacher Added</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />Teacher: {{ mediaResult.getUserProfile.teacherName }}</p>
+							{% else %}
 								<p><strong>{{ mediaResult.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />{{ mediaResult.getUserProfile.teacherName }}'s Section {{ mediaResult.getUserProfile.section }}</p>
+							{% endif %}							
 								<h4>{{ mediaResult.title }}</h4>
 					            <div style="height: 280px; width: 280px; margin: auto; overflow: hidden;">
 									<p>{{ mediaResult.notes }}</p>

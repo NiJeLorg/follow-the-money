@@ -49,6 +49,7 @@ $( document ).ready(function() {
 		
 		
 		$( ".ui-autocomplete-input" ).keydown(function(e) {
+			console.log(e.which);
 		    var code = e.which;
 		    if(code==13)e.preventDefault();
 		    if(code==13){
@@ -71,7 +72,7 @@ $( document ).ready(function() {
 	        type: 'GET',
 	        url:  'filter/?type=' + type + '&class=' + classes + '&team=' + team + '&tags=' + tags,
 	        success: function(data){
-	            $(".stubs-container").html(data);
+	            $(".media-content-container").html(data);
 				// refresh bootstrap dropdown menus
 				//$('.dropdown-toggle').dropdown();
 				// refresh select picker

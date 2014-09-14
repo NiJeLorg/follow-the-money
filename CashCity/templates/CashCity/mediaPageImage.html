@@ -88,7 +88,12 @@
 <div class="half-container">
 	<div class="row">
 		<div class="image_{{ mediaImageObject.getUserProfile.color }} pull-left margin-right"></div>
-		<p><strong>{{ mediaImageObject.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaImageObject.last_modified|date:"F j, Y" }}</span></p>	
+		{% if mediaImageObject.getUserProfile.color == None %}
+			<p><strong>Teacher Added: </strong>{{ mediaImageObject.getUserProfile.teacherName }} 		
+		{% else %}
+			<p><strong>{{ mediaImageObject.getUserProfile.color|title }} Team</strong>	
+		{% endif %}
+		<span class="pull-right">{{ mediaImageObject.last_modified|date:"F j, Y" }}</span></p>	
 	</div>
 	<div class="row">
 		<hr />
@@ -150,9 +155,13 @@
 	<script type="text/javascript">
 	var lat = {{ mediaImageObject.latitude }};
 	var lng = {{ mediaImageObject.longitude }};
-	{% with 'CashCity/img/image_'|add:mediaImageObject.getUserProfile.color|add:'.png' as image_static %}
-		var iconUrl = "{% static image_static %}";
-	{% endwith %}
+	{% if mediaImageObject.getUserProfile.color == None %}
+		var iconUrl = "{% static 'CashCity/img/image_red.png' %}";
+	{% else %}		
+		{% with 'CashCity/img/image_'|add:mediaImageObject.getUserProfile.color|add:'.png' as image_static %}
+			var iconUrl = "{% static image_static %}";
+		{% endwith %}
+	{% endif %}
 	</script>
 	<script type="text/javascript" src="{% static 'CashCity/js/mapbox.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/media-map.js' %}"></script>

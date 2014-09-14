@@ -33,10 +33,14 @@ urlpatterns = patterns('',
     url(r'^accounts/profile/$', views.accountProfile, name='accountProfile'),
     # teams in teacher profile url
     url(r'^accounts/profile/teams/$', views.teams, name='teams'),
+    # media in teacher profile filter
+    url(r'^accounts/profile/media/filter/$', views.accountFilterMedia, name='accountFilterMedia'),    
     # media in teacher profile url
-    url(r'^accounts/profile/media/$', views.accountMedia, name='accountMedia'),
+    url(r'^accounts/profile/media/', views.accountMedia, name='accountMedia'),
     # opinions in teacher profile url
     #url(r'^accounts/profile/opinion/$', views.accountOpinion, name='accountOpinion'),
+    # media in teacher profile filter
+    url(r'^accounts/profile/student/media/filter/$', views.studentFilterMedia, name='studentFilterMedia'),    
     # student account media profile urls
     url(r'^accounts/profile/student/media/$', views.studentProfileMedia, name='studentProfileMedia'),
     # student account media profile urls

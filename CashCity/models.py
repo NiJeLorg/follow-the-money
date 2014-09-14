@@ -87,7 +87,18 @@ class MediaImage(models.Model):
     published = models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
-    
+
+    #defined a save method to overwrite a file if being replace
+    #from: http://stackoverflow.com/a/8342249
+    def save(self, *args, **kwargs):
+        # delete old file when replacing by updating the file
+        try:
+            this = MediaImage.objects.get(id=self.id)
+            if this.image != self.image:
+                this.image.delete(save=False)
+        except: pass # when new photo then we do nothing, normal case          
+        super(MediaImage, self).save(*args, **kwargs)
+            
     def getUserProfile(self):
         """
             get user profile info for the teacher/team that uploaded the media
@@ -131,6 +142,17 @@ class MediaAudio(models.Model):
     published = models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
+
+    #defined a save method to overwrite a file if being replace
+    #from: http://stackoverflow.com/a/8342249
+    def save(self, *args, **kwargs):
+        # delete old file when replacing by updating the file
+        try:
+            this = MediaAudio.objects.get(id=self.id)
+            if this.audio != self.audio:
+                this.audio.delete(save=False)
+        except: pass # when new photo then we do nothing, normal case          
+        super(MediaAudio, self).save(*args, **kwargs)
     
     def getUserProfile(self):
         """
@@ -225,7 +247,20 @@ class MediaInterview(models.Model):
     published = models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
-    
+
+    #defined a save method to overwrite a file if being replace
+    #from: http://stackoverflow.com/a/8342249
+    def save(self, *args, **kwargs):
+        # delete old file when replacing by updating the file
+        try:
+            this = MediaInterview.objects.get(id=self.id)
+            if this.audio != self.audio:
+                this.audio.delete(save=False)
+            if this.image != self.audio:
+                this.image.delete(save=False)                
+        except: pass # when new photo then we do nothing, normal case          
+        super(MediaInterview, self).save(*args, **kwargs)
+            
     def getUserProfile(self):
         """
             get user profile info for the teacher/team that uploaded the media

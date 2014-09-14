@@ -13,6 +13,16 @@ urlpatterns = patterns('',
     url(r'^media/form/audio/', views.mediaFormAudio, name='mediaFormAudio'),
     url(r'^media/form/note/', views.mediaFormNote, name='mediaFormNote'),
     url(r'^media/form/interview/', views.mediaFormInterview, name='mediaFormInterview'),
+    # media edit forms
+    url(r'media/form/edit/image/(?P<id>\d+)/$', views.mediaFormImage, name = 'mediaFormImageEdit'),
+    url(r'media/form/edit/audio/(?P<id>\d+)/$', views.mediaFormAudio, name = 'mediaFormAudioEdit'),
+    url(r'media/form/edit/note/(?P<id>\d+)/$', views.mediaFormNote, name = 'mediaFormNoteEdit'),
+    url(r'media/form/edit/interview/(?P<id>\d+)/$', views.mediaFormInterview, name = 'mediaFormInterviewEdit'),
+    #media remove forms
+    url(r'media/form/remove/image/(?P<id>\d+)/$', views.mediaFormImageRemove, name = 'mediaFormImageRemove'),
+    url(r'media/form/remove/audio/(?P<id>\d+)/$', views.mediaFormAudioRemove, name = 'mediaFormAudioRemove'),
+    url(r'media/form/remove/note/(?P<id>\d+)/$', views.mediaFormNoteRemove, name = 'mediaFormNoteRemove'),
+    url(r'media/form/remove/interview/(?P<id>\d+)/$', views.mediaFormInterviewRemove, name = 'mediaFormInterviewRemove'),
     # media single pages
     url(r'^media/image/(?P<id>\d+)/$', views.mediaPageImage, name='mediaPageImage'), 
     url(r'^media/audio/(?P<id>\d+)/$', views.mediaPageAudio, name='mediaPageAudio'), 

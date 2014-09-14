@@ -88,7 +88,12 @@
 <div class="half-container">
 	<div class="row">
 		<div class="audio_{{ mediaAudioObject.getUserProfile.color }} pull-left margin-right"></div>
-		<p><strong>{{ mediaAudioObject.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaAudioObject.last_modified|date:"F j, Y" }}</span></p>	
+		{% if mediaAudioObject.getUserProfile.color == None %}
+			<p><strong>Teacher Added: </strong>{{ mediaAudioObject.getUserProfile.teacherName }} 		
+		{% else %}
+			<p><strong>{{ mediaAudioObject.getUserProfile.color|title }} Team</strong>	
+		{% endif %}
+		<span class="pull-right">{{ mediaAudioObject.last_modified|date:"F j, Y" }}</span></p>	
 	</div>
 	<div class="row">
 		<hr />

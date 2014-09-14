@@ -88,7 +88,12 @@
 <div class="half-container">
 	<div class="row">
 		<div class="interview_{{ mediaInterviewObject.getUserProfile.color }} pull-left margin-right"></div>
-		<p><strong>{{ mediaInterviewObject.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaInterviewObject.last_modified|date:"F j, Y" }}</span></p>	
+		{% if mediaInterviewObject.getUserProfile.color == None %}
+			<p><strong>Teacher Added: </strong>{{ mediaInterviewObject.getUserProfile.teacherName }} 		
+		{% else %}
+			<p><strong>{{ mediaInterviewObject.getUserProfile.color|title }} Team</strong>	
+		{% endif %}
+		<span class="pull-right">{{ mediaInterviewObject.last_modified|date:"F j, Y" }}</span></p>	
 	</div>
 	<div class="row">
 		<hr />

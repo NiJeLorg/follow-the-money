@@ -72,6 +72,7 @@ class MediaFormImage(forms.ModelForm):
         exclude = ["user"]
         widgets = {
             'caption': forms.widgets.Textarea(attrs={'rows': 2}),
+            'image': forms.widgets.FileInput,
         }
         
 # Form for Image Comments
