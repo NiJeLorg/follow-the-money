@@ -21,7 +21,11 @@ from registration.forms import RegistrationForm
 from CashCity.forms import *
 from CashCity.models import *
 
-
+def redirectToIndex(request):
+    """
+      Loads the index page
+    """
+    return HttpResponseRedirect('/cashcity/')
 
 def index(request):
     """
