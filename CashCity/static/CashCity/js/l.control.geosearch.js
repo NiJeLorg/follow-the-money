@@ -59,13 +59,11 @@ L.Control.GeoSearch = L.Control.extend({
         this._addressSearch = addressSearch;
 
 		// add listener to refreshMap button
-		/*
 		var refreshMap = L.DomUtil.get("refreshMap");
 		if (refreshMap) {
 	        this._refreshMap = refreshMap;
 			L.DomEvent.addListener(this._refreshMap, 'click', this._onRefreshMap, this);		
 		}
-		*/
 
         var searchbox = document.createElement('input');
         searchbox.id = 'leaflet-control-geosearch-qry';
@@ -98,7 +96,7 @@ L.Control.GeoSearch = L.Control.extend({
     },
 
     geosearch: function (qry) {
-        try {
+        try {						
             var provider = this._config.provider;
 
             if(typeof provider.GetLocations == 'function') {
@@ -235,11 +233,23 @@ L.Control.GeoSearch = L.Control.extend({
 	*/
 	
     _onSearchButton: function (e) {
+        if (typeof marker === 'undefined') {
+        	// do nothing
+        } else {
+			this._map.removeLayer(marker);
+        } 
+		
         var queryBox = document.getElementById('leaflet-control-geosearch-qry');
         this.geosearch(queryBox.value);
     },
 
     _onRefreshMap: function (e) {
+        if (typeof marker === 'undefined') {
+        	// do nothing
+        } else {
+			this._map.removeLayer(marker);
+        } 
+		
         if (typeof this._positionMarker === 'undefined') {
         	// do nothing
         } else {

@@ -2334,6 +2334,197 @@ CityDigitsMap.getStyleFor_LOC7_SUBWAY_STATIONS = function (feature, latlng){
 	
 }
 
+
+CityDigitsMap.onEachFeatureFor_MEDIA_IMAGES = function(feature, layer){
+
+    //add on hover -- same on hover and mousemove for each layer
+    layer.on('mouseover', function(ev) {
+		// only have on mouseover work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+			// close all popups first
+			MY_MAP.map.closePopup();
+		}
+    });
+		
+	// add on click popups for each layer -- these will be different
+	layer.on("click",function(ev){
+		// close all open popups
+		MY_MAP.map.closePopup();
+		
+		var lat = feature.geometry.coordinates[1];
+		var lng = feature.geometry.coordinates[0];
+		
+		// set latlng variable
+		var latlng = L.latLng(lat, lng);
+		// bind popup with data to the feature
+		MY_MAP.popup2.setLatLng(latlng);
+
+		var header = '<div class="map-popup"><a href="/cashcity/media/image/' + feature.properties.id + '/" style="text-decoration:none; color:inherit"><h4 class="text-left">' + feature.properties.section + '</h4>';
+		var mediaBox = '<div style="height: 280px; width: 280px; margin: auto; overflow: hidden;"><img src="' + feature.properties.image + '"></div>';
+		var title = '<div style="margin-top: 5px"><p class="text-left">' + feature.properties.name + '</p></div></a>';
+		var footer = '</div>';
+				
+		var popupContent = header + mediaBox + title + footer;
+		
+		MY_MAP.popup2.setContent(popupContent);
+		MY_MAP.popup2.openOn(MY_MAP.map);
+	});
+	
+}
+
+CityDigitsMap.onEachFeatureFor_MEDIA_AUDIO = function(feature, layer){
+
+    //add on hover -- same on hover and mousemove for each layer
+    layer.on('mouseover', function(ev) {
+		// only have on mouseover work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+			// close all popups first
+			MY_MAP.map.closePopup();
+		}
+    });
+		
+	// add on click popups for each layer -- these will be different
+	layer.on("click",function(ev){
+		// close all open popups
+		MY_MAP.map.closePopup();
+		
+		var lat = feature.geometry.coordinates[1];
+		var lng = feature.geometry.coordinates[0];
+		
+		// set latlng variable
+		var latlng = L.latLng(lat, lng);
+		// bind popup with data to the feature
+		MY_MAP.popup2.setLatLng(latlng);
+		
+		var header = '<div class="map-popup"><a href="/cashcity/media/audio/' + feature.properties.id + '/" style="text-decoration:none; color:inherit"><h4 class="text-left">' + feature.properties.section + '</h4></a>';
+		var mediaBox = '<div style="margin-right: auto; margin-left: auto; margin-top: 10px;"><audio src="' + feature.properties.audio + '" preload="auto" controls></audio></div>';
+		var title = '<a href="/cashcity/media/audio/' + feature.properties.id + '/" style="text-decoration:none; color:inherit"><div style="margin-top: 5px"><p class="text-left">' + feature.properties.name + '</p></div></a>';
+		var footer = '</div>';
+				
+		var popupContent = header + mediaBox + title + footer;
+		
+		MY_MAP.popup2.setContent(popupContent);
+		MY_MAP.popup2.openOn(MY_MAP.map);
+	});
+	
+}
+
+CityDigitsMap.onEachFeatureFor_MEDIA_NOTE = function(feature, layer){
+
+    //add on hover -- same on hover and mousemove for each layer
+    layer.on('mouseover', function(ev) {
+		// only have on mouseover work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+			// close all popups first
+			MY_MAP.map.closePopup();
+		}
+    });
+		
+	// add on click popups for each layer -- these will be different
+	layer.on("click",function(ev){
+		// close all open popups
+		MY_MAP.map.closePopup();
+		
+		var lat = feature.geometry.coordinates[1];
+		var lng = feature.geometry.coordinates[0];
+		
+		// set latlng variable
+		var latlng = L.latLng(lat, lng);
+		// bind popup with data to the feature
+		MY_MAP.popup2.setLatLng(latlng);
+
+		var header = '<div class="map-popup"><a href="/cashcity/media/note/' + feature.properties.id + '/" style="text-decoration:none; color:inherit"><h4 class="text-left">' + feature.properties.section + '</h4>';
+		var title = '<div style="margin-top: 5px"><p class="text-left">' + feature.properties.name + '</p></div>';
+		var mediaBox = '<p class="text-left">' + feature.properties.notes + '</p></a>';
+		var footer = '</div>';
+				
+		var popupContent = header + title + mediaBox + footer;
+		
+		MY_MAP.popup2.setContent(popupContent);
+		MY_MAP.popup2.openOn(MY_MAP.map);
+	});
+	
+}
+
+CityDigitsMap.onEachFeatureFor_MEDIA_INTERVIEW = function(feature, layer){
+
+    //add on hover -- same on hover and mousemove for each layer
+    layer.on('mouseover', function(ev) {
+		// only have on mouseover work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+			// close all popups first
+			MY_MAP.map.closePopup();
+		}
+    });
+		
+	// add on click popups for each layer -- these will be different
+	layer.on("click",function(ev){
+		// close all open popups
+		MY_MAP.map.closePopup();
+		
+		var lat = feature.geometry.coordinates[1];
+		var lng = feature.geometry.coordinates[0];
+		
+		// set latlng variable
+		var latlng = L.latLng(lat, lng);
+		// bind popup with data to the feature
+		MY_MAP.popup2.setLatLng(latlng);
+
+		var header = '<div class="map-popup"><a href="/cashcity/media/interview/' + feature.properties.id + '/" style="text-decoration:none; color:inherit"><h4 class="text-left">' + feature.properties.section + '</h4>';
+		var mediaBox = '<div style="height: 280px; width: 280px; margin: auto; overflow: hidden;"><img src="' + feature.properties.image + '"></div></a><div style="margin-right: auto; margin-left: auto; margin-top: 10px;"><audio src="' + feature.properties.audio + '" preload="auto" controls></audio></div>';
+		var title = '<a href="/cashcity/media/interview/' + feature.properties.id + '/" style="text-decoration:none; color:inherit"><div style="margin-top: 5px"><p class="text-left">' + feature.properties.name + '</p></div></a>';
+		var footer = '</div>';
+				
+		var popupContent = header + mediaBox + title + footer;
+		
+		MY_MAP.popup2.setContent(popupContent);
+		MY_MAP.popup2.openOn(MY_MAP.map);
+	});
+	
+}
+
+CityDigitsMap.prototype.loadMedia = function(){
+			
+	this.MEDIA_IMAGES = null;
+	this.MEDIA_AUDIO = null;
+	this.MEDIA_NOTE = null;
+	this.MEDIA_INTERVIEW = null;
+
+	// define layer styles and oneachfeature popup styling
+	this.MEDIA_IMAGES = L.geoJson(mediaImageGeojson, {
+		pointToLayer: CityDigitsMap.getStyleFor_MEDIA,
+		onEachFeature: CityDigitsMap.onEachFeatureFor_MEDIA_IMAGES
+	});
+	// define layer styles and oneachfeature popup styling
+	this.MEDIA_AUDIO = L.geoJson(mediaAudioGeojson, {
+		pointToLayer: CityDigitsMap.getStyleFor_MEDIA,
+		onEachFeature: CityDigitsMap.onEachFeatureFor_MEDIA_AUDIO
+	});
+	// define layer styles and oneachfeature popup styling
+	this.MEDIA_NOTE = L.geoJson(mediaNoteGeojson, {
+		pointToLayer: CityDigitsMap.getStyleFor_MEDIA,
+		onEachFeature: CityDigitsMap.onEachFeatureFor_MEDIA_NOTE
+	});
+	// define layer styles and oneachfeature popup styling
+	this.MEDIA_INTERVIEW = L.geoJson(mediaInterviewGeojson, {
+		pointToLayer: CityDigitsMap.getStyleFor_MEDIA,
+		onEachFeature: CityDigitsMap.onEachFeatureFor_MEDIA_INTERVIEW
+	});
+	
+}
+
+CityDigitsMap.getStyleFor_MEDIA = function(feature, latlng){
+	var mediaImageIcon = L.icon({
+	    iconUrl: feature.properties.iconUrl,
+	    iconSize: [42, 50],
+		iconAnchor: [17, 38], 
+	});
+
+	return L.marker(latlng, {icon: mediaImageIcon});
+	
+}
+
+
 CityDigitsMap.loadLayerFor = function(layerId){
 	
     if(layerId == "MAP1"){
@@ -2548,6 +2739,18 @@ CityDigitsMap.loadLocationsLayerFor = function(layerId){
 	}
 	
 }
+
+CityDigitsMap.loadMediaLayerFor = function(layerId){
+	// add layer requested based on ID
+	if (layerId == "MEDIA") {
+		MEDIA_IMAGES = MY_MAP.MEDIA_IMAGES.addTo(MY_MAP.map).bringToFront();
+		MEDIA_AUDIO = MY_MAP.MEDIA_AUDIO.addTo(MY_MAP.map).bringToFront();
+		MEDIA_NOTE = MY_MAP.MEDIA_NOTE.addTo(MY_MAP.map).bringToFront();
+		MEDIA_INTERVIEW = MY_MAP.MEDIA_INTERVIEW.addTo(MY_MAP.map).bringToFront();
+	}
+	
+}
+
 
 CityDigitsMap.removeLayerFor = function(layerId){
 	// remove all popups first

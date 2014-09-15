@@ -1,0 +1,169 @@
+{% load cropping %}
+{% load widget_tweaks %}
+
+	<div class="container-fluid">
+		<div class="row">
+			<h3 class="text-center"><u>Media</u></h3>
+			<div class="container-fluid">
+				<div class='filter-container'>	
+			        <label for="type"><b>Type:</b></label>
+			        <select id="type" name="type">
+			            {%  if toolbar.searchType == 'All' %}
+			                <option value="All" selected>All</option>
+			                <option value="Images">Images</option>
+			                <option value="Audio">Audio</option>
+			                <option value="Notes">Notes</option>
+			                <option value="Interviews">Interviews</option>
+			            {% elif toolbar.searchType == 'Images' %}
+			                <option value="All">All</option>
+			                <option value="Images" selected>Images</option>
+			                <option value="Audio">Audio</option>
+			                <option value="Notes">Notes</option>
+			                <option value="Interviews">Interviews</option>
+			            {% elif toolbar.searchType == 'Audio' %}
+			                <option value="All">All</option>
+			                <option value="Images">Images</option>
+			                <option value="Audio" selected>Audio</option>
+			                <option value="Notes">Notes</option>
+			                <option value="Interviews">Interviews</option>
+			            {% elif toolbar.searchType == 'Notes' %}
+			                <option value="All">All</option>
+			                <option value="Images">Images</option>
+			                <option value="Audio">Audio</option>
+			                <option value="Notes" selected>Notes</option>
+			                <option value="Interviews">Interviews</option>
+			            {% elif toolbar.searchType == 'Interviews' %}
+			                <option value="All">All</option>
+			                <option value="Images">Images</option>
+			                <option value="Audio">Audio</option>
+			                <option value="Notes" >Notes</option>
+			                <option value="Interviews" selected>Interviews</option>
+			            {% else %}
+			                <option value="All" selected>All</option>
+			                <option value="Images">Images</option>
+			                <option value="Audio">Audio</option>
+			                <option value="Notes">Notes</option>
+			                <option value="Interviews">Interviews</option>
+			            {% endif %}
+			        </select>
+				</div>
+				<div class='filter-container'>
+			        <label for="class"><b>Class:</b></label>
+			        <select id="class" name="class">
+			            {%  if toolbar.searchClass == 'All' %}
+			                <option value="All" selected>All</option>
+			            {% else %}
+			                <option value="All">All</option>
+			            {% endif %}
+			            {% for class in classes %}
+			                {% if toolbar.searchClass == class.teacherId|stringformat:"s_"|add:class.section %}
+			                    <option value="{{ class.teacherId }}_{{ class.section }}" selected>{{ class.teacherName }} - Section {{ class.section }}</option>
+			                {% else %}
+			                    <option value="{{ class.teacherId }}_{{ class.section }}">{{ class.teacherName }} - Section {{ class.section }} </option>
+			                {% endif %}
+			            {% endfor %}
+			        </select>
+				</div>
+				<div class='filter-container'>
+			        <label for="team"><b>Team:</b></label>
+			        <select id="team" name="team">
+			            {%  if toolbar.searchTeam == 'All' %}
+			                <option value="All" selected>All</option>
+			            {% else %}
+			                <option value="All">All</option>
+			            {% endif %}
+			            {% for team in teams %}
+			                {% if toolbar.searchTeam == team %}
+			                    <option value="{{ team }}" selected>{{ team|title }}</option>
+			                {% else %}
+			                    <option value="{{ team }}">{{ team|title }}</option>
+			                {% endif %}
+			            {% endfor %}
+			        </select>
+				</div>
+				<div class='filter-container pull-right'>
+					<form class="form-inline">
+					  <div class="form-group has-feedback">
+						  {{ form.tags|attr:"id:tags" }}
+					    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+					  </div>
+					</form>
+				</div>
+			</div>
+			<div id="media-content" class="container-fluid">
+				{% for mediaResult in mediaResults %}
+					{% if mediaResult.image and mediaResult.audio %}
+							<div class="col-xs-4 media-stub">
+								<a href="/cashcity/media/interview/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
+								
+									<div class="interview_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div>
+								{% if mediaResult.getUserProfile.color == None %}
+									<p><strong>Teacher Added</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />Teacher: {{ mediaResult.getUserProfile.teacherName }}</p>
+								{% else %}
+									<p><strong>{{ mediaResult.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />{{ mediaResult.getUserProfile.teacherName }}'s Section {{ mediaResult.getUserProfile.section }}</p>
+								{% endif %}							
+						            <div style="height: 241px; width: 280px; margin-right: auto; margin-left: auto; margin-bottom: 5px; overflow: hidden;">
+						            	<img src="{% cropped_thumbnail mediaResult 'cropped_image' %}">
+						            </div>
+								</a>
+					            <div style="margin: auto;">
+					            	<audio src="/media/{{ mediaResult.audio }}" preload="auto" controls></audio>
+					            </div>
+								<a href="/cashcity/media/interview/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
+									<h4>{{ mediaResult.title }}</h4>
+								</a>
+							</div>
+					{% elif mediaResult.image %}
+						<a href="/cashcity/media/image/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
+							<div class="col-xs-4 media-stub">
+								<div class="image_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div>
+							{% if mediaResult.getUserProfile.color == None %}
+								<p><strong>Teacher Added</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />Teacher: {{ mediaResult.getUserProfile.teacherName }}</p>
+							{% else %}
+								<p><strong>{{ mediaResult.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />{{ mediaResult.getUserProfile.teacherName }}'s Section {{ mediaResult.getUserProfile.section }}</p>
+							{% endif %}							
+					            <div style="height: 280px; width: 280px; margin: auto; overflow: hidden;">
+					            	<img src="{% cropped_thumbnail mediaResult 'cropped_image' %}">
+					            </div>
+								<h4>{{ mediaResult.title }}</h4>
+							</div>
+						</a>
+					{% elif mediaResult.audio %}
+							<div class="col-xs-4 media-stub">
+								<a href="/cashcity/media/audio/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
+									<div class="audio_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div>
+								{% if mediaResult.getUserProfile.color == None %}
+									<p><strong>Teacher Added</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />Teacher: {{ mediaResult.getUserProfile.teacherName }}</p>
+								{% else %}
+									<p><strong>{{ mediaResult.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />{{ mediaResult.getUserProfile.teacherName }}'s Section {{ mediaResult.getUserProfile.section }}</p>
+								{% endif %}	
+								</a>						
+					            <div style="margin-right: auto; margin-left: auto; margin-top: 10px;">
+					            	<audio src="/media/{{ mediaResult.audio }}" preload="auto" controls></audio>
+					            </div>
+								<a href="/cashcity/media/audio/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
+								
+									<h4>{{ mediaResult.title }}</h4>
+								</a>
+							</div>
+						
+					{% else %}
+						<a href="/cashcity/media/note/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
+							<div class="col-xs-4 media-stub">
+								<div class="note_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div>
+							{% if mediaResult.getUserProfile.color == None %}
+								<p><strong>Teacher Added</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />Teacher: {{ mediaResult.getUserProfile.teacherName }}</p>
+							{% else %}
+								<p><strong>{{ mediaResult.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />{{ mediaResult.getUserProfile.teacherName }}'s Section {{ mediaResult.getUserProfile.section }}</p>
+							{% endif %}							
+								<h4>{{ mediaResult.title }}</h4>
+					            <div style="height: 280px; width: 280px; margin: auto; overflow: hidden;">
+									<p>{{ mediaResult.notes }}</p>
+					            </div>
+							</div>
+						</a>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>

@@ -117,6 +117,16 @@
 
 
 {% block js_block %}
+	<script type="text/javascript">
+	{% if form.address.value == None %}
+		var initialAddress = "";
+	{% else %}
+		var initialAddress = "{{ form.address.value }}";
+	{% endif %}
+	var initialLat = "{{ form.latitude.value }}";
+	var initialLng = "{{ form.longitude.value }}";
+	var marker = '';
+	</script>
 	<script type="text/javascript" src="{% static 'CashCity/js/mapbox.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/l.control.geosearch.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/l.geosearch.provider.google.js' %}"></script>

@@ -20,6 +20,11 @@ $(document).ready( function() {
     var formMap = new FormMap();
 	formMap.addGeoSearch();
 	
+	// if address exists, add it to the #leaflet-control-geosearch-qry field
+	if (initialAddress != '') {
+		$('#leaflet-control-geosearch-qry').attr("value", initialAddress)
+	}
+	
 	//set up listener to populate address field
 	$('#addressSearch').click(function() {
 		var address = $('#leaflet-control-geosearch-qry').val();

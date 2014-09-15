@@ -21,7 +21,7 @@
 					<a href="{% url 'teams' %}"><button type="button" class="btn btn-default">Teams</button></a>
 				</div>
 				<div class="btn-group">	
-			  	  <a href="#"><button type="button" class="btn btn-default">Media</button></a>
+			  	  <a href="{% url 'accountMedia' %}"><button type="button" class="btn btn-default">Media</button></a>
   				</div>
   				<div class="btn-group">		  
 			 	   <a href="#"><button type="button" class="btn btn-default">Opinions</button></a>
@@ -50,8 +50,8 @@
 					<a href="{% url 'auth_password_change' %}">Change Your Password</a>
 				</div>
 				<div class="form-group">
-					<label for="name">Name</label>{% if profile_form.name.errors %} <span class ="text-danger">{{ profile_form.name.errors|join:", " }}</span>{% endif %}
-					{{ profile_form.name|add_class:"form-control" }}
+					<label for="name">Name</label>{% if profile_form.teacherName.errors %} <span class ="text-danger">{{ profile_form.teacherName.errors|join:", " }}</span>{% endif %}
+					{{ profile_form.teacherName|add_class:"form-control" }}
 				</div>
 				<div class="form-group">
 					<label for="email">Email</label>{% if user_form.email.errors %} <span class ="text-danger">{{ user_form.email.errors|join:", " }}</span>{% endif %}

@@ -1,5 +1,5 @@
 {% extends "CashCity/base.html" %}
-{% load widget_tweaks %}
+{% load cropping %}
 {% load i18n %}
 {% load staticfiles %}
 
@@ -10,26 +10,17 @@
 
 {% block body_block %}
 <div class="full-container">
-	<h3>Teacher Account</h3>
+	<h3>Student Account</h3>
 	<div class="row">
-		<div class="col-xs-6">
+		<div class="col-xs-3">
 			<div class="btn-group btn-group-justified">
-				<div class="btn-group">
-				  <a href="{% url 'accountProfile' %}"><button type="button" class="btn btn-default">Account</button></a>
-				</div>
-				<div class="btn-group">
-					<a href="{% url 'teams' %}"><button type="button" class="btn btn-default active">Teams</button></a>
-				</div>
 				<div class="btn-group">	
-			  	  <a href="#"><button type="button" class="btn btn-default">Media</button></a>
+			  	  <a href="{% url 'studentProfileMedia' %}"><button type="button" class="btn btn-default active">Media</button></a>
   				</div>
   				<div class="btn-group">		  
 			 	   <a href="#"><button type="button" class="btn btn-default">Opinions</button></a>
    				</div>				   
 			</div>
-		</div>
-		<div class="col-xs-6">
-			<a href="{% url 'createTeam' %}"><button type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"></span> Team</button></a>
 		</div>
 	</div>
 	<br />
@@ -38,30 +29,28 @@
 			<div class="jumbotron ">
 				<div class="row">
 					<div class="col-xs-12">
-						<h3 class="text-danger">Remove A Team</h3>
-						<p>Are you sure you want to remove this team?</p>
+						<h3 class="text-danger">Remove An Image</h3>
+						<p>Are you sure you want to remove this image?</p>
 					</div>
 					<form role="form" method="post" action=".">{% csrf_token %}
-						<div class="col-xs-4">				
+						<div class="col-xs-12">	
 							<div class="form-group">
-								<label for="section">Section:</label>
-								{{ student_profile.section }}
+								<img src="{% cropped_thumbnail mediaImage 'cropped_image' %}">
 							</div>
-						</div>
-						<div class="col-xs-4">				
 							<div class="form-group">
-								<label for="color">Team Color:</label>
-								{{ student_profile.color|title }}
+								<label for="title">Title:</label>
+								{{ mediaImage.title|title }}
 							</div>
-						</div>
-						<div class="col-xs-4">
 							<div class="form-group">
-								<label for="username">Username:</label>
-								{{ student_user.username }}
+								<label for="caption">Caption:</label>
+								{{ mediaImage.caption }}
 							</div>
-						</div>
-						<div class="col-xs-12">
-							<p class="text-danger">Removing this team will also remove all of their stored media and opinions, so proceed with caution.</p>
+							<div class="form-group">
+								<label for="Tags">Tags:</label>
+								{% for tags in mediaImage.tags.names %}
+								    {{ tags }}{% if forloop.last %}{% else %},{% endif %}
+								{% endfor %}
+							</div>
 						</div>
 						<div class="col-xs-6">		
 							<button type="submit" class="btn btn-danger pull-left" name="save">Remove</button>
@@ -79,5 +68,4 @@
 
 {% block js_block %}
 	<script type="text/javascript" src="{% static 'CashCity/js/bootstrap-select.min.js' %}"></script>
-	<script type="text/javascript" src="{% static 'CashCity/js/dropdownColor.js' %}"></script>
 {% endblock %}

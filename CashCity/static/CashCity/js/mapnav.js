@@ -288,6 +288,8 @@ $( document ).ready(function() {
 		}
 	});
 	
+	// ensure that locations tab is active on page load
+	$('#locations-tab').addClass('active');
 
 	$('#navTabs a').click(function (e) {
 	    var tab = $(this);
@@ -298,6 +300,49 @@ $( document ).ready(function() {
 	        },1);
 	    }
 	});
+	
+	/*
+	* map nav media tags filter section
+	*/
+	
+	// media button layer toggle
+	$('#MEDIA').click(function() {
+		CityDigitsMap.loadMediaLayerFor('MEDIA');
+	});
+	
+
+	// initialize listener for tags filters
+	onChangeListener();	
+	
+	// add event listeners to run functions on change
+	function onChangeListener() {	
+		$( ".ui-autocomplete-input" ).keydown(function(e) {
+			console.log(e.which);
+		    var code = e.which;
+		    if(code==13)e.preventDefault();
+		    if(code==13){
+			    //get search values
+				var tags = $("#tags").val();
+			    loadMedia(tags);
+		    } // missing closing if brace
+		});
+	} 
+	
+	
+	// functions that are run on change
+	function loadMedia(tags){
+	    $.ajax({
+	        type: 'GET',
+	        url:  'filter/?tags=' + tags,
+	        success: function(data){
+				// recreate tag geojson, remove old geojson and pass new one to map
+	            //$(".media-content-container").html(data);
+				// refresh bootstrap dropdown menus
+				onChangeListener();
+	        }
+	    });
+	}
+
 
 
 });

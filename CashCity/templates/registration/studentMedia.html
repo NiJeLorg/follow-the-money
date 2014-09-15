@@ -168,43 +168,7 @@
 			height: 50px;
 			background-image: url({% static 'CashCity/img/note_yellow.png' %})
 		}	
-		
-		.opinion_green {
-			display: inline-block;
-			width: 42px;
-			height: 50px;
-			background-image: url({% static 'CashCity/img/opinion_green.png' %})
-		}
-		.opinion_orange {
-			display: inline-block;
-			width: 42px;
-			height: 50px;
-			background-image: url({% static 'CashCity/img/opinion_orange.png' %})
-		}
-		.opinion_pink {
-			display: inline-block;
-			width: 42px;
-			height: 50px;
-			background-image: url({% static 'CashCity/img/opinion_pink.png' %})
-		}
-		.opinion_purple {
-			display: inline-block;
-			width: 42px;
-			height: 50px;
-			background-image: url({% static 'CashCity/img/opinion_purple.png' %})
-		}
-		.opinion_red {
-			display: inline-block;
-			width: 42px;
-			height: 50px;
-			background-image: url({% static 'CashCity/img/opinion_red.png' %})
-		}
-		.opinion_yellow {
-			display: inline-block;
-			width: 42px;
-			height: 50px;
-			background-image: url({% static 'CashCity/img/opinion_yellow.png' %})
-		}			
+			
 		
 	</style>	
 {% endblock %}	
@@ -225,31 +189,12 @@
 		</div>
 	</div>
 	<br />
+		
 	<div class="row">
 		<div class="col-xs-12">
-			{% if success %}
-			<div class="alert alert-success fade in" role="alert">
-				<strong>Media Saved!</strong>
-				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<div class="media-content-container">
+				{% include 'registration/filterStudentMedia.html' %}
 			</div>
-			{% endif %}
-			{% if mediaImage %}
-			<table class="table">
-				<tbody>
-				{% for image in mediaImage %}
-					<tr>
-						<td><div class="image-{{ profile.color }}"></div></td>
-						<td>{{ image.image }}</td>
-						<td><strong>Title</strong><br />{{ image.title }}</td>
-						<td>{{ image.last_modified|date:"F j, Y" }}</td>
-						<td><a href="/accounts/profile/student/media/{{ image.id }}"><div class="edit-button"></div></a><a href="/accounts/profile/student/media/{{ image.id }}"><div class="trash-button"></div></a></td>
-					</tr>
-				{% endfor %}					
-				</tbody>
-			</table>
-			{% else %}
-			<h4><a href="{% url 'mediaFormImage' %}">Add some media!</a></h4>
-			{% endif %}
 		</div>
 	</div>
 </div>	
@@ -258,4 +203,5 @@
 
 {% block js_block %}
 	<script type="text/javascript" src="{% static 'CashCity/js/bootstrap-select.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/studentMediaFilter.js' %}"></script>
 {% endblock %}

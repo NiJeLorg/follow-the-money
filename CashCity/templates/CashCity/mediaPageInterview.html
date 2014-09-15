@@ -1,0 +1,165 @@
+{% extends 'CashCity/base.html' %}
+{% load cropping %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/mapbox.css' %}">
+	<style type="text/css">
+		.interview_green {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/interview_green.png' %})
+		}
+		.interview_orange {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/interview_orange.png' %})
+		}
+		.interview_pink {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/interview_pink.png' %})
+		}
+		.interview_purple {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/interview_purple.png' %})
+		}
+		.interview_red {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/interview_red.png' %})
+		}
+		.interview_yellow {
+			display: inline-block;
+			width: 42px;
+			height: 50px;
+			background-image: url({% static 'CashCity/img/interview_yellow.png' %})
+		}
+		
+		.opinion_green {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_green.png' %})
+		}
+		.opinion_orange {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_orange.png' %})
+		}
+		.opinion_pink {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_pink.png' %})
+		}
+		.opinion_purple {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_purple.png' %})
+		}
+		.opinion_red {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_red.png' %})
+		}
+		.opinion_yellow {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_yellow.png' %})
+		}
+				
+	</style>
+{% endblock %}		
+
+
+{% block body_block %}
+<div class="half-container">
+	<div class="row">
+		<div class="interview_{{ mediaInterviewObject.getUserProfile.color }} pull-left margin-right"></div>
+		{% if mediaInterviewObject.getUserProfile.color == None %}
+			<p><strong>Teacher Added: </strong>{{ mediaInterviewObject.getUserProfile.teacherName }} 		
+		{% else %}
+			<p><strong>{{ mediaInterviewObject.getUserProfile.color|title }} Team</strong>	
+		{% endif %}
+		<span class="pull-right">{{ mediaInterviewObject.last_modified|date:"F j, Y" }}</span></p>	
+	</div>
+	<div class="row">
+		<hr />
+	</div>	
+	<div class="row">
+		<h3>{{ mediaInterviewObject.title|title }}</h3>
+		<img src="{% cropped_thumbnail mediaInterviewObject 'cropped_image_w640_h480' %}">
+		<audio style="margin: 10px 0px;" src="/media/{{ mediaInterviewObject.audio }}" preload="auto" controls></audio>
+		<div id="mediaMap"></div>
+		<p>{{ mediaInterviewObject.caption }}</p>
+		<p><strong>Tags:</strong> 
+			{% for tags in mediaInterviewObject.tags.names %}
+			    {{ tags }}{% if forloop.last %}{% else %},{% endif %}
+			{% endfor %}
+		</p>
+	</div>
+	<br />		
+	<div class="row">
+		{% if comments %}
+			<h4>Comments</h4>
+			<hr>
+			{% for comment in comments %}
+				<div class="opinion_{{ comment.getUserProfile.color }} pull-left margin-right"></div>
+				{% if comment.getUserProfile.teacherOrStudent %}
+					<p>{{ comment.getUserProfile.teacherName }}
+				{% else %}
+					<p><strong>{{ comment.getUserProfile.color|title }} Team,</strong> {{ comment.getUserProfile.teacherName }}'s Class
+				{% endif %}
+				<span class="pull-right">{{comment.created|timesince }} ago</span></p>
+				<p>{{ comment.comment }}</p>
+				<hr>
+			{% endfor %}
+		{% endif %}
+		<br />
+		{% if success %}
+			<div class="alert alert-success fade in" role="alert">
+				<strong>Comment Saved!</strong>
+				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			</div>
+		{% endif %}
+		{% if comment_form %}
+			<form role="form" method="post" action="/cashcity/media/interview/{{ mediaInterviewObject.id }}/" >{% csrf_token %}
+				<div class="form-group">
+					<label for="comment">Add A Comment</label>{% if comment_form.comment.errors %} <span class="text-danger">{{ comment_form.comment.errors|join:", " }}</span>{% endif %}
+					{{ comment_form.comment|add_class:"form-control" }}
+				</div>
+				<button type="submit" class="btn btn-default" name="submit" value="submit">Submit</button>
+			</form>
+		{% endif %}
+
+		
+	</div>
+
+</div>
+	
+{% endblock %}
+
+
+{% block js_block %}
+	<script type="text/javascript">
+	var lat = {{ mediaInterviewObject.latitude }};
+	var lng = {{ mediaInterviewObject.longitude }};
+	{% with 'CashCity/img/interview_'|add:mediaInterviewObject.getUserProfile.color|add:'.png' as image_static %}
+		var iconUrl = "{% static image_static %}";
+	{% endwith %}
+	</script>
+	<script type="text/javascript" src="{% static 'CashCity/js/mapbox.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/media-map.js' %}"></script>
+{% endblock %}

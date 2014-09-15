@@ -1,5 +1,8 @@
 {% extends 'CashCity/base.html' %}
 {% load staticfiles %}
+{% load cropping %}
+{% load widget_tweaks %}
+
 
 {% block css_block %}
     <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/bootstrap-select.min.css' %}">
@@ -291,6 +294,17 @@
 			width: 22px;
 		}
 		
+		/*
+		* Media button image
+		*/
+		
+		.image-button-media {
+			display: inline-block;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'CashCity/img/image_gray.png' %})
+		}
+		
 		
 		</style>
 {% endblock %}	
@@ -301,7 +315,7 @@
         <div class="col-xs-6 col-md-4">
            <div id="map-nav" class="map-nav map-ui">
 			<ul id="navTabs" class="nav nav-tabs nav-mapui nav-justified" role="tablist">
-			  <li class="active"><a href="#locations" role="tab" data-toggle="tab"><div class="location-button"></div>LOCATIONS</a></li>
+			  <li id='locations-tab'><a href="#locations" role="tab" data-toggle="tab"><div class="location-button"></div>LOCATIONS</a></li>
 			  <li><a href="#maps" role="tab" data-toggle="tab"><div class="map-button"></div>MAPS</a></li>
 			  <li><a href="#createMap" role="tab" data-toggle="tab"><div class="edit-button"></div>CREATE MAP</a></li>
 			  <li><a href="#media" role="tab" data-toggle="tab"><div class="image-button"></div>MEDIA</a></li>
@@ -418,7 +432,15 @@
 			        <form>
 				</div>
 			  </div>
-		      <div class="tab-pane fade" id="media">Under Construction</div>
+		      <div class="tab-pane fade" id="media">
+				<button id="MEDIA" type="button" class="btn btn-default btn-lg toggle-media-button"><div class="image-button-media"></div><br />Media</button>
+				<form class="form-inline">
+				  <div class="form-group has-feedback map-tag-search-box">
+					  {{ form.tags|attr:"id:tags" }}
+				    <span class="glyphicon glyphicon-search form-control-feedback-media"></span>
+				  </div>
+				</form>			  
+			  </div>
 			  <div class="tab-pane fade" id="search">
 				<div id="geosearch-target" class="geosearch-input">
 					<span class="input-group-btn">
@@ -452,7 +474,8 @@
 	  	</div>
     </div>
 	<div id="map"></div>
-</div>	
+</div>
+
 {% endblock %}
 
 
@@ -477,6 +500,7 @@
 	var PawnShops = "{% static 'CashCity/locationData/PawnShops.csv' %}";
 	var closeButtonGray	= "{% static 'CashCity/img/close_gray.png' %}";
 	</script>
+	{% include 'CashCity/mapFilterMedia.html' %}
 	<script type="text/javascript" src="{% static 'CashCity/js/CityDigitsMap.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/application.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/mapnav.js' %}"></script>

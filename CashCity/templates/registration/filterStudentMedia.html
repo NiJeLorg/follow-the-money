@@ -1,0 +1,159 @@
+{% load cropping %}
+{% load widget_tweaks %}
+
+{% if success %}
+<div class="alert alert-success fade in" role="alert">
+	<strong> Saved!</strong>
+	<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+</div>
+{% endif %}
+
+<div class='filter-container'>	
+    <label for="type"><b>Type:</b></label>
+    <select id="type" name="type">
+        {%  if toolbar.searchType == 'All' %}
+            <option value="All" selected>All</option>
+            <option value="Images">Images</option>
+            <option value="Audio">Audio</option>
+            <option value="Notes">Notes</option>
+            <option value="Interviews">Interviews</option>
+        {% elif toolbar.searchType == 'Images' %}
+            <option value="All">All</option>
+            <option value="Images" selected>Images</option>
+            <option value="Audio">Audio</option>
+            <option value="Notes">Notes</option>
+            <option value="Interviews">Interviews</option>
+        {% elif toolbar.searchType == 'Audio' %}
+            <option value="All">All</option>
+            <option value="Images">Images</option>
+            <option value="Audio" selected>Audio</option>
+            <option value="Notes">Notes</option>
+            <option value="Interviews">Interviews</option>
+        {% elif toolbar.searchType == 'Notes' %}
+            <option value="All">All</option>
+            <option value="Images">Images</option>
+            <option value="Audio">Audio</option>
+            <option value="Notes" selected>Notes</option>
+            <option value="Interviews">Interviews</option>
+        {% elif toolbar.searchType == 'Interviews' %}
+            <option value="All">All</option>
+            <option value="Images">Images</option>
+            <option value="Audio">Audio</option>
+            <option value="Notes" >Notes</option>
+            <option value="Interviews" selected>Interviews</option>
+        {% else %}
+            <option value="All" selected>All</option>
+            <option value="Images">Images</option>
+            <option value="Audio">Audio</option>
+            <option value="Notes">Notes</option>
+            <option value="Interviews">Interviews</option>
+        {% endif %}
+    </select>
+</div>
+<div class='filter-container pull-right'>
+	<form class="form-inline">
+	  <div class="form-group has-feedback">
+		  {{ form.tags|attr:"id:tags" }}
+	    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+	  </div>
+	</form>
+</div>
+
+{% if mediaResults %}
+<table class="table">
+	<tbody>
+		{% for mediaResult in mediaResults %}
+			{% if mediaResult.image and mediaResult.audio %}
+				<tr>
+					<td>{{ mediaResult.getUserProfile.section }}</td>
+					<td><div class="interview_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></td>
+					<td>
+						<div style="height: 241px; width: 280px; margin-bottom: 5px; overflow: hidden;">
+			            	<img src="{% cropped_thumbnail mediaResult 'cropped_image' %}">
+			            </div>
+			            <div style="margin: auto;">
+			            	<audio src="/media/{{ mediaResult.audio }}" preload="auto" controls></audio>
+			            </div>
+					</td>
+					<td>
+						<p><strong>{{ mediaResult.title }} </strong>
+						{% if mediaResult.published %}
+							<span class="label label-primary">Published</span>
+						{% else %}
+							<span class="label label-default">Draft</span>
+						{% endif %}
+						</p>
+						<p>{{ mediaResult.caption }}</p>
+					</td>
+					<td>{{ mediaResult.last_modified|date:"F j, Y" }}</td>
+					<td width='60'><a href="/cashcity/media/form/edit/interview/{{ mediaResult.id }}/"><div class="edit-button"></div></a><a href="/cashcity/media/form/remove/interview/{{ mediaResult.id }}/"><div class="trash-button"></div></a></td>
+				</tr>
+			{% elif mediaResult.image %}
+				<tr>
+					<td>{{ mediaResult.getUserProfile.section }}</td>
+					<td><div class="image_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></td>
+					<td>
+						<div style="height: 280px; width: 280px; margin-bottom: 5px; overflow: hidden;">
+			            	<img src="{% cropped_thumbnail mediaResult 'cropped_image' %}">
+			            </div>
+					</td>
+					<td>
+						<p><strong>{{ mediaResult.title }} </strong>
+						{% if mediaResult.published %}
+							<span class="label label-primary">Published</span>
+						{% else %}
+							<span class="label label-default">Draft</span>
+						{% endif %}
+						</p>
+						<p>{{ mediaResult.caption }}</p>
+					</td>
+					<td>{{ mediaResult.last_modified|date:"F j, Y" }}</td>
+					<td width='60'><a href="/cashcity/media/form/edit/image/{{ mediaResult.id }}/"><div class="edit-button"></div></a><a href="/cashcity/media/form/remove/image/{{ mediaResult.id }}/"><div class="trash-button"></div></a></td>
+				</tr>
+			{% elif mediaResult.audio %}
+				<tr>
+					<td>{{ mediaResult.getUserProfile.section }}</td>
+					<td><div class="audio_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></td>
+					<td>
+			            <div style="margin: auto;">
+			            	<audio src="/media/{{ mediaResult.audio }}" preload="auto" controls></audio>
+			            </div>
+					</td>
+					<td>
+						<p><strong>{{ mediaResult.title }} </strong>
+						{% if mediaResult.published %}
+							<span class="label label-primary">Published</span>
+						{% else %}
+							<span class="label label-default">Draft</span>
+						{% endif %}
+						</p>
+						<p>{{ mediaResult.caption }}</p>
+					</td>
+					<td>{{ mediaResult.last_modified|date:"F j, Y" }}</td>
+					<td width='60'><a href="/cashcity/media/form/edit/audio/{{ mediaResult.id }}/"><div class="edit-button"></div></a><a href="/cashcity/media/form/remove/audio/{{ mediaResult.id }}/"><div class="trash-button"></div></a></td>
+				</tr>
+			{% else %}
+				<tr>
+					<td>{{ mediaResult.getUserProfile.section }}</td>
+					<td><div class="audio_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></td>
+					<td></td>
+					<td>
+						<p><strong>{{ mediaResult.title }} </strong>
+						{% if mediaResult.published %}
+							<span class="label label-primary">Published</span>
+						{% else %}
+							<span class="label label-default">Draft</span>
+						{% endif %}
+						</p>
+						<p>{{ mediaResult.notes }}</p>
+					</td>
+					<td>{{ mediaResult.last_modified|date:"F j, Y" }}</td>
+					<td width='60'><a href="/cashcity/media/form/edit/note/{{ mediaResult.id }}/"><div class="edit-button"></div></a><a href="/cashcity/media/form/remove/note/{{ mediaResult.id }}/"><div class="trash-button"></div></a></td>
+				</tr>
+			{% endif %}
+		{% endfor %}				
+	</tbody>
+</table>
+{% else %}
+<h4>No media.</h4>
+{% endif %}

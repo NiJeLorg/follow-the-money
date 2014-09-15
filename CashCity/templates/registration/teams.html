@@ -1,5 +1,4 @@
 {% extends 'CashCity/base.html' %}
-{% load widget_tweaks %}
 {% load staticfiles %}
 
 {% block css_block %}
@@ -38,7 +37,7 @@
 					<a href="{% url 'teams' %}"><button type="button" class="btn btn-default active">Teams</button></a>
 				</div>
 				<div class="btn-group">	
-			  	  <a href="#"><button type="button" class="btn btn-default">Media</button></a>
+			  	  <a href="{% url 'accountMedia' %}"><button type="button" class="btn btn-default">Media</button></a>
   				</div>
   				<div class="btn-group">		  
 			 	   <a href="#"><button type="button" class="btn btn-default">Opinions</button></a>
@@ -76,7 +75,7 @@
 						<td><span class="glyphicon glyphicon-certificate {{ team.color }}-icon"></span></td>
 						<td>{{ team.user }}</td>
 						<td>********</td>
-						<td><a href="/accounts/edit/team/{{ team.id }}"><div class="edit-button"></div></a><a href="/accounts/remove/team/{{ team.id }}"><div class="trash-button"></div></a></td>
+						<td><a href="/accounts/edit/team/{{ team.id }}/"><div class="edit-button"></div></a><a href="/accounts/remove/team/{{ team.id }}/"><div class="trash-button"></div></a></td>
 					</tr>
 				{% endfor %}					
 				</tbody>
