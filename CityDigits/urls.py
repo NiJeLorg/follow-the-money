@@ -13,8 +13,6 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # tagging autocomplete
     url(r'^taggit_autocomplete/', include('taggit_autocomplete.urls')),
-    # index page
-    url(r'^$', views.index, name='index'),
     # admin urls
     url(r'^admin/', include(admin.site.urls)),
     # override registration form to add new teachers

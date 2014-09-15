@@ -33,10 +33,79 @@ def index(request):
     if request.user.id:
         profile = ExUserProfile.objects.get(user=request.user.id)
     else:
-        profile = False   
-    context_dict = {'profile':profile}
+        profile = False 
+
+    # get all media and pass to template to create geojson file
+    #build query
+    kwargs = {}
+    # show only published media
+    kwargs['published__exact'] = True
+
+    #get mediaImages
+    mediaImages = MediaImage.objects.filter(**kwargs)
+
+    #get mediaAudio
+    mediaAudio = MediaAudio.objects.filter(**kwargs)
+
+    #get mediaNote
+    mediaNote = MediaNote.objects.filter(**kwargs)
+
+    #get mediaInterview
+    mediaInterview = MediaInterview.objects.filter(**kwargs)
+        
+    #pass in a form for tag autocomplete
+    form = MediaFormImage() 
+      
+    context_dict = {'mediaImages': mediaImages, 'mediaAudios': mediaAudio, 'mediaNotes': mediaNote, 'mediaInterviews': mediaInterview, 'form':form, 'profile':profile}
 
     return render_to_response('CashCity/index.html', context_dict, context)
+    
+
+def filterIndex(request):
+    """
+      Loads the filtered media on the map
+    """
+    context = RequestContext(request)
+    
+    #get user profile data and pass to view
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+    else:
+        profile = False
+        
+    # get all media and pass to template to create geojson file
+    #build query
+    kwargs = {}
+    # show only published media
+    kwargs['published__exact'] = True
+    
+    #get search tags
+    searchTags = request.GET.get("tags","All")
+    
+    #query for tags
+    if(searchTags != ""):
+        tagsArray = searchTags.split(',')
+        kwargs['tags__name__in'] = tagsArray
+    
+
+    #get mediaImages
+    mediaImages = MediaImage.objects.filter(**kwargs)
+
+    #get mediaAudio
+    mediaAudio = MediaAudio.objects.filter(**kwargs)
+
+    #get mediaNote
+    mediaNote = MediaNote.objects.filter(**kwargs)
+
+    #get mediaInterview
+    mediaInterview = MediaInterview.objects.filter(**kwargs)
+        
+    #pass in a form for tag autocomplete
+    form = MediaFormImage() 
+      
+    context_dict = {'mediaImages': mediaImages, 'mediaAudios': mediaAudio, 'mediaNotes': mediaNote, 'mediaInterviews': mediaInterview, 'searchTags': searchTags, 'form':form, 'profile':profile}
+
+    return render_to_response('CashCity/mapFilterMedia.html', context_dict, context)
 
 
 def mapNavigation(request):

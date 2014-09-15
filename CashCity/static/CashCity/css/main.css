@@ -383,6 +383,36 @@ hr {
 	border-top: 10px solid #3f3f3f;
 }
 
+/*
+* Media map search box css
+*/
+
+.toggle-media-button {
+	margin: 0px 10px 10px 10px;
+	width: 200px;
+	height: 100px;
+	float:left;
+	display: inline-block;
+}
+
+.map-tag-search-box {
+	margin: 10px 10px 0px 10px;
+	width: 98%;
+}
+
+/* boostrap override in the media tag search box */
+.form-control-feedback-media {
+    display: block;
+    height: 34px;
+    line-height: 34px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0px;
+    width: 52px;
+    z-index: 2;
+}
+
 
 /*
 * Map search box form css
