@@ -8,3 +8,6 @@ CityDigits/media/
 CityDigits/static/
 CashCity/media/
 cashcity.db
+env/
+static/
+CityDigits/wsgi.py
