@@ -1,10 +1,12 @@
 /**
- * screenshot.js: generate a screenshot of any page
+ * mapSnap.js: store map state on button click 
  * Author: NiJeL
  */
 
 $(function() { 
-    $("#btnSave").click(function() { 
+    $("#btnSave").click(function() {
+
+		// first, get current map state
 		var latitude =MY_MAP.map.getCenter().lat;
 		var longitude =MY_MAP.map.getCenter().lng;
 		var zoom =MY_MAP.map.getZoom();
@@ -15,17 +17,17 @@ $(function() {
 		var Banks =MY_MAP.map.hasLayer(LOC4);
 		var McDonalds =MY_MAP.map.hasLayer(LOC5);
 		var SubwayLines =MY_MAP.map.hasLayer(LOC6);
+						
 		loadMedia(latitude,longitude,zoom,MapLayer,PawnShops,CheckCashing,WireTransfer,Banks,McDonalds,SubwayLines);
-// function to save the map settings
+		
+		// function to save the map settings
 		function loadMedia(latitude,longitude,zoom,MapLayer,PawnShops,CheckCashing,WireTransfer,Banks,McDonalds,SubwayLines){
 		    $.ajax({
 		        type: 'GET',
 		        url:  'savemap/?latitude=' + latitude + '&longitude=' + longitude + '&zoom=' + zoom + '&MapLayer=' + MapLayer + '&PawnShops=' + PawnShops + '&CheckCashing=' + CheckCashing + '&WireTransfer=' + WireTransfer + '&Banks=' + Banks + '&McDonalds=' + McDonalds + '&SubwayLines=' + SubwayLines, 
-		        success: function(data){
-
-		        }
 		    });
 		}
 
     });
+		
 });

@@ -86,7 +86,15 @@
 						<p>{{ mediaResult.caption }}</p>
 					</td>
 					<td>{{ mediaResult.last_modified|date:"F j, Y" }}</td>
-					<td width='60'><a href="/cashcity/media/form/edit/interview/{{ mediaResult.id }}/"><div class="edit-button"></div></a><a href="/cashcity/media/form/remove/interview/{{ mediaResult.id }}/"><div class="trash-button"></div></a></td>
+					<td width='100'>
+						{% if mediaResult.published %}
+							<a href="/cashcity/media/saveDraft/interview/{{ mediaResult.id }}/"><span class="glyphicon glyphicon-floppy-save noDecoration" title="Move to Draft"></span></a>
+						{% else %}
+							<a href="/cashcity/media/publish/interview/{{ mediaResult.id }}/"><span class="glyphicon glyphicon-book noDecoration" title="Publish"></span></a>
+						{% endif %}
+						<a href="/cashcity/media/form/edit/interview/{{ mediaResult.id }}/"><div class="edit-button" title="Edit"></div></a>
+						<a href="/cashcity/media/form/remove/interview/{{ mediaResult.id }}/"><div class="trash-button" title="Remove"></div></a>
+					</td>
 				</tr>
 			{% elif mediaResult.image %}
 				<tr>
@@ -108,7 +116,15 @@
 						<p>{{ mediaResult.caption }}</p>
 					</td>
 					<td>{{ mediaResult.last_modified|date:"F j, Y" }}</td>
-					<td width='60'><a href="/cashcity/media/form/edit/image/{{ mediaResult.id }}/"><div class="edit-button"></div></a><a href="/cashcity/media/form/remove/image/{{ mediaResult.id }}/"><div class="trash-button"></div></a></td>
+					<td width='100'>
+						{% if mediaResult.published %}
+							<a href="/cashcity/media/saveDraft/image/{{ mediaResult.id }}/"><span class="glyphicon glyphicon-floppy-save noDecoration" title="Move to Draft"></span></a>
+						{% else %}
+							<a href="/cashcity/media/publish/image/{{ mediaResult.id }}/"><span class="glyphicon glyphicon-book noDecoration" title="Publish"></span></a>
+						{% endif %}
+						<a href="/cashcity/media/form/edit/image/{{ mediaResult.id }}/"><div class="edit-button" title="Edit"></div></a>
+						<a href="/cashcity/media/form/remove/image/{{ mediaResult.id }}/"><div class="trash-button" title="Remove"></div></a>
+					</td>
 				</tr>
 			{% elif mediaResult.audio %}
 				<tr>
@@ -130,7 +146,15 @@
 						<p>{{ mediaResult.caption }}</p>
 					</td>
 					<td>{{ mediaResult.last_modified|date:"F j, Y" }}</td>
-					<td width='60'><a href="/cashcity/media/form/edit/audio/{{ mediaResult.id }}/"><div class="edit-button"></div></a><a href="/cashcity/media/form/remove/audio/{{ mediaResult.id }}/"><div class="trash-button"></div></a></td>
+					<td width='100'>
+						{% if mediaResult.published %}
+							<a href="/cashcity/media/saveDraft/audio/{{ mediaResult.id }}/"><span class="glyphicon glyphicon-floppy-save noDecoration" title="Move to Draft"></span></a>
+						{% else %}
+							<a href="/cashcity/media/publish/audio/{{ mediaResult.id }}/"><span class="glyphicon glyphicon-book noDecoration" title="Publish"></span></a>
+						{% endif %}
+						<a href="/cashcity/media/form/edit/audio/{{ mediaResult.id }}/"><div class="edit-button" title="Edit"></div></a>
+						<a href="/cashcity/media/form/remove/audio/{{ mediaResult.id }}/"><div class="trash-button" title="Remove"></div></a>
+					</td>
 				</tr>
 			{% else %}
 				<tr>
@@ -148,12 +172,20 @@
 						<p>{{ mediaResult.notes }}</p>
 					</td>
 					<td>{{ mediaResult.last_modified|date:"F j, Y" }}</td>
-					<td width='60'><a href="/cashcity/media/form/edit/note/{{ mediaResult.id }}/"><div class="edit-button"></div></a><a href="/cashcity/media/form/remove/note/{{ mediaResult.id }}/"><div class="trash-button"></div></a></td>
+					<td width='100'>
+						{% if mediaResult.published %}
+							<a href="/cashcity/media/saveDraft/note/{{ mediaResult.id }}/"><span class="glyphicon glyphicon-floppy-save noDecoration" title="Move to Draft"></span></a>
+						{% else %}
+							<a href="/cashcity/media/publish/note/{{ mediaResult.id }}/"><span class="glyphicon glyphicon-book noDecoration" title="Publish"></span></a>
+						{% endif %}
+						<a href="/cashcity/media/form/edit/note/{{ mediaResult.id }}/"><div class="edit-button" title="Edit"></div></a>
+						<a href="/cashcity/media/form/remove/note/{{ mediaResult.id }}/"><div class="trash-button" title="Remove"></div></a>
+					</td>
 				</tr>
 			{% endif %}
 		{% endfor %}				
 	</tbody>
 </table>
 {% else %}
-<h4>No media.</h4>
+<h4>No media. <a href="{% url 'mediaFormImage' %}">Add some!</a></h4>
 {% endif %}

@@ -56,11 +56,28 @@ def index(request):
 
     #get mediaInterview
     mediaInterview = MediaInterview.objects.filter(**kwargs)
+    
+    #new query for mapSnaps
+    kwargs = {}
+
+    #get user profile data and pass to view
+    if request.user.id:
+        # show only media tied to this student group's account
+        kwargs['user__exact'] = request.user.id
+        #get mapSnaps
+        mapSnaps = MapSettings.objects.filter(**kwargs)
+        
+        # loop throuhg mapSnaps and increase zoom to way out
+        for mapSnap in mapSnaps:
+            mapSnap.zoom = mapSnap.zoom - 3
+               
+    else:
+        mapSnaps = {} 
         
     #pass in a form for tag autocomplete
     form = MediaFormImage() 
       
-    context_dict = {'mediaImages': mediaImages, 'mediaAudios': mediaAudio, 'mediaNotes': mediaNote, 'mediaInterviews': mediaInterview, 'form':form, 'profile':profile}
+    context_dict = {'mediaImages': mediaImages, 'mediaAudios': mediaAudio, 'mediaNotes': mediaNote, 'mediaInterviews': mediaInterview, 'mapSnaps':mapSnaps, 'form':form, 'profile':profile}
 
     return render_to_response('CashCity/index.html', context_dict, context)
     
@@ -110,16 +127,6 @@ def filterIndex(request):
     context_dict = {'mediaImages': mediaImages, 'mediaAudios': mediaAudio, 'mediaNotes': mediaNote, 'mediaInterviews': mediaInterview, 'searchTags': searchTags, 'form':form, 'profile':profile}
 
     return render_to_response('CashCity/mapFilterMedia.html', context_dict, context)
-
-
-def mapNavigation(request):
-    """
-      Loads the map navigation elements
-    """
-    context = RequestContext(request)
-    context_dict = {}
-   
-    return render_to_response('CashCity/map_navigation.html', context_dict, context)
 
 
 @login_required
@@ -605,9 +612,7 @@ def mediaFormImage(request, id=None):
                 
         # if user hits save as draft, flag data in media image table as draft
         elif "saveDraft" in request.POST:
-            form = MediaFormImage(request.POST, request.FILES, instance=mediaImage)      
-
-            form.image = mediaImage.image
+            form = MediaFormImage(request.POST, request.FILES, instance=mediaImage) 
             
             # Have we been provided with a valid form?
             if form.is_valid():
@@ -615,11 +620,9 @@ def mediaFormImage(request, id=None):
                 # Save the new data to the database.
                 f = form.save(commit=False)
                 
-                # add user from previous instance if 
-                if mediaImage in locals():
-                    f.user = mediaImage.user
-                else:
-                    f.user = request.user
+                # add user 
+                f.user = request.user
+
                 # mark as draft
                 f.published = False
                 f.save()
@@ -633,7 +636,7 @@ def mediaFormImage(request, id=None):
 
             else:
                 # The supplied form contained errors - just print them to the terminal.
-                print form.errors            
+                print form            
 
         else:
             form = MediaFormImage(request.POST, request.FILES, instance=mediaImage)
@@ -642,8 +645,10 @@ def mediaFormImage(request, id=None):
             if form.is_valid():
                 # Save the new data to the database.
                 f = form.save(commit=False)
-                # add current user
+
+                # add user 
                 f.user = request.user
+
                 # mark as published
                 f.published = True
                 f.save()
@@ -665,7 +670,7 @@ def mediaFormImage(request, id=None):
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
-    return render_to_response('CashCity/mediaFormImage.html', {'form': form, 'profile':profile}, context)
+    return render_to_response('CashCity/mediaFormImage.html', {'mediaImage': mediaImage, 'form': form, 'profile':profile}, context)
     
     
 @login_required
@@ -706,6 +711,59 @@ def mediaFormImageRemove(request, id=None):
 
     return render_to_response(template, {'mediaImage': mediaImage, 'profile':profile}, context)
     
+
+@login_required
+def mediaImageSaveDraft(request, id=None):
+    """
+      Allows for moving images to draft
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
+    
+    if id:
+        mediaImage = MediaImage.objects.get(pk=id)
+        mediaImage.published = False
+        mediaImage.save()
+        if profile.teacherOrStudent:
+            return HttpResponseRedirect('/accounts/profile/media/')
+        else:   
+            return HttpResponseRedirect('/accounts/profile/student/media/')
+    
+    else:  
+        if profile.teacherOrStudent:
+            return HttpResponseRedirect('/accounts/profile/media/')
+        else:   
+            return HttpResponseRedirect('/accounts/profile/student/media/')            
+            
+
+@login_required
+def mediaImagePublish(request, id=None):
+    """
+      Allows for moving images to draft
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
+    
+    if id:
+        mediaImage = MediaImage.objects.get(pk=id)
+        mediaImage.published = True
+        mediaImage.save()
+        if profile.teacherOrStudent:
+            return HttpResponseRedirect('/accounts/profile/media/')
+        else:   
+            return HttpResponseRedirect('/accounts/profile/student/media/')
+    
+    else:  
+        if profile.teacherOrStudent:
+            return HttpResponseRedirect('/accounts/profile/media/')
+        else:   
+            return HttpResponseRedirect('/accounts/profile/student/media/') 
+            
+            
 
 # view for media audio form
 @login_required
@@ -820,7 +878,60 @@ def mediaFormAudioRemove(request, id=None):
         
 
     return render_to_response(template, {'mediaAudio': mediaAudio, 'profile':profile}, context)
+
+
+@login_required
+def mediaAudioSaveDraft(request, id=None):
+    """
+      Allows for moving audio to draft
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
     
+    if id:
+        mediaAudio = MediaAudio.objects.get(pk=id)
+        mediaAudio.published = False
+        mediaAudio.save()
+        if profile.teacherOrStudent:
+            return HttpResponseRedirect('/accounts/profile/media/')
+        else:   
+            return HttpResponseRedirect('/accounts/profile/student/media/')
+    
+    else:  
+        if profile.teacherOrStudent:
+            return HttpResponseRedirect('/accounts/profile/media/')
+        else:   
+            return HttpResponseRedirect('/accounts/profile/student/media/')            
+            
+
+@login_required
+def mediaAudioPublish(request, id=None):
+    """
+      Allows for moving images to draft
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
+    
+    if id:
+        mediaAudio = MediaAudio.objects.get(pk=id)
+        mediaAudio.published = True
+        mediaAudio.save()
+        if profile.teacherOrStudent:
+            return HttpResponseRedirect('/accounts/profile/media/')
+        else:   
+            return HttpResponseRedirect('/accounts/profile/student/media/')
+    
+    else:  
+        if profile.teacherOrStudent:
+            return HttpResponseRedirect('/accounts/profile/media/')
+        else:   
+            return HttpResponseRedirect('/accounts/profile/student/media/') 
+            
+                     
     
 # view for media notes form
 @login_required
@@ -935,6 +1046,58 @@ def mediaFormNoteRemove(request, id=None):
         
     return render_to_response(template, {'mediaNote': mediaNote, 'profile':profile}, context)
 
+
+@login_required
+def mediaNoteSaveDraft(request, id=None):
+    """
+      Allows for moving images to draft
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
+    
+    if id:
+        mediaNote = MediaNote.objects.get(pk=id)
+        mediaNote.published = False
+        mediaNote.save()
+        if profile.teacherOrStudent:
+            return HttpResponseRedirect('/accounts/profile/media/')
+        else:   
+            return HttpResponseRedirect('/accounts/profile/student/media/')
+    
+    else:  
+        if profile.teacherOrStudent:
+            return HttpResponseRedirect('/accounts/profile/media/')
+        else:   
+            return HttpResponseRedirect('/accounts/profile/student/media/')            
+            
+
+@login_required
+def mediaNotePublish(request, id=None):
+    """
+      Allows for moving images to draft
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
+    
+    if id:
+        mediaNote = MediaNote.objects.get(pk=id)
+        mediaNote.published = True
+        mediaNote.save()
+        if profile.teacherOrStudent:
+            return HttpResponseRedirect('/accounts/profile/media/')
+        else:   
+            return HttpResponseRedirect('/accounts/profile/student/media/')
+    
+    else:  
+        if profile.teacherOrStudent:
+            return HttpResponseRedirect('/accounts/profile/media/')
+        else:   
+            return HttpResponseRedirect('/accounts/profile/student/media/') 
+            
     
 # view for media image form
 @login_required
@@ -1050,6 +1213,58 @@ def mediaFormInterviewRemove(request, id=None):
 
     return render_to_response(template, {'mediaInterview': mediaInterview, 'profile':profile}, context)    
 
+
+@login_required
+def mediaInterviewSaveDraft(request, id=None):
+    """
+      Allows for moving images to draft
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
+    
+    if id:
+        mediaInterview = MediaInterview.objects.get(pk=id)
+        mediaInterview.published = False
+        mediaInterview.save()
+        if profile.teacherOrStudent:
+            return HttpResponseRedirect('/accounts/profile/media/')
+        else:   
+            return HttpResponseRedirect('/accounts/profile/student/media/')
+    
+    else:  
+        if profile.teacherOrStudent:
+            return HttpResponseRedirect('/accounts/profile/media/')
+        else:   
+            return HttpResponseRedirect('/accounts/profile/student/media/')            
+            
+
+@login_required
+def mediaInterviewPublish(request, id=None):
+    """
+      Allows for moving images to draft
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
+    
+    if id:
+        mediaInterview = MediaInterview.objects.get(pk=id)
+        mediaInterview.published = True
+        mediaInterview.save()
+        if profile.teacherOrStudent:
+            return HttpResponseRedirect('/accounts/profile/media/')
+        else:   
+            return HttpResponseRedirect('/accounts/profile/student/media/')
+    
+    else:  
+        if profile.teacherOrStudent:
+            return HttpResponseRedirect('/accounts/profile/media/')
+        else:   
+            return HttpResponseRedirect('/accounts/profile/student/media/') 
+            
 
 def media(request):
     """
@@ -1412,19 +1627,19 @@ def mediaPageInterview(request, id=None):
 
 
 
-
+@login_required
 def SaveMap(request):
     context = RequestContext(request)
     latitude = request.GET.get("latitude","")
     longitude= request.GET.get("longitude","")
     zoom= request.GET.get("zoom","")
     MapLayer= request.GET.get("MapLayer","")
-    PawnShops= request.GET.get("PawnShops","")
-    CheckCashing= request.GET.get("CheckCashing","")
-    WireTransfer= request.GET.get("WireTransfer","")
-    Banks= request.GET.get("Banks","")
-    McDonalds= request.GET.get("McDonalds","")
-    SubwayLines= request.GET.get("SubwayLines","")
+    PawnShops= request.GET.get("PawnShops","") == 'true'
+    CheckCashing= request.GET.get("CheckCashing","") == 'true'
+    WireTransfer= request.GET.get("WireTransfer","") == 'true'
+    Banks= request.GET.get("Banks","") == 'true'
+    McDonalds= request.GET.get("McDonalds","") == 'true'
+    SubwayLines= request.GET.get("SubwayLines","") == 'true'
     
     MapDetails = MapSettings(latitude=latitude, longitude=longitude, zoom=zoom, MapLayer=MapLayer, PawnShops=PawnShops, CheckCashing=CheckCashing, WireTransfer=WireTransfer, Banks=Banks, McDonalds=McDonalds, SubwayLines=SubwayLines, user=request.user)
     

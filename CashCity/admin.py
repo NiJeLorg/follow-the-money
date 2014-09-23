@@ -12,6 +12,7 @@ from CashCity.models import MediaNote
 from CashCity.models import MediaNoteComments
 from CashCity.models import MediaInterview
 from CashCity.models import MediaInterviewComments
+from CashCity.models import MapSettings
 
 # for cropping images in the admin area
 class MediaImageCrop(ImageCroppingMixin, admin.ModelAdmin):
@@ -27,4 +28,5 @@ admin.site.register(MediaNote)
 admin.site.register(MediaNoteComments)
 admin.site.register(MediaInterview, MediaImageCrop)
 admin.site.register(MediaInterviewComments)
+admin.site.register(MapSettings)
 

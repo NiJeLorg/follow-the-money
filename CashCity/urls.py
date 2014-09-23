@@ -7,7 +7,6 @@ from CashCity import views
 urlpatterns = patterns('',
     #map urls
     url(r'^$', views.index, name='index'),
-    url(r'^map/nav/$', views.mapNavigation, name='map_nav'),
     # media form urls
     url(r'^media/form/image/', views.mediaFormImage, name='mediaFormImage'),
     url(r'^media/form/audio/', views.mediaFormAudio, name='mediaFormAudio'),
@@ -23,6 +22,16 @@ urlpatterns = patterns('',
     url(r'media/form/remove/audio/(?P<id>\d+)/$', views.mediaFormAudioRemove, name = 'mediaFormAudioRemove'),
     url(r'media/form/remove/note/(?P<id>\d+)/$', views.mediaFormNoteRemove, name = 'mediaFormNoteRemove'),
     url(r'media/form/remove/interview/(?P<id>\d+)/$', views.mediaFormInterviewRemove, name = 'mediaFormInterviewRemove'),
+    #media saveDraft
+    url(r'media/saveDraft/image/(?P<id>\d+)/$', views.mediaImageSaveDraft, name = 'mediaImageSaveDraft'),
+    url(r'media/saveDraft/audio/(?P<id>\d+)/$', views.mediaAudioSaveDraft, name = 'mediaAudioSaveDraft'),
+    url(r'media/saveDraft/note/(?P<id>\d+)/$', views.mediaNoteSaveDraft, name = 'mediaNoteSaveDraft'),
+    url(r'media/saveDraft/interview/(?P<id>\d+)/$', views.mediaInterviewSaveDraft, name = 'mediaInterviewSaveDraft'),
+    #media publish
+    url(r'media/publish/image/(?P<id>\d+)/$', views.mediaImagePublish, name = 'mediaImagePublish'),
+    url(r'media/publish/audio/(?P<id>\d+)/$', views.mediaAudioPublish, name = 'mediaAudioPublish'),
+    url(r'media/publish/note/(?P<id>\d+)/$', views.mediaNotePublish, name = 'mediaNotePublish'),
+    url(r'media/publish/interview/(?P<id>\d+)/$', views.mediaInterviewPublish, name = 'mediaInterviewPublish'),
     # media single pages
     url(r'^media/image/(?P<id>\d+)/$', views.mediaPageImage, name='mediaPageImage'), 
     url(r'^media/audio/(?P<id>\d+)/$', views.mediaPageAudio, name='mediaPageAudio'), 

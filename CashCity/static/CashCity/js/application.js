@@ -10,6 +10,8 @@
 var map_popups = [];
 var open_tooltips = [];
 var mainLayer = null;
+var createMapLoaded = false;
+var mediaLoaded = false;
 var mainChart = null;
 var LOC1 = null;
 var LOC2 = null;
@@ -27,16 +29,15 @@ var CURRENT_LAYER = null;
   This function is called when the page DOM has loaded. It enables 'back' button, sets up the map and map popups.
  */
 $().ready(new function(){
-
+	
     //get screen measurements
     SCREEN_HEIGHT =  $(window).height();
     var myMap = new CityDigitsMap();
     myMap.loadLayers();
     myMap.loadMarkers();
-	myMap.loadMedia();
 	myMap.addGeoSearch();
     mainLayer = myMap.neighborhoodLayer;
     MY_MAP = myMap;	
-
+	
+	
 });
-
