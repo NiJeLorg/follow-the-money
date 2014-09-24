@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+from django.forms.models import modelformset_factory
 
 # for chaining together querysets
 from itertools import chain
@@ -25,7 +26,7 @@ def redirectToIndex(request):
     """
       Loads the index page
     """
-    return HttpResponseRedirect('/cashcity/')
+    return HttpResponseRedirect('http://citydigits.org/')
 
 def index(request):
     """
@@ -339,6 +340,117 @@ def accountFilterMedia(request):
     return render_to_response('registration/filterMedia.html', {'mediaResults':mediaResults, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile, 'form': form}, context)
 
 
+@login_required
+def accountOpinion(request):
+    """
+      Loads the list of opinions in the teacher account
+    """
+    # Get the context from the request.
+    context = RequestContext(request)
+
+    profile = ExUserProfile.objects.get(user=request.user.id)
+    
+    # offset = int(offset)
+    #store toolbar form info
+    toolbar={'searchTeacher':'All',
+             'searchTeam':'All'}
+                     
+    #build query
+    kwargs = {}
+    # show only media tied to this teacher's student groups
+    classRequest = list(ExUserProfile.objects.filter(teacherId=request.user.id).values_list('user', flat=True))
+    #add in the teacher's own account
+    classRequest.append(request.user.id)
+    kwargs['user__in'] = classRequest
+
+    #get opinions
+    opinions = Opinions.objects.filter(**kwargs).order_by('-last_modified')
+        
+    # get list of tachers and sections
+    classes = ExUserProfile.objects.filter(teacherOrStudent=False, teacherId=request.user.id).values('teacherId', 'teacherName', 'section').order_by('teacherName', 'section').distinct()
+        
+    # get list of teams across all classes
+    teams = ExUserProfile.objects.filter(teacherOrStudent=False, teacherId=request.user.id).values_list('color', flat=True).order_by('color').distinct()   
+    
+    return render_to_response('registration/teacherOpinions.html', {'opinions':opinions, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
+
+
+@login_required
+def accountFilterOpinion(request):
+    """
+        This view returns the filtered list of opinions on the teacher account opinions page
+    """
+    # Get the context from the request.
+    context = RequestContext(request)
+
+    profile = ExUserProfile.objects.get(user=request.user.id)
+    
+    # offset = int(offset)
+    #store toolbar form info
+    toolbar={'searchClass':'All',
+             'searchTeam':'All'}
+             
+    #get search class
+    searchClass = request.GET.get("class","All")
+
+    #get search teams
+    searchTeam = request.GET.get("team","All")
+        
+    #build query
+    kwargs = {}
+    # show only media tied to this teacher's student groups
+    classRequest = list(ExUserProfile.objects.filter(teacherId=request.user.id).values_list('user', flat=True))
+    #add in the teacher's own account
+    classRequest.append(request.user.id)
+    kwargs['user__in'] = classRequest
+
+    
+    # interim query steps
+    kwargsClassTeam = {}
+    kwargsClass = {}
+    kwargsTeam = {}
+    if(searchClass != "All" and searchTeam != "All"):
+        # break searchClass apart
+        classArray = searchClass.split('_')
+        kwargsClassTeam['teacherId__exact'] = classArray[0]
+        kwargsClassTeam['section__exact'] = classArray[1]
+        kwargsClassTeam['color__exact'] = searchTeam
+        classRequest = ExUserProfile.objects.filter(**kwargsClassTeam).values_list('user', flat=True)
+        kwargs['user__in'] = classRequest
+        toolbar['searchClass'] = searchClass
+        toolbar['searchTeam'] = searchTeam
+    
+    else:     
+        if(searchClass != "All"):
+            # break searchClass apart
+            classArray = searchClass.split('_')
+            kwargsClass['teacherId__exact'] = classArray[0]
+            kwargsClass['section__exact'] = classArray[1]
+            classRequest = ExUserProfile.objects.filter(**kwargsClass).values_list('user', flat=True)
+            kwargs['user__in'] = classRequest
+            toolbar['searchClass'] = searchClass
+
+        if(searchTeam != "All"):
+            #ensure we only get search results for this teacher
+            kwargsTeam['teacherId__exact'] = request.user.id
+            kwargsTeam['color__exact'] = searchTeam
+            classRequest = ExUserProfile.objects.filter(**kwargsTeam).values_list('user', flat=True)
+            kwargs['user__in'] = classRequest
+            toolbar['searchTeam'] = searchTeam
+
+
+    #get opinions
+    opinions = Opinions.objects.filter(**kwargs).distinct().order_by('-last_modified')
+
+    # get list of tachers and sections
+    classes = ExUserProfile.objects.filter(teacherOrStudent=False, teacherId=request.user.id).values('teacherId', 'teacherName', 'section').order_by('teacherName', 'section').distinct()
+        
+    # get list of teams across all classes
+    teams = ExUserProfile.objects.filter(teacherOrStudent=False, teacherId=request.user.id).values_list('color', flat=True).order_by('color').distinct()   
+    
+    #render
+    return render_to_response('registration/filterOpinion.html', {'opinions':opinions, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
+
 
 @login_required
 def studentProfileMedia(request):
@@ -448,6 +560,27 @@ def studentFilterMedia(request):
 
     #render
     return render_to_response('registration/filterStudentMedia.html', {'mediaResults':mediaResults, 'toolbar':toolbar, 'profile':profile, 'form': form}, context)
+
+
+@login_required
+def studentProfileOpinion(request):
+    """
+      Loads the list of opinions in the student account
+    """
+    # Get the context from the request.
+    context = RequestContext(request)
+
+    profile = ExUserProfile.objects.get(user=request.user.id)
+                         
+    #build query
+    kwargs = {}
+    # show only media tied to this student group's account
+    kwargs['user__exact'] = request.user.id
+
+    #get opinions
+    opinions = Opinions.objects.filter(**kwargs).order_by('-last_modified')
+            
+    return render_to_response('registration/studentOpinions.html', {'opinions':opinions, 'profile':profile}, context)
 
 
 @login_required
@@ -670,7 +803,7 @@ def mediaFormImage(request, id=None):
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
-    return render_to_response('CashCity/mediaFormImage.html', {'mediaImage': mediaImage, 'form': form, 'profile':profile}, context)
+    return render_to_response('CashCity/mediaFormImage.html', {'form': form, 'profile':profile}, context)
     
     
 @login_required
@@ -1432,6 +1565,114 @@ def filterMedia(request):
 
     #render
     return render_to_response('CashCity/filterMedia.html', {'mediaResults':mediaResults, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile, 'form': form}, context)
+    
+    
+def opinion(request):
+    """
+        This view returns the initial list of opinions on the opinion page
+    """
+    # Get the context from the request.
+    context = RequestContext(request)
+
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+    else:
+        profile = False
+    
+    # offset = int(offset)
+    #store toolbar form info
+    toolbar={'searchTeacher':'All',
+             'searchTeam':'All'}
+                     
+    #build query
+    kwargs = {}
+    # show only published media
+    kwargs['published__exact'] = True
+
+    #get opinions
+    opinions = Opinions.objects.filter(**kwargs).order_by('-last_modified')
+
+    # get list of tachers and sections
+    classes = ExUserProfile.objects.filter(teacherOrStudent=False).values('teacherId', 'teacherName', 'section').order_by('teacherName', 'section').distinct();
+        
+    # get list of teams across all classes
+    teams = ExUserProfile.objects.filter(teacherOrStudent=False).values_list('color', flat=True).order_by('color').distinct()   
+    
+    #render
+    return render_to_response('CashCity/opinion.html', {'opinions':opinions, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
+
+
+def filterOpinions(request):
+    """
+        This view returns the filtered list of opinions on the opinions page
+    """
+    # Get the context from the request.
+    context = RequestContext(request)
+
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+    else:
+        profile = False
+    
+    # offset = int(offset)
+    #store toolbar form info
+    toolbar={'searchClass':'All',
+             'searchTeam':'All'}
+             
+    #get search class
+    searchClass = request.GET.get("class","All")
+
+    #get search teams
+    searchTeam = request.GET.get("team","All")
+        
+    #build query
+    kwargs = {}
+    # show only published media
+    kwargs['published__exact'] = True
+    
+    # interim query steps
+    kwargsClassTeam = {}
+    kwargsClass = {}
+    kwargsTeam = {}
+    if(searchClass != "All" and searchTeam != "All"):
+        # break searchClass apart
+        classArray = searchClass.split('_')
+        kwargsClassTeam['teacherId__exact'] = classArray[0]
+        kwargsClassTeam['section__exact'] = classArray[1]
+        kwargsClassTeam['color__exact'] = searchTeam
+        classRequest = ExUserProfile.objects.filter(**kwargsClassTeam).values_list('user', flat=True)
+        kwargs['user__in'] = classRequest
+        toolbar['searchClass'] = searchClass
+        toolbar['searchTeam'] = searchTeam
+    
+    else:     
+        if(searchClass != "All"):
+            # break searchClass apart
+            classArray = searchClass.split('_')
+            kwargsClass['teacherId__exact'] = classArray[0]
+            kwargsClass['section__exact'] = classArray[1]
+            classRequest = ExUserProfile.objects.filter(**kwargsClass).values_list('user', flat=True)
+            kwargs['user__in'] = classRequest
+            toolbar['searchClass'] = searchClass
+
+        if(searchTeam != "All"):
+            kwargsTeam['color__exact'] = searchTeam
+            classRequest = ExUserProfile.objects.filter(**kwargsTeam).values_list('user', flat=True)
+            kwargs['user__in'] = classRequest
+            toolbar['searchTeam'] = searchTeam
+
+
+    #get opinions
+    opinions = Opinions.objects.filter(**kwargs).distinct().order_by('-last_modified')
+
+    # get list of tachers and sections
+    classes = ExUserProfile.objects.filter(teacherOrStudent=False).values('teacherId', 'teacherName', 'section').order_by('teacherName', 'section').distinct()
+        
+    # get list of teams across all classes
+    teams = ExUserProfile.objects.filter(teacherOrStudent=False).values_list('color', flat=True).order_by('color').distinct() 
+    
+    #render
+    return render_to_response('CashCity/filterOpinions.html', {'opinions':opinions, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
 
 
 def mediaPageImage(request, id=None):
@@ -1630,6 +1871,13 @@ def mediaPageInterview(request, id=None):
 @login_required
 def SaveMap(request):
     context = RequestContext(request)
+    
+    #get user profile data and pass to view
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+    else:
+        profile = False 
+    
     latitude = request.GET.get("latitude","")
     longitude= request.GET.get("longitude","")
     zoom= request.GET.get("zoom","")
@@ -1640,7 +1888,135 @@ def SaveMap(request):
     Banks= request.GET.get("Banks","") == 'true'
     McDonalds= request.GET.get("McDonalds","") == 'true'
     SubwayLines= request.GET.get("SubwayLines","") == 'true'
+    Media= request.GET.get("Media","") == 'true'
     
-    MapDetails = MapSettings(latitude=latitude, longitude=longitude, zoom=zoom, MapLayer=MapLayer, PawnShops=PawnShops, CheckCashing=CheckCashing, WireTransfer=WireTransfer, Banks=Banks, McDonalds=McDonalds, SubwayLines=SubwayLines, user=request.user)
+    MapDetails = MapSettings(latitude=latitude, longitude=longitude, zoom=zoom, MapLayer=MapLayer, PawnShops=PawnShops, CheckCashing=CheckCashing, WireTransfer=WireTransfer, Banks=Banks, McDonalds=McDonalds, SubwayLines=SubwayLines, Media=Media, user=request.user)
     
     MapDetails.save()
+    
+    #new query for mapSnaps
+    kwargs = {}
+
+    #get user profile data and pass to view
+    if request.user.id:
+        # show only media tied to this student group's account
+        kwargs['user__exact'] = request.user.id
+        #get mapSnaps
+        mapSnaps = MapSettings.objects.filter(**kwargs)
+        
+        # loop throuhg mapSnaps and increase zoom to way out
+        for mapSnap in mapSnaps:
+            mapSnap.zoom = mapSnap.zoom - 3
+               
+    else:
+        mapSnaps = {}     
+          
+    context_dict = {'mapSnaps':mapSnaps, 'profile':profile}
+
+    return render_to_response('CashCity/mapSnapThumbnails.html', context_dict, context)
+
+
+# view for opinion form
+@login_required
+def opinionForm(request, id=None):
+    """
+      Adding and editing opinions
+    """
+    # Get the context from the request.
+    context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user) 
+    
+    #set Opinions Sections up as a formset -- 5 total repetitons of form
+    OpinionSectionsFormset = modelformset_factory(OpinionSections, extra=4, form=OpinionSectionsForm) 
+    
+    if id:
+        opinion = Opinions.objects.get(pk=id)
+        opinionSections = OpinionSections.objects.filter(opinion=opinion)
+        opinionsForm = OpinionsForm(instance=opinion)
+        formsetQueryset = opinionSections
+    else:
+        opinion = Opinions()    
+        opinionSections = OpinionSections()    
+        formsetQueryset = OpinionSections.objects.none()
+      
+
+    # A HTTP POST?
+    if request.method == 'POST':
+        # if user hits cancel, send back to media page without saving
+        if "cancel" in request.POST:
+            if profile.teacherOrStudent:
+                return HttpResponseRedirect('/accounts/profile/opinion/')
+            else:   
+                return HttpResponseRedirect('/accounts/profile/student/opinion/')
+                
+        # if user hits save as draft, flag data in media image table as draft
+        elif "saveDraft" in request.POST:
+            opinionsForm = OpinionsForm(request.POST, request.FILES, instance=opinion) 
+            opinionSectionsFormset = OpinionSectionsFormset(request.POST, request.FILES, queryset=formsetQueryset)
+            
+            # Have we been provided with a valid form?
+            if opinionsForm.is_valid() and opinionSectionsFormset.is_valid():
+                    
+                # Save the new data to the database.
+                f = opinionsForm.save(commit=False)
+                
+                # add user 
+                f.user = request.user
+
+                # mark as draft
+                f.published = False
+                f.save()
+                
+                # save the opinion sections
+                opinionSectionsFormset.save()
+
+            
+                if profile.teacherOrStudent:
+                    return HttpResponseRedirect('/accounts/profile/opinion/')
+                else:   
+                    return HttpResponseRedirect('/accounts/profile/student/opinion/')
+
+            else:
+                # The supplied form contained errors - just print them to the terminal.
+                print opinionsForm.errors         
+
+        else:
+            opinionsForm = OpinionsForm(request.POST, request.FILES, instance=opinion) 
+            opinionSectionsFormset = OpinionSectionsFormset(request.POST, request.FILES, queryset=formsetQueryset)
+            
+            # Have we been provided with a valid form?
+            if opinionsForm.is_valid() and opinionSectionsFormset.is_valid():
+                # Save the new data to the database.
+                f = opinionsForm.save(commit=False)
+                
+                # add user 
+                f.user = request.user
+
+                # mark as published
+                f.published = True
+                f.save()
+
+                # save the opinion sections
+                opinionSectionsFormset.save()
+            
+                if profile.teacherOrStudent:
+                    return HttpResponseRedirect('/accounts/profile/media/')
+                else:   
+                    return HttpResponseRedirect('/accounts/profile/student/media/')
+
+            else:
+                # The supplied form contained errors - just print them to the terminal.
+                print opinionsForm.errors
+                
+    else:
+        # If the request was not a POST, display the form to enter details.
+        opinionsForm = OpinionsForm(instance=opinion)
+        opinionSectionsFormset = OpinionSectionsFormset(queryset=formsetQueryset)
+
+    # Bad form (or form details), no form supplied...
+    # Render the form with error messages (if any).
+    return render_to_response('CashCity/opinionForm.html', {'opinionsForm': opinionsForm, 'opinionSectionsFormset': opinionSectionsFormset, 'profile':profile}, context)
+
+

@@ -1,0 +1,65 @@
+{% extends 'CashCity/base.html' %}
+{% load staticfiles %}
+{% load cropping %}
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/bootstrap-select.min.css' %}">
+
+	<style type="text/css">		
+		
+		.opinion_green {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_green.png' %})
+		}
+		.opinion_orange {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_orange.png' %})
+		}
+		.opinion_pink {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_pink.png' %})
+		}
+		.opinion_purple {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_purple.png' %})
+		}
+		.opinion_red {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_red.png' %})
+		}
+		.opinion_yellow {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_yellow.png' %})
+		}		
+		
+	</style>	
+	
+		
+{% endblock %}	
+
+{% block body_block %}
+<div class="stubs-container">
+	<div class="opinion-content-container">
+		{% include 'CashCity/filterOpinions.html' %}
+	</div>
+</div>	
+{% endblock %}
+
+
+{% block js_block %}
+	<script type="text/javascript" src="{% static 'CashCity/js/bootstrap-select.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/opinionFilter.js' %}"></script>
+
+{% endblock %}

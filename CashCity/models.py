@@ -24,6 +24,7 @@ class MapSettings(models.Model):
     Banks= models.BooleanField()
     McDonalds= models.BooleanField()
     SubwayLines= models.BooleanField()
+    Media= models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
     
@@ -239,7 +240,7 @@ class MediaNoteComments(models.Model):
         
         
                 
-# Model that stores Media Images
+# Model that stores Media Interviews
 class MediaInterview(models.Model):
     # Links MediaInterview to a User model instance.
     user = models.ForeignKey(User)
@@ -291,6 +292,90 @@ class MediaInterviewComments(models.Model):
     user = models.ForeignKey(User)    
     # Link Media Interview Comments to Media Interview
     mediaInterview = models.ForeignKey(MediaInterview)
+    comment = models.CharField(max_length=2000, null=False, blank=False)    
+    created = models.DateTimeField(auto_now_add=True)
+    
+    def getUserProfile(self):
+        """
+            get user profile info for the teacher/team that made the comment
+        """
+        return ExUserProfile.objects.get(user=self.user)
+       
+    def __unicode__(self):
+        return self.comment
+        
+        
+# Model that stores Opinions
+class Opinions(models.Model):
+    # Links Opinions to a User model instance.
+    user = models.ForeignKey(User)
+    authors = models.CharField(max_length=255, null=False, blank=False)
+    teamImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=False, blank=False)
+    # thumb for opinion 'stubs'
+    cropped_teamImage = ImageRatioField('image', '280x280')
+    # smaller version for opinion page
+    cropped_teamImage_w640_h480 = ImageRatioField('image', '640x480')
+    title = models.CharField(max_length=255, null=False, blank=False)
+
+    # metadata
+    published = models.BooleanField()
+    created = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        # ensure we save the existing image if no new image was uploaded
+        try:
+            this = Opinions.objects.get(id=self.id)
+            # check to see if the user editing is the user that created the object
+            if self.user != this.user:
+                self.user = this.user
+            # if no new object was added, ensure that the previous object is saved
+            if bool(self.teamImage) == False:
+                self.teamImage = this.teamImage
+        except: pass          
+        super(Opinions, self).save(*args, **kwargs)
+            
+    def getUserProfile(self):
+        """
+            get user profile info for the teacher/team that uploaded the media
+        """
+        return ExUserProfile.objects.get(user=self.user)
+    
+    def __unicode__(self):
+        return self.title 
+
+
+# Opinion Sections
+class OpinionSections(models.Model):
+    opinion = models.ForeignKey(Opinions)
+    sectionNumber = models.IntegerField()
+    image = models.ForeignKey(MediaImage, null=True, blank=True)
+    audio = models.ForeignKey(MediaAudio, null=True, blank=True)
+    note = models.ForeignKey(MediaNote, null=True, blank=True)
+    interview = models.ForeignKey(MediaInterview, null=True, blank=True)
+    mapSnap = models.ForeignKey(MapSettings, null=True, blank=True)
+    upload = models.FileField(upload_to="file/%Y_%m_%d_%h_%M_%s", null=True, blank=True)
+    text = models.CharField(max_length=10000, null=True, blank=True)
+    
+    def save(self, *args, **kwargs):
+        # ensure we save the existing image if no new image was uploaded
+        try:
+            this = OpinionSections.objects.get(id=self.id)
+            # if no new object was added, ensure that the previous object is saved
+            if bool(self.upload) == False:
+                self.upload = this.upload
+        except: pass          
+        super(OpinionSections, self).save(*args, **kwargs)
+        
+    def __unicode__(self):
+        return self.sectionNumber             
+
+# Comments on Opinions
+class OpinionComments(models.Model): 
+    # Link Opinion Comments to a User
+    user = models.ForeignKey(User)    
+    # Link Opinion Comments to Opinion
+    opinion = models.ForeignKey(Opinions)
     comment = models.CharField(max_length=2000, null=False, blank=False)    
     created = models.DateTimeField(auto_now_add=True)
     

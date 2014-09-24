@@ -1,0 +1,107 @@
+{% extends 'CashCity/base.html' %}
+{% load staticfiles %}
+{% load cropping %}
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/bootstrap-select.min.css' %}">
+	<!-- style embedded in django template for static file usage -->
+	<style type="text/css">		
+	
+		a > .edit-button {
+			display: inline-block;
+			margin-left: 5px;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'CashCity/img/edit_gray.png' %})
+		}
+		
+		a > .trash-button {
+			display: inline-block;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'CashCity/img/trash.png' %})
+		}
+		
+		.opinion_green {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_green.png' %})
+		}
+		.opinion_orange {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_orange.png' %})
+		}
+		.opinion_pink {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_pink.png' %})
+		}
+		.opinion_purple {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_purple.png' %})
+		}
+		.opinion_red {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_red.png' %})
+		}
+		.opinion_yellow {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_yellow.png' %})
+		}	
+			
+		
+	</style>
+	
+{% endblock %}	
+
+{% block body_block %}
+<div class="full-container">
+	<h3>Teacher Account</h3>
+	<div class="row">
+		<div class="col-xs-6">
+			<div class="btn-group btn-group-justified">
+				<div class="btn-group">
+				  <a href="{% url 'accountProfile' %}"><button type="button" class="btn btn-default">Account</button></a>
+				</div>
+				<div class="btn-group">
+					<a href="{% url 'teams' %}"><button type="button" class="btn btn-default">Teams</button></a>
+				</div>
+				<div class="btn-group">	
+			  	  <a href="{% url 'accountMedia' %}"><button type="button" class="btn btn-default">Media</button></a>
+  				</div>
+  				<div class="btn-group">		  
+			 	   <a href="{% url 'accountOpinion' %}"><button type="button" class="btn btn-default active">Opinions</button></a>
+   				</div>				   
+			</div>
+		</div>
+		<div class="col-xs-6">
+			<a href="{% url 'opinionForm' %}"><button type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"></span> Opinion</button></a>
+		</div>
+	</div>
+	<br />
+		
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="opinion-content-container">
+				{% include 'registration/filterOpinions.html' %}
+			</div>
+		</div>
+	</div>
+</div>	
+{% endblock %}
+
+
+{% block js_block %}
+	<script type="text/javascript" src="{% static 'CashCity/js/bootstrap-select.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/opinionFilter.js' %}"></script>
+{% endblock %}

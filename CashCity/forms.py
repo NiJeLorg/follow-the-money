@@ -135,7 +135,7 @@ class MediaFormNoteComment(forms.ModelForm):
             'comment': forms.widgets.Textarea(attrs={'rows': 2}),
         }        
         
-# Form for Images Audio
+# Form for Interviews
 class MediaFormInterview(forms.ModelForm):
             
     # An inline class to provide additional information on the form.
@@ -154,6 +154,40 @@ class MediaFormInterviewComment(forms.ModelForm):
     class Meta:
         # Provide an association between the ModelForm and a model
         model = MediaInterviewComments
+        fields = ('comment',)
+        widgets = {
+            'comment': forms.widgets.Textarea(attrs={'rows': 2}),
+        }     
+
+# Form for Opinions
+class OpinionsForm(forms.ModelForm):
+            
+    # An inline class to provide additional information on the form.
+    class Meta:
+        # Provide an association between the ModelForm and a model
+        model = Opinions
+        exclude = ["user"] 
+
+# Form for OpinionSections
+class OpinionSectionsForm(forms.ModelForm):
+            
+    # An inline class to provide additional information on the form.
+    class Meta:
+        # Provide an association between the ModelForm and a model
+        model = OpinionSections
+        exclude = ["opinion"]
+        widgets = {
+            'text': forms.widgets.Textarea(attrs={'rows': 3}),
+        }     
+         
+
+# Form for Opinion Comments
+class OpinionsFormComment(forms.ModelForm):
+    
+    # An inline class to provide additional information on the form.
+    class Meta:
+        # Provide an association between the ModelForm and a model
+        model = OpinionComments
         fields = ('comment',)
         widgets = {
             'comment': forms.widgets.Textarea(attrs={'rows': 2}),

@@ -17,14 +17,22 @@ $(function() {
 		var Banks =MY_MAP.map.hasLayer(LOC4);
 		var McDonalds =MY_MAP.map.hasLayer(LOC5);
 		var SubwayLines =MY_MAP.map.hasLayer(LOC6);
+		var Media =MY_MAP.map.hasLayer(MEDIA_IMAGES);
 						
-		loadMedia(latitude,longitude,zoom,MapLayer,PawnShops,CheckCashing,WireTransfer,Banks,McDonalds,SubwayLines);
+		loadMedia(latitude,longitude,zoom,MapLayer,PawnShops,CheckCashing,WireTransfer,Banks,McDonalds,SubwayLines,Media);
 		
 		// function to save the map settings
-		function loadMedia(latitude,longitude,zoom,MapLayer,PawnShops,CheckCashing,WireTransfer,Banks,McDonalds,SubwayLines){
+		function loadMedia(latitude,longitude,zoom,MapLayer,PawnShops,CheckCashing,WireTransfer,Banks,McDonalds,SubwayLines,Media){
 		    $.ajax({
 		        type: 'GET',
-		        url:  'savemap/?latitude=' + latitude + '&longitude=' + longitude + '&zoom=' + zoom + '&MapLayer=' + MapLayer + '&PawnShops=' + PawnShops + '&CheckCashing=' + CheckCashing + '&WireTransfer=' + WireTransfer + '&Banks=' + Banks + '&McDonalds=' + McDonalds + '&SubwayLines=' + SubwayLines, 
+		        url:  'savemap/?latitude=' + latitude + '&longitude=' + longitude + '&zoom=' + zoom + '&MapLayer=' + MapLayer + '&PawnShops=' + PawnShops + '&CheckCashing=' + CheckCashing + '&WireTransfer=' + WireTransfer + '&Banks=' + Banks + '&McDonalds=' + McDonalds + '&SubwayLines=' + SubwayLines + '&Media=' + Media, 
+		        success: function(data){
+		            $(".mapSnaps-content-container").html(data);
+					// unbind event handler on the drop down so we can reinitiate it later
+					$("#openMapSnaps").off( "click" );
+					getMapSnaps();
+		        }
+				
 		    });
 		}
 

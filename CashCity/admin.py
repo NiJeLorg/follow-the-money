@@ -13,6 +13,9 @@ from CashCity.models import MediaNoteComments
 from CashCity.models import MediaInterview
 from CashCity.models import MediaInterviewComments
 from CashCity.models import MapSettings
+from CashCity.models import Opinions
+from CashCity.models import OpinionSections
+from CashCity.models import OpinionComments
 
 # for cropping images in the admin area
 class MediaImageCrop(ImageCroppingMixin, admin.ModelAdmin):
@@ -29,4 +32,7 @@ admin.site.register(MediaNoteComments)
 admin.site.register(MediaInterview, MediaImageCrop)
 admin.site.register(MediaInterviewComments)
 admin.site.register(MapSettings)
+admin.site.register(Opinions)
+admin.site.register(OpinionSections)
+admin.site.register(OpinionComments)
 
