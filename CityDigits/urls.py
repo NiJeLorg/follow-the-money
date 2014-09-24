@@ -15,8 +15,10 @@ urlpatterns = patterns('',
     url(r'^taggit_autocomplete/', include('taggit_autocomplete.urls')),
     # redirect to index
     url(r'^$', views.redirectToIndex, name='index'),
+
     # admin urls
     url(r'^admin/', include(admin.site.urls)),
+
     # override registration form to add new teachers
     url(r'accounts/register/$', 
         RegistrationView.as_view(form_class = ExRegistrationForm), 
@@ -58,3 +60,6 @@ if settings.DEBUG:
         (r'media/(?P<path>.*)',
         'serve',
         {'document_root': settings.MEDIA_ROOT}), )
+
+
+
