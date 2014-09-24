@@ -8,7 +8,7 @@ body {
 }
 
 .map-container {
-    width: 100%;
+    width: 99%;
 	padding-left: 0px;
 }
 
@@ -539,6 +539,11 @@ audio {
 	margin: 10px 10px 0px 0px;
 }
 
+.noDecoration {
+	text-decoration: none;
+	color: #4d4d4d;
+}
+
 /*
 * Media Map styles
 */
@@ -549,3 +554,42 @@ audio {
     width:640px;
     height:200px;
 }
+
+/*
+* Map snaps div
+*/
+
+#mapSnaps {
+	width: 100%;
+	top: 50px;
+    background-color: #dcdce4;
+    border-bottom: 1px solid #ccc;
+    display: none;
+    font-weight: 300;
+    padding: 20px 28px;
+    position: absolute;
+    z-index: 1001;
+}
+
+.map-thumbnail {
+	margin: 0px 10px 10px 10px;
+    border: 1px solid #ccc;
+	width: 160px;
+	height: 120px;
+	float:left;
+	display: inline-block;
+}
+
+
+/*
+* loading screen modals
+*/
+
+body.loading {
+    overflow: hidden;   
+}
+
+body.loading .loading-modal {
+    display: block;
+}
+

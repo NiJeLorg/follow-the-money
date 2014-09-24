@@ -307,9 +307,22 @@
 		
 		
 		</style>
-{% endblock %}	
+{% endblock %}
+
+{% block head_js_block %}
+    <!--  javascript
+    ================================================== -->
+    <!-- Adding Mapbox.js up here to create the map thumbnails -->	
+{% endblock %}
+	
 
 {% block body_block %}
+<div id="mapSnaps">
+	{% include 'CashCity/mapSnapThumbnails.html' %}
+	<button id="btnSave" type="button" class="btn btn-default btn-lg map-thumbnail">Click to Take<br />a Map Snap</button>
+</div>
+
+
 <div class="map-container">
     <div class="row">
         <div class="col-xs-6 col-md-4">
@@ -317,8 +330,8 @@
 			<ul id="navTabs" class="nav nav-tabs nav-mapui nav-justified" role="tablist">
 			  <li id='locations-tab'><a href="#locations" role="tab" data-toggle="tab"><div class="location-button"></div>LOCATIONS</a></li>
 			  <li><a href="#maps" role="tab" data-toggle="tab"><div class="map-button"></div>MAPS</a></li>
-			  <li><a href="#createMap" role="tab" data-toggle="tab"><div class="edit-button"></div>CREATE MAP</a></li>
-			  <li><a href="#media" role="tab" data-toggle="tab"><div class="image-button"></div>MEDIA</a></li>
+			  <li id='createMap-tab'><a href="#createMap" role="tab" data-toggle="tab"><div class="edit-button"></div>CREATE MAP</a></li>
+			  <li id='media-tab'><a href="#media" role="tab" data-toggle="tab"><div class="image-button"></div>MEDIA</a></li>
 			  <li><a href="#search" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-search marginright"></span>SEARCH</a></li>
 			</ul>
 
@@ -480,6 +493,15 @@
 
 
 {% block js_block %}
+	<script type="text/javascript">
+		// show loading modal
+		$("body").addClass("loading");
+		// remove after page load
+		$(window).load(function () {
+			// remove modal after layers loaded
+			$("body").removeClass("loading");
+		});		
+	</script>
 	<script type="text/javascript" src="{% static 'CashCity/js/bootstrap-select.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/d3.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/mapbox.js' %}"></script>
@@ -502,6 +524,8 @@
 	</script>
 	{% include 'CashCity/mapFilterMedia.html' %}
 	<script type="text/javascript" src="{% static 'CashCity/js/CityDigitsMap.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/CityDigitsMapThumb.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/application.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/mapnav.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/mapSnap.js' %}"></script>
 {% endblock %}

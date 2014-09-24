@@ -15,6 +15,25 @@
 	{% endblock %}
 	<link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/main.css' %}">
 	<style type="text/css">
+	
+		/*
+		* loading screen modals
+		*/
+		.loading-modal {
+		    display:    none;
+		    position:   fixed;
+		    z-index:    10000;
+		    top:        0;
+		    left:       0;
+		    height:     100%;
+		    width:      100%;
+			opacity: 	.7;
+		    background: url({% static 'CashCity/img/spinner.gif' %}) 
+		                50% 50% 
+		                no-repeat;
+			background-color: #fff;
+		}
+		
 		.navbar-default .navbar-nav > .media-button > a {
 			top: 10px;
 			width: 79px;
@@ -60,6 +79,8 @@
     ================================================== -->
     <!-- Only jquery goes here to load autocomplete on forms-->	
 	<script type="text/javascript" src="{% static 'CashCity/js/jquery-1.11.1.min.js' %}"></script>
+	{% block head_js_block %}
+	{% endblock %}
 		
   </head>
 
@@ -121,12 +142,11 @@
 				  </ul>
 			  </li>
 
-			  <li class="screenshot-button"><a id="btnSave" href="#"></a></li>
+			  <li class="screenshot-button"><a id="openMapSnaps" href="#"></a></li>
 		  </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
 	</nav>
-
 	
 	{% block body_block %}
 	{% endblock %}
@@ -137,9 +157,12 @@
 	<script type="text/javascript" src="{% static 'CashCity/js/tag-it.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/bootstrap.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/navbar.js' %}"></script>
-	<script type="text/javascript" src="{% static 'CashCity/js/screenshot.js' %}"></script>
 	{% block js_block %}
 	{% endblock %}
+	
+	
+	<!-- ajax loading page modal -->
+	<div class="loading-modal"></div>
 	
   </body>
 </html>

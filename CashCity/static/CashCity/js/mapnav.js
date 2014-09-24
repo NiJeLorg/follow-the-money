@@ -342,8 +342,23 @@ $( document ).ready(function() {
 	        }
 	    });
 	}
+	
+	// set up listener to add create map layers to map on click of tab
+	$('#createMap-tab').click(function() {
+		if (createMapLoaded == false) {
+			// show loading modal
+			$("body").addClass("loading");						
+			MY_MAP.loadCreateMapLayers();
+		}		
+	});
 
-
-
+	// set up listener to add create map layers to map on click of tab
+	$('#media-tab').click(function() {
+		if (mediaLoaded == false) {
+			MY_MAP.loadMedia();			
+		}
+	});
+	
+	
 });
 

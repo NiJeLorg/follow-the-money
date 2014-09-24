@@ -1,5 +1,5 @@
 /* 
-* Function to create a generic City Digits map 
+* Functions to create a generic City Digits map 
 */
 
 function CityDigitsMap() {
@@ -30,7 +30,7 @@ function CityDigitsMap() {
 
     //disable unwanted events
     this.map.doubleClickZoom.enable();
-    this.map.scrollWheelZoom.disable();
+    this.map.scrollWheelZoom.enable();
     this.map.gridControl.options.follow = true;
 	
 	//points and lines
@@ -437,7 +437,11 @@ CityDigitsMap.onEachFeature_CREATEMAP1_AFI_PER_SQMILE = function(feature,layer){
 		sq_mile = sq_mile.toFixed(2);
 		// computed
 		var AFS_SQMI = feature.properties.AFS_SQMI;
-		AFS_SQMI = AFS_SQMI.toFixed(2);
+		AFS_SQMI = AFS_SQMI.toFixed(2);	
+		// set to "No" if computed value is 0
+		if (AFS_SQMI == 0) {
+			AFS_SQMI = 'No';
+		}
 		
 		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.Name + '</h4>';
 		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops + <br />';
@@ -522,7 +526,12 @@ CityDigitsMap.onEachFeature_CREATEMAP2_BANKS_PER_SQMILE = function(feature,layer
 		sq_mile = sq_mile.toFixed(2);
 		// computed
 		var BANK_SQMI = feature.properties.BANK_SQMI;
-		BANK_SQMI = BANK_SQMI.toFixed(2);
+		BANK_SQMI = BANK_SQMI.toFixed(2);		
+		// set to "No" if computed value is 0
+		if (BANK_SQMI == 0) {
+			BANK_SQMI = 'No';
+		}
+		
 		
 		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.Name + '</h4>';
 		var banksText = '<div class="banks-icon"></div>' + Banks + ' Banks<br />';
@@ -605,7 +614,12 @@ CityDigitsMap.onEachFeature_CREATEMAP3_PAWN_SHOPS_PER_SQMILE = function(feature,
 		sq_mile = sq_mile.toFixed(2);
 		// computed
 		var PAWN_SQMI = feature.properties.PAWN_SQMI;
-		PAWN_SQMI = PAWN_SQMI.toFixed(2);
+		PAWN_SQMI = PAWN_SQMI.toFixed(2);	
+		// set to "No" if computed value is 0
+		if (PAWN_SQMI == 0) {
+			PAWN_SQMI = 'No';
+		}
+		
 		
 		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.Name + '</h4>';
 		var pawnShopsText = '<div class="pawnshop-icon"></div>' + Pawnshops + ' Pawn Shops<br />';
@@ -689,6 +703,10 @@ CityDigitsMap.onEachFeature_CREATEMAP4_MCDONALDS_PER_SQMILE = function(feature,l
 		// computed
 		var McD_SQMI = feature.properties.McD_SQMI;
 		McD_SQMI = McD_SQMI.toFixed(2);
+		// set to "No" if computed value is 0
+		if (McD_SQMI == 0) {
+			McD_SQMI = 'No';
+		}		
 		
 		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.Name + '</h4>';
 		var mcDonaldsText = '<div class="mcdonalds-icon"></div>' + McDonalds + ' McDonald\'s<br />';
@@ -788,7 +806,7 @@ CityDigitsMap.onEachFeature_CREATEMAP5_HH_PER_AFI = function(feature,layer){
 		if (feature.properties.AFS_Sum == 0) {
 			var footer = '<p class="grey">The Ratio is Undefined</p>';
 		} else if (feature.properties.HH_AFS == -1){
-			var footer = '<p class="grey">0.00 Households per Alternative Financial Institution</p>';			
+			var footer = '<p class="grey">No Households per Alternative Financial Institution</p>';			
 		} else {
 			var footer = '<p class="grey">' + HH_AFS + ' Households per Alternative Financial Institution</p>';			
 		}
@@ -877,7 +895,7 @@ CityDigitsMap.onEachFeature_CREATEMAP6_HH_PER_BANK = function(feature,layer){
 		if (feature.properties.Banks == 0) {
 			var footer = '<p class="grey">The Ratio is Undefined</p>';
 		} else if (feature.properties.HH_BANK == -1){
-			var footer = '<p class="grey">0.00 Households per Alternative Financial Institution</p>';			
+			var footer = '<p class="grey">No Households per Alternative Financial Institution</p>';			
 		} else {
 			var footer = '<p class="grey">' + HH_BANK + ' Households per Bank</p>';			
 		}
@@ -958,7 +976,7 @@ CityDigitsMap.onEachFeature_CREATEMAP7_HH_PER_MCDONALDS = function(feature,layer
 		// computed
 		var HH_McD = feature.properties.HH_McD;
 		HH_McD = accounting.formatNumber(HH_McD, 2, ",", ".");
-		
+				
 		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.Name + '</h4>';
 		var householdsText = '<div class="households-icon"></div>' + Households + ' Households<br />';
 		var hr = '<hr class="divide">';
@@ -966,7 +984,7 @@ CityDigitsMap.onEachFeature_CREATEMAP7_HH_PER_MCDONALDS = function(feature,layer
 		if (feature.properties.McDonalds1 == 0) {
 			var footer = '<p class="grey">The Ratio is Undefined</p>';
 		} else if (feature.properties.HH_McD == -1){
-			var footer = '<p class="grey">0.00 Households per McDonald\'s</p>';			
+			var footer = '<p class="grey">No Households per McDonald\'s</p>';			
 		} else {
 			var footer = '<p class="grey">' + HH_McD + ' Households per McDonald\'s</p>';			
 		}
@@ -1055,7 +1073,7 @@ CityDigitsMap.onEachFeature_CREATEMAP8_HH_PER_PAWN_SHOP = function(feature,layer
 		if (feature.properties.Pawnshops == 0) {
 			var footer = '<p class="grey">The Ratio is Undefined</p>';
 		} else if (feature.properties.HH_PAWN == -1){
-			var footer = '<p class="grey">0.00 Households per Pawn Shop</p>';			
+			var footer = '<p class="grey">No Households per Pawn Shop</p>';			
 		} else {
 			var footer = '<p class="grey">' + HH_PAWN + ' Households per Pawn Shop</p>';			
 		}
@@ -1152,7 +1170,7 @@ CityDigitsMap.onEachFeature_CREATEMAP9_AFIS_PER_BANK = function(feature,layer){
 		if (feature.properties.Banks == 0) {
 			var footer = '<p class="grey">The Ratio is Undefined</p>';
 		} else if (feature.properties.AFS_BANK == -1){
-			var footer = '<p class="grey">0.00 Alternative Financial Institutions per Bank</p>';			
+			var footer = '<p class="grey">No Alternative Financial Institutions per Bank</p>';			
 		} else {
 			var footer = '<p class="grey">' + AFS_BANK + ' Alternative Financial Institutions per Bank</p>';			
 		}
@@ -1239,7 +1257,7 @@ CityDigitsMap.onEachFeature_CREATEMAP10_BANKS_PER_AFI = function(feature,layer){
 		// computed
 		var BANK_AFS = feature.properties.BANK_AFS;
 		BANK_AFS = BANK_AFS.toFixed(2);
-		//console.log(BANK_AFS);
+
 		var header = '<div class="map-popup"><h4 class="text-left">' + feature.properties.Name + '</h4>';
 		var banksText = '<div class="banks-icon"></div>' + Banks + ' Banks<br />';
 		var hr = '<hr class="divide">';
@@ -1249,7 +1267,7 @@ CityDigitsMap.onEachFeature_CREATEMAP10_BANKS_PER_AFI = function(feature,layer){
 		if (feature.properties.AFS_Sum == 0) {
 			var footer = '<p class="grey">The Ratio is Undefined</p>';
 		} else if (feature.properties.BANK_AFS == -1){
-			var footer = '<p class="grey">0.00 Banks per Alternative Financial Institution</p>';			
+			var footer = '<p class="grey">No Banks per Alternative Financial Institution</p>';			
 		} else {
 			var footer = '<p class="grey">' + BANK_AFS + ' Banks per Alternative Financial Institution</p>';			
 		}
@@ -1286,6 +1304,27 @@ CityDigitsMap.prototype.loadLayers = function (){
 		style: CityDigitsMap.getStyleColorFor_MAP4_PCT_FOREIGN_BORN,
 		onEachFeature: CityDigitsMap.onEachFeature_MAP4_PCT_FOREIGN_BORN
 	});
+			
+	// load layers
+	this.MAP1_POP_POVERTY = omnivore.topojson(neighborhoods, null, this.MAP1_POP_POVERTY_style);
+	this.MAP2_MED_HH_INCOME = omnivore.topojson(neighborhoods, null, this.MAP2_MED_HH_INCOME_style);
+	this.MAP3_PCT_UNEMPLOYED = omnivore.topojson(neighborhoods, null, this.MAP3_PCT_UNEMPLOYED_style);
+	this.MAP4_PCT_FOREIGN_BORN = omnivore.topojson(neighborhoods, null, this.MAP4_PCT_FOREIGN_BORN_style);
+	
+	//start with value population in poverty for initial load
+	this.neighborhoodLayer = this.MAP1_POP_POVERTY;
+	this.neighborhoodLayer._leaflet_id = 'legendpoverty';
+	this.neighborhoodLayer.addTo(this.map).bringToBack();
+	
+}
+
+CityDigitsMap.prototype.loadCreateMapLayers = function (callBack){
+    var self = this;
+			
+	// load topoJSON data for neighborhoods
+	// path to neighborhoods defined in index.html django template
+
+	// define layer styles and oneachfeature popup styling
 	this.CREATEMAP1_AFI_PER_SQMILE_style = L.geoJson(null, {
 		style: CityDigitsMap.getStyleColorFor_CREATEMAP1_AFI_PER_SQMILE,
 		onEachFeature: CityDigitsMap.onEachFeature_CREATEMAP1_AFI_PER_SQMILE
@@ -1329,10 +1368,6 @@ CityDigitsMap.prototype.loadLayers = function (){
 
 			
 	// load layers
-	this.MAP1_POP_POVERTY = omnivore.topojson(neighborhoods, null, this.MAP1_POP_POVERTY_style);
-	this.MAP2_MED_HH_INCOME = omnivore.topojson(neighborhoods, null, this.MAP2_MED_HH_INCOME_style);
-	this.MAP3_PCT_UNEMPLOYED = omnivore.topojson(neighborhoods, null, this.MAP3_PCT_UNEMPLOYED_style);
-	this.MAP4_PCT_FOREIGN_BORN = omnivore.topojson(neighborhoods, null, this.MAP4_PCT_FOREIGN_BORN_style);
 	this.CREATEMAP1_AFI_PER_SQMILE = omnivore.topojson(neighborhoods, null, this.CREATEMAP1_AFI_PER_SQMILE_style);
 	this.CREATEMAP2_BANKS_PER_SQMILE = omnivore.topojson(neighborhoods, null, this.CREATEMAP2_BANKS_PER_SQMILE_style);
 	this.CREATEMAP3_PAWN_SHOPS_PER_SQMILE = omnivore.topojson(neighborhoods, null, this.CREATEMAP3_PAWN_SHOPS_PER_SQMILE_style);
@@ -1342,12 +1377,12 @@ CityDigitsMap.prototype.loadLayers = function (){
 	this.CREATEMAP7_HH_PER_MCDONALDS = omnivore.topojson(neighborhoods, null, this.CREATEMAP7_HH_PER_MCDONALDS_style);
 	this.CREATEMAP8_HH_PER_PAWN_SHOP = omnivore.topojson(neighborhoods, null, this.CREATEMAP8_HH_PER_PAWN_SHOP_style);
 	this.CREATEMAP9_AFIS_PER_BANK = omnivore.topojson(neighborhoods, null, this.CREATEMAP9_AFIS_PER_BANK_style);
-	this.CREATEMAP10_BANKS_PER_AFI = omnivore.topojson(neighborhoods, null, this.CREATEMAP10_BANKS_PER_AFI_style);
+	// remove modal after loading the last layer
+	this.CREATEMAP10_BANKS_PER_AFI = omnivore.topojson(neighborhoods, null, this.CREATEMAP10_BANKS_PER_AFI_style).on('ready', function() {
+		$("body").removeClass("loading");
+    });
 	
-	//start with value population in poverty for initial load
-	this.neighborhoodLayer = this.MAP1_POP_POVERTY;
-	this.neighborhoodLayer._leaflet_id = 'legendpoverty';
-	this.neighborhoodLayer.addTo(this.map).bringToBack();
+	createMapLoaded = true;
 	
 }
 
@@ -1531,10 +1566,10 @@ CityDigitsMap.getStyleColorFor_CREATEMAP2_BANKS_PER_SQMILE = function (feature){
     try{
         var value = feature.properties.BANK_SQMI;
         var fillColor = null;
-        if(value < 0){
+        if(value <= 0){
 			fillColor = "#ffffff";
         }
-        if(value >= 0 && value <= 1){
+        if(value > 0 && value <= 1){
 			fillColor = "#a5f3fa";
         }
         if(value > 1 && value<= 5){
@@ -1601,10 +1636,10 @@ CityDigitsMap.getStyleColorFor_CREATEMAP4_MCDONALDS_PER_SQMILE = function (featu
     try{
         var value = feature.properties.McD_SQMI;
         var fillColor = null;
-        if(value < 0){
+        if(value <= 0){
 			fillColor = "#ffffff";
         }
-        if(value >= 0 && value <= 1){
+        if(value > 0 && value <= 1){
 			fillColor = "#a5f3fa";
         }
         if(value > 1 && value<= 5){
@@ -2510,6 +2545,8 @@ CityDigitsMap.prototype.loadMedia = function(){
 		pointToLayer: CityDigitsMap.getStyleFor_MEDIA,
 		onEachFeature: CityDigitsMap.onEachFeatureFor_MEDIA_INTERVIEW
 	});
+	
+	mediaLoaded = true;
 	
 }
 

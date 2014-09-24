@@ -13,7 +13,7 @@ from taggit_autocomplete.managers import TaggableManager
 class MapSettings(models.Model):
     # Links Map Settings to a User model instance.
     user = models.ForeignKey(User)
-		#lat and lon for the center point of the map.
+	#lat and lon for the center point of the map.
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=False, blank=False)
     longitude = models.DecimalField(max_digits=10, decimal_places=6, null=False, blank=False)
     zoom = models.IntegerField()
@@ -24,9 +24,6 @@ class MapSettings(models.Model):
     Banks= models.BooleanField()
     McDonalds= models.BooleanField()
     SubwayLines= models.BooleanField()
-    Thumbnail = models.ImageField(upload_to="img/map/%Y_%m_%d_%h_%M_%s")
-    # size is "width x height"
-    cropped_image = ImageRatioField('Thumbnail', '280x280')
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
     
@@ -37,7 +34,7 @@ class MapSettings(models.Model):
         return ExUserProfile.objects.get(user=self.user)
        
     def __unicode__(self):
-        return self.zoom
+        return self.MapLayer
 
 # Model that stores user profile info beyond username, password, email -- includes teacher and student group data
 class ExUserProfile(models.Model):
@@ -73,7 +70,7 @@ class MediaImage(models.Model):
     # Links MediaImage to a User model instance.
     user = models.ForeignKey(User)
     title = models.CharField(max_length=255, null=False, blank=False)
-    image = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=False, blank=False)
+    image = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=True, blank=True)
     # size is "width x height"
     # thumb for media 'stubs'
     cropped_image = ImageRatioField('image', '280x280')
@@ -88,15 +85,17 @@ class MediaImage(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
 
-    #defined a save method to overwrite a file if being replace
-    #from: http://stackoverflow.com/a/8342249
     def save(self, *args, **kwargs):
-        # delete old file when replacing by updating the file
+        # ensure we save the existing image if no new image was uploaded
         try:
             this = MediaImage.objects.get(id=self.id)
-            if this.image != self.image:
-                this.image.delete(save=False)
-        except: pass # when new photo then we do nothing, normal case          
+            # check to see if the user editing is the user that created the object
+            if self.user != this.user:
+                self.user = this.user
+            # if no new object was added, ensure that the previous object is saved
+            if bool(self.image) == False:
+                self.image = this.image
+        except: pass          
         super(MediaImage, self).save(*args, **kwargs)
             
     def getUserProfile(self):
@@ -143,17 +142,19 @@ class MediaAudio(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
 
-    #defined a save method to overwrite a file if being replace
-    #from: http://stackoverflow.com/a/8342249
     def save(self, *args, **kwargs):
-        # delete old file when replacing by updating the file
+        # ensure we save the existing image if no new image was uploaded
         try:
             this = MediaAudio.objects.get(id=self.id)
-            if this.audio != self.audio:
-                this.audio.delete(save=False)
-        except: pass # when new photo then we do nothing, normal case          
+            # check to see if the user editing is the user that created the object
+            if self.user != this.user:
+                self.user = this.user
+            # if no new object was added, ensure that the previous object is saved
+            if bool(self.audio) == False:
+                self.audio = this.audio
+        except: pass          
         super(MediaAudio, self).save(*args, **kwargs)
-    
+ 
     def getUserProfile(self):
         """
             get user profile info for the teacher/team that uploaded the media
@@ -198,6 +199,16 @@ class MediaNote(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
     
+    def save(self, *args, **kwargs):
+        # ensure we save the existing image if no new image was uploaded
+        try:
+            this = MediaNote.objects.get(id=self.id)
+            # check to see if the user editing is the user that created the object
+            if self.user != this.user:
+                self.user = this.user
+        except: pass          
+        super(MediaNote, self).save(*args, **kwargs)
+
     def getUserProfile(self):
         """
             get user profile info for the teacher/team that uploaded the media
@@ -227,7 +238,7 @@ class MediaNoteComments(models.Model):
         return self.comment
         
         
-        
+                
 # Model that stores Media Images
 class MediaInterview(models.Model):
     # Links MediaInterview to a User model instance.
@@ -248,17 +259,20 @@ class MediaInterview(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
 
-    #defined a save method to overwrite a file if being replace
-    #from: http://stackoverflow.com/a/8342249
     def save(self, *args, **kwargs):
-        # delete old file when replacing by updating the file
+        # ensure we save the existing image if no new image was uploaded
         try:
             this = MediaInterview.objects.get(id=self.id)
-            if this.audio != self.audio:
-                this.audio.delete(save=False)
-            if this.image != self.audio:
-                this.image.delete(save=False)                
-        except: pass # when new photo then we do nothing, normal case          
+            # check to see if the user editing is the user that created the object
+            if self.user != this.user:
+                self.user = this.user
+            # if no new object was added, ensure that the previous object is saved
+            if bool(self.image) == False:
+                self.image = this.image
+            # if no new object was added, ensure that the previous object is saved
+            if bool(self.audio) == False:
+                self.audio = this.audio
+        except: pass          
         super(MediaInterview, self).save(*args, **kwargs)
             
     def getUserProfile(self):
