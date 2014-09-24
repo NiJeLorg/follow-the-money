@@ -1,0 +1,78 @@
+{% load cropping %}
+{% load widget_tweaks %}
+
+<div class='filter-container'>
+    <label for="class"><b>Class:</b></label>
+    <select id="class" name="class">
+        {%  if toolbar.searchClass == 'All' %}
+            <option value="All" selected>All</option>
+        {% else %}
+            <option value="All">All</option>
+        {% endif %}
+        {% for class in classes %}
+            {% if toolbar.searchClass == class.teacherId|stringformat:"s_"|add:class.section %}
+                <option value="{{ class.teacherId }}_{{ class.section }}" selected>{{ class.teacherName }} - Section {{ class.section }}</option>
+            {% else %}
+                <option value="{{ class.teacherId }}_{{ class.section }}">{{ class.teacherName }} - Section {{ class.section }} </option>
+            {% endif %}
+        {% endfor %}
+    </select>
+</div>
+<div class='filter-container'>
+    <label for="team"><b>Team:</b></label>
+    <select id="team" name="team">
+        {%  if toolbar.searchTeam == 'All' %}
+            <option value="All" selected>All</option>
+        {% else %}
+            <option value="All">All</option>
+        {% endif %}
+        {% for team in teams %}
+            {% if toolbar.searchTeam == team %}
+                <option value="{{ team }}" selected>{{ team|title }}</option>
+            {% else %}
+                <option value="{{ team }}">{{ team|title }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+</div>
+
+
+{% if opinions %}
+<table class="table">
+	<tbody>
+		{% for opinion in opinions %}
+			<tr>
+				<td>{{ opinion.getUserProfile.section }}</td>
+				<td><div class="opinion_{{ opinion.getUserProfile.color }} pull-left margin-right"></div></td>
+				<td>
+					<div style="height: 280px; width: 280px; margin-bottom: 5px; overflow: hidden;">
+		            	<img src="{% cropped_thumbnail opinion 'cropped_teamImage' %}">
+		            </div>
+				</td>
+				<td>
+					<p><strong>{{ opinion.title }} </strong>
+					{% if opinion.published %}
+						<span class="label label-primary">Published</span>
+					{% else %}
+						<span class="label label-default">Draft</span>
+					{% endif %}
+					</p>
+					<p>by {{ opinion.authors }}</p>
+				</td>
+				<td>{{ opinion.last_modified|date:"F j, Y" }}</td>
+				<td width='100'>
+					{% if opinion.published %}
+						<a href="/cashcity/opinion/saveDraft/{{ opinion.id }}/"><span class="glyphicon glyphicon-floppy-save noDecoration" title="Move to Draft"></span></a>
+					{% else %}
+						<a href="/cashcity/opinion/publish/{{ opinion.id }}/"><span class="glyphicon glyphicon-book noDecoration" title="Publish"></span></a>
+					{% endif %}
+					<a href="/cashcity/opinion/form/edit/{{ opinion.id }}/"><div class="edit-button" title="Edit"></div></a>
+					<a href="/cashcity/opinion/form/remove/{{ opinion.id }}/"><div class="trash-button" title="Remove"></div></a>
+				</td>
+			</tr>
+		{% endfor %}				
+	</tbody>
+</table>
+{% else %}
+<h4>No opinions. <a href="{% url 'opinionForm' %}">Add some!</a></h4>
+{% endif %}

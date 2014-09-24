@@ -1,0 +1,71 @@
+{% extends 'CashCity/base.html' %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+
+{% block css_block %}
+
+{% endblock %}		
+
+
+{% block body_block %}
+<div class="half-container">
+	<div class="row">
+		<h3>Add Your Opinion</h3>
+		<hr />
+	</div>
+	<div class="row">
+		<form role="form" enctype="multipart/form-data" method="post" action="." >{% csrf_token %}
+			<div class="form-group">
+				<label for="authors">Authors</label>{% if opinionsForm.authors.errors %} <span class="text-danger">{{ opinionsForm.authors.errors|join:", " }}</span>{% endif %}
+				{{ opinionsForm.authors|add_class:"form-control" }}
+			</div>
+			<div class="form-group">
+				<label for="teamImage">Add A Team Image</label>
+				{% if opinionsForm.teamImage.errors %} <span class="text-danger">{{ opinionsForm.teamImage.errors|join:", " }}</span>{% endif %}
+				<div class="input-group">				
+	                <span class="input-group-btn">
+	                    <span class="btn btn-default btn-file">
+	                        Add Image {{ opinionsForm.teamImage }}
+	                    </span>
+	                </span>
+					{% if opinionsForm.teamImage.value %}
+	               		<input type="text" class="form-control" placeholder='{{ opinionsForm.teamImage.value }}' readonly>
+					{% else %}
+	               		<input type="text" class="form-control" placeholder='No File Chosen' readonly>
+					{% endif %}
+				</div>
+				
+			</div>
+			<div class="form-group">
+				<label for="title">Title</label>{% if opinionsForm.title.errors %} <span class="text-danger">{{ opinionsForm.title.errors|join:", " }}</span>{% endif %}
+				{{ opinionsForm.title|add_class:"form-control" }}
+			</div>
+			<br />
+			<hr />
+			<h4>SECTION 1</h4>
+
+		    {{ opinionSectionsFormset.management_form }}
+		    {% for form in opinionSectionsFormset %}
+				{{ form.id }}
+				<div class="form-group">
+					<label for="text">Text</label>{% if form.text.errors %} <span class="text-danger">{{ form.text.errors|join:", " }}</span>{% endif %}
+					{{ form.text|add_class:"form-control" }}
+				</div>
+				
+				
+		        {{ form }}
+		    {% endfor %}
+
+	
+			<button type="submit" class="btn btn-primary" name="publish" value="submit">Publish</button>
+			<button type="submit" class="btn btn-default" name="saveDraft" value="saveDraft">Save Draft</button>
+			<button type="submit" class="btn btn-default" name="cancel" value="cancel">Cancel</button>
+		</form>
+	</div>	
+</div>
+	
+{% endblock %}
+
+
+{% block js_block %}
+{% endblock %}

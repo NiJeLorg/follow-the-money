@@ -318,7 +318,9 @@
 
 {% block body_block %}
 <div id="mapSnaps">
-	{% include 'CashCity/mapSnapThumbnails.html' %}
+	<div class="mapSnaps-content-container">	
+		{% include 'CashCity/mapSnapThumbnails.html' %}
+	</div>
 	<button id="btnSave" type="button" class="btn btn-default btn-lg map-thumbnail">Click to Take<br />a Map Snap</button>
 </div>
 

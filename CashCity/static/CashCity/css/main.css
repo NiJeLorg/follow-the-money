@@ -420,7 +420,7 @@ hr {
 
 .geosearch-input {
 	margin: 10px 10px 0px 10px;
-	width: 87%;
+	width: 100%;
 }
 
 .leaflet-control-geosearch {

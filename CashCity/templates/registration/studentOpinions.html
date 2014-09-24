@@ -1,0 +1,132 @@
+{% extends 'CashCity/base.html' %}
+{% load cropping %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+
+{% block css_block %}
+ 	<!-- style embedded in django template for static file usage -->
+	<style type="text/css">		
+	
+		a > .edit-button {
+			display: inline-block;
+			margin-left: 5px;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'CashCity/img/edit_gray.png' %})
+		}
+		
+		a > .trash-button {
+			display: inline-block;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'CashCity/img/trash.png' %})
+		}
+		
+		.opinion_green {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_green.png' %})
+		}
+		.opinion_orange {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_orange.png' %})
+		}
+		.opinion_pink {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_pink.png' %})
+		}
+		.opinion_purple {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_purple.png' %})
+		}
+		.opinion_red {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_red.png' %})
+		}
+		.opinion_yellow {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_yellow.png' %})
+		}	
+		
+	</style>	
+{% endblock %}	
+
+{% block body_block %}
+<div class="full-container">
+	<h3>Student Account</h3>
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="btn-group btn-group-justified">
+				<div class="btn-group">	
+			  	  <a href="{% url 'studentProfileMedia' %}"><button type="button" class="btn btn-default">Media</button></a>
+  				</div>
+  				<div class="btn-group">		  
+			 	   <a href="{% url 'studentProfileOpinion' %}"><button type="button" class="btn btn-default active">Opinions</button></a>
+   				</div>				   
+			</div>
+		</div>
+		<div class="col-xs-9">
+			<a href="{% url 'opinionForm' %}"><button type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"></span> Opinion</button></a>
+		</div>
+	</div>
+	<br />
+		
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="opinion-content-container">
+				{% if opinions %}
+				<table class="table">
+					<tbody>
+						{% for opinion in opinions %}
+							<tr>
+								<td>{{ opinion.getUserProfile.section }}</td>
+								<td><div class="opinion_{{ opinion.getUserProfile.color }} pull-left margin-right"></div></td>
+								<td>
+									<div style="height: 280px; width: 280px; margin-bottom: 5px; overflow: hidden;">
+						            	<img src="{% cropped_thumbnail opinion 'cropped_teamImage' %}">
+						            </div>
+								</td>
+								<td>
+									<p><strong>{{ opinion.title }} </strong>
+									{% if opinion.published %}
+										<span class="label label-primary">Published</span>
+									{% else %}
+										<span class="label label-default">Draft</span>
+									{% endif %}
+									</p>
+									<p>by {{ opinion.authors }}</p>
+								</td>
+								<td>{{ opinion.last_modified|date:"F j, Y" }}</td>
+								<td width='100'>
+									{% if opinion.published %}
+										<a href="/cashcity/opinion/saveDraft/{{ opinion.id }}/"><span class="glyphicon glyphicon-floppy-save noDecoration" title="Move to Draft"></span></a>
+									{% else %}
+										<a href="/cashcity/opinion/publish/{{ opinion.id }}/"><span class="glyphicon glyphicon-book noDecoration" title="Publish"></span></a>
+									{% endif %}
+									<a href="/cashcity/opinion/form/edit/{{ opinion.id }}/"><div class="edit-button" title="Edit"></div></a>
+									<a href="/cashcity/opinion/form/remove/{{ opinion.id }}/"><div class="trash-button" title="Remove"></div></a>
+								</td>
+							</tr>
+						{% endfor %}				
+					</tbody>
+				</table>
+				{% else %}
+				<h4>No opinions. <a href="{% url 'opinionForm' %}">Add some!</a></h4>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>	
+{% endblock %}
+

@@ -13,9 +13,6 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # tagging autocomplete
     url(r'^taggit_autocomplete/', include('taggit_autocomplete.urls')),
-    # redirect to index
-    url(r'^$', views.redirectToIndex, name='index'),
-
     # admin urls
     url(r'^admin/', include(admin.site.urls)),
 
@@ -39,17 +36,21 @@ urlpatterns = patterns('',
     url(r'^accounts/profile/media/filter/$', views.accountFilterMedia, name='accountFilterMedia'),    
     # media in teacher profile url
     url(r'^accounts/profile/media/', views.accountMedia, name='accountMedia'),
+    # opinions in teacher profile filter
+    #url(r'^accounts/profile/opinion/filter/$', views.accountFilterOpinion, name='accountFilterOpinion'),    
     # opinions in teacher profile url
-    #url(r'^accounts/profile/opinion/$', views.accountOpinion, name='accountOpinion'),
-    # media in teacher profile filter
+    url(r'^accounts/profile/opinion/$', views.accountOpinion, name='accountOpinion'),
+    # media in student profile filter
     url(r'^accounts/profile/student/media/filter/$', views.studentFilterMedia, name='studentFilterMedia'),    
     # student account media profile urls
     url(r'^accounts/profile/student/media/$', views.studentProfileMedia, name='studentProfileMedia'),
-    # student account media profile urls
-    #url(r'^accounts/profile/student/opinion/$', views.studentProfileOpinion, name='studentProfileOpinion'),
+    # opinion in student profile filter
+    #url(r'^accounts/profile/student/opinion/filter/$', views.studentFilterOpinion, name='studentFilterOpinion'),    
+    # student account opinion profile urls
+    url(r'^accounts/profile/student/opinion/$', views.studentProfileOpinion, name='studentProfileOpinion'),
     # CashCity app urls,
     url(r'^cashcity/', include('CashCity.urls')),
-    # Uncomment the next line to enable the admin:
+    # Uncomment the next line to enable the admin:    
 )
 
 urlpatterns += staticfiles_urlpatterns()
