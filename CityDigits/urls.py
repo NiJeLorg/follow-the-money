@@ -15,7 +15,8 @@ urlpatterns = patterns('',
     url(r'^taggit_autocomplete/', include('taggit_autocomplete.urls')),
     # admin urls
     url(r'^admin/', include(admin.site.urls)),
-
+    # redirect to index
+    url(r'^$', views.redirectToIndex, name='index'),
     # override registration form to add new teachers
     url(r'accounts/register/$', 
         RegistrationView.as_view(form_class = ExRegistrationForm), 
