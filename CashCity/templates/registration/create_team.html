@@ -60,13 +60,13 @@
 						</div>
 						<div class="col-xs-6">
 							<div class="form-group">
-								<label for="username">Username</label>{% if user_form.username.errors %} <span class ="text-danger">{{ user_form.username.errors|join:", " }}</span>{% endif %}
+								<label for="username">Team Username</label>{% if user_form.username.errors %} <span class ="text-danger">{{ user_form.username.errors|join:", " }}</span>{% endif %}
 								{{ user_form.username|add_class:"form-control" }}
 							</div>
 						</div>
 						<div class="col-xs-6">
 							<div class="form-group">
-								<label for="password">Password</label>{% if user_form.password.errors %} <span class ="text-danger">{{ user_form.password.errors|join:", " }}</span>{% endif %}
+								<label for="password">Team Password</label>{% if user_form.password.errors %} <span class ="text-danger">{{ user_form.password.errors|join:", " }}</span>{% endif %}
 								{{ user_form.password|add_class:"form-control" }}
 							</div>
 						</div>

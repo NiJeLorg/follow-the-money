@@ -2,13 +2,13 @@
 * Adding Layers to City Digits Thumbnail maps
 */
 
-function CityDigitsMapThumb(id, lat, lon, zoom) {
+function CityDigitsMapThumb(id, num, lat, lon, zoom) {
 	
     //set base Mapbox tiles
     var basemap = "sw2279.NYCLotto";
 
     //where brooklyn at?!40.7429 N, 73.9188
-    this.map = L.mapbox.map('map'+id, basemap,{minZoom:10,maxZoom:16,zoomControl:false}).setView([lat,lon], zoom);
+    this.map = L.mapbox.map('map'+id+num, basemap,{minZoom:10,maxZoom:16,zoomControl:false}).setView([lat,lon], zoom);
 	
     //disable unwanted events
     this.map.dragging.disable();
@@ -300,7 +300,8 @@ CityDigitsMapThumb.getStyleColorFor_MAP1_POP_POVERTY = function (feature){
 	        opacity: .1,
 	        color: 'white',
 	        fillOpacity: 0.75,
-	        fillColor: fillColor
+	        fillColor: fillColor,
+			clickable: false
         }
     }
 }
@@ -335,7 +336,8 @@ CityDigitsMapThumb.getStyleColorFor_MAP2_MED_HH_INCOME = function (feature){
 	        opacity: .1,
 	        color: 'white',
 	        fillOpacity: 0.75,
-	        fillColor: fillColor
+	        fillColor: fillColor,
+			clickable: false
         }
     }
 }
@@ -370,7 +372,8 @@ CityDigitsMapThumb.getStyleColorFor_MAP3_PCT_UNEMPLOYED = function (feature){
 	        opacity: .1,
 	        color: 'white',
 	        fillOpacity: 0.75,
-	        fillColor: fillColor
+	        fillColor: fillColor,
+			clickable: false
         }
     }
 }
@@ -405,7 +408,8 @@ CityDigitsMapThumb.getStyleColorFor_MAP4_PCT_FOREIGN_BORN = function (feature){
 	        opacity: .1,
 	        color: 'white',
 	        fillOpacity: 0.75,
-	        fillColor: fillColor
+	        fillColor: fillColor,
+			clickable: false
         }
     }
 }
@@ -440,7 +444,8 @@ CityDigitsMapThumb.getStyleColorFor_CREATEMAP1_AFI_PER_SQMILE = function (featur
 	        opacity: .1,
 	        color: 'white',
 	        fillOpacity: 0.75,
-	        fillColor: fillColor
+	        fillColor: fillColor,
+			clickable: false
         }
     }
 }
@@ -475,7 +480,8 @@ CityDigitsMapThumb.getStyleColorFor_CREATEMAP2_BANKS_PER_SQMILE = function (feat
 	        opacity: .1,
 	        color: 'white',
 	        fillOpacity: 0.75,
-	        fillColor: fillColor
+	        fillColor: fillColor,
+			clickable: false
         }
     }
 }
@@ -510,7 +516,8 @@ CityDigitsMapThumb.getStyleColorFor_CREATEMAP3_PAWN_SHOPS_PER_SQMILE = function 
 	        opacity: .1,
 	        color: 'white',
 	        fillOpacity: 0.75,
-	        fillColor: fillColor
+	        fillColor: fillColor,
+			clickable: false
         }
     }
 }
@@ -545,7 +552,8 @@ CityDigitsMapThumb.getStyleColorFor_CREATEMAP4_MCDONALDS_PER_SQMILE = function (
 	        opacity: .1,
 	        color: 'white',
 	        fillOpacity: 0.75,
-	        fillColor: fillColor
+	        fillColor: fillColor,
+			clickable: false
         }
     }
 }
@@ -586,7 +594,8 @@ CityDigitsMapThumb.getStyleColorFor_CREATEMAP5_HH_PER_AFI = function (feature){
 	        opacity: .1,
 	        color: 'white',
 	        fillOpacity: 0.75,
-	        fillColor: fillColor
+	        fillColor: fillColor,
+			clickable: false
         }
     }
 }
@@ -627,7 +636,8 @@ CityDigitsMapThumb.getStyleColorFor_CREATEMAP6_HH_PER_BANK = function (feature){
 	        opacity: .1,
 	        color: 'white',
 	        fillOpacity: 0.75,
-	        fillColor: fillColor
+	        fillColor: fillColor,
+			clickable: false
         }
     }
 }
@@ -668,7 +678,8 @@ CityDigitsMapThumb.getStyleColorFor_CREATEMAP7_HH_PER_MCDONALDS = function (feat
 	        opacity: .1,
 	        color: 'white',
 	        fillOpacity: 0.75,
-	        fillColor: fillColor
+	        fillColor: fillColor,
+			clickable: false
         }
     }
 }
@@ -709,7 +720,8 @@ CityDigitsMapThumb.getStyleColorFor_CREATEMAP8_HH_PER_PAWN_SHOP = function (feat
 	        opacity: .1,
 	        color: 'white',
 	        fillOpacity: 0.75,
-	        fillColor: fillColor
+	        fillColor: fillColor,
+			clickable: false
         }
     }
 }
@@ -750,7 +762,8 @@ CityDigitsMapThumb.getStyleColorFor_CREATEMAP9_AFIS_PER_BANK = function (feature
 	        opacity: .1,
 	        color: 'white',
 	        fillOpacity: 0.75,
-	        fillColor: fillColor
+	        fillColor: fillColor,
+			clickable: false
         }
     }
 }
@@ -791,7 +804,8 @@ CityDigitsMapThumb.getStyleColorFor_CREATEMAP10_BANKS_PER_AFI = function (featur
 	        opacity: .1,
 	        color: 'white',
 	        fillOpacity: 0.75,
-	        fillColor: fillColor
+	        fillColor: fillColor,
+			clickable: false
         }
     }
 }
@@ -898,7 +912,8 @@ CityDigitsMapThumb.getStyleFor_LOC1_PAWN_SHOPS = function (feature, latlng){
 	var pawnShopMarker = L.circle(latlng, 80, {
 		stroke: false,
 		fillColor: '#eb4a42',
-		fillOpacity: 0.75
+		fillOpacity: 0.75,
+		clickable: false
 	});
 	
 	return pawnShopMarker;
@@ -909,7 +924,8 @@ CityDigitsMapThumb.getStyleFor_LOC2_CHECK_CASHING = function (feature, latlng){
 	var checkCashingMarker = L.circle(latlng, 80, {
 		stroke: false,
 		fillColor: '#ffa77f',
-		fillOpacity: 0.75
+		fillOpacity: 0.75,
+		clickable: false
 	});
 	
 	return checkCashingMarker;
@@ -920,7 +936,8 @@ CityDigitsMapThumb.getStyleFor_LOC3_WIRE_TRANSFER = function (feature, latlng){
 	var wireTransferMarker = L.circle(latlng, 80, {
 		stroke: false,
 		fillColor: '#fa8a12',
-		fillOpacity: 0.75
+		fillOpacity: 0.75,
+		clickable: false
 	});
 	
 	return wireTransferMarker;
@@ -931,7 +948,8 @@ CityDigitsMapThumb.getStyleFor_LOC4_BANKS = function (feature, latlng){
 	var banksMarker = L.circle(latlng, 80, {
 		stroke: false,
 		fillColor: '#fa8aa3',
-		fillOpacity: 0.75
+		fillOpacity: 0.75,
+		clickable: false
 	});
 	
 	return banksMarker;
@@ -942,7 +960,8 @@ CityDigitsMapThumb.getStyleFor_LOC5_MCDONALDS = function (feature, latlng){
 	var mcdonaldsMarker = L.circle(latlng, 80, {
 		stroke: false,
 		fillColor: '#ebcf42',
-		fillOpacity: 0.75
+		fillOpacity: 0.75,
+		clickable: false
 	});
 	
 	return mcdonaldsMarker;
@@ -953,7 +972,9 @@ CityDigitsMapThumb.getStyleFor_LOC6_SUBWAY_LINES = function (feature, layer){
 	var subwayLinesInitialStyle = {
 	    color: "#9c9c9c",
 	    weight: 3,
-	    opacity: 0.75
+	    opacity: 0.75,
+		clickable: false
+		
 	};
 	
 	return subwayLinesInitialStyle;
@@ -964,7 +985,9 @@ CityDigitsMapThumb.getStyleFor_LOC7_SUBWAY_STATIONS = function (feature, latlng)
 	var subwayStationInitialStyle = L.circleMarker(latlng, {
 	    radius: 0,
 	    weight: 0,
-	    fillOpacity: 0.75
+	    fillOpacity: 0.75,
+		clickable: false
+		
 	});
 	
 	return subwayStationInitialStyle;
@@ -1012,6 +1035,6 @@ CityDigitsMapThumb.getStyleFor_MEDIA = function(feature, latlng){
 		iconAnchor: [17, 38], 
 	});
 
-	return L.marker(latlng, {icon: mediaImageIcon});
+	return L.marker(latlng, {icon: mediaImageIcon, clickable: false});
 	
 }

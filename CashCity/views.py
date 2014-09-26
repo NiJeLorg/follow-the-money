@@ -63,7 +63,7 @@ def index(request):
 
     #get user profile data and pass to view
     if request.user.id:
-        # show only media tied to this student group's account
+        # show only map snaps tied to this student group's account
         kwargs['user__exact'] = request.user.id
         #get mapSnaps
         mapSnaps = MapSettings.objects.filter(**kwargs)
@@ -1929,7 +1929,35 @@ def opinionForm(request, id=None):
     profile = ExUserProfile.objects.get(user=request.user) 
     
     #set Opinions Sections up as a formset -- 5 total repetitons of form
-    OpinionSectionsFormset = modelformset_factory(OpinionSections, extra=4, form=OpinionSectionsForm) 
+    OpinionSectionsFormset = modelformset_factory(OpinionSections, extra=5, form=OpinionSectionsForm)
+    
+    # get ALL media and map snaps for opinions
+    #build query
+    kwargs = {}
+    # show only published media
+    kwargs['published__exact'] = True
+
+    #get mediaImages
+    mediaImages = MediaImage.objects.filter(**kwargs).order_by('-last_modified')
+
+    #get mediaAudio
+    mediaAudio = MediaAudio.objects.filter(**kwargs).order_by('-last_modified')
+
+    #get mediaNote
+    mediaNote = MediaNote.objects.filter(**kwargs).order_by('-last_modified')
+
+    #get mediaInterview
+    mediaInterview = MediaInterview.objects.filter(**kwargs).order_by('-last_modified')
+
+    kwargs = {}
+    kwargs['user__exact'] = request.user.id
+    #get mapSnaps
+    mapSnaps = MapSettings.objects.filter(**kwargs).order_by('-last_modified')
+    
+    # loop throuhg mapSnaps and increase zoom to way out
+    for mapSnap in mapSnaps:
+        mapSnap.zoom = mapSnap.zoom - 3
+         
     
     if id:
         opinion = Opinions.objects.get(pk=id)
@@ -2017,6 +2045,6 @@ def opinionForm(request, id=None):
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
-    return render_to_response('CashCity/opinionForm.html', {'opinionsForm': opinionsForm, 'opinionSectionsFormset': opinionSectionsFormset, 'profile':profile}, context)
+    return render_to_response('CashCity/opinionForm.html', {'opinionsForm': opinionsForm, 'opinionSectionsFormset': opinionSectionsFormset, 'profile':profile, 'mediaImages': mediaImages, 'mediaAudio':mediaAudio, 'mediaNote':mediaNote, 'mediaInterview':mediaInterview, 'mapSnaps':mapSnaps}, context)
 
 

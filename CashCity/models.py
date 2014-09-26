@@ -354,7 +354,7 @@ class OpinionSections(models.Model):
     note = models.ForeignKey(MediaNote, null=True, blank=True)
     interview = models.ForeignKey(MediaInterview, null=True, blank=True)
     mapSnap = models.ForeignKey(MapSettings, null=True, blank=True)
-    upload = models.FileField(upload_to="file/%Y_%m_%d_%h_%M_%s", null=True, blank=True)
+    uploadImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=True, blank=True)
     text = models.CharField(max_length=10000, null=True, blank=True)
     
     def save(self, *args, **kwargs):
@@ -362,8 +362,8 @@ class OpinionSections(models.Model):
         try:
             this = OpinionSections.objects.get(id=self.id)
             # if no new object was added, ensure that the previous object is saved
-            if bool(self.upload) == False:
-                self.upload = this.upload
+            if bool(self.uploadImage) == False:
+                self.uploadImage = this.uploadImage
         except: pass          
         super(OpinionSections, self).save(*args, **kwargs)
         

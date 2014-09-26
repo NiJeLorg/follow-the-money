@@ -8,7 +8,7 @@
 	<script type="text/javascript">				
 		function getMapSnaps() {
 			{% for mapSnap in mapSnaps %}
-		    	var map{{ mapSnap.id }} = new CityDigitsMapThumb({{ mapSnap.id }},'',{{ mapSnap.latitude }},{{ mapSnap.longitude }},{{ mapSnap.zoom }});
+		    	var map{{ mapSnap.id }} = new CityDigitsMapThumb({{ mapSnap.id }},{{ mapSnap.latitude }},{{ mapSnap.longitude }},{{ mapSnap.zoom }});
 						
 				var MapLayer = '{{ mapSnap.MapLayer }}';	
 				var LOC1 = '{{ mapSnap.PawnShops }}';
@@ -93,15 +93,15 @@
 				}			
 			
 			{% endfor %}
-			
-			// ensure thumbnail maps render in dropdown				
-			$("#openMapSnaps").click(function() {
-				$("#mapSnaps").slideToggle( "slow" );
+						
+			// ensure thumbnail maps render in modals
+			$('.refreshMap').click(function() {
 				// use invalidate size to make maps show appropriately
 				{% for mapSnap in mapSnaps %}
 					map{{ mapSnap.id }}.map.invalidateSize(false);
 				{% endfor %}
 			});
+				
 			
 		}					
 		
