@@ -128,6 +128,67 @@ def filterIndex(request):
     context_dict = {'mediaImages': mediaImages, 'mediaAudios': mediaAudio, 'mediaNotes': mediaNote, 'mediaInterviews': mediaInterview, 'searchTags': searchTags, 'form':form, 'profile':profile}
 
     return render_to_response('CashCity/mapFilterMedia.html', context_dict, context)
+    
+    
+def mapSnaps(request, id=None):
+    """
+      Loads the map snap bookmarks on the main map index page
+    """
+    context = RequestContext(request)
+    
+    #get user profile data and pass to view
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+    else:
+        profile = False 
+
+    # get all media and pass to template to create geojson file
+    #build query
+    kwargs = {}
+    # show only published media
+    kwargs['published__exact'] = True
+
+    #get mediaImages
+    mediaImages = MediaImage.objects.filter(**kwargs)
+
+    #get mediaAudio
+    mediaAudio = MediaAudio.objects.filter(**kwargs)
+
+    #get mediaNote
+    mediaNote = MediaNote.objects.filter(**kwargs)
+
+    #get mediaInterview
+    mediaInterview = MediaInterview.objects.filter(**kwargs)
+    
+    #new query for mapSnaps
+    kwargs = {}
+
+    #get user profile data and pass to view
+    if request.user.id:
+        # show only map snaps tied to this student group's account
+        kwargs['user__exact'] = request.user.id
+        #get mapSnaps
+        mapSnaps = MapSettings.objects.filter(**kwargs)
+        
+        # loop throuhg mapSnaps and increase zoom to way out
+        for mapSnap in mapSnaps:
+            mapSnap.zoom = mapSnap.zoom - 3
+               
+    else:
+        mapSnaps = {}
+        
+    # get map snap bookmark
+    if id:
+        mapSnapBookmark = MapSettings.objects.get(pk=id)
+    else: 
+        mapSnapBookmark = {}
+        
+    #pass in a form for tag autocomplete
+    form = MediaFormImage() 
+      
+    context_dict = {'mediaImages': mediaImages, 'mediaAudios': mediaAudio, 'mediaNotes': mediaNote, 'mediaInterviews': mediaInterview, 'mapSnaps':mapSnaps, 'form':form, 'profile':profile, 'mapSnapBookmark':mapSnapBookmark}
+
+    return render_to_response('CashCity/index.html', context_dict, context)
 
 
 @login_required

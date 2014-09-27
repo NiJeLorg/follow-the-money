@@ -366,9 +366,6 @@ class OpinionSections(models.Model):
             # if no new object was added, ensure that the previous object is saved
             if bool(self.uploadImage) == False:
                 self.uploadImage = this.uploadImage
-            # if image, audio, note interview or mapSnap are set, remove the uploaded image
-            if bool(self.image) == False or bool(self.audio) == False or bool(self.note) == False or bool(self.interview) == False or bool(self.mapSnap) == False:
-                this.uploadImage.delete(save=False)
         except: pass          
         super(OpinionSections, self).save(*args, **kwargs)
         

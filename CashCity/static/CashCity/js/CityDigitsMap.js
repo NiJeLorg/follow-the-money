@@ -2738,6 +2738,7 @@ CityDigitsMap.loadLayerFor = function(layerId){
     }
     if(layerId == "CREATEMAP10"){
         mainLayer = MY_MAP.CREATEMAP10_BANKS_PER_AFI;
+		console.log(MY_MAP);
 				mainLayer._leaflet_id = 'legendbanksperAFIs';
 				mainLayer.addTo(MY_MAP.map).bringToBack();
 				if ($( "#legendid" ).hasClass( "legendClosed" )) {

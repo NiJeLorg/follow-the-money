@@ -142,7 +142,13 @@
 				  </ul>
 			  </li>
 
-			  <li class="screenshot-button"><a id="openMapSnaps" href="#"></a></li>
+			  <li class="screenshot-button">
+				{% if user.is_authenticated %}				  
+					<a id="openMapSnaps" href="#"></a>
+				{% else %}
+					<a href="{% url 'auth_login' %}"></a>
+				{% endif %}	  				  
+			  </li>
 		  </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
