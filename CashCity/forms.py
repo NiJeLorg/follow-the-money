@@ -97,6 +97,7 @@ class MediaFormAudio(forms.ModelForm):
         exclude = ["user"]
         widgets = {
             'caption': forms.widgets.Textarea(attrs={'rows': 2}),
+            'audio': forms.widgets.FileInput,
         }
     
 # Form for Audio Comments
@@ -145,6 +146,8 @@ class MediaFormInterview(forms.ModelForm):
         exclude = ["user"] 
         widgets = {
             'caption': forms.widgets.Textarea(attrs={'rows': 2}),
+            'image': forms.widgets.FileInput,
+            'audio': forms.widgets.FileInput,
         }
                
 # Form for Interview Comments
@@ -167,6 +170,10 @@ class OpinionsForm(forms.ModelForm):
         # Provide an association between the ModelForm and a model
         model = Opinions
         exclude = ["user"] 
+        widgets = {
+            'text': forms.widgets.Textarea(attrs={'rows': 3}),
+            'teamImage': forms.widgets.FileInput,
+        }     
 
 # Form for OpinionSections
 class OpinionSectionsForm(forms.ModelForm):
@@ -175,9 +182,10 @@ class OpinionSectionsForm(forms.ModelForm):
     class Meta:
         # Provide an association between the ModelForm and a model
         model = OpinionSections
-        exclude = ["opinion"]
+        exclude = ["opinion"] 
         widgets = {
             'text': forms.widgets.Textarea(attrs={'rows': 3}),
+            'uploadImage': forms.widgets.FileInput,
         }     
          
 

@@ -63,34 +63,40 @@
 					map{{ mapSnap.id }}.load_CREATEMAP10_BANKS_PER_AFI(map{{ mapSnap.id }});	
 				}
 
-				if (LOC1 == 'True') {
-					map{{ mapSnap.id }}.load_LOC1_PAWN_SHOPS(map{{ mapSnap.id }});	
-				}
-				// add in layers that were turned on
-				if (LOC2 == 'True') {
-					map{{ mapSnap.id }}.load_LOC2_CHECK_CASHING(map{{ mapSnap.id }});	
-				}
-				// add in layers that were turned on
-				if (LOC3 == 'True') {
-					map{{ mapSnap.id }}.load_LOC3_WIRE_TRANSFER(map{{ mapSnap.id }});	
-				}
-				// add in layers that were turned on
-				if (LOC4 == 'True') {
-					map{{ mapSnap.id }}.load_LOC4_BANKS(map{{ mapSnap.id }});	
-				}
-				// add in layers that were turned on
-				if (LOC5 == 'True') {
-					map{{ mapSnap.id }}.load_LOC5_MCDONALDS(map{{ mapSnap.id }});	
-				}
-				// add in layers that were turned on
-				if (LOC6 == 'True') {
-					map{{ mapSnap.id }}.load_LOC6_SUBWAY_LINES(map{{ mapSnap.id }});	
-				}			
+				function addLocations() {
+					if (LOC1 == 'True') {
+						map{{ mapSnap.id }}.load_LOC1_PAWN_SHOPS(map{{ mapSnap.id }});	
+					}
+					// add in layers that were turned on
+					if (LOC2 == 'True') {
+						map{{ mapSnap.id }}.load_LOC2_CHECK_CASHING(map{{ mapSnap.id }});	
+					}
+					// add in layers that were turned on
+					if (LOC3 == 'True') {
+						map{{ mapSnap.id }}.load_LOC3_WIRE_TRANSFER(map{{ mapSnap.id }});	
+					}
+					// add in layers that were turned on
+					if (LOC4 == 'True') {
+						map{{ mapSnap.id }}.load_LOC4_BANKS(map{{ mapSnap.id }});	
+					}
+					// add in layers that were turned on
+					if (LOC5 == 'True') {
+						map{{ mapSnap.id }}.load_LOC5_MCDONALDS(map{{ mapSnap.id }});	
+					}
+					// add in layers that were turned on
+					if (LOC6 == 'True') {
+						map{{ mapSnap.id }}.load_LOC6_SUBWAY_LINES(map{{ mapSnap.id }});	
+					}			
 
-				// add in layers that were turned on
-				if (MEDIA == 'True') {
-					map{{ mapSnap.id }}.loadMedia(map{{ mapSnap.id }});	
-				}			
+					// add in layers that were turned on
+					if (MEDIA == 'True') {
+						map{{ mapSnap.id }}.loadMedia(map{{ mapSnap.id }});	
+					}
+				
+				}
+
+				setTimeout ( addLocations, 3000);																
+							
 			
 			{% endfor %}
 			

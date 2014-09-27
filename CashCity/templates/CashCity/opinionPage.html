@@ -1,0 +1,814 @@
+{% extends 'CashCity/base.html' %}
+{% load cropping %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/mapbox.css' %}">
+	<style type="text/css">
+	
+		/*
+		* Icon classes
+		*/
+	
+		.pawnshop-icon {
+			width: 22px;
+			height: 17px;
+			display: inline-block;
+			background-image: url({% static 'CashCity/img/pawnshop.png' %});
+		}
+
+		.checkcashing-icon {
+			width: 22px;
+			height: 17px;
+			display: inline-block;
+			background-image: url({% static 'CashCity/img/checkcashing.png' %});
+		}
+
+		.wiretransfer-icon {
+			width: 22px;
+			height: 17px;
+			display: inline-block;
+			background-image: url({% static 'CashCity/img/wiretransfer.png' %});
+		}
+
+		.banks-icon {
+			width: 22px;
+			height: 17px;
+			display: inline-block;
+			background-image: url({% static 'CashCity/img/bank.png' %});
+		}
+
+		.mcdonalds-icon {
+			width: 22px;
+			height: 17px;
+			display: inline-block;
+			background-image: url({% static 'CashCity/img/ArchesOrangesm.png' %});
+		}
+	
+		.squaremiles-icon {
+			width: 22px;
+			height: 17px;
+			display: inline-block;
+			background-image: url({% static 'CashCity/img/squaremiles.png' %});
+		}
+	
+		.households-icon {
+			width: 22px;
+			height: 17px;
+			display: inline-block;
+			background-image: url({% static 'CashCity/img/households.png' %});
+		}
+	
+		.close-icon-white {
+			background-image: url({% static 'CashCity/img/close_white.png' %});
+		}
+	
+		.close-icon-gray {
+			background-image: url({% static 'CashCity/img/close_gray.png' %});
+		}
+	
+		/*
+		* zoom icons
+		*/
+	
+		.citydigits-zoomer .zoom-in > a {
+			float: left;
+			width: 28px;
+			height: 32px;
+			background-image: url({% static 'CashCity/img/Zoom_in.png' %});
+		}
+
+		.citydigits-zoomer .zoom-in > a:hover {
+			background-image: url({% static 'CashCity/img/Zoom_in_hover.png' %});
+		}
+
+		.citydigits-zoomer .zoom-out > a {
+			float: left;
+			margin-left: -30px;
+			width: 28px;
+			height: 32px;
+			background-image: url({% static 'CashCity/img/Zoom_out.png' %});
+		}
+
+		.citydigits-zoomer .zoom-out > a:hover {
+			background-image: url({% static 'CashCity/img/Zoom_out_hover.png' %});
+		}
+	
+		/*
+		* corner icons
+		*/
+
+		.citydigits-legend .legendClosed > a {
+			float: left;
+			width: 39px;
+			height: 36px;
+			background-image: url({% static 'CashCity/img/legendbutton_white.png' %});
+		}
+
+		.citydigits-legend .legendClosed > a:hover {
+			background-image: url({% static 'CashCity/img/legendbutton_gray.png' %});
+		}
+
+		.citydigits-legend .legendpoverty > a {
+			float: left;
+			width: 200px;
+			height: 188px;
+			background-image: url({% static 'CashCity/img/legend_poverty.png' %});
+		}
+
+		.citydigits-legend .legendmedhhinc > a {
+			float: left;
+			width: 200px;
+			height: 225px;
+			background-image: url({% static 'CashCity/img/legend_medhhincome.png' %});
+		}
+
+		.citydigits-legend .legendunemploy > a {
+			float: left;
+			width: 200px;
+			height: 189px;
+			background-image: url({% static 'CashCity/img/legend_unemploy.png' %});
+		}
+
+		.citydigits-legend .legendforeignborn > a {
+			float: left;
+			width: 200px;
+			height: 189px;
+			background-image: url({% static 'CashCity/img/legend_foreignborn.png' %});
+		}
+
+		.citydigits-legend .legendAFIpersqmi > a {
+			float: left;
+			width: 200px;
+			height: 189px;
+			background-image: url({% static 'CashCity/img/legend_AFIsq.png' %});
+		}
+
+		.citydigits-legend .legendbankspersqmi > a {
+			float: left;
+			width: 200px;
+			height: 174px;
+			background-image: url({% static 'CashCity/img/legend_banks_sq.png' %});
+		}
+
+		.citydigits-legend .legendpawnsqmi > a {
+			float: left;
+			width: 200px;
+			height: 175px;
+			background-image: url({% static 'CashCity/img/legend_pawn_sq.png' %});
+		}
+
+		.citydigits-legend .legendmcdonaldspersqi > a {
+			float: left;
+			width: 200px;
+			height: 174px;
+			background-image: url({% static 'CashCity/img/legend_mcdonalds_sq.png' %});
+		}
+
+		.citydigits-legend .legendhouseholdsperAFI > a {
+			float: left;
+			width: 200px;
+			height: 265px;
+			background-image: url({% static 'CashCity/img/legend_households_perAFI.png' %});
+		}
+
+		.citydigits-legend .legendhouseholdsperbank > a {
+			float: left;
+			width: 200px;
+			height: 249px;
+			background-image: url({% static 'CashCity/img/legend_households_perbank.png' %});
+		}
+		.citydigits-legend .legendhouseholdsperMcD > a {
+			float: left;
+			width: 200px;
+			height: 249px;
+			background-image: url({% static 'CashCity/img/legend_households_permcD.png' %});
+		}
+
+		.citydigits-legend .legendhouseholdsperpawn > a {
+			float: left;
+			width: 200px;
+			height: 248px;
+			background-image: url({% static 'CashCity/img/legend_households_perpawn.png' %});
+		}
+
+		.citydigits-legend .legendAFIsperbank > a {
+			float: left;
+			width: 200px;
+			height: 233px;
+			background-image: url({% static 'CashCity/img/legend_AFI_perbank.png' %});
+		}
+
+		.citydigits-legend .legendbanksperAFIs > a {
+			float: left;
+			width: 200px;
+			height: 235px;
+			background-image: url({% static 'CashCity/img/legend_banks_perAFI.png' %});
+		}
+			
+		.citydigits-charts .chart-icon > a {
+			float: left;
+			width: 39px;
+			height: 36px;
+			background-image: url({% static 'CashCity/img/chart_whitebutton.png' %});
+		}
+
+		.citydigits-charts .chart-icon > a:hover {
+			background-image: url({% static 'CashCity/img/chart_graybutton.png' %});
+		}		
+	
+		/*
+		* Leaflet override
+		*/		
+	
+		.leaflet-popup-close-button {
+			background-image: url({% static 'CashCity/img/close_white.png' %});
+			background-size: auto auto;
+			background-position: 0% 0%;
+			opacity: 1;
+			height: 22px;
+			width: 22px;
+		}
+	
+		/*
+		* Media button image
+		*/
+	
+		.image-button-media {
+			display: inline-block;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'CashCity/img/image_gray.png' %})
+		}
+		
+		.opinion_green {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_green.png' %})
+		}
+		.opinion_orange {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_orange.png' %})
+		}
+		.opinion_pink {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_pink.png' %})
+		}
+		.opinion_purple {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_purple.png' %})
+		}
+		.opinion_red {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_red.png' %})
+		}
+		.opinion_yellow {
+			display: inline-block;
+		    width: 25px;
+		    height: 27px;
+			background-image: url({% static 'CashCity/img/opinion_yellow.png' %})
+		}
+				
+	</style>
+{% endblock %}		
+
+
+{% block body_block %}
+<div class="half-container">
+	<div class="row">
+		<div class="opinion_{{ opinionObject.getUserProfile.color }} pull-left margin-right"></div>
+		{% if opinionObject.getUserProfile.color == None %}
+			<p><strong>Teacher Added: </strong>{{ opinionObject.getUserProfile.teacherName }} 		
+		{% else %}
+			<p><strong>{{ opinionObject.getUserProfile.color|title }} Team</strong>	
+		{% endif %}
+		<span class="pull-right">{{ opinionObject.last_modified|date:"F j, Y" }}</span></p>	
+	</div>
+	<div class="row">
+		<hr />
+	</div>
+	<div class="row">
+		<h3>{{ opinionObject.title|title }}</h3>
+		<p>By {{ opinionObject.authors }}</p>
+		<img src="{% cropped_thumbnail opinionObject 'cropped_teamImage_w640_h480' %}">
+		<hr />
+	</div>
+	{% for section in opinionSections %}
+	<!-- Section 1 -->		
+		{% if section.sectionNumber == 1 and section.image %}
+			{% for image in mediaImages %}
+				{% if image.id == section.image.id %}
+					<div class="row">
+						<h4>SECTION 1</h4>
+						<img src="{% cropped_thumbnail image 'cropped_image_w640_h480' %}">
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 1 and section.audio %}
+			{% for audio in mediaAudio %}
+				{% if audio.id == section.audio.id %}
+					<div class="row">
+						<h4>SECTION 1</h4>
+						<audio src="/media/{{ audio.audio }}" preload="auto" controls></audio>
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 1 and section.note %}
+			{% for note in mediaNotes %}
+				{% if note.id == section.note.id %}
+					<div class="row">
+						<h4>SECTION 1</h4>
+						<p><i><strong>Notes: </strong>{{ note.notes }}</i></p>
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 1 and section.interview %}
+			{% for interview in mediaInterviews %}
+				{% if interview.id == section.interview.id %}
+					<div class="row">
+						<h4>SECTION 1</h4>
+						<img src="{% cropped_thumbnail interview 'cropped_image_w640_h480' %}">
+						<br /><br />
+						<audio src="/media/{{ interview.audio }}" preload="auto" controls></audio>
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 1 and section.mapSnap %}
+			{% for mapSnap in mapSnaps %}
+				{% if mapSnap.id == section.mapSnap.id %}
+					<div class="row">
+						<h4>SECTION 1</h4>
+						<div id="map_1" class="map-opinion"></div>
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />
+					{% include 'CashCity/mapSnapOpinions.html' %}		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 1 and section.uploadImage %}
+			<div class="row">
+				<h4>SECTION 1</h4>
+				<img src="{% cropped_thumbnail section 'cropped_uploadImage_w640_h480' %}">
+				<br /><br />
+				<p>{{ section.text }}</p>
+				<hr />
+			</div>
+			<br />		
+		{% endif %}
+		
+	<!-- Section 2 -->		
+		{% if section.sectionNumber == 2 and section.image %}
+			{% for image in mediaImages %}
+				{% if image.id == section.image.id %}
+					<div class="row">
+						<h4>SECTION 2</h4>
+						<img src="{% cropped_thumbnail image 'cropped_image_w640_h480' %}">
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 2 and section.audio %}
+			{% for audio in mediaAudio %}
+				{% if audio.id == section.audio.id %}
+					<div class="row">
+						<h4>SECTION 2</h4>
+						<audio src="/media/{{ audio.audio }}" preload="auto" controls></audio>
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 2 and section.note %}
+			{% for note in mediaNotes %}
+				{% if note.id == section.note.id %}
+					<div class="row">
+						<h4>SECTION 2</h4>
+						<p><i><strong>Notes: </strong>{{ note.notes }}</i></p>
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 2 and section.interview %}
+			{% for interview in mediaInterviews %}
+				{% if interview.id == section.interview.id %}
+					<div class="row">
+						<h4>SECTION 2</h4>
+						<img src="{% cropped_thumbnail interview 'cropped_image_w640_h480' %}">
+						<br /><br />
+						<audio src="/media/{{ interview.audio }}" preload="auto" controls></audio>
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 2 and section.mapSnap %}
+			{% for mapSnap in mapSnaps %}
+				{% if mapSnap.id == section.mapSnap.id %}
+					<div class="row">
+						<h4>SECTION 2</h4>
+						<div id="map_2" class="map-opinion"></div>
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+					{% include 'CashCity/mapSnapOpinions.html' %}		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 2 and section.uploadImage %}
+			<div class="row">
+				<h4>SECTION 2</h4>
+				<img src="{% cropped_thumbnail section 'cropped_uploadImage_w640_h480' %}">
+				<br /><br />
+				<p>{{ section.text }}</p>
+				<hr />
+			</div>
+			<br />		
+		{% endif %}
+		
+	<!-- Section 3 -->		
+		{% if section.sectionNumber == 3 and section.image %}
+			{% for image in mediaImages %}
+				{% if image.id == section.image.id %}
+					<div class="row">
+						<h4>SECTION 3</h4>
+						<img src="{% cropped_thumbnail image 'cropped_image_w640_h480' %}">
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 3 and section.audio %}
+			{% for audio in mediaAudio %}
+				{% if audio.id == section.audio.id %}
+					<div class="row">
+						<h4>SECTION 3</h4>
+						<audio src="/media/{{ audio.audio }}" preload="auto" controls></audio>
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 3 and section.note %}
+			{% for note in mediaNotes %}
+				{% if note.id == section.note.id %}
+					<div class="row">
+						<h4>SECTION 3</h4>
+						<p><i><strong>Notes: </strong>{{ note.notes }}</i></p>
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 3 and section.interview %}
+			{% for interview in mediaInterviews %}
+				{% if interview.id == section.interview.id %}
+					<div class="row">
+						<h4>SECTION 3</h4>
+						<img src="{% cropped_thumbnail interview 'cropped_image_w640_h480' %}">
+						<br /><br />
+						<audio src="/media/{{ interview.audio }}" preload="auto" controls></audio>
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 3 and section.mapSnap %}
+			{% for mapSnap in mapSnaps %}
+				{% if mapSnap.id == section.mapSnap.id %}
+					<div class="row">
+						<h4>SECTION 3</h4>
+						<div id="map_3" class="map-opinion"></div>
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+					{% include 'CashCity/mapSnapOpinions.html' %}		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 3 and section.uploadImage %}
+			<div class="row">
+				<h4>SECTION 3</h4>
+				<img src="{% cropped_thumbnail section 'cropped_uploadImage_w640_h480' %}">
+				<br /><br />
+				<p>{{ section.text }}</p>
+				<hr />
+			</div>
+			<br />		
+		{% endif %}
+		
+		
+	<!-- Section 4 -->		
+		{% if section.sectionNumber == 4 and section.image %}
+			{% for image in mediaImages %}
+				{% if image.id == section.image.id %}
+					<div class="row">
+						<h4>SECTION 4</h4>
+						<img src="{% cropped_thumbnail image 'cropped_image_w640_h480' %}">
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 4 and section.audio %}
+			{% for audio in mediaAudio %}
+				{% if audio.id == section.audio.id %}
+					<div class="row">
+						<h4>SECTION 4</h4>
+						<audio src="/media/{{ audio.audio }}" preload="auto" controls></audio>
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 4 and section.note %}
+			{% for note in mediaNotes %}
+				{% if note.id == section.note.id %}
+					<div class="row">
+						<h4>SECTION 4</h4>
+						<p><i><strong>Notes: </strong>{{ note.notes }}</i></p>
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 4 and section.interview %}
+			{% for interview in mediaInterviews %}
+				{% if interview.id == section.interview.id %}
+					<div class="row">
+						<h4>SECTION 4</h4>
+						<img src="{% cropped_thumbnail interview 'cropped_image_w640_h480' %}">
+						<br /><br />
+						<audio src="/media/{{ interview.audio }}" preload="auto" controls></audio>
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 4 and section.mapSnap %}
+			{% for mapSnap in mapSnaps %}
+				{% if mapSnap.id == section.mapSnap.id %}
+					<div class="row">
+						<h4>SECTION 4</h4>
+						<div id="map_4" class="map-opinion"></div>
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+					{% include 'CashCity/mapSnapOpinions.html' %}		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 4 and section.uploadImage %}
+			<div class="row">
+				<h4>SECTION 4</h4>
+				<img src="{% cropped_thumbnail section 'cropped_uploadImage_w640_h480' %}">
+				<br /><br />
+				<p>{{ section.text }}</p>
+				<hr />
+			</div>
+			<br />		
+		{% endif %}
+
+	<!-- Section 5 -->		
+		{% if section.sectionNumber == 5 and section.image %}
+			{% for image in mediaImages %}
+				{% if image.id == section.image.id %}
+					<div class="row">
+						<h4>SECTION 5</h4>
+						<img src="{% cropped_thumbnail image 'cropped_image_w640_h480' %}">
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 5 and section.audio %}
+			{% for audio in mediaAudio %}
+				{% if audio.id == section.audio.id %}
+					<div class="row">
+						<h4>SECTION 5</h4>
+						<audio src="/media/{{ audio.audio }}" preload="auto" controls></audio>
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 5 and section.note %}
+			{% for note in mediaNotes %}
+				{% if note.id == section.note.id %}
+					<div class="row">
+						<h4>SECTION 5</h4>
+						<p><i><strong>Notes: </strong>{{ note.notes }}</i></p>
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 5 and section.interview %}
+			{% for interview in mediaInterviews %}
+				{% if interview.id == section.interview.id %}
+					<div class="row">
+						<h4>SECTION 5</h4>
+						<img src="{% cropped_thumbnail interview 'cropped_image_w640_h480' %}">
+						<br /><br />
+						<audio src="/media/{{ interview.audio }}" preload="auto" controls></audio>
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 5 and section.mapSnap %}
+			{% for mapSnap in mapSnaps %}
+				{% if mapSnap.id == section.mapSnap.id %}
+					<div class="row">
+						<h4>SECTION 5</h4>
+						<div id="map_5" class="map-opinion"></div>
+						<br /><br />
+						<p>{{ section.text }}</p>
+						<hr />
+					</div>
+					<br />		
+					{% include 'CashCity/mapSnapOpinions.html' %}		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% if section.sectionNumber == 5 and section.uploadImage %}
+			<div class="row">
+				<h4>SECTION 5</h4>
+				<img src="{% cropped_thumbnail section 'cropped_uploadImage_w640_h480' %}">
+				<br /><br />
+				<p>{{ section.text }}</p>
+				<hr />
+			</div>
+			<br />		
+		{% endif %}
+
+
+			
+	{% endfor %}	
+	<br />
+
+
+	<div class="row">
+		{% if comments %}
+			<h4>Comments</h4>
+			<hr>
+			{% for comment in comments %}
+				<div class="opinion_{{ comment.getUserProfile.color }} pull-left margin-right"></div>
+				{% if comment.getUserProfile.teacherOrStudent %}
+					<p>{{ comment.getUserProfile.teacherName }}
+				{% else %}
+					<p><strong>{{ comment.getUserProfile.color|title }} Team,</strong> {{ comment.getUserProfile.teacherName }}'s Class
+				{% endif %}
+				<span class="pull-right">{{comment.created|timesince }} ago</span></p>
+				<p>{{ comment.comment }}</p>
+				<hr>
+			{% endfor %}
+		{% endif %}
+		<br />
+		{% if success %}
+			<div class="alert alert-success fade in" role="alert">
+				<strong>Comment Saved!</strong>
+				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			</div>
+		{% endif %}
+		{% if comment_form %}
+			<form role="form" method="post" action="/cashcity/opinion/{{ opinionObject.id }}/" >{% csrf_token %}
+				<div class="form-group">
+					<label for="comment">Add A Comment</label>{% if comment_form.comment.errors %} <span class="text-danger">{{ comment_form.comment.errors|join:", " }}</span>{% endif %}
+					{{ comment_form.comment|add_class:"form-control" }}
+				</div>
+				<button type="submit" class="btn btn-default" name="submit" value="submit">Submit</button>
+			</form>
+		{% endif %}
+
+		
+	</div>
+
+</div>
+	
+{% endblock %}
+
+
+{% block js_block %}
+	<script type="text/javascript" src="{% static 'CashCity/js/mapbox.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/leaflet-omnivore.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/topojson.js' %}"></script>
+	<script type="text/javascript">
+	var neighborhoods = "{% static 'CashCity/topojson/neighborhoods.json' %}";	
+	var SubwayLines = "{% static 'CashCity/topojson/mta_subway_only_june2014.geojson' %}";	
+	var SubwayStations = "{% static 'CashCity/topojson/subway_stations.geojson' %}";	
+	var CheckCashing = "{% static 'CashCity/locationData/CheckCashing.csv' %}";	
+	var CommercialBanks = "{% static 'CashCity/locationData/CommercialBanks.csv' %}";	
+	var Mcdonalds = "{% static 'CashCity/locationData/Mcdonalds.csv' %}";	
+	var MoneyTransferServices = "{% static 'CashCity/locationData/MoneyTransferServices.csv' %}";	
+	var PawnShops = "{% static 'CashCity/locationData/PawnShops.csv' %}";
+	var closeButtonGray	= "{% static 'CashCity/img/close_gray.png' %}";
+	var map_popups = [];
+	var open_tooltips = [];
+	var mainLayer = null;
+	var createMapLoaded = false;
+	var mediaLoaded = false;
+	var mainChart = null;
+	var LOC1 = null;
+	var LOC2 = null;
+	var LOC3 = null;
+	var LOC4 = null;
+	var LOC5 = null;
+	var LOC6 = null;
+	var LOC7 = null;
+	var MEDIA_IMAGES = null;
+	var MY_MAP = null;
+	var SCREEN_HEIGHT = null;
+	var CURRENT_LAYER = null;
+	</script>
+	{% include 'CashCity/mapFilterMedia.html' %}
+	<script type="text/javascript" src="{% static 'CashCity/js/CityDigitsMapOpinion.js' %}"></script>
+{% endblock %}

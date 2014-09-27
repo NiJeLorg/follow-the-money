@@ -95,7 +95,7 @@
 				<label for="authors">Authors</label>{% if opinionsForm.authors.errors %} <span class="text-danger">{{ opinionsForm.authors.errors|join:", " }}</span>{% endif %}
 				{{ opinionsForm.authors|add_class:"form-control" }}
 			</div>
-			<div class="form-group">
+			<div class="form-group fileGroup">
 				<label for="teamImage">Add A Team Image</label>
 				{% if opinionsForm.teamImage.errors %} <span class="text-danger">{{ opinionsForm.teamImage.errors|join:", " }}</span>{% endif %}
 				<div class="input-group">				
@@ -344,34 +344,41 @@
 								map{{ mapSnap.id }}_1.load_CREATEMAP10_BANKS_PER_AFI(map{{ mapSnap.id }}_1);	
 							}
 
-							if (LOC1 == 'True') {
-								map{{ mapSnap.id }}_1.load_LOC1_PAWN_SHOPS(map{{ mapSnap.id }}_1);	
-							}
-							// add in layers that were turned on
-							if (LOC2 == 'True') {
-								map{{ mapSnap.id }}_1.load_LOC2_CHECK_CASHING(map{{ mapSnap.id }}_1);	
-							}
-							// add in layers that were turned on
-							if (LOC3 == 'True') {
-								map{{ mapSnap.id }}_1.load_LOC3_WIRE_TRANSFER(map{{ mapSnap.id }}_1);	
-							}
-							// add in layers that were turned on
-							if (LOC4 == 'True') {
-								map{{ mapSnap.id }}_1.load_LOC4_BANKS(map{{ mapSnap.id }}_1);	
-							}
-							// add in layers that were turned on
-							if (LOC5 == 'True') {
-								map{{ mapSnap.id }}_1.load_LOC5_MCDONALDS(map{{ mapSnap.id }}_1);	
-							}
-							// add in layers that were turned on
-							if (LOC6 == 'True') {
-								map{{ mapSnap.id }}_1.load_LOC6_SUBWAY_LINES(map{{ mapSnap.id }}_1);	
-							}			
+							function addLocations() {
 
-							// add in layers that were turned on
-							if (MEDIA == 'True') {
-								map{{ mapSnap.id }}_1.loadMedia(map{{ mapSnap.id }}_1);	
-							}			
+								if (LOC1 == 'True') {
+									map{{ mapSnap.id }}_1.load_LOC1_PAWN_SHOPS(map{{ mapSnap.id }}_1);	
+								}
+								// add in layers that were turned on
+								if (LOC2 == 'True') {
+									map{{ mapSnap.id }}_1.load_LOC2_CHECK_CASHING(map{{ mapSnap.id }}_1);	
+								}
+								// add in layers that were turned on
+								if (LOC3 == 'True') {
+									map{{ mapSnap.id }}_1.load_LOC3_WIRE_TRANSFER(map{{ mapSnap.id }}_1);	
+								}
+								// add in layers that were turned on
+								if (LOC4 == 'True') {
+									map{{ mapSnap.id }}_1.load_LOC4_BANKS(map{{ mapSnap.id }}_1);	
+								}
+								// add in layers that were turned on
+								if (LOC5 == 'True') {
+									map{{ mapSnap.id }}_1.load_LOC5_MCDONALDS(map{{ mapSnap.id }}_1);	
+								}
+								// add in layers that were turned on
+								if (LOC6 == 'True') {
+									map{{ mapSnap.id }}_1.load_LOC6_SUBWAY_LINES(map{{ mapSnap.id }}_1);	
+								}			
+
+								// add in layers that were turned on
+								if (MEDIA == 'True') {
+									map{{ mapSnap.id }}_1.loadMedia(map{{ mapSnap.id }}_1);	
+								}
+							
+							}
+
+							setTimeout ( addLocations, 3000);										
+										
 			
 						{% endfor %}
 						
@@ -563,34 +570,40 @@
 								map{{ mapSnap.id }}_2.load_CREATEMAP10_BANKS_PER_AFI(map{{ mapSnap.id }}_2);	
 							}
 
-							if (LOC1 == 'True') {
-								map{{ mapSnap.id }}_2.load_LOC1_PAWN_SHOPS(map{{ mapSnap.id }}_2);	
-							}
-							// add in layers that were turned on
-							if (LOC2 == 'True') {
-								map{{ mapSnap.id }}_2.load_LOC2_CHECK_CASHING(map{{ mapSnap.id }}_2);	
-							}
-							// add in layers that were turned on
-							if (LOC3 == 'True') {
-								map{{ mapSnap.id }}_2.load_LOC3_WIRE_TRANSFER(map{{ mapSnap.id }}_2);	
-							}
-							// add in layers that were turned on
-							if (LOC4 == 'True') {
-								map{{ mapSnap.id }}_2.load_LOC4_BANKS(map{{ mapSnap.id }}_2);	
-							}
-							// add in layers that were turned on
-							if (LOC5 == 'True') {
-								map{{ mapSnap.id }}_2.load_LOC5_MCDONALDS(map{{ mapSnap.id }}_2);	
-							}
-							// add in layers that were turned on
-							if (LOC6 == 'True') {
-								map{{ mapSnap.id }}_2.load_LOC6_SUBWAY_LINES(map{{ mapSnap.id }}_2);	
-							}			
+							function addLocations() {
 
-							// add in layers that were turned on
-							if (MEDIA == 'True') {
-								map{{ mapSnap.id }}_2.loadMedia(map{{ mapSnap.id }}_2);	
-							}			
+								if (LOC1 == 'True') {
+									map{{ mapSnap.id }}_2.load_LOC1_PAWN_SHOPS(map{{ mapSnap.id }}_2);	
+								}
+								// add in layers that were turned on
+								if (LOC2 == 'True') {
+									map{{ mapSnap.id }}_2.load_LOC2_CHECK_CASHING(map{{ mapSnap.id }}_2);	
+								}
+								// add in layers that were turned on
+								if (LOC3 == 'True') {
+									map{{ mapSnap.id }}_2.load_LOC3_WIRE_TRANSFER(map{{ mapSnap.id }}_2);	
+								}
+								// add in layers that were turned on
+								if (LOC4 == 'True') {
+									map{{ mapSnap.id }}_2.load_LOC4_BANKS(map{{ mapSnap.id }}_2);	
+								}
+								// add in layers that were turned on
+								if (LOC5 == 'True') {
+									map{{ mapSnap.id }}_2.load_LOC5_MCDONALDS(map{{ mapSnap.id }}_2);	
+								}
+								// add in layers that were turned on
+								if (LOC6 == 'True') {
+									map{{ mapSnap.id }}_2.load_LOC6_SUBWAY_LINES(map{{ mapSnap.id }}_2);	
+								}			
+
+								// add in layers that were turned on
+								if (MEDIA == 'True') {
+									map{{ mapSnap.id }}_2.loadMedia(map{{ mapSnap.id }}_2);	
+								}
+							
+							}
+
+							setTimeout ( addLocations, 3000);										
 			
 						{% endfor %}
 						
@@ -783,34 +796,40 @@
 								map{{ mapSnap.id }}_3.load_CREATEMAP10_BANKS_PER_AFI(map{{ mapSnap.id }}_3);	
 							}
 
-							if (LOC1 == 'True') {
-								map{{ mapSnap.id }}_3.load_LOC1_PAWN_SHOPS(map{{ mapSnap.id }}_3);	
-							}
-							// add in layers that were turned on
-							if (LOC2 == 'True') {
-								map{{ mapSnap.id }}_3.load_LOC2_CHECK_CASHING(map{{ mapSnap.id }}_3);	
-							}
-							// add in layers that were turned on
-							if (LOC3 == 'True') {
-								map{{ mapSnap.id }}_3.load_LOC3_WIRE_TRANSFER(map{{ mapSnap.id }}_3);	
-							}
-							// add in layers that were turned on
-							if (LOC4 == 'True') {
-								map{{ mapSnap.id }}_3.load_LOC4_BANKS(map{{ mapSnap.id }}_3);	
-							}
-							// add in layers that were turned on
-							if (LOC5 == 'True') {
-								map{{ mapSnap.id }}_3.load_LOC5_MCDONALDS(map{{ mapSnap.id }}_3);	
-							}
-							// add in layers that were turned on
-							if (LOC6 == 'True') {
-								map{{ mapSnap.id }}_3.load_LOC6_SUBWAY_LINES(map{{ mapSnap.id }}_3);	
-							}			
+							function addLocations() {
 
-							// add in layers that were turned on
-							if (MEDIA == 'True') {
-								map{{ mapSnap.id }}_3.loadMedia(map{{ mapSnap.id }}_3);	
-							}			
+								if (LOC1 == 'True') {
+									map{{ mapSnap.id }}_3.load_LOC1_PAWN_SHOPS(map{{ mapSnap.id }}_3);	
+								}
+								// add in layers that were turned on
+								if (LOC2 == 'True') {
+									map{{ mapSnap.id }}_3.load_LOC2_CHECK_CASHING(map{{ mapSnap.id }}_3);	
+								}
+								// add in layers that were turned on
+								if (LOC3 == 'True') {
+									map{{ mapSnap.id }}_3.load_LOC3_WIRE_TRANSFER(map{{ mapSnap.id }}_3);	
+								}
+								// add in layers that were turned on
+								if (LOC4 == 'True') {
+									map{{ mapSnap.id }}_3.load_LOC4_BANKS(map{{ mapSnap.id }}_3);	
+								}
+								// add in layers that were turned on
+								if (LOC5 == 'True') {
+									map{{ mapSnap.id }}_3.load_LOC5_MCDONALDS(map{{ mapSnap.id }}_3);	
+								}
+								// add in layers that were turned on
+								if (LOC6 == 'True') {
+									map{{ mapSnap.id }}_3.load_LOC6_SUBWAY_LINES(map{{ mapSnap.id }}_3);	
+								}			
+
+								// add in layers that were turned on
+								if (MEDIA == 'True') {
+									map{{ mapSnap.id }}_3.loadMedia(map{{ mapSnap.id }}_3);	
+								}
+							
+							}
+
+							setTimeout ( addLocations, 3000);										
 			
 						{% endfor %}
 						
@@ -1003,34 +1022,40 @@
 								map{{ mapSnap.id }}_4.load_CREATEMAP10_BANKS_PER_AFI(map{{ mapSnap.id }}_4);	
 							}
 
-							if (LOC1 == 'True') {
-								map{{ mapSnap.id }}_4.load_LOC1_PAWN_SHOPS(map{{ mapSnap.id }}_4);	
-							}
-							// add in layers that were turned on
-							if (LOC2 == 'True') {
-								map{{ mapSnap.id }}_4.load_LOC2_CHECK_CASHING(map{{ mapSnap.id }}_4);	
-							}
-							// add in layers that were turned on
-							if (LOC3 == 'True') {
-								map{{ mapSnap.id }}_4.load_LOC3_WIRE_TRANSFER(map{{ mapSnap.id }}_4);	
-							}
-							// add in layers that were turned on
-							if (LOC4 == 'True') {
-								map{{ mapSnap.id }}_4.load_LOC4_BANKS(map{{ mapSnap.id }}_4);	
-							}
-							// add in layers that were turned on
-							if (LOC5 == 'True') {
-								map{{ mapSnap.id }}_4.load_LOC5_MCDONALDS(map{{ mapSnap.id }}_4);	
-							}
-							// add in layers that were turned on
-							if (LOC6 == 'True') {
-								map{{ mapSnap.id }}_4.load_LOC6_SUBWAY_LINES(map{{ mapSnap.id }}_4);	
-							}			
+							function addLocations() {
 
-							// add in layers that were turned on
-							if (MEDIA == 'True') {
-								map{{ mapSnap.id }}_4.loadMedia(map{{ mapSnap.id }}_4);	
-							}			
+								if (LOC1 == 'True') {
+									map{{ mapSnap.id }}_4.load_LOC1_PAWN_SHOPS(map{{ mapSnap.id }}_4);	
+								}
+								// add in layers that were turned on
+								if (LOC2 == 'True') {
+									map{{ mapSnap.id }}_4.load_LOC2_CHECK_CASHING(map{{ mapSnap.id }}_4);	
+								}
+								// add in layers that were turned on
+								if (LOC3 == 'True') {
+									map{{ mapSnap.id }}_4.load_LOC3_WIRE_TRANSFER(map{{ mapSnap.id }}_4);	
+								}
+								// add in layers that were turned on
+								if (LOC4 == 'True') {
+									map{{ mapSnap.id }}_4.load_LOC4_BANKS(map{{ mapSnap.id }}_4);	
+								}
+								// add in layers that were turned on
+								if (LOC5 == 'True') {
+									map{{ mapSnap.id }}_4.load_LOC5_MCDONALDS(map{{ mapSnap.id }}_4);	
+								}
+								// add in layers that were turned on
+								if (LOC6 == 'True') {
+									map{{ mapSnap.id }}_4.load_LOC6_SUBWAY_LINES(map{{ mapSnap.id }}_4);	
+								}			
+
+								// add in layers that were turned on
+								if (MEDIA == 'True') {
+									map{{ mapSnap.id }}_4.loadMedia(map{{ mapSnap.id }}_4);	
+								}
+							
+							}
+
+							setTimeout ( addLocations, 3000);		
 			
 						{% endfor %}
 						
@@ -1223,34 +1248,40 @@
 								map{{ mapSnap.id }}_5.load_CREATEMAP10_BANKS_PER_AFI(map{{ mapSnap.id }}_5);	
 							}
 
-							if (LOC1 == 'True') {
-								map{{ mapSnap.id }}_5.load_LOC1_PAWN_SHOPS(map{{ mapSnap.id }}_5);	
-							}
-							// add in layers that were turned on
-							if (LOC2 == 'True') {
-								map{{ mapSnap.id }}_5.load_LOC2_CHECK_CASHING(map{{ mapSnap.id }}_5);	
-							}
-							// add in layers that were turned on
-							if (LOC3 == 'True') {
-								map{{ mapSnap.id }}_5.load_LOC3_WIRE_TRANSFER(map{{ mapSnap.id }}_5);	
-							}
-							// add in layers that were turned on
-							if (LOC4 == 'True') {
-								map{{ mapSnap.id }}_5.load_LOC4_BANKS(map{{ mapSnap.id }}_5);	
-							}
-							// add in layers that were turned on
-							if (LOC5 == 'True') {
-								map{{ mapSnap.id }}_5.load_LOC5_MCDONALDS(map{{ mapSnap.id }}_5);	
-							}
-							// add in layers that were turned on
-							if (LOC6 == 'True') {
-								map{{ mapSnap.id }}_5.load_LOC6_SUBWAY_LINES(map{{ mapSnap.id }}_5);	
-							}			
+							function addLocations() {
 
-							// add in layers that were turned on
-							if (MEDIA == 'True') {
-								map{{ mapSnap.id }}_5.loadMedia(map{{ mapSnap.id }}_5);	
-							}			
+								if (LOC1 == 'True') {
+									map{{ mapSnap.id }}_5.load_LOC1_PAWN_SHOPS(map{{ mapSnap.id }}_5);	
+								}
+								// add in layers that were turned on
+								if (LOC2 == 'True') {
+									map{{ mapSnap.id }}_5.load_LOC2_CHECK_CASHING(map{{ mapSnap.id }}_5);	
+								}
+								// add in layers that were turned on
+								if (LOC3 == 'True') {
+									map{{ mapSnap.id }}_5.load_LOC3_WIRE_TRANSFER(map{{ mapSnap.id }}_5);	
+								}
+								// add in layers that were turned on
+								if (LOC4 == 'True') {
+									map{{ mapSnap.id }}_5.load_LOC4_BANKS(map{{ mapSnap.id }}_5);	
+								}
+								// add in layers that were turned on
+								if (LOC5 == 'True') {
+									map{{ mapSnap.id }}_5.load_LOC5_MCDONALDS(map{{ mapSnap.id }}_5);	
+								}
+								// add in layers that were turned on
+								if (LOC6 == 'True') {
+									map{{ mapSnap.id }}_5.load_LOC6_SUBWAY_LINES(map{{ mapSnap.id }}_5);	
+								}			
+
+								// add in layers that were turned on
+								if (MEDIA == 'True') {
+									map{{ mapSnap.id }}_5.loadMedia(map{{ mapSnap.id }}_5);	
+								}
+							
+							}
+
+							setTimeout ( addLocations, 3000);		
 			
 						{% endfor %}
 						
@@ -1305,4 +1336,5 @@
 	{% include 'CashCity/mapFilterMedia.html' %}
 	<script type="text/javascript" src="{% static 'CashCity/js/CityDigitsMapThumb.js' %}"></script>	
 	<script type="text/javascript" src="{% static 'CashCity/js/opinionForm.js' %}"></script>
+	<!-- set opinion number in each section -->	
 {% endblock %}

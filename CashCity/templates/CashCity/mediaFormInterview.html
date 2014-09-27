@@ -62,7 +62,11 @@
 	                        Add Image {{ form.image }}
 	                    </span>
 	                </span>
-	                <input type="text" class="form-control" placeholder='No File Chosen' readonly>
+					{% if form.image.value %}
+	               		<input type="text" class="form-control" placeholder='{{ form.image.value }}' readonly>
+					{% else %}
+	               		<input type="text" class="form-control" placeholder='No File Chosen' readonly>
+					{% endif %}
 				</div>
 			</div>
 			<div class="form-group">
@@ -73,7 +77,11 @@
 	                        Add Audio {{ form.audio }}
 	                    </span>
 	                </span>
-	                <input type="text" class="form-control" placeholder='No File Chosen' readonly>
+					{% if form.audio.value %}
+	               		<input type="text" class="form-control" placeholder='{{ form.audio.value }}' readonly>
+					{% else %}
+	               		<input type="text" class="form-control" placeholder='No File Chosen' readonly>
+					{% endif %}
 				</div>
 			</div>
 			<div class="form-group">

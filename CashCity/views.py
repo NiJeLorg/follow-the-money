@@ -900,12 +900,19 @@ def mediaImagePublish(request, id=None):
 
 # view for media audio form
 @login_required
-def mediaFormAudio(request):
+def mediaFormAudio(request, id=None):
     # Get the context from the request.
     context = RequestContext(request)
 
     #get user profile data and pass to view
-    profile = ExUserProfile.objects.get(user=request.user)    
+    profile = ExUserProfile.objects.get(user=request.user) 
+    
+    if id:
+        mediaAudio = MediaAudio.objects.get(pk=id)
+        form = MediaFormAudio(instance=mediaAudio)
+    else:
+        mediaAudio = MediaAudio()    
+       
 
     # A HTTP POST?
     if request.method == 'POST':
@@ -918,7 +925,7 @@ def mediaFormAudio(request):
 
         # if user hits save as draft, flag data in media Audio table as draft
         elif "saveDraft" in request.POST:
-            form = MediaFormAudio(request.POST, request.FILES)
+            form = MediaFormAudio(request.POST, request.FILES, instance=mediaAudio)
         
             # Have we been provided with a valid form?
             if form.is_valid():
@@ -942,7 +949,7 @@ def mediaFormAudio(request):
                 print form.errors            
 
         else:
-            form = MediaFormAudio(request.POST, request.FILES)
+            form = MediaFormAudio(request.POST, request.FILES, instance=mediaAudio)
         
             # Have we been provided with a valid form?
             if form.is_valid():
@@ -967,7 +974,7 @@ def mediaFormAudio(request):
                 
     else:
         # If the request was not a POST, display the form to enter details.
-        form = MediaFormAudio()
+        form = MediaFormAudio(instance=mediaAudio)
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
@@ -1068,12 +1075,18 @@ def mediaAudioPublish(request, id=None):
     
 # view for media notes form
 @login_required
-def mediaFormNote(request):
+def mediaFormNote(request, id=None):
     # Get the context from the request.
     context = RequestContext(request)
 
     #get user profile data and pass to view
-    profile = ExUserProfile.objects.get(user=request.user)    
+    profile = ExUserProfile.objects.get(user=request.user) 
+    
+    if id:
+        mediaNote = MediaNote.objects.get(pk=id)
+        form = MediaFormNote(instance=mediaNote)
+    else:
+        mediaNote = MediaNote()   
 
     # A HTTP POST?
     if request.method == 'POST':
@@ -1086,7 +1099,7 @@ def mediaFormNote(request):
 
         # if user hits save as draft, flag data in media Audio table as draft
         elif "saveDraft" in request.POST:
-            form = MediaFormNote(request.POST)
+            form = MediaFormNote(request.POST, instance=mediaNote)
         
             # Have we been provided with a valid form?
             if form.is_valid():
@@ -1110,7 +1123,7 @@ def mediaFormNote(request):
                 print form.errors            
 
         else:
-            form = MediaFormNote(request.POST)
+            form = MediaFormNote(request.POST, instance=mediaNote)
         
             # Have we been provided with a valid form?
             if form.is_valid():
@@ -1135,7 +1148,7 @@ def mediaFormNote(request):
                 
     else:
         # If the request was not a POST, display the form to enter details.
-        form = MediaFormNote()
+        form = MediaFormNote(instance=mediaNote)
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
@@ -1234,12 +1247,18 @@ def mediaNotePublish(request, id=None):
     
 # view for media image form
 @login_required
-def mediaFormInterview(request):
+def mediaFormInterview(request, id=None):
     # Get the context from the request.
     context = RequestContext(request)
 
     #get user profile data and pass to view
     profile = ExUserProfile.objects.get(user=request.user)    
+
+    if id:
+        mediaInterview = MediaInterview.objects.get(pk=id)
+        form = MediaFormInterview(instance=mediaInterview)
+    else:
+        mediaInterview = MediaInterview()   
 
     # A HTTP POST?
     if request.method == 'POST':
@@ -1252,7 +1271,7 @@ def mediaFormInterview(request):
 
         # if user hits save as draft, flag data in media image table as draft
         elif "saveDraft" in request.POST:
-            form = MediaFormInterview(request.POST, request.FILES)
+            form = MediaFormInterview(request.POST, request.FILES, instance=mediaInterview)
         
             # Have we been provided with a valid form?
             if form.is_valid():
@@ -1276,7 +1295,7 @@ def mediaFormInterview(request):
                 print form.errors            
 
         else:
-            form = MediaFormInterview(request.POST, request.FILES)
+            form = MediaFormInterview(request.POST, request.FILES, instance=mediaInterview)
         
             # Have we been provided with a valid form?
             if form.is_valid():
@@ -1301,7 +1320,7 @@ def mediaFormInterview(request):
                 
     else:
         # If the request was not a POST, display the form to enter details.
-        form = MediaFormInterview()
+        form = MediaFormInterview(instance=mediaInterview)
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
@@ -1929,7 +1948,7 @@ def opinionForm(request, id=None):
     profile = ExUserProfile.objects.get(user=request.user) 
     
     #set Opinions Sections up as a formset -- 5 total repetitons of form
-    OpinionSectionsFormset = modelformset_factory(OpinionSections, extra=5, form=OpinionSectionsForm)
+    OpinionSectionsFormset = modelformset_factory(OpinionSections, extra=5, max_num=5, form=OpinionSectionsForm)
     
     # get ALL media and map snaps for opinions
     #build query
@@ -1949,26 +1968,37 @@ def opinionForm(request, id=None):
     #get mediaInterview
     mediaInterview = MediaInterview.objects.filter(**kwargs).order_by('-last_modified')
 
+
+    #build query
     kwargs = {}
-    kwargs['user__exact'] = request.user.id
+
+    if profile.teacherOrStudent:
+        # show only media tied to this teacher's student groups
+        classRequest = list(ExUserProfile.objects.filter(teacherId=request.user.id).values_list('user', flat=True))
+        #add in the teacher's own account
+        classRequest.append(request.user.id)
+        kwargs['user__in'] = classRequest
+    else:   
+        kwargs['user__exact'] = request.user.id
+
+
     #get mapSnaps
     mapSnaps = MapSettings.objects.filter(**kwargs).order_by('-last_modified')
     
     # loop throuhg mapSnaps and increase zoom to way out
     for mapSnap in mapSnaps:
         mapSnap.zoom = mapSnap.zoom - 3
-         
+     
     
     if id:
         opinion = Opinions.objects.get(pk=id)
         opinionSections = OpinionSections.objects.filter(opinion=opinion)
-        opinionsForm = OpinionsForm(instance=opinion)
         formsetQueryset = opinionSections
     else:
-        opinion = Opinions()    
-        opinionSections = OpinionSections()    
-        formsetQueryset = OpinionSections.objects.none()
-      
+        opinion = Opinions()
+        opinionSections = OpinionSections.objects.none();
+        formsetQueryset = opinionSections
+        
 
     # A HTTP POST?
     if request.method == 'POST':
@@ -1980,12 +2010,12 @@ def opinionForm(request, id=None):
                 return HttpResponseRedirect('/accounts/profile/student/opinion/')
                 
         # if user hits save as draft, flag data in media image table as draft
-        elif "saveDraft" in request.POST:
+        elif "saveDraft" in request.POST: 
+            #save opinion for first           
             opinionsForm = OpinionsForm(request.POST, request.FILES, instance=opinion) 
-            opinionSectionsFormset = OpinionSectionsFormset(request.POST, request.FILES, queryset=formsetQueryset)
-            
+                        
             # Have we been provided with a valid form?
-            if opinionsForm.is_valid() and opinionSectionsFormset.is_valid():
+            if opinionsForm.is_valid():
                     
                 # Save the new data to the database.
                 f = opinionsForm.save(commit=False)
@@ -1997,54 +2027,281 @@ def opinionForm(request, id=None):
                 f.published = False
                 f.save()
                 
-                # save the opinion sections
-                opinionSectionsFormset.save()
+                # store opinionId for later
+                opinionId = f.id                                               
 
-            
+            else:
+                # The supplied form contained errors - just print them to the terminal.
+                print opinionsForm.errors
+
+            # now save opinion sections attaching it to the correct Opinion PK   
+            opinionSectionsFormset = OpinionSectionsFormset(request.POST, request.FILES, queryset=formsetQueryset)
+                            
+            # Have we been provided with a valid form?
+            if opinionSectionsFormset.is_valid():
+
+                # get opnions instace
+                opinionObject = Opinions.objects.get(pk=opinionId)
+                                                                  
+                # save the opinion sections
+                fs = opinionSectionsFormset.save(commit=False)
+                
+                for form in fs:
+                    form.opinion = opinionObject
+                
+                    form.save()
+                    
                 if profile.teacherOrStudent:
                     return HttpResponseRedirect('/accounts/profile/opinion/')
                 else:   
                     return HttpResponseRedirect('/accounts/profile/student/opinion/')
-
+           
             else:
                 # The supplied form contained errors - just print them to the terminal.
-                print opinionsForm.errors         
-
-        else:
-            opinionsForm = OpinionsForm(request.POST, request.FILES, instance=opinion) 
-            opinionSectionsFormset = OpinionSectionsFormset(request.POST, request.FILES, queryset=formsetQueryset)
+                print opinionSectionsFormset.errors
             
+            
+ 
+        else:
+            #save opinion for first           
+            opinionsForm = OpinionsForm(request.POST, request.FILES, instance=opinion) 
+                        
             # Have we been provided with a valid form?
-            if opinionsForm.is_valid() and opinionSectionsFormset.is_valid():
+            if opinionsForm.is_valid():
+                    
                 # Save the new data to the database.
                 f = opinionsForm.save(commit=False)
                 
                 # add user 
                 f.user = request.user
 
-                # mark as published
+                # mark as draft
                 f.published = True
                 f.save()
-
-                # save the opinion sections
-                opinionSectionsFormset.save()
-            
-                if profile.teacherOrStudent:
-                    return HttpResponseRedirect('/accounts/profile/media/')
-                else:   
-                    return HttpResponseRedirect('/accounts/profile/student/media/')
+                
+                # store opinionId for later
+                opinionId = f.id                                               
 
             else:
                 # The supplied form contained errors - just print them to the terminal.
                 print opinionsForm.errors
+
+            # now save opinion sections attaching it to the correct Opinion PK   
+            opinionSectionsFormset = OpinionSectionsFormset(request.POST, request.FILES, queryset=formsetQueryset)
+                            
+            # Have we been provided with a valid form?
+            if opinionSectionsFormset.is_valid():
+
+                # get opnions instace
+                opinionObject = Opinions.objects.get(pk=opinionId)
+                                                                  
+                # save the opinion sections
+                fs = opinionSectionsFormset.save(commit=False)
+                
+                for form in fs:
+                    form.opinion = opinionObject
+                
+                    form.save()
+                    
+                if profile.teacherOrStudent:
+                    return HttpResponseRedirect('/accounts/profile/opinion/')
+                else:   
+                    return HttpResponseRedirect('/accounts/profile/student/opinion/')
+           
+            else:
+                # The supplied form contained errors - just print them to the terminal.
+                print opinionSectionsFormset.errors
+
                 
     else:
-        # If the request was not a POST, display the form to enter details.
+        
+        # not a POST request
         opinionsForm = OpinionsForm(instance=opinion)
         opinionSectionsFormset = OpinionSectionsFormset(queryset=formsetQueryset)
+        
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
-    return render_to_response('CashCity/opinionForm.html', {'opinionsForm': opinionsForm, 'opinionSectionsFormset': opinionSectionsFormset, 'profile':profile, 'mediaImages': mediaImages, 'mediaAudio':mediaAudio, 'mediaNote':mediaNote, 'mediaInterview':mediaInterview, 'mapSnaps':mapSnaps}, context)
+    return render_to_response('CashCity/opinionForm.html', {'opinionsForm': opinionsForm, 'opinionSectionsFormset': opinionSectionsFormset, 'profile':profile, 'mediaImages': mediaImages, 'mediaAudio':mediaAudio, 'mediaNote':mediaNote, 'mediaInterview':mediaInterview, 'mapSnaps':mapSnaps, 'opinion':opinion}, context)
 
 
+
+@login_required
+def opinionFormRemove(request, id=None):
+    """
+      Allows for removing of opinions
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
+    
+    if id:
+        opinion = Opinions.objects.get(pk=id)
+               
+    # A HTTP POST?
+    if request.method == 'POST':
+        # if user hits cancel, send back to media page without saving
+        if "cancel" in request.POST:
+            if profile.teacherOrStudent:
+                return HttpResponseRedirect('/accounts/profile/opinion/')
+            else:   
+                return HttpResponseRedirect('/accounts/profile/student/opinion/')
+        # user has clicked save
+        else:
+            opinion.delete()
+        
+            if profile.teacherOrStudent:
+                return HttpResponseRedirect('/accounts/profile/opinion/')
+            else:   
+                return HttpResponseRedirect('/accounts/profile/student/opinion/')            
+            
+    if profile.teacherOrStudent:
+        template = 'CashCity/opinionRemove.html'
+    else:
+        template = 'CashCity/opinionRemoveStudent.html'
+        
+
+    return render_to_response(template, {'opinion': opinion, 'profile':profile}, context)    
+
+
+@login_required
+def opinionSaveDraft(request, id=None):
+    """
+      Allows for moving opinions to draft
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
+    
+    if id:
+        opinion = Opinions.objects.get(pk=id)
+        opinion.published = False
+        opinion.save()
+        if profile.teacherOrStudent:
+            return HttpResponseRedirect('/accounts/profile/opinion/')
+        else:   
+            return HttpResponseRedirect('/accounts/profile/student/opinion/')
+    
+    else:  
+        if profile.teacherOrStudent:
+            return HttpResponseRedirect('/accounts/profile/opinion/')
+        else:   
+            return HttpResponseRedirect('/accounts/profile/student/opinion/')            
+            
+
+@login_required
+def opinionPublish(request, id=None):
+    """
+      Allows for moving opinions to published
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view
+    profile = ExUserProfile.objects.get(user=request.user)    
+    
+    if id:
+        opinion = Opinions.objects.get(pk=id)
+        opinion.published = True
+        opinion.save()
+        if profile.teacherOrStudent:
+            return HttpResponseRedirect('/accounts/profile/opinion/')
+        else:   
+            return HttpResponseRedirect('/accounts/profile/student/opinion/')
+    
+    else:  
+        if profile.teacherOrStudent:
+            return HttpResponseRedirect('/accounts/profile/opinion/')
+        else:   
+            return HttpResponseRedirect('/accounts/profile/student/opinion/') 
+
+           
+def opinionPage(request, id=None):
+    """
+      Loads a page for an interview
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view -- don't print comment form is user is not logged in
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+        comment_form = OpinionsFormComment()
+    else:
+        profile = False
+        comment_form = False
+    
+    if id:
+        opinionObject = Opinions.objects.get(pk=id)
+        opinionSections = OpinionSections.objects.filter(opinion=opinionObject).order_by('sectionNumber');
+        imageKwargs = {}
+        imageIds = list()
+        audioKwargs = {}
+        audioIds = list()
+        noteKwargs = {}
+        noteIds = list()
+        interviewKwargs = {}
+        interviewIds = list()
+        mapSnapKwargs = {}
+        mapSnapIds = list()
+
+        for section in opinionSections:
+            if section.image:
+                imageIds.append(section.image.id)
+            if section.audio:
+                audioIds.append(section.audio.id)
+            if section.note:
+                noteIds.append(section.note.id)
+            if section.interview:
+                interviewIds.append(section.interview.id)
+            if section.mapSnap:
+                mapSnapIds.append(section.mapSnap.id)
+                
+        imageKwargs['pk__in'] = imageIds
+        audioKwargs['pk__in'] = audioIds
+        noteKwargs['pk__in'] = noteIds
+        interviewKwargs['pk__in'] = interviewIds
+        mapSnapKwargs['pk__in'] = mapSnapIds
+        
+        mediaImages = MediaImage.objects.filter(**imageKwargs)
+        mediaAudio = MediaAudio.objects.filter(**audioKwargs)
+        mediaNotes = MediaNote.objects.filter(**noteKwargs)
+        mediaInterviews = MediaInterview.objects.filter(**interviewKwargs)
+        mapSnaps = MapSettings.objects.filter(**mapSnapKwargs)
+        
+        # loop throuhg mapSnaps and increase zoom by 1
+        for mapSnap in mapSnaps:
+            mapSnap.zoom = mapSnap.zoom - 1
+        
+                
+        
+    else:
+        return HttpResponseRedirect('/cashcity/opinion/')
+        
+    if request.method == 'POST':
+        comment_form = OpinionsFormComment(data=request.POST)
+        if comment_form.is_valid():
+            c = comment_form.save(commit=False)       
+            # add current user
+            c.user = request.user
+            # add opinion id
+            c.opinion = opinionObject
+            c.save()
+
+            success = True
+            # get opinionComments
+            comments = OpinionComments.objects.filter(opinion=id)
+            
+            # send along blank comment form
+            comment_form = OpinionsFormComment()
+            
+            return render_to_response('CashCity/opinionPage.html', {'opinionObject': opinionObject, 'opinionSections': opinionSections, 'mediaImages':mediaImages, 'mediaAudio':mediaAudio, 'mediaNotes':mediaNotes, 'mediaInterviews':mediaInterviews, 'mapSnaps':mapSnaps, 'comments':comments, 'comment_form':comment_form, 'success': success, 'profile':profile}, context)
+            
+        else:
+            print comment_form.errors
+            
+    else:
+        # get MediaInterviewComments
+        comments = OpinionComments.objects.filter(opinion=id)
+
+    return render_to_response('CashCity/opinionPage.html', {'opinionObject': opinionObject, 'opinionSections': opinionSections, 'mediaImages':mediaImages, 'mediaAudio':mediaAudio, 'mediaNotes':mediaNotes, 'mediaInterviews':mediaInterviews, 'mapSnaps':mapSnaps,'comments':comments, 'comment_form':comment_form, 'profile':profile}, context)
