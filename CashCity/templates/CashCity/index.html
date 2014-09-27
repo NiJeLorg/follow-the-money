@@ -527,4 +527,213 @@
 	<script type="text/javascript" src="{% static 'CashCity/js/application.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/mapnav.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/mapSnap.js' %}"></script>
+	{% if mapSnapBookmark %}	
+	<!-- load map snap from opinion area -->
+	<script type="text/javascript">
+		$( window ).load(function() {
+			
+			// set map state variables
+			var MapLayer{{ mapSnapBookmark.id }} = '{{ mapSnapBookmark.MapLayer }}';	
+			var LOC1{{ mapSnapBookmark.id }} = '{{ mapSnapBookmark.PawnShops }}';
+			var LOC2{{ mapSnapBookmark.id }} = '{{ mapSnapBookmark.CheckCashing }}';
+			var LOC3{{ mapSnapBookmark.id }} = '{{ mapSnapBookmark.WireTransfer }}';
+			var LOC4{{ mapSnapBookmark.id }} = '{{ mapSnapBookmark.Banks }}';
+			var LOC5{{ mapSnapBookmark.id }} = '{{ mapSnapBookmark.McDonalds }}';
+			var LOC6{{ mapSnapBookmark.id }} = '{{ mapSnapBookmark.SubwayLines }}';
+			var MEDIA{{ mapSnapBookmark.id }} = '{{ mapSnapBookmark.MEDIA }}';
+			
+
+			// set map zoom and center
+			MY_MAP.map.setView([{{ mapSnapBookmark.latitude }},{{ mapSnapBookmark.longitude }}],{{ mapSnapBookmark.zoom }});
+			
+			
+			// remove map layers
+		    if(mainLayer != null){
+				CityDigitsMap.removeLayerFor(mainLayer);
+				mainLayer = null;
+		    }
+			if (LOC1 != null) {
+				CityDigitsMap.removeLayerFor(LOC1);							
+			}
+			if (LOC2 != null) {
+				CityDigitsMap.removeLayerFor(LOC2);							
+			}
+			if (LOC3 != null) {
+				CityDigitsMap.removeLayerFor(LOC3);							
+			}
+			if (LOC4 != null) {
+				CityDigitsMap.removeLayerFor(LOC4);							
+			}
+			if (LOC5 != null) {
+				CityDigitsMap.removeLayerFor(LOC5);							
+			}
+			if (LOC6 != null) {
+				CityDigitsMap.removeLayerFor(LOC6);							
+			}
+
+			if (MEDIA != null) {
+				CityDigitsMap.removeLayerFor(MEDIA);							
+			}
+			
+			// uncheck all layers
+			$('#All_AFS').prop('checked', false);
+			$('#LOC1').prop('checked', false);
+			$('#LOC2').prop('checked', false);
+			$('#LOC3').prop('checked', false);
+			$('#LOC4').prop('checked', false);
+			$('#LOC5').prop('checked', false);
+			$('#LOC6').prop('checked', false);
+			$('#MAP1').prop('checked', false);
+			$('#MAP2').prop('checked', false);
+			$('#MAP3').prop('checked', false);
+			$('#MAP4').prop('checked', false);
+			$('#var1Select').selectpicker('val', 'Variable 1');
+			$("#var2Select").html("<option value='Variable 2' class='grey'>Variable 2</option>");
+			$("#var2Select").selectpicker('refresh');
+			$("#normalizationText").html('');
+			
+								
+			// load layers
+			if (MapLayer{{ mapSnapBookmark.id }} == 'legendpoverty') {
+				CityDigitsMap.loadLayerFor('MAP1');
+				$('#MAP1').prop('checked', true);
+			} 
+			if (MapLayer{{ mapSnapBookmark.id }} == 'legendmedhhinc') {
+				CityDigitsMap.loadLayerFor('MAP2');
+				$('#MAP2').prop('checked', true);
+			}
+			if (MapLayer{{ mapSnapBookmark.id }} == 'legendunemploy') {
+				CityDigitsMap.loadLayerFor('MAP3');
+				$('#MAP3').prop('checked', true);
+			} 
+			if (MapLayer{{ mapSnapBookmark.id }} == 'legendforeignborn') {
+				CityDigitsMap.loadLayerFor('MAP4');
+				$('#MAP4').prop('checked', true);
+			} 
+			if (MapLayer{{ mapSnapBookmark.id }} == 'legendAFIpersqmi') {
+				CityDigitsMap.loadLayerFor('CREATEMAP1');
+				$('#var1Select').selectpicker('val', 'Alternative Financial Insitutions');
+				$("#var2Select").html("<option value='Banks'>Banks</option><option value='Square Miles'>Square Miles</option>");
+				$("#var2Select").selectpicker('refresh');
+				$('#var2Select').selectpicker('val', 'Square Miles');
+				$("#normalizationText").html('Alternative Financial Insitutions per Square Mile');	
+			} 
+			if (MapLayer{{ mapSnapBookmark.id }} == 'legendbankspersqmi') {
+				CityDigitsMap.loadLayerFor('CREATEMAP2');
+				$('#var1Select').selectpicker('val', 'Banks');
+				$("#var2Select").html("<option value='Alternative Financial Insitutions'>Alternative Financial Insitutions</option><option value='Square Miles'>Square Miles</option>");
+				$("#var2Select").selectpicker('refresh');
+				$('#var2Select').selectpicker('val', 'Square Miles');
+				$("#normalizationText").html('Banks per Square Mile');	
+			} 
+			if (MapLayer{{ mapSnapBookmark.id }} == 'legendpawnsqmi') {
+				CityDigitsMap.loadLayerFor('CREATEMAP3');
+				$('#var1Select').selectpicker('val', 'Pawn Shops');
+				$("#var2Select").html("<option value='Square Miles'>Square Miles</option>");
+				$("#var2Select").selectpicker('refresh');
+				$('#var2Select').selectpicker('val', 'Square Miles');
+				$("#normalizationText").html('Pawn Shops per Square Mile');	
+			} 
+			if (MapLayer{{ mapSnapBookmark.id }} == 'legendmcdonaldspersqi') {
+				CityDigitsMap.loadLayerFor('CREATEMAP4');
+				$('#var1Select').selectpicker('val', 'McDonalds');
+				$("#var2Select").html("<option value='Square Miles'>Square Miles</option>");
+				$("#var2Select").selectpicker('refresh');
+				$('#var2Select').selectpicker('val', 'Square Miles');
+				$("#normalizationText").html('McDonald\'s per Square Mile');
+			} 
+			if (MapLayer{{ mapSnapBookmark.id }} == 'legendhouseholdsperAFI') {
+				CityDigitsMap.loadLayerFor('CREATEMAP5');
+				$('#var1Select').selectpicker('val', 'Households');
+				$("#var2Select").html("<option value='Banks'>Banks</option><option value='Alternative Financial Insitutions'>Alternative Financial Insitutions</option><option value='Pawn Shops'>Pawn Shops</option><option value='McDonalds'>McDonald's</option>");
+				$("#var2Select").selectpicker('refresh');
+				$('#var2Select').selectpicker('val', 'Alternative Financial Insitutions');
+				$("#normalizationText").html('Households per Alternative Financial Insitution');			
+			} 
+			if (MapLayer{{ mapSnapBookmark.id }} == 'legendhouseholdsperbank') {
+				CityDigitsMap.loadLayerFor('CREATEMAP6');
+				$('#var1Select').selectpicker('val', 'Households');
+				$("#var2Select").html("<option value='Banks'>Banks</option><option value='Alternative Financial Insitutions'>Alternative Financial Insitutions</option><option value='Pawn Shops'>Pawn Shops</option><option value='McDonalds'>McDonald's</option>");
+				$("#var2Select").selectpicker('refresh');
+				$('#var2Select').selectpicker('val', 'Banks');
+				$("#normalizationText").html('Households per Bank');			
+			} 
+			if (MapLayer{{ mapSnapBookmark.id }} == 'legendhouseholdsperMcD') {
+				CityDigitsMap.loadLayerFor('CREATEMAP7');
+				$('#var1Select').selectpicker('val', 'Households');
+				$("#var2Select").html("<option value='Banks'>Banks</option><option value='Alternative Financial Insitutions'>Alternative Financial Insitutions</option><option value='Pawn Shops'>Pawn Shops</option><option value='McDonalds'>McDonald's</option>");
+				$("#var2Select").selectpicker('refresh');
+				$('#var2Select').selectpicker('val', 'McDonalds');
+				$("#normalizationText").html('Households per McDonald\'s');			
+			} 
+			if (MapLayer{{ mapSnapBookmark.id }} == 'legendhouseholdsperpawn') {
+				CityDigitsMap.loadLayerFor('CREATEMAP8');
+				$('#var1Select').selectpicker('val', 'Households');
+				$("#var2Select").html("<option value='Banks'>Banks</option><option value='Alternative Financial Insitutions'>Alternative Financial Insitutions</option><option value='Pawn Shops'>Pawn Shops</option><option value='McDonalds'>McDonald's</option>");
+				$("#var2Select").selectpicker('refresh');
+				$('#var2Select').selectpicker('val', 'Pawn Shops');
+				$("#normalizationText").html('Households per Pawn Shop');			
+			} 
+			if (MapLayer{{ mapSnapBookmark.id }} == 'legendAFIsperbank') {
+				CityDigitsMap.loadLayerFor('CREATEMAP9');
+				$('#var1Select').selectpicker('val', 'Alternative Financial Insitutions');
+				$("#var2Select").html("<option value='Banks'>Banks</option><option value='Square Miles'>Square Miles</option>");
+				$("#var2Select").selectpicker('refresh');
+				$('#var2Select').selectpicker('val', 'Banks');
+				$("#normalizationText").html('Alternative Financial Insitutions per Bank');	
+			} 
+			if (MapLayer{{ mapSnapBookmark.id }} == 'legendbanksperAFIs') {
+				CityDigitsMap.loadLayerFor('CREATEMAP10');
+				$('#var1Select').selectpicker('val', 'Banks');
+				$("#var2Select").html("<option value='Alternative Financial Insitutions'>Alternative Financial Insitutions</option><option value='Square Miles'>Square Miles</option>");
+				$("#var2Select").selectpicker('refresh');
+				$('#var2Select').selectpicker('val', 'Alternative Financial Insitutions');
+				$("#normalizationText").html('Banks per Alternative Financial Insitution');	
+			}
+
+
+			function addLocations() {
+				if (LOC1{{ mapSnapBookmark.id }} == 'True') {
+					CityDigitsMap.loadLocationsLayerFor('LOC1');	
+					$('#LOC1').prop('checked', true);
+				}
+				// add in layers that were turned on
+				if (LOC2{{ mapSnapBookmark.id }} == 'True') {
+					CityDigitsMap.loadLocationsLayerFor('LOC2');	
+					$('#LOC2').prop('checked', true);
+				}
+				// add in layers that were turned on
+				if (LOC3{{ mapSnapBookmark.id }} == 'True') {
+					CityDigitsMap.loadLocationsLayerFor('LOC3');	
+					$('#LOC3').prop('checked', true);
+				}
+				// add in layers that were turned on
+				if (LOC4{{ mapSnapBookmark.id }} == 'True') {
+					CityDigitsMap.loadLocationsLayerFor('LOC4');	
+					$('#LOC4').prop('checked', true);
+				}
+				// add in layers that were turned on
+				if (LOC5{{ mapSnapBookmark.id }} == 'True') {
+					CityDigitsMap.loadLocationsLayerFor('LOC5');	
+					$('#LOC5').prop('checked', true);
+				}
+				// add in layers that were turned on
+				if (LOC6{{ mapSnapBookmark.id }} == 'True') {
+					CityDigitsMap.loadLocationsLayerFor('LOC6');	
+					$('#LOC6').prop('checked', true);
+				}			
+
+				// add in layers that were turned on
+				if (MEDIA{{ mapSnapBookmark.id }} == 'True') {
+					CityDigitsMap.loadLocationsLayerFor('MEDIA');	
+					$('#MEDIA').prop('checked', true);
+				}
+	
+			}
+
+			setTimeout ( addLocations, 1000);
+
+		});
+	</script>
+	{% endif %}
 {% endblock %}

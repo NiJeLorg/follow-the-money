@@ -7,6 +7,9 @@ from CashCity import views
 urlpatterns = patterns('',
     #map urls
     url(r'^$', views.index, name='index'),
+    #map bookmarks
+    url(r'^mapsnaps/(?P<id>\d+)/$', views.mapSnaps, name='mapSnaps'),
+
     # media form urls
     url(r'^media/form/image/', views.mediaFormImage, name='mediaFormImage'),
     url(r'^media/form/audio/', views.mediaFormAudio, name='mediaFormAudio'),
