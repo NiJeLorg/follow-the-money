@@ -40,18 +40,18 @@ urlpatterns = patterns('',
     # media filter
     url(r'^media/filter/$', views.filterMedia, name='filterMedia'),    
     url(r'^media/', views.media, name='media'),
+    # opinion edit form
+    url(r'opinion/form/edit/(?P<id>\d+)/$', views.opinionForm, name = 'opinionFormEdit'),
+    # opinion remove form
+    url(r'opinion/form/remove/(?P<id>\d+)/$', views.opinionFormRemove, name = 'opinionFormRemove'),
+    # opinion saveDraft
+    url(r'opinion/saveDraft/(?P<id>\d+)/$', views.opinionSaveDraft, name = 'opinionSaveDraft'),
+    # opinion publish
+    url(r'opinion/publish/(?P<id>\d+)/$', views.opinionPublish, name = 'opinionPublish'),
     # opinion form url
     url(r'^opinion/form/', views.opinionForm, name='opinionForm'),
-    # opinion edit form
-    #url(r'opinion/form/edit/(?P<id>\d+)/$', views.opinionForm, name = 'opinionFormEdit'),
-    # opinion remove form
-    #url(r'opinion/form/remove/(?P<id>\d+)/$', views.opinionFormRemove, name = 'opinionFormRemove'),
-    # opinion saveDraft
-    #url(r'opinion/saveDraft/(?P<id>\d+)/$', views.opinionSaveDraft, name = 'opinionSaveDraft'),
-    # opinion publish
-    #url(r'opinion/publish/(?P<id>\d+)/$', views.opinionPublish, name = 'opinionPublish'),
     # opinion single page
-    #url(r'^opinion/(?P<id>\d+)/$', views.opinionPage, name='opinionPage'), 
+    url(r'^opinion/(?P<id>\d+)/$', views.opinionPage, name='opinionPage'), 
     # opinion filter
     url(r'^opinion/filter/$', views.filterOpinions, name='filterOpinions'),    
     url(r'^opinion/', views.opinion, name='opinion'),

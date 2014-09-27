@@ -1,0 +1,67 @@
+{% extends "CashCity/base.html" %}
+{% load cropping %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/bootstrap-select.min.css' %}">	
+{% endblock %}	
+
+
+{% block body_block %}
+<div class="full-container">
+	<h3>Student Account</h3>
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="btn-group btn-group-justified">
+				<div class="btn-group">	
+			  	  <a href="{% url 'studentProfileMedia' %}"><button type="button" class="btn btn-default">Media</button></a>
+  				</div>
+  				<div class="btn-group">		  
+			 	   <a href="#"><button type="button" class="btn btn-default active">Opinions</button></a>
+   				</div>				   
+			</div>
+		</div>
+	</div>
+	<br />
+	<div class="row">
+		<div class="container midPageFormcontainer">
+			<div class="jumbotron ">
+				<div class="row">
+					<div class="col-xs-12">
+						<h3 class="text-danger">Remove An Opinion</h3>
+						<p>Are you sure you want to remove this opinion?</p>
+					</div>
+					<form role="form" method="post" action=".">{% csrf_token %}
+						<div class="col-xs-12">	
+							<div class="form-group">
+								<label for="title">Title:</label>
+								{{ opinion.title|title }}
+							</div>
+							<div class="form-group">
+								<label for="author">Author:</label>
+								{{ opinion.authors }}
+							</div>							
+							<div class="form-group">
+								<label for="Team Image">Team Image:</label>
+								<div class="clearfix"></div>
+								<img src="{% cropped_thumbnail opinion 'cropped_teamImage' %}">
+							</div>
+						</div>
+						<div class="col-xs-6">		
+							<button type="submit" class="btn btn-danger pull-left" name="save">Remove</button>
+						</div>
+						<div class="col-xs-6">				
+							<button type="submit" class="btn btn-default pull-right" name="cancel">Cancel</button>
+						</div>		
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block js_block %}
+	<script type="text/javascript" src="{% static 'CashCity/js/bootstrap-select.min.js' %}"></script>
+{% endblock %}

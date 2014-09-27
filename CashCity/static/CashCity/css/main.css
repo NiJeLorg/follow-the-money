@@ -542,7 +542,7 @@ audio {
 
 .filter-container {
 	display: inline-block;
-	margin: 10px 10px 0px 0px;
+	margin: 10px 10px 20px 0px;
 }
 
 .noDecoration {
@@ -671,5 +671,15 @@ body.loading .loading-modal {
 
 .mediaSelect.active {
 	border: 4px solid steelblue;
+}
+
+/*
+* maps on opinion page css
+*/
+
+.map-opinion {
+    border: 1px solid #ccc;
+	width: 640px;
+	height: 480px;
 }
 

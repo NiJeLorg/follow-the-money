@@ -7,10 +7,26 @@ $(document).ready( function() {
 	
 	// select image tab on page load
 	$('.shouldbeActive').addClass('active');
-	$('#section_1').hide();
-	$('#section_2').hide();
-	$('#section_3').hide();
-	$('#section_4').hide();
+	
+	// ensure that sections are hidden if no data are in the section
+	if ( ( $('#id_form-1-image').val() == '' ) && ( $('#id_form-1-audio').val() == '' ) && ( $('#id_form-1-note').val() == '' ) &&  ( $('#id_form-1-interview').val() == '' ) && ( $('#id_form-1-mapSnap').val() == '' ) && ( $('#readonlyField_2').attr('placeholder') == 'Nothing Selected' )  ){
+		$('#section_1').hide();		
+	}
+	if ( ( $('#id_form-2-image').val() == '' ) && ( $('#id_form-2-audio').val() == '' ) && ( $('#id_form-2-note').val() == '' ) &&  ( $('#id_form-2-interview').val() == '' ) && ( $('#id_form-2-mapSnap').val() == '' ) && ( $('#readonlyField_3').attr('placeholder') == 'Nothing Selected' )  ){
+		$('#section_2').hide();		
+	}
+
+	if ( ( $('#id_form-3-image').val() == '' ) && ( $('#id_form-3-audio').val() == '' ) && ( $('#id_form-3-note').val() == '' ) &&  ( $('#id_form-3-interview').val() == '' ) && ( $('#id_form-3-mapSnap').val() == '' ) && ( $('#readonlyField_4').attr('placeholder') == 'Nothing Selected' )  ){
+		$('#section_3').hide();		
+	}
+
+	if ( ( $('#id_form-4-image').val() == '' ) && ( $('#id_form-4-audio').val() == '' ) && ( $('#id_form-4-note').val() == '' ) &&  ( $('#id_form-4-interview').val() == '' ) && ( $('#id_form-4-mapSnap').val() == '' ) && ( $('#readonlyField_5').attr('placeholder') == 'Nothing Selected' )  ){
+		$('#section_4').hide();		
+	}
+	
+	//$('#section_2').hide();
+	//$('#section_3').hide();
+	//$('#section_4').hide();
 	
 	// hide form fields that django needs for storing opinions
 	$('#id_form-0-sectionNumber').hide();
@@ -1069,6 +1085,161 @@ $(document).ready( function() {
 		input.trigger('fileselect', [numFiles, label]);
 	});
 
+
+	// set class to active on edit form if media or map snap was selected previously
+	if ( $('#id_form-0-image').val() != '' ) {
+		$( "#imageSelect_1 > #" + $('#id_form-0-image').val() ).addClass('active');	
+		$('#readonlyField_1').attr('placeholder', $( "#imageSelect_1 > #" + $('#id_form-0-image').val() )[0].title);
+	}
+	if ( $('#id_form-0-audio').val() != '' ) {
+		$( "#audioSelect_1 > #" + $('#id_form-0-audio').val() ).addClass('active');
+		$('#readonlyField_1').attr('placeholder', $( "#audioSelect_1 > #" + $('#id_form-0-audio').val() )[0].title);
+	}
+	if ( $('#id_form-0-note').val() != '' ) {
+		$( "#noteSelect_1 > #" + $('#id_form-0-note').val() ).addClass('active');
+		$('#readonlyField_1').attr('placeholder', $( "#noteSelect_1 > #" + $('#id_form-0-note').val() )[0].title);
+	}
+	if ( $('#id_form-0-interview').val() != '' ) {
+		$( "#interviewSelect_1 > #" + $('#id_form-0-interview').val() ).addClass('active');
+		$('#readonlyField_1').attr('placeholder', $( "#interviewSelect_1 > #" + $('#id_form-0-interview').val() )[0].title);
+	}
+	if ( $('#id_form-0-mapSnap').val() != '' ) {
+		$( "#map" + $('#id_form-0-mapSnap').val() + "_1" ).addClass('active');
+		// get id num
+		var id = $("#map" + $('#id_form-0-mapSnap').val() + "_1" )[0].id.replace("map", "")
+						.replace("_1", "")
+						.replace("_2", "")
+						.replace("_3", "")
+						.replace("_4", "")
+						.replace("_5", "");
+		
+		$('#readonlyField_1').attr('placeholder', "Map Number " + id);
+	}
+	
+	// set class to active on edit form if media or map snap was selected previously
+	if ( $('#id_form-1-image').val() != '' ) {
+		$( "#imageSelect_2 > #" + $('#id_form-1-image').val() ).addClass('active');	
+		$('#readonlyField_2').attr('placeholder', $( "#imageSelect_2 > #" + $('#id_form-1-image').val() )[0].title);
+	}
+	if ( $('#id_form-1-audio').val() != '' ) {
+		$( "#audioSelect_2 > #" + $('#id_form-1-audio').val() ).addClass('active');
+		$('#readonlyField_2').attr('placeholder', $( "#audioSelect_2 > #" + $('#id_form-1-audio').val() )[0].title);
+	}
+	if ( $('#id_form-1-note').val() != '' ) {
+		$( "#noteSelect_2 > #" + $('#id_form-1-note').val() ).addClass('active');
+		$('#readonlyField_2').attr('placeholder', $( "#noteSelect_2 > #" + $('#id_form-1-note').val() )[0].title);
+	}
+	if ( $('#id_form-1-interview').val() != '' ) {
+		$( "#interviewSelect_2 > #" + $('#id_form-1-interview').val() ).addClass('active');
+		$('#readonlyField_2').attr('placeholder', $( "#interviewSelect_2 > #" + $('#id_form-1-interview').val() )[0].title);
+	}
+	if ( $('#id_form-1-mapSnap').val() != '' ) {
+		$( "#map" + $('#id_form-1-mapSnap').val() + "_2" ).addClass('active');
+		// get id num
+		var id = $("#map" + $('#id_form-1-mapSnap').val() + "_2" )[0].id.replace("map", "")
+						.replace("_1", "")
+						.replace("_2", "")
+						.replace("_3", "")
+						.replace("_4", "")
+						.replace("_5", "");
+		
+		$('#readonlyField_2').attr('placeholder', "Map Number " + id);
+	}
+	
+	// set class to active on edit form if media or map snap was selected previously
+	if ( $('#id_form-2-image').val() != '' ) {
+		$( "#imageSelect_3 > #" + $('#id_form-2-image').val() ).addClass('active');	
+		$('#readonlyField_3').attr('placeholder', $( "#imageSelect_3 > #" + $('#id_form-2-image').val() )[0].title);
+	}
+	if ( $('#id_form-2-audio').val() != '' ) {
+		$( "#audioSelect_3 > #" + $('#id_form-2-audio').val() ).addClass('active');
+		$('#readonlyField_3').attr('placeholder', $( "#audioSelect_3 > #" + $('#id_form-2-audio').val() )[0].title);
+	}
+	if ( $('#id_form-2-note').val() != '' ) {
+		$( "#noteSelect_3 > #" + $('#id_form-2-note').val() ).addClass('active');
+		$('#readonlyField_3').attr('placeholder', $( "#noteSelect_3 > #" + $('#id_form-2-note').val() )[0].title);
+	}
+	if ( $('#id_form-2-interview').val() != '' ) {
+		$( "#interviewSelect_3 > #" + $('#id_form-2-interview').val() ).addClass('active');
+		$('#readonlyField_3').attr('placeholder', $( "#interviewSelect_3 > #" + $('#id_form-2-interview').val() )[0].title);
+	}
+	if ( $('#id_form-2-mapSnap').val() != '' ) {
+		$( "#map" + $('#id_form-2-mapSnap').val() + "_3" ).addClass('active');
+		// get id num
+		var id = $("#map" + $('#id_form-2-mapSnap').val() + "_3" )[0].id.replace("map", "")
+						.replace("_1", "")
+						.replace("_2", "")
+						.replace("_3", "")
+						.replace("_4", "")
+						.replace("_5", "");
+		
+		$('#readonlyField_3').attr('placeholder', "Map Number " + id);
+	}
+	
+	// set class to active on edit form if media or map snap was selected previously
+	if ( $('#id_form-3-image').val() != '' ) {
+		$( "#imageSelect_4 > #" + $('#id_form-3-image').val() ).addClass('active');	
+		$('#readonlyField_4').attr('placeholder', $( "#imageSelect_4 > #" + $('#id_form-3-image').val() )[0].title);
+	}
+	if ( $('#id_form-3-audio').val() != '' ) {
+		$( "#audioSelect_4 > #" + $('#id_form-3-audio').val() ).addClass('active');
+		$('#readonlyField_4').attr('placeholder', $( "#audioSelect_4 > #" + $('#id_form-3-audio').val() )[0].title);
+	}
+	if ( $('#id_form-3-note').val() != '' ) {
+		$( "#noteSelect_4 > #" + $('#id_form-3-note').val() ).addClass('active');
+		$('#readonlyField_4').attr('placeholder', $( "#noteSelect_4 > #" + $('#id_form-3-note').val() )[0].title);
+	}
+	if ( $('#id_form-3-interview').val() != '' ) {
+		$( "#interviewSelect_4 > #" + $('#id_form-3-interview').val() ).addClass('active');
+		$('#readonlyField_4').attr('placeholder', $( "#interviewSelect_4 > #" + $('#id_form-3-interview').val() )[0].title);
+	}
+	if ( $('#id_form-3-mapSnap').val() != '' ) {
+		$( "#map" + $('#id_form-3-mapSnap').val() + "_4" ).addClass('active');
+		// get id num
+		var id = $("#map" + $('#id_form-3-mapSnap').val() + "_4" )[0].id.replace("map", "")
+						.replace("_1", "")
+						.replace("_2", "")
+						.replace("_3", "")
+						.replace("_4", "")
+						.replace("_5", "");
+		
+		$('#readonlyField_4').attr('placeholder', "Map Number " + id);
+	}
+	
+	// set class to active on edit form if media or map snap was selected previously
+	if ( $('#id_form-4-image').val() != '' ) {
+		$( "#imageSelect_5 > #" + $('#id_form-4-image').val() ).addClass('active');	
+		$('#readonlyField_5').attr('placeholder', $( "#imageSelect_5 > #" + $('#id_form-4-image').val() )[0].title);
+	}
+	if ( $('#id_form-4-audio').val() != '' ) {
+		$( "#audioSelect_5 > #" + $('#id_form-4-audio').val() ).addClass('active');
+		$('#readonlyField_5').attr('placeholder', $( "#audioSelect_5 > #" + $('#id_form-4-audio').val() )[0].title);
+	}
+	if ( $('#id_form-4-note').val() != '' ) {
+		$( "#noteSelect_5 > #" + $('#id_form-4-note').val() ).addClass('active');
+		$('#readonlyField_5').attr('placeholder', $( "#noteSelect_5 > #" + $('#id_form-4-note').val() )[0].title);
+	}
+	if ( $('#id_form-4-interview').val() != '' ) {
+		$( "#interviewSelect_5 > #" + $('#id_form-4-interview').val() ).addClass('active');
+		$('#readonlyField_5').attr('placeholder', $( "#interviewSelect_5 > #" + $('#id_form-4-interview').val() )[0].title);
+	}
+	if ( $('#id_form-4-mapSnap').val() != '' ) {
+		$( "#map" + $('#id_form-4-mapSnap').val() + "_5" ).addClass('active');
+		// get id num
+		var id = $("#map" + $('#id_form-4-mapSnap').val() + "_5" )[0].id.replace("map", "")
+						.replace("_1", "")
+						.replace("_2", "")
+						.replace("_3", "")
+						.replace("_4", "")
+						.replace("_5", "");
+		
+		$('#readonlyField_5').attr('placeholder', "Map Number " + id);
+	}
+	
+	
+ 
+			
+	
 
 });
 
