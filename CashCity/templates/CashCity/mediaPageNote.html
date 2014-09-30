@@ -87,13 +87,12 @@
 {% block body_block %}
 <div class="half-container">
 	<div class="row">
-		<div class="note_{{ mediaNoteObject.getUserProfile.color }} pull-left margin-right"></div>
 		{% if mediaNoteObject.getUserProfile.color == None %}
-			<p><strong>Teacher Added: </strong>{{ mediaNoteObject.getUserProfile.teacherName }} 		
+			<p><strong>Teacher Added</strong><span class="pull-right">{{ mediaNoteObject.last_modified|date:"F j, Y" }}</span><br />Teacher: {{ mediaNoteObject.getUserProfile.teacherName }}</p>
 		{% else %}
-			<p><strong>{{ mediaNoteObject.getUserProfile.color|title }} Team</strong>	
+			<div class="note_{{ mediaNoteObject.getUserProfile.color }} pull-left margin-right"></div>
+			<p><strong>{{ mediaNoteObject.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaNoteObject.last_modified|date:"F j, Y" }}</span><br />{{ mediaNoteObject.getUserProfile.teacherName }}'s Section {{ mediaNoteObject.getUserProfile.section }}</p>
 		{% endif %}
-		<span class="pull-right">{{ mediaNoteObject.last_modified|date:"F j, Y" }}</span></p>	
 	</div>
 	<div class="row">
 		<hr />
@@ -153,9 +152,13 @@
 	<script type="text/javascript">
 	var lat = {{ mediaNoteObject.latitude }};
 	var lng = {{ mediaNoteObject.longitude }};
-	{% with 'CashCity/img/note_'|add:mediaNoteObject.getUserProfile.color|add:'.png' as image_static %}
-		var iconUrl = "{% static image_static %}";
-	{% endwith %}
+	{% if mediaNoteObject.getUserProfile.color == None %}
+		var iconUrl = "{% static 'CashCity/img/note_red.png' %}";
+	{% else %}		
+		{% with 'CashCity/img/note_'|add:mediaNoteObject.getUserProfile.color|add:'.png' as image_static %}
+			var iconUrl = "{% static image_static %}";
+		{% endwith %}
+	{% endif %}	
 	</script>
 	<script type="text/javascript" src="{% static 'CashCity/js/mapbox.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/media-map.js' %}"></script>		

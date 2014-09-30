@@ -39,9 +39,8 @@ function FormMap() {
 		longitude = longitude.toFixed(6);
 		$('#id_latitude').val(latitude);
 		$('#id_longitude').val(longitude);
-		$('#id_address').val('Location Found')
-		$('#leaflet-control-geosearch-qry').attr("value", 'Location Found')			
-
+		$('#id_address').val(latitude + ', ' + longitude)
+		$('#leaflet-control-geosearch-qry').attr("value", latitude + ', ' + longitude)			
 	}		
 	
 	this.map.on('locationfound', onLocationFound);

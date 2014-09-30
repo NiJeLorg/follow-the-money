@@ -25,6 +25,16 @@ $(document).ready( function() {
 		$('#leaflet-control-geosearch-qry').attr("value", initialAddress)
 	}
 		
+	// show loading modal when publish or save draft buttons are clicked
+	$('#publish').click( function() {
+		$("body").addClass("loading");
+	});
+
+	$('#saveDraft').click( function() {
+		$("body").addClass("loading");
+	});
+	
+		
 });
 
 // when file select buttons are clicked add in the file name

@@ -87,13 +87,12 @@
 {% block body_block %}
 <div class="half-container">
 	<div class="row">
-		<div class="image_{{ mediaImageObject.getUserProfile.color }} pull-left margin-right"></div>
 		{% if mediaImageObject.getUserProfile.color == None %}
-			<p><strong>Teacher Added: </strong>{{ mediaImageObject.getUserProfile.teacherName }} 		
+			<p><strong>Teacher Added</strong><span class="pull-right">{{ mediaImageObject.last_modified|date:"F j, Y" }}</span><br />Teacher: {{ mediaImageObject.getUserProfile.teacherName }}</p>
 		{% else %}
-			<p><strong>{{ mediaImageObject.getUserProfile.color|title }} Team</strong>	
-		{% endif %}
-		<span class="pull-right">{{ mediaImageObject.last_modified|date:"F j, Y" }}</span></p>	
+			<div class="image_{{ mediaImageObject.getUserProfile.color }} pull-left margin-right"></div>
+			<p><strong>{{ mediaImageObject.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaImageObject.last_modified|date:"F j, Y" }}</span><br />{{ mediaImageObject.getUserProfile.teacherName }}'s Section {{ mediaImageObject.getUserProfile.section }}</p>
+		{% endif %}	
 	</div>
 	<div class="row">
 		<hr />
