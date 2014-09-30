@@ -65,27 +65,31 @@
 		{% for mediaResult in mediaResults %}
 			{% if mediaResult.image and mediaResult.audio %}
 				<tr>
-					<td>{{ mediaResult.getUserProfile.section }}</td>
-					<td><div class="interview_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></td>
+					<td><a href="/cashcity/media/interview/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">{{ mediaResult.getUserProfile.section }}</a></td>
+					<td><a href="/cashcity/media/interview/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit"><div class="interview_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></a></td>
 					<td>
-						<div style="height: 241px; width: 280px; margin-bottom: 5px; overflow: hidden;">
-			            	<img src="{% cropped_thumbnail mediaResult 'cropped_image' %}">
-			            </div>
-			            <div style="margin: auto;">
-			            	<audio src="/media/{{ mediaResult.audio }}" preload="auto" controls></audio>
-			            </div>
+						<a href="/cashcity/media/interview/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
+							<div style="height: 241px; width: 280px; margin-bottom: 5px; overflow: hidden;">
+				            	<img src="{% cropped_thumbnail mediaResult 'cropped_image' %}">
+				            </div>
+						</a>
+				            <div style="margin: auto;">
+				            	<audio src="/media/{{ mediaResult.audio }}" preload="auto" controls></audio>
+				            </div>
 					</td>
 					<td>
-						<p><strong>{{ mediaResult.title }} </strong>
-						{% if mediaResult.published %}
-							<span class="label label-primary">Published</span>
-						{% else %}
-							<span class="label label-default">Draft</span>
-						{% endif %}
-						</p>
-						<p>{{ mediaResult.caption }}</p>
+						<a href="/cashcity/media/interview/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
+							<p><strong>{{ mediaResult.title }} </strong>
+							{% if mediaResult.published %}
+								<span class="label label-primary">Published</span>
+							{% else %}
+								<span class="label label-default">Draft</span>
+							{% endif %}
+							</p>
+							<p>{{ mediaResult.caption }}</p>
+						</a>
 					</td>
-					<td>{{ mediaResult.last_modified|date:"F j, Y" }}</td>
+					<td><a href="/cashcity/media/interview/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">{{ mediaResult.last_modified|date:"F j, Y" }}</a></td>
 					<td width='100'>
 						{% if mediaResult.published %}
 							<a href="/cashcity/media/saveDraft/interview/{{ mediaResult.id }}/"><span class="glyphicon glyphicon-floppy-save noDecoration" title="Move to Draft"></span></a>
@@ -98,24 +102,28 @@
 				</tr>
 			{% elif mediaResult.image %}
 				<tr>
-					<td>{{ mediaResult.getUserProfile.section }}</td>
-					<td><div class="image_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></td>
+					<td><a href="/cashcity/media/image/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">{{ mediaResult.getUserProfile.section }}</a></td>
+					<td><a href="/cashcity/media/image/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit"><div class="image_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></a></td>
 					<td>
-						<div style="height: 280px; width: 280px; margin-bottom: 5px; overflow: hidden;">
-			            	<img src="{% cropped_thumbnail mediaResult 'cropped_image' %}">
-			            </div>
+						<a href="/cashcity/media/image/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
+							<div style="height: 280px; width: 280px; margin-bottom: 5px; overflow: hidden;">
+				            	<img src="{% cropped_thumbnail mediaResult 'cropped_image' %}">
+				            </div>
+						</a>
 					</td>
 					<td>
-						<p><strong>{{ mediaResult.title }} </strong>
-						{% if mediaResult.published %}
-							<span class="label label-primary">Published</span>
-						{% else %}
-							<span class="label label-default">Draft</span>
-						{% endif %}
-						</p>
-						<p>{{ mediaResult.caption }}</p>
+						<a href="/cashcity/media/image/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
+							<p><strong>{{ mediaResult.title }} </strong>
+							{% if mediaResult.published %}
+								<span class="label label-primary">Published</span>
+							{% else %}
+								<span class="label label-default">Draft</span>
+							{% endif %}
+							</p>
+							<p>{{ mediaResult.caption }}</p>
+						</a>					
 					</td>
-					<td>{{ mediaResult.last_modified|date:"F j, Y" }}</td>
+					<td><a href="/cashcity/media/image/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">{{ mediaResult.last_modified|date:"F j, Y" }}</a></td>
 					<td width='100'>
 						{% if mediaResult.published %}
 							<a href="/cashcity/media/saveDraft/image/{{ mediaResult.id }}/"><span class="glyphicon glyphicon-floppy-save noDecoration" title="Move to Draft"></span></a>
@@ -128,24 +136,26 @@
 				</tr>
 			{% elif mediaResult.audio %}
 				<tr>
-					<td>{{ mediaResult.getUserProfile.section }}</td>
-					<td><div class="audio_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></td>
+					<td><a href="/cashcity/media/audio/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">{{ mediaResult.getUserProfile.section }}</a></td>
+					<td><a href="/cashcity/media/audio/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit"><div class="audio_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></a></td>
 					<td>
 			            <div style="margin: auto;">
 			            	<audio src="/media/{{ mediaResult.audio }}" preload="auto" controls></audio>
 			            </div>
 					</td>
 					<td>
-						<p><strong>{{ mediaResult.title }} </strong>
-						{% if mediaResult.published %}
-							<span class="label label-primary">Published</span>
-						{% else %}
-							<span class="label label-default">Draft</span>
-						{% endif %}
-						</p>
-						<p>{{ mediaResult.caption }}</p>
+						<a href="/cashcity/media/audio/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
+							<p><strong>{{ mediaResult.title }} </strong>
+							{% if mediaResult.published %}
+								<span class="label label-primary">Published</span>
+							{% else %}
+								<span class="label label-default">Draft</span>
+							{% endif %}
+							</p>
+							<p>{{ mediaResult.caption }}</p>
+						</a>
 					</td>
-					<td>{{ mediaResult.last_modified|date:"F j, Y" }}</td>
+					<td><a href="/cashcity/media/audio/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">{{ mediaResult.last_modified|date:"F j, Y" }}</a></td>
 					<td width='100'>
 						{% if mediaResult.published %}
 							<a href="/cashcity/media/saveDraft/audio/{{ mediaResult.id }}/"><span class="glyphicon glyphicon-floppy-save noDecoration" title="Move to Draft"></span></a>
@@ -159,19 +169,21 @@
 			{% else %}
 				<tr>
 					<td>{{ mediaResult.getUserProfile.section }}</td>
-					<td><div class="audio_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></td>
+					<td><a href="/cashcity/media/note/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit"><div class="note_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></a></td>
 					<td></td>
 					<td>
-						<p><strong>{{ mediaResult.title }} </strong>
-						{% if mediaResult.published %}
-							<span class="label label-primary">Published</span>
-						{% else %}
-							<span class="label label-default">Draft</span>
-						{% endif %}
-						</p>
-						<p>{{ mediaResult.notes }}</p>
+						<a href="/cashcity/media/note/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
+							<p><strong>{{ mediaResult.title }} </strong>
+							{% if mediaResult.published %}
+								<span class="label label-primary">Published</span>
+							{% else %}
+								<span class="label label-default">Draft</span>
+							{% endif %}
+							</p>
+							<p>{{ mediaResult.notes }}</p>
+						</a>
 					</td>
-					<td>{{ mediaResult.last_modified|date:"F j, Y" }}</td>
+					<td><a href="/cashcity/media/note/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">{{ mediaResult.last_modified|date:"F j, Y" }}</a></td>
 					<td width='100'>
 						{% if mediaResult.published %}
 							<a href="/cashcity/media/saveDraft/note/{{ mediaResult.id }}/"><span class="glyphicon glyphicon-floppy-save noDecoration" title="Move to Draft"></span></a>
@@ -183,7 +195,7 @@
 					</td>
 				</tr>
 			{% endif %}
-		{% endfor %}				
+		{% endfor %}					
 	</tbody>
 </table>
 {% else %}

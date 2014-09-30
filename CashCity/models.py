@@ -71,7 +71,7 @@ class MediaImage(models.Model):
     # Links MediaImage to a User model instance.
     user = models.ForeignKey(User)
     title = models.CharField(max_length=255, null=False, blank=False)
-    image = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=True, blank=True)
+    image = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=False, blank=False)
     # size is "width x height"
     # thumb for media 'stubs'
     cropped_image = ImageRatioField('image', '280x280')

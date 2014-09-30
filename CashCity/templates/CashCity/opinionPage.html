@@ -318,8 +318,7 @@
 					<br />		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 1 and section.audio %}
+		{% elif section.sectionNumber == 1 and section.audio %}
 			{% for audio in mediaAudio %}
 				{% if audio.id == section.audio.id %}
 					<div class="row">
@@ -332,8 +331,7 @@
 					<br />		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 1 and section.note %}
+		{% elif section.sectionNumber == 1 and section.note %}
 			{% for note in mediaNotes %}
 				{% if note.id == section.note.id %}
 					<div class="row">
@@ -346,8 +344,7 @@
 					<br />		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 1 and section.interview %}
+		{% elif section.sectionNumber == 1 and section.interview %}
 			{% for interview in mediaInterviews %}
 				{% if interview.id == section.interview.id %}
 					<div class="row">
@@ -362,8 +359,7 @@
 					<br />		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 1 and section.mapSnap %}
+		{% elif section.sectionNumber == 1 and section.mapSnap %}
 			{% for mapSnap in mapSnaps %}
 				{% if mapSnap.id == section.mapSnap.id %}
 					<div class="row">
@@ -378,8 +374,7 @@
 					{% include 'CashCity/mapSnapOpinions.html' %}		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 1 and section.uploadImage %}
+		{% elif section.sectionNumber == 1 and section.uploadImage %}
 			<div class="row">
 				<h4>SECTION 1</h4>
 				<img src="{% cropped_thumbnail section 'cropped_uploadImage_w640_h480' %}">
@@ -404,8 +399,7 @@
 					<br />		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 2 and section.audio %}
+		{% elif section.sectionNumber == 2 and section.audio %}
 			{% for audio in mediaAudio %}
 				{% if audio.id == section.audio.id %}
 					<div class="row">
@@ -418,8 +412,7 @@
 					<br />		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 2 and section.note %}
+		{% elif section.sectionNumber == 2 and section.note %}
 			{% for note in mediaNotes %}
 				{% if note.id == section.note.id %}
 					<div class="row">
@@ -432,8 +425,7 @@
 					<br />		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 2 and section.interview %}
+		{% elif section.sectionNumber == 2 and section.interview %}
 			{% for interview in mediaInterviews %}
 				{% if interview.id == section.interview.id %}
 					<div class="row">
@@ -448,8 +440,7 @@
 					<br />		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 2 and section.mapSnap %}
+		{% elif section.sectionNumber == 2 and section.mapSnap %}
 			{% for mapSnap in mapSnaps %}
 				{% if mapSnap.id == section.mapSnap.id %}
 					<div class="row">
@@ -464,8 +455,7 @@
 					{% include 'CashCity/mapSnapOpinions.html' %}		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 2 and section.uploadImage %}
+		{% elif section.sectionNumber == 2 and section.uploadImage %}
 			<div class="row">
 				<h4>SECTION 2</h4>
 				<img src="{% cropped_thumbnail section 'cropped_uploadImage_w640_h480' %}">
@@ -490,8 +480,7 @@
 					<br />		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 3 and section.audio %}
+		{% elif section.sectionNumber == 3 and section.audio %}
 			{% for audio in mediaAudio %}
 				{% if audio.id == section.audio.id %}
 					<div class="row">
@@ -504,8 +493,7 @@
 					<br />		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 3 and section.note %}
+		{% elif section.sectionNumber == 3 and section.note %}
 			{% for note in mediaNotes %}
 				{% if note.id == section.note.id %}
 					<div class="row">
@@ -518,8 +506,7 @@
 					<br />		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 3 and section.interview %}
+		{% elif section.sectionNumber == 3 and section.interview %}
 			{% for interview in mediaInterviews %}
 				{% if interview.id == section.interview.id %}
 					<div class="row">
@@ -534,8 +521,7 @@
 					<br />		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 3 and section.mapSnap %}
+		{% elif section.sectionNumber == 3 and section.mapSnap %}
 			{% for mapSnap in mapSnaps %}
 				{% if mapSnap.id == section.mapSnap.id %}
 					<div class="row">
@@ -550,8 +536,7 @@
 					{% include 'CashCity/mapSnapOpinions.html' %}		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 3 and section.uploadImage %}
+		{% elif section.sectionNumber == 3 and section.uploadImage %}
 			<div class="row">
 				<h4>SECTION 3</h4>
 				<img src="{% cropped_thumbnail section 'cropped_uploadImage_w640_h480' %}">
@@ -577,8 +562,7 @@
 					<br />		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 4 and section.audio %}
+		{% elif section.sectionNumber == 4 and section.audio %}
 			{% for audio in mediaAudio %}
 				{% if audio.id == section.audio.id %}
 					<div class="row">
@@ -591,8 +575,7 @@
 					<br />		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 4 and section.note %}
+		{% elif section.sectionNumber == 4 and section.note %}
 			{% for note in mediaNotes %}
 				{% if note.id == section.note.id %}
 					<div class="row">
@@ -605,8 +588,7 @@
 					<br />		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 4 and section.interview %}
+		{% elif section.sectionNumber == 4 and section.interview %}
 			{% for interview in mediaInterviews %}
 				{% if interview.id == section.interview.id %}
 					<div class="row">
@@ -621,8 +603,7 @@
 					<br />		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 4 and section.mapSnap %}
+		{% elif section.sectionNumber == 4 and section.mapSnap %}
 			{% for mapSnap in mapSnaps %}
 				{% if mapSnap.id == section.mapSnap.id %}
 					<div class="row">
@@ -637,8 +618,7 @@
 					{% include 'CashCity/mapSnapOpinions.html' %}		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 4 and section.uploadImage %}
+		{% elif section.sectionNumber == 4 and section.uploadImage %}
 			<div class="row">
 				<h4>SECTION 4</h4>
 				<img src="{% cropped_thumbnail section 'cropped_uploadImage_w640_h480' %}">
@@ -663,8 +643,7 @@
 					<br />		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 5 and section.audio %}
+		{% elif section.sectionNumber == 5 and section.audio %}
 			{% for audio in mediaAudio %}
 				{% if audio.id == section.audio.id %}
 					<div class="row">
@@ -677,8 +656,7 @@
 					<br />		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 5 and section.note %}
+		{% elif section.sectionNumber == 5 and section.note %}
 			{% for note in mediaNotes %}
 				{% if note.id == section.note.id %}
 					<div class="row">
@@ -691,8 +669,7 @@
 					<br />		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 5 and section.interview %}
+		{% elif section.sectionNumber == 5 and section.interview %}
 			{% for interview in mediaInterviews %}
 				{% if interview.id == section.interview.id %}
 					<div class="row">
@@ -707,8 +684,7 @@
 					<br />		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 5 and section.mapSnap %}
+		{% elif section.sectionNumber == 5 and section.mapSnap %}
 			{% for mapSnap in mapSnaps %}
 				{% if mapSnap.id == section.mapSnap.id %}
 					<div class="row">
@@ -723,8 +699,7 @@
 					{% include 'CashCity/mapSnapOpinions.html' %}		
 				{% endif %}
 			{% endfor %}
-		{% endif %}
-		{% if section.sectionNumber == 5 and section.uploadImage %}
+		{% elif section.sectionNumber == 5 and section.uploadImage %}
 			<div class="row">
 				<h4>SECTION 5</h4>
 				<img src="{% cropped_thumbnail section 'cropped_uploadImage_w640_h480' %}">
