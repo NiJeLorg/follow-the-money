@@ -40,20 +40,23 @@
 {% if opinions %}
 <table class="table">
 	<tbody>
-		{% for opinion in opinions %}
-			{% if opinion.title %}
-				<tr>
-					<td>{{ opinion.getUserProfile.section }}</td>
-					<td><div class="opinion_{{ opinion.getUserProfile.color }} pull-left margin-right"></div></td>
-					<td>
+	{% for opinion in opinions %}
+		{% if opinion.title %}
+			<tr>
+				<td><a href="/cashcity/opinion/{{ opinion.id }}/" style="text-decoration:none; color:inherit">{{ opinion.getUserProfile.section }}</a></td>
+				<td><a href="/cashcity/opinion/{{ opinion.id }}/" style="text-decoration:none; color:inherit"><div class="opinion_{{ opinion.getUserProfile.color }} pull-left margin-right"></div></a></td>
+				<td>
+					<a href="/cashcity/opinion/{{ opinion.id }}/" style="text-decoration:none; color:inherit">
 						{% if opinion.teamImage %}
 							<div style="height: 280px; width: 280px; margin-bottom: 5px; overflow: hidden;">
 				            	<img src="{% cropped_thumbnail opinion 'cropped_teamImage' %}">
 				            </div>
 						{% else %}
 						{% endif %}
-					</td>
-					<td>
+					</a>
+				</td>
+				<td>
+					<a href="/cashcity/opinion/{{ opinion.id }}/" style="text-decoration:none; color:inherit">	
 						<p><strong>{{ opinion.title }} </strong>
 						{% if opinion.published %}
 							<span class="label label-primary">Published</span>
@@ -62,21 +65,22 @@
 						{% endif %}
 						</p>
 						<p>by {{ opinion.authors }}</p>
-					</td>
-					<td>{{ opinion.last_modified|date:"F j, Y" }}</td>
-					<td width='100'>
-						{% if opinion.published %}
-							<a href="/cashcity/opinion/saveDraft/{{ opinion.id }}/"><span class="glyphicon glyphicon-floppy-save noDecoration" title="Move to Draft"></span></a>
-						{% else %}
-							<a href="/cashcity/opinion/publish/{{ opinion.id }}/"><span class="glyphicon glyphicon-book noDecoration" title="Publish"></span></a>
-						{% endif %}
-						<a href="/cashcity/opinion/form/edit/{{ opinion.id }}/"><div class="edit-button" title="Edit"></div></a>
-						<a href="/cashcity/opinion/form/remove/{{ opinion.id }}/"><div class="trash-button" title="Remove"></div></a>
-					</td>
-				</tr>
-			{% else %}
-			{% endif %}
-		{% endfor %}				
+					</a>
+				</td>
+				<td><a href="/cashcity/opinion/{{ opinion.id }}/" style="text-decoration:none; color:inherit">{{ opinion.last_modified|date:"F j, Y" }}</a></td>
+				<td width='100'>
+					{% if opinion.published %}
+						<a href="/cashcity/opinion/saveDraft/{{ opinion.id }}/"><span class="glyphicon glyphicon-floppy-save noDecoration" title="Move to Draft"></span></a>
+					{% else %}
+						<a href="/cashcity/opinion/publish/{{ opinion.id }}/"><span class="glyphicon glyphicon-book noDecoration" title="Publish"></span></a>
+					{% endif %}
+					<a href="/cashcity/opinion/form/edit/{{ opinion.id }}/"><div class="edit-button" title="Edit"></div></a>
+					<a href="/cashcity/opinion/form/remove/{{ opinion.id }}/"><div class="trash-button" title="Remove"></div></a>
+				</td>
+			</tr>
+		{% else %}
+		{% endif %}
+	{% endfor %}				
 	</tbody>
 </table>
 {% else %}

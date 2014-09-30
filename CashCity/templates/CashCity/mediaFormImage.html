@@ -62,7 +62,9 @@
 	                        Add Image {{ form.image }}
 	                    </span>
 	                </span>
-					{% if form.image.value %}
+					{% if form.errors %}
+	               		<input type="text" class="form-control" placeholder='No File Chosen' readonly>
+					{% elif form.image.value %}
 	               		<input type="text" class="form-control" placeholder='{{ form.image.value }}' readonly>
 					{% else %}
 	               		<input type="text" class="form-control" placeholder='No File Chosen' readonly>
@@ -78,9 +80,7 @@
 				<label for="address">Location</label>
 				{% if form.address.errors %} <span class="text-danger">{{ form.address.errors|join:", " }}</span>{% endif %}
 				{{ form.address|attr:"type:hidden" }}
-				{% if form.latitude.errors %} <span class="text-danger">{{ form.latitude.errors|join:", " }}</span>{% endif %}
 				{{ form.latitude|attr:"type:hidden" }}
-				{% if form.longitude.errors %} <span class="text-danger">{{ form.longitude.errors|join:", " }}</span>{% endif %}
 				{{ form.longitude|attr:"type:hidden" }}
 				<div id="geosearch-target-form" class="input-group">
 					<span class="input-group-btn">

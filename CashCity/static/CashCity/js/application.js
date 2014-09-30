@@ -35,7 +35,6 @@ $().ready(new function(){
     var myMap = new CityDigitsMap();
     myMap.loadLayers();
     myMap.loadMarkers();
-	myMap.addGeoSearch();
     mainLayer = myMap.neighborhoodLayer;
     MY_MAP = myMap;	
 	

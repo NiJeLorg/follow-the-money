@@ -86,15 +86,6 @@ CityDigitsMap.onZoomOut = function(event){
     MY_MAP.map.zoomOut();
 }
 
-CityDigitsMap.prototype.addGeoSearch = function(){
-	new L.Control.GeoSearch({
-	    provider: new L.GeoSearch.Provider.Google()
-	}).addTo(this.map);
-	$(".leaflet-control-geosearch").prependTo("#geosearch-target");
-}
-
-
-
 
 CityDigitsMap.onEachFeature_MAP1_POP_POVERTY = function(feature,layer){	
 	var highlight = {

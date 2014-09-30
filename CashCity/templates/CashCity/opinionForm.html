@@ -104,7 +104,9 @@
 	                        Add Image {{ opinionsForm.teamImage }}
 	                    </span>
 	                </span>
-					{% if opinionsForm.teamImage.value %}
+					{% if opinionsForm.errors %}
+	               		<input type="text" class="form-control" placeholder='No File Chosen' readonly>
+					{% elif opinionsForm.teamImage.value %}
 	               		<input type="text" class="form-control" placeholder='{{ opinionsForm.teamImage.value }}' readonly>
 					{% else %}
 	               		<input type="text" class="form-control" placeholder='No File Chosen' readonly>
@@ -148,7 +150,9 @@
 						</div>
 						<div class="clearfix"></div>
 						<br />
-						{% if form.uploadImage.value %}
+						{% if form.errors %}
+							<input type="text" class="form-control" placeholder='No File Chosen' readonly>
+						{% elif form.uploadImage.value %}
 		               		<input id="readonlyField_{{ forloop.counter }}" type="text" class="form-control" placeholder='{{ form.uploadImage.value }}' readonly>
 						{% else %}
 		               		<input id="readonlyField_{{ forloop.counter }}" type="text" class="form-control" placeholder='Nothing Selected' readonly>

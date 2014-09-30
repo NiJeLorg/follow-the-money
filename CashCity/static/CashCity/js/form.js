@@ -24,13 +24,7 @@ $(document).ready( function() {
 	if (initialAddress != '') {
 		$('#leaflet-control-geosearch-qry').attr("value", initialAddress)
 	}
-	
-	//set up listener to populate address field
-	$('#addressSearch').click(function() {
-		var address = $('#leaflet-control-geosearch-qry').val();
-		$('#id_address').val(address);
-	});
-	
+		
 });
 
 // when file select buttons are clicked add in the file name

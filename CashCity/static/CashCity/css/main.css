@@ -321,7 +321,7 @@ hr {
     position: absolute;
     left: 25px;
     top: 60px;
-    width: 620px;
+    width: 500px;
     margin: 0;
     padding: 0;
     z-index: 100;
@@ -423,11 +423,6 @@ hr {
 /*
 * Map search box form css
 */
-
-.geosearch-input {
-	margin: 10px 10px 0px 10px;
-	width: 100%;
-}
 
 .leaflet-control-geosearch {
 	width: 100%;

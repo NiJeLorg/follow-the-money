@@ -62,10 +62,12 @@
 	                        Add Audio {{ form.audio }}
 	                    </span>
 	                </span>
-					{% if form.audio.value %}
+					{% if form.errors %}
+	               		<input type="text" class="form-control" placeholder='No File Chosen' readonly>
+					{% elif form.audio.value %}
 	               		<input type="text" class="form-control" placeholder='{{ form.audio.value }}' readonly>
 					{% else %}
-	               		<input type="text" class="form-control" placeholder='No File Chosen' readonly>
+						<input type="text" class="form-control" placeholder='No File Chosen' readonly>
 					{% endif %}
 				</div>
 			</div>
@@ -77,9 +79,7 @@
 				<label for="address">Location</label>
 				{% if form.address.errors %} <span class="text-danger">{{ form.address.errors|join:", " }}</span>{% endif %}
 				{{ form.address|attr:"type:hidden" }}
-				{% if form.latitude.errors %} <span class="text-danger">{{ form.latitude.errors|join:", " }}</span>{% endif %}
 				{{ form.latitude|attr:"type:hidden" }}
-				{% if form.longitude.errors %} <span class="text-danger">{{ form.longitude.errors|join:", " }}</span>{% endif %}
 				{{ form.longitude|attr:"type:hidden" }}
 				<div id="geosearch-target-form" class="input-group">
 					<span class="input-group-btn">
