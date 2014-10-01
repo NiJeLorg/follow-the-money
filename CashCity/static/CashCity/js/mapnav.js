@@ -90,6 +90,19 @@ $( document ).ready(function() {
 		
 	});
 	
+	$("input[name='media']").change( function() {
+				
+	    if($(this).is(":checked")) {
+			// create a new empty media group
+			CityDigitsMap.loadMediaLayers();
+	    } else {
+			if(MY_MAP.map.hasLayer(MY_MAP.MEDIA_IMAGES) == true) {
+				CityDigitsMap.removeMediaLayers();
+			}
+		}
+			
+	});
+	
 	$( "input[name='maps']" ).change( function() {
 		var layerId = $(this).attr("id");
 		
@@ -304,12 +317,7 @@ $( document ).ready(function() {
 	/*
 	* map nav media tags filter section
 	*/
-	
-	// media button layer toggle
-	$('#MEDIA').click(function() {
-		CityDigitsMap.loadMediaLayerFor('MEDIA');
-	});
-	
+		
 
 	// initialize listener for tags filters
 	onChangeListener();	
@@ -320,26 +328,120 @@ $( document ).ready(function() {
 			console.log(e.which);
 		    var code = e.which;
 		    if(code==13)e.preventDefault();
-		    if(code==13){
+		    if(code==13 || code==32 || code==8){
 			    //get search values
 				var tags = $("#tags").val();
-			    loadMedia(tags);
+				//remove media layers if they exist on the map 
+				if (MY_MAP.map.hasLayer(MY_MAP.MEDIA_IMAGES) == true) {
+					CityDigitsMap.removeMediaLayers();
+				}
+				// clear geojson contents of all media layers
+				CityDigitsMap.clearMediaLayers();
+				
+			    loadMediaImage(tags);
+			    loadMediaAudio(tags);
+			    loadMediaNote(tags);
+			    loadMediaInterview(tags);
+				
+				// load media layers after data has been replaced
+				CityDigitsMap.loadMediaLayers();
+				
 		    } // missing closing if brace
 		});
+				
 	} 
 	
+	function refreshOnCloseTag () {
+		$( ".tagit-close" ).click(function() {
+		    //get search values
+			var tags = $("#tags").val();
+			//remove media layers if they exist on the map 
+			if (MY_MAP.map.hasLayer(MY_MAP.MEDIA_IMAGES) == true) {
+				CityDigitsMap.removeMediaLayers();
+			}
+			// clear geojson contents of all media layers
+			CityDigitsMap.clearMediaLayers();
+			
+		    loadMediaImage(tags);
+		    loadMediaAudio(tags);
+		    loadMediaNote(tags);
+		    loadMediaInterview(tags);
+			
+			// load media layers after data has been replaced
+			CityDigitsMap.loadMediaLayers();
+			
+		});
+		
+	}
 	
 	// functions that are run on change
-	function loadMedia(tags){
+	function loadMediaImage(tags){
 	    $.ajax({
 	        type: 'GET',
-	        url:  'filter/?tags=' + tags,
+	        url:  'filterIndexImage/?tags=' + tags,
 	        success: function(data){
-				// recreate tag geojson, remove old geojson and pass new one to map
-	            //$(".media-content-container").html(data);
-				// refresh bootstrap dropdown menus
-				onChangeListener();
-	        }
+				var geoJSON = $.parseJSON( data );
+				// rebuild the geoJSON files with new data
+				CityDigitsMap.loadFilteredMediaImage(geoJSON);
+								
+				// make sure media checkbox is checked
+				$('#MEDIA').prop('checked', true);
+				
+				// set up refresh on close tag
+				refreshOnCloseTag();
+
+	        },
+			error: function (req, status, error) {
+			    console.log(error);
+			}
+	    });
+	}
+	
+	function loadMediaAudio(tags){
+	    $.ajax({
+	        type: 'GET',
+	        url:  'filterIndexAudio/?tags=' + tags,
+	        success: function(data){
+				var geoJSON = $.parseJSON( data );
+				// rebuild the geoJSON files with new data
+				CityDigitsMap.loadFilteredMediaAudio(geoJSON);
+												
+	        },
+			error: function (req, status, error) {
+			    console.log(error);
+			}
+	    });
+	}
+
+	function loadMediaNote(tags){
+	    $.ajax({
+	        type: 'GET',
+	        url:  'filterIndexNote/?tags=' + tags,
+	        success: function(data){
+				var geoJSON = $.parseJSON( data );
+				// rebuild the geoJSON files with new data
+				CityDigitsMap.loadFilteredMediaNote(geoJSON);
+												
+	        },
+			error: function (req, status, error) {
+			    console.log(error);
+			}
+	    });
+	}
+
+	function loadMediaInterview(tags){
+	    $.ajax({
+	        type: 'GET',
+	        url:  'filterIndexInterview/?tags=' + tags,
+	        success: function(data){
+				var geoJSON = $.parseJSON( data );
+				// rebuild the geoJSON files with new data
+				CityDigitsMap.loadFilteredMediaInterview(geoJSON);
+												
+	        },
+			error: function (req, status, error) {
+			    console.log(error);
+			}
 	    });
 	}
 	
@@ -350,13 +452,6 @@ $( document ).ready(function() {
 			$("body").addClass("loading");						
 			MY_MAP.loadCreateMapLayers();
 		}		
-	});
-
-	// set up listener to add create map layers to map on click of tab
-	$('#media-tab').click(function() {
-		if (mediaLoaded == false) {
-			MY_MAP.loadMedia();			
-		}
 	});
 	
 	

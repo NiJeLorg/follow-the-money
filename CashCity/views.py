@@ -76,25 +76,19 @@ def index(request):
         mapSnaps = {} 
         
     #pass in a form for tag autocomplete
-    form = MediaFormImage() 
+    form = MediaFormImage()
       
     context_dict = {'mediaImages': mediaImages, 'mediaAudios': mediaAudio, 'mediaNotes': mediaNote, 'mediaInterviews': mediaInterview, 'mapSnaps':mapSnaps, 'form':form, 'profile':profile}
 
     return render_to_response('CashCity/index.html', context_dict, context)
     
 
-def filterIndex(request):
+def filterIndexImage(request):
     """
-      Loads the filtered media on the map
+      Loads the filtered images on teh map
     """
     context = RequestContext(request)
-    
-    #get user profile data and pass to view
-    if request.user.id:
-        profile = ExUserProfile.objects.get(user=request.user.id)
-    else:
-        profile = False
-        
+            
     # get all media and pass to template to create geojson file
     #build query
     kwargs = {}
@@ -112,24 +106,100 @@ def filterIndex(request):
 
     #get mediaImages
     mediaImages = MediaImage.objects.filter(**kwargs)
-
-    #get mediaAudio
-    mediaAudio = MediaAudio.objects.filter(**kwargs)
-
-    #get mediaNote
-    mediaNote = MediaNote.objects.filter(**kwargs)
-
-    #get mediaInterview
-    mediaInterview = MediaInterview.objects.filter(**kwargs)
         
     #pass in a form for tag autocomplete
     form = MediaFormImage() 
       
-    context_dict = {'mediaImages': mediaImages, 'mediaAudios': mediaAudio, 'mediaNotes': mediaNote, 'mediaInterviews': mediaInterview, 'searchTags': searchTags, 'form':form, 'profile':profile}
+    context_dict = {'mediaImages': mediaImages, 'searchTags': searchTags, 'form':form}
 
-    return render_to_response('CashCity/mapFilterMedia.html', context_dict, context)
+    return render_to_response('CashCity/mapFilterMediaImage.html', context_dict, context)
+
+
+def filterIndexAudio(request):
+    """
+      Loads the filtered audio
+    """
+    context = RequestContext(request)    
+        
+    # get all media and pass to template to create geojson file
+    #build query
+    kwargs = {}
+    # show only published media
+    kwargs['published__exact'] = True
+    
+    #get search tags
+    searchTags = request.GET.get("tags","All")
+    
+    #query for tags
+    if(searchTags != ""):
+        tagsArray = searchTags.split(',')
+        kwargs['tags__name__in'] = tagsArray
+    
+    #get mediaAudio
+    mediaAudio = MediaAudio.objects.filter(**kwargs)
+      
+    context_dict = {'mediaAudios': mediaAudio}
+
+    return render_to_response('CashCity/mapFilterMediaAudio.html', context_dict, context)
     
     
+        
+def filterIndexNote(request):
+    """
+      Loads the filtered notes on the map
+    """
+    context = RequestContext(request)
+            
+    # get all media and pass to template to create geojson file
+    #build query
+    kwargs = {}
+    # show only published media
+    kwargs['published__exact'] = True
+    
+    #get search tags
+    searchTags = request.GET.get("tags","All")
+    
+    #query for tags
+    if(searchTags != ""):
+        tagsArray = searchTags.split(',')
+        kwargs['tags__name__in'] = tagsArray
+    
+    #get mediaNote
+    mediaNote = MediaNote.objects.filter(**kwargs)
+      
+    context_dict = {'mediaNotes': mediaNote}
+
+    return render_to_response('CashCity/mapFilterMediaNote.html', context_dict, context)
+ 
+    
+def filterIndexInterview(request):
+    """
+      Loads the filtered interviews on the map
+    """
+    context = RequestContext(request)
+    
+    # get all media and pass to template to create geojson file
+    #build query
+    kwargs = {}
+    # show only published media
+    kwargs['published__exact'] = True
+    
+    #get search tags
+    searchTags = request.GET.get("tags","All")
+    
+    #query for tags
+    if(searchTags != ""):
+        tagsArray = searchTags.split(',')
+        kwargs['tags__name__in'] = tagsArray
+        
+    #get mediaInterview
+    mediaInterview = MediaInterview.objects.filter(**kwargs)
+              
+    context_dict = {'mediaInterviews': mediaInterview}
+
+    return render_to_response('CashCity/mapFilterMediaInterview.html', context_dict, context)
+       
+
 def mapSnaps(request, id=None):
     """
       Loads the map snap bookmarks on the main map index page

@@ -9,6 +9,12 @@ urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     #map bookmarks
     url(r'^mapsnaps/(?P<id>\d+)/$', views.mapSnaps, name='mapSnaps'),
+    # map filters
+    url(r'^filterIndexImage/$', views.filterIndexImage, name='filterIndexImage'),    
+    url(r'^filterIndexAudio/$', views.filterIndexAudio, name='filterIndexAudio'),    
+    url(r'^filterIndexNote/$', views.filterIndexNote, name='filterIndexNote'),    
+    url(r'^filterIndexInterview/$', views.filterIndexInterview, name='filterIndexInterview'),    
+    
 
     # media form urls
     url(r'^media/form/image/', views.mediaFormImage, name='mediaFormImage'),

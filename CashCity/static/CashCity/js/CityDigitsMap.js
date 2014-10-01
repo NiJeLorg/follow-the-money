@@ -2510,6 +2510,7 @@ CityDigitsMap.onEachFeatureFor_MEDIA_INTERVIEW = function(feature, layer){
 }
 
 CityDigitsMap.prototype.loadMedia = function(){
+	console.log('loadMedia');
 			
 	this.MEDIA_IMAGES = null;
 	this.MEDIA_AUDIO = null;
@@ -2535,11 +2536,30 @@ CityDigitsMap.prototype.loadMedia = function(){
 	this.MEDIA_INTERVIEW = L.geoJson(mediaInterviewGeojson, {
 		pointToLayer: CityDigitsMap.getStyleFor_MEDIA,
 		onEachFeature: CityDigitsMap.onEachFeatureFor_MEDIA_INTERVIEW
-	});
-	
-	mediaLoaded = true;
-	
+	});	
+		
 }
+
+CityDigitsMap.loadFilteredMediaImage = function(data){
+	
+	MY_MAP.MEDIA_IMAGES.addData(data);
+}
+
+CityDigitsMap.loadFilteredMediaAudio = function(data){
+	
+	MY_MAP.MEDIA_AUDIO.addData(data);
+}
+
+CityDigitsMap.loadFilteredMediaNote = function(data){
+	
+	MY_MAP.MEDIA_NOTE.addData(data);
+}
+
+CityDigitsMap.loadFilteredMediaInterview = function(data){
+	
+	MY_MAP.MEDIA_INTERVIEW.addData(data);
+}
+
 
 CityDigitsMap.getStyleFor_MEDIA = function(feature, latlng){
 	var mediaImageIcon = L.icon({
@@ -2769,23 +2789,39 @@ CityDigitsMap.loadLocationsLayerFor = function(layerId){
 	
 }
 
-CityDigitsMap.loadMediaLayerFor = function(layerId){
-	// add layer requested based on ID
-	if (layerId == "MEDIA") {
-		MEDIA_IMAGES = MY_MAP.MEDIA_IMAGES.addTo(MY_MAP.map).bringToFront();
-		MEDIA_AUDIO = MY_MAP.MEDIA_AUDIO.addTo(MY_MAP.map).bringToFront();
-		MEDIA_NOTE = MY_MAP.MEDIA_NOTE.addTo(MY_MAP.map).bringToFront();
-		MEDIA_INTERVIEW = MY_MAP.MEDIA_INTERVIEW.addTo(MY_MAP.map).bringToFront();
-	}
+CityDigitsMap.loadMediaLayers = function(){
 	
-}
+	MEDIA_IMAGES = MY_MAP.MEDIA_IMAGES.addTo(MY_MAP.map).bringToFront();
+	MEDIA_AUDIO = MY_MAP.MEDIA_AUDIO.addTo(MY_MAP.map).bringToFront();
+	MEDIA_NOTE = MY_MAP.MEDIA_NOTE.addTo(MY_MAP.map).bringToFront();
+	MEDIA_INTERVIEW = MY_MAP.MEDIA_INTERVIEW.addTo(MY_MAP.map).bringToFront();		
 
+}
 
 CityDigitsMap.removeLayerFor = function(layerId){
 	// remove all popups first
 	MY_MAP.map.closePopup();
 	// then remove layer
 	MY_MAP.map.removeLayer( layerId ); 
+}
+
+CityDigitsMap.removeMediaLayers = function(){
+	// remove all popups first
+	MY_MAP.map.closePopup();
+	// then remove media layers
+	MY_MAP.map.removeLayer(MY_MAP.MEDIA_IMAGES); 
+	MY_MAP.map.removeLayer(MY_MAP.MEDIA_AUDIO); 
+	MY_MAP.map.removeLayer(MY_MAP.MEDIA_NOTE); 
+	MY_MAP.map.removeLayer(MY_MAP.MEDIA_INTERVIEW); 
+}
+
+CityDigitsMap.clearMediaLayers = function(){
+	// clear geojson contents of media layers
+	MY_MAP.MEDIA_IMAGES.clearLayers();	
+	MY_MAP.MEDIA_AUDIO.clearLayers();	
+	MY_MAP.MEDIA_NOTE.clearLayers();	
+	MY_MAP.MEDIA_INTERVIEW.clearLayers();	
+
 }
 
 CityDigitsMap.drawChart = function(layerId){
