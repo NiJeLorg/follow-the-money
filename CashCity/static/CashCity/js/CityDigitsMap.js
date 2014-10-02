@@ -13,6 +13,7 @@ function CityDigitsMap() {
 
     //where brooklyn at?!40.7429 N, 73.9188
     this.map = L.mapbox.map('map', basemap,{minZoom:11,maxZoom:16,zoomControl:false}).setView([40.7429,-73.9188], 13);
+	
     //load zoomer
     $("#citydigits-zoomer").attr({'class':'citydigits-zoomer'});
     $("#citydigits-zoomer").on("click","#zoom-in",CityDigitsMap.onZoomIn);
@@ -23,6 +24,7 @@ function CityDigitsMap() {
 
 	//load legend
 	$("#citydigits-legend").attr({'class':'citydigits-legend'});
+	
 	
     //set params
     this.height = $(window).height()-$(".navbar").height();
@@ -2510,7 +2512,6 @@ CityDigitsMap.onEachFeatureFor_MEDIA_INTERVIEW = function(feature, layer){
 }
 
 CityDigitsMap.prototype.loadMedia = function(){
-	console.log('loadMedia');
 			
 	this.MEDIA_IMAGES = null;
 	this.MEDIA_AUDIO = null;
@@ -2543,6 +2544,7 @@ CityDigitsMap.prototype.loadMedia = function(){
 CityDigitsMap.loadFilteredMediaImage = function(data){
 	
 	MY_MAP.MEDIA_IMAGES.addData(data);
+	
 }
 
 CityDigitsMap.loadFilteredMediaAudio = function(data){

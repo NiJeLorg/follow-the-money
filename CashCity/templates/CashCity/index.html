@@ -517,8 +517,7 @@
 		var mediaImageGeojson = {% include 'CashCity/mapFilterMediaImage.html' %};
 		var mediaAudioGeojson = {% include 'CashCity/mapFilterMediaAudio.html' %};
 		var mediaNoteGeojson = {% include 'CashCity/mapFilterMediaNote.html' %};
-		var mediaInterviewGeojson = {% include 'CashCity/mapFilterMediaInterview.html' %};
-		
+		var mediaInterviewGeojson = {% include 'CashCity/mapFilterMediaInterview.html' %};		
 	</script>
 	<script type="text/javascript" src="{% static 'CashCity/js/CityDigitsMap.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/CityDigitsMapThumb.js' %}"></script>
@@ -529,6 +528,13 @@
 	<!-- load map snap from opinion area -->
 	<script type="text/javascript">
 		$( window ).load(function() {
+			
+			// ensure create map layers are loaded
+			if (createMapLoaded == false) {
+				// show loading modal
+				MY_MAP.loadCreateMapLayers();
+			}		
+			
 			
 			// set map state variables
 			var MapLayer{{ mapSnapBookmark.id }} = '{{ mapSnapBookmark.MapLayer }}';	
@@ -568,10 +574,12 @@
 			if (LOC6 != null) {
 				CityDigitsMap.removeLayerFor(LOC6);							
 			}
-
 			if (MEDIA != null) {
-				CityDigitsMap.removeLayerFor(MEDIA);							
+				if (MY_MAP.map.hasLayer(MY_MAP.MEDIA_IMAGES) == true) {
+					CityDigitsMap.removeMediaLayers();
+				}
 			}
+
 			
 			// uncheck all layers
 			$('#All_AFS').prop('checked', false);
@@ -581,6 +589,7 @@
 			$('#LOC4').prop('checked', false);
 			$('#LOC5').prop('checked', false);
 			$('#LOC6').prop('checked', false);
+			$('#MEDIA').prop('checked', false);
 			$('#MAP1').prop('checked', false);
 			$('#MAP2').prop('checked', false);
 			$('#MAP3').prop('checked', false);
@@ -720,12 +729,12 @@
 					CityDigitsMap.loadLocationsLayerFor('LOC6');	
 					$('#LOC6').prop('checked', true);
 				}			
-
 				// add in layers that were turned on
 				if (MEDIA{{ mapSnapBookmark.id }} == 'True') {
-					CityDigitsMap.loadLocationsLayerFor('MEDIA');	
+					CityDigitsMap.loadMediaLayers();	
 					$('#MEDIA').prop('checked', true);
-				}
+				}			
+
 	
 			}
 

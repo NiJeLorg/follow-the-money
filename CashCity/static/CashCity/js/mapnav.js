@@ -289,7 +289,11 @@ $( document ).ready(function() {
 		}		
 	});
 	
-	//allow legend button to be clicked and show legend
+	// have legends open until user chooses to close them
+	var mapid = mainLayer._leaflet_id;
+	$('#legendid').attr('class', mapid);
+	
+	//allow legend button to be clicked and show/hide legend
 	$('#legend').click(function() {
 		var mapid = mainLayer._leaflet_id;
 		if ($( "#legendid" ).hasClass( "legendClosed" )) {

@@ -79,6 +79,13 @@
 		    height: 27px;
 			background-image: url({% static 'CashCity/img/opinion_yellow.png' %})
 		}
+
+		.trash-icon {
+			display: inline-block;
+		    width: 22px;
+		    height: 17px;
+			background-image: url({% static 'CashCity/img/trash.png' %})
+		}
 				
 	</style>
 {% endblock %}		
@@ -115,13 +122,17 @@
 			<h4>Comments</h4>
 			<hr>
 			{% for comment in comments %}
+				{% if comment.getUserProfile.user == request.user %}
+					<a class="pull-right" href="/cashcity/media/form/remove/comment/interview/{{ comment.id }}/"><div class="trash-icon"></div></a>					
+				{% endif %}
 				<div class="opinion_{{ comment.getUserProfile.color }} pull-left margin-right"></div>
 				{% if comment.getUserProfile.teacherOrStudent %}
 					<p>{{ comment.getUserProfile.teacherName }}
 				{% else %}
 					<p><strong>{{ comment.getUserProfile.color|title }} Team,</strong> {{ comment.getUserProfile.teacherName }}'s Class
 				{% endif %}
-				<span class="pull-right">{{comment.created|timesince }} ago</span></p>
+				<span class="pull-right">{{comment.created|timesince }} ago </span>
+				</p>
 				<p>{{ comment.comment }}</p>
 				<hr>
 			{% endfor %}
@@ -130,6 +141,12 @@
 		{% if success %}
 			<div class="alert alert-success fade in" role="alert">
 				<strong>Comment Saved!</strong>
+				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			</div>
+		{% endif %}
+		{% if removed %}
+			<div class="alert alert-danger fade in" role="alert">
+				<strong>Comment Removed!</strong>
 				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 			</div>
 		{% endif %}

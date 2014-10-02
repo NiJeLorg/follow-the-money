@@ -38,15 +38,13 @@ urlpatterns = patterns('',
     # media in teacher profile url
     url(r'^accounts/profile/media/', views.accountMedia, name='accountMedia'),
     # opinions in teacher profile filter
-    #url(r'^accounts/profile/opinion/filter/$', views.accountFilterOpinion, name='accountFilterOpinion'),    
+    url(r'^accounts/profile/opinion/filter/$', views.accountFilterOpinion, name='accountFilterOpinion'),    
     # opinions in teacher profile url
     url(r'^accounts/profile/opinion/$', views.accountOpinion, name='accountOpinion'),
     # media in student profile filter
     url(r'^accounts/profile/student/media/filter/$', views.studentFilterMedia, name='studentFilterMedia'),    
     # student account media profile urls
     url(r'^accounts/profile/student/media/$', views.studentProfileMedia, name='studentProfileMedia'),
-    # opinion in student profile filter
-    #url(r'^accounts/profile/student/opinion/filter/$', views.studentFilterOpinion, name='studentFilterOpinion'),    
     # student account opinion profile urls
     url(r'^accounts/profile/student/opinion/$', views.studentProfileOpinion, name='studentProfileOpinion'),
     # CashCity app urls,

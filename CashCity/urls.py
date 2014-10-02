@@ -46,9 +46,17 @@ urlpatterns = patterns('',
     url(r'^media/audio/(?P<id>\d+)/$', views.mediaPageAudio, name='mediaPageAudio'), 
     url(r'^media/note/(?P<id>\d+)/$', views.mediaPageNote, name='mediaPageNote'), 
     url(r'^media/interview/(?P<id>\d+)/$', views.mediaPageInterview, name='mediaPageInterview'), 
+    #media remove comments
+    url(r'media/form/remove/comment/image/(?P<id>\d+)/$', views.mediaFormCommentImageRemove, name = 'mediaFormCommentImageRemove'),
+    url(r'media/form/remove/comment/audio/(?P<id>\d+)/$', views.mediaFormCommentAudioRemove, name = 'mediaFormCommentAudioRemove'),
+    url(r'media/form/remove/comment/note/(?P<id>\d+)/$', views.mediaFormCommentNoteRemove, name = 'mediaFormCommentNoteRemove'),
+    url(r'media/form/remove/comment/interview/(?P<id>\d+)/$', views.mediaFormCommentInterviewRemove, name = 'mediaFormCommentInterviewRemove'),
+    
     # media filter
     url(r'^media/filter/$', views.filterMedia, name='filterMedia'),    
     url(r'^media/', views.media, name='media'),
+    # opinion edit form
+    url(r'opinion/form/remove/comment/(?P<id>\d+)/$', views.opinionFormCommentRemove, name = 'opinionFormCommentRemove'),
     # opinion edit form
     url(r'opinion/form/edit/(?P<id>\d+)/$', views.opinionForm, name = 'opinionFormEdit'),
     # opinion remove form
