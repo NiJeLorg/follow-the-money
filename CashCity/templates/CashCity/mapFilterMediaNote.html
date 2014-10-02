@@ -1,0 +1,22 @@
+{% load staticfiles %}
+{% load cropping %}
+	{
+		"type": "FeatureCollection",
+    	"features": [ {% for mediaNote in mediaNotes %}
+			{
+			    "type": "Feature",
+			    "properties": {
+					"id": "{{ mediaNote.id }}",
+			        "name": "{{ mediaNote.title }}",
+			        "notes": "{{ mediaNote.notes }}",
+			        "color": "{{ mediaNote.getUserProfile.color }}",
+			        "section": "{{ mediaNote.getUserProfile.teacherName }}'s Section {{ mediaNote.getUserProfile.section }}",
+					"iconUrl": {% if mediaNote.getUserProfile.color == None %}"{% static 'CashCity/img/note_red.png' %}"{% else %}{% with 'CashCity/img/note_'|add:mediaNote.getUserProfile.color|add:'.png' as image_static %}"{% static image_static %}"{% endwith %}{% endif %}
+			    },
+			    "geometry": {
+			        "type": "Point",
+			        "coordinates": [ {{ mediaNote.longitude }}, {{ mediaNote.latitude }} ]
+			    }
+			}{% if forloop.last %}{% else %},{% endif %}{% endfor %}
+	    ]
+	}

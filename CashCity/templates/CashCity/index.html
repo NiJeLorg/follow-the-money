@@ -330,7 +330,6 @@
 			  <li id='locations-tab'><a href="#locations" role="tab" data-toggle="tab"><div class="location-button"></div>LOCATIONS</a></li>
 			  <li><a href="#maps" role="tab" data-toggle="tab"><div class="map-button"></div>MAPS</a></li>
 			  <li id='createMap-tab'><a href="#createMap" role="tab" data-toggle="tab"><div class="edit-button"></div>CREATE MAP</a></li>
-			  <li id='media-tab'><a href="#media" role="tab" data-toggle="tab"><div class="image-button"></div>MEDIA</a></li>
 			</ul>
 
 			<!-- Tab panes -->
@@ -383,6 +382,19 @@
 							Subway Lines
 						  </label>
 						</div>
+						<div class="checkbox">
+						  <label>
+						    <input name='media' type="checkbox" id="MEDIA" value="MEDIA">
+							Media 
+						  </label>
+						</div>
+						<form class="form">
+						  <div class="form-group has-feedback map-tag-search-box">
+							  {{ form.tags|attr:"id:tags" }}
+						    <span class="glyphicon glyphicon-search form-control-feedback-media"></span>
+							<small>Search for specific media by tag.</small>	
+						  </div>
+						</form>
 					  </div>
 				    </div>
 				  </div>
@@ -403,14 +415,14 @@
 						    Median Household Income
 						  </label>
 						</div>
+				      </div>
+					  <div class="col-xs-5">
 						<div class="checkbox">
 						  <label>
 						    <input type="checkbox" name="maps" id="MAP3" value="MAP3_PCT_UNEMPLOYED">
 						    % Unemployment
 						  </label>
 						</div>
-				      </div>
-					  <div class="col-xs-5">
 						<div class="checkbox">
 						  <label>
 						    <input type="checkbox" name="maps" id="MAP4" value="MAP4_PCT_FOREIGN_BORN">
@@ -442,18 +454,7 @@
 						<label id="normalizationText" class="lowFontWeight"></label>
 			        <form>
 				</div>
-			  </div>
-		      <div class="tab-pane fade" id="media">
-				<button id="MEDIA" type="button" class="btn btn-default btn-lg toggle-media-button"><div class="image-button-media"></div><br />Media</button>
-				<form class="form-inline">
-				  <div class="form-group has-feedback map-tag-search-box">
-					  {{ form.tags|attr:"id:tags" }}
-				    <span class="glyphicon glyphicon-search form-control-feedback-media"></span>
-				  </div>
-				</form>			  
-			  </div>
-			</div>
-           	
+			  </div>           	
            </div><!-- map-nav -->		  
         </div>
     </div>
@@ -511,7 +512,13 @@
 	var PawnShops = "{% static 'CashCity/locationData/PawnShops.csv' %}";
 	var closeButtonGray	= "{% static 'CashCity/img/close_gray.png' %}";
 	</script>
-	{% include 'CashCity/mapFilterMedia.html' %}
+	<script type="text/javascript">
+		<!-- create media geojson -->
+		var mediaImageGeojson = {% include 'CashCity/mapFilterMediaImage.html' %};
+		var mediaAudioGeojson = {% include 'CashCity/mapFilterMediaAudio.html' %};
+		var mediaNoteGeojson = {% include 'CashCity/mapFilterMediaNote.html' %};
+		var mediaInterviewGeojson = {% include 'CashCity/mapFilterMediaInterview.html' %};		
+	</script>
 	<script type="text/javascript" src="{% static 'CashCity/js/CityDigitsMap.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/CityDigitsMapThumb.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/application.js' %}"></script>
@@ -521,6 +528,13 @@
 	<!-- load map snap from opinion area -->
 	<script type="text/javascript">
 		$( window ).load(function() {
+			
+			// ensure create map layers are loaded
+			if (createMapLoaded == false) {
+				// show loading modal
+				MY_MAP.loadCreateMapLayers();
+			}		
+			
 			
 			// set map state variables
 			var MapLayer{{ mapSnapBookmark.id }} = '{{ mapSnapBookmark.MapLayer }}';	
@@ -560,10 +574,12 @@
 			if (LOC6 != null) {
 				CityDigitsMap.removeLayerFor(LOC6);							
 			}
-
 			if (MEDIA != null) {
-				CityDigitsMap.removeLayerFor(MEDIA);							
+				if (MY_MAP.map.hasLayer(MY_MAP.MEDIA_IMAGES) == true) {
+					CityDigitsMap.removeMediaLayers();
+				}
 			}
+
 			
 			// uncheck all layers
 			$('#All_AFS').prop('checked', false);
@@ -573,6 +589,7 @@
 			$('#LOC4').prop('checked', false);
 			$('#LOC5').prop('checked', false);
 			$('#LOC6').prop('checked', false);
+			$('#MEDIA').prop('checked', false);
 			$('#MAP1').prop('checked', false);
 			$('#MAP2').prop('checked', false);
 			$('#MAP3').prop('checked', false);
@@ -712,12 +729,12 @@
 					CityDigitsMap.loadLocationsLayerFor('LOC6');	
 					$('#LOC6').prop('checked', true);
 				}			
-
 				// add in layers that were turned on
 				if (MEDIA{{ mapSnapBookmark.id }} == 'True') {
-					CityDigitsMap.loadLocationsLayerFor('MEDIA');	
+					CityDigitsMap.loadMediaLayers();	
 					$('#MEDIA').prop('checked', true);
-				}
+				}			
+
 	
 			}
 

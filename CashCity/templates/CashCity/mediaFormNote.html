@@ -40,16 +40,28 @@
 
 {% block body_block %}
 <div class="half-container">
+	{% if form.title.value %}
+		<div class="row">
+			<ul class="nav nav-tabs nav-justified nav-tabs-media">
+			    <li id="mediaFormImage" class="disabled"><a href="#"><div class="image-button"></div>Image</a></li>
+			    <li id="mediaFormAudio" class="disabled"><a href="#"><div class="audio-button"></div>Audio</a></li>
+			    <li id="mediaFormNote" class="disabled"><a href="#"><div class="note-button"></div>Note</a></li>
+			    <li id="mediaFormInterview" class="disabled"><a href="#"><div class="interview-button"></div>Interview</a></li>
+			</ul>
+		</div>
+	{% else %}
+		<div class="row">
+			<ul class="nav nav-tabs nav-justified nav-tabs-media">
+			    <li id="mediaFormImage"><a href="{% url 'mediaFormImage' %}"><div class="image-button"></div>Image</a></li>
+			    <li id="mediaFormAudio"><a href="{% url 'mediaFormAudio' %}"><div class="audio-button"></div>Audio</a></li>
+			    <li id="mediaFormNote"><a href="{% url 'mediaFormNote' %}"><div class="note-button"></div>Note</a></li>
+			    <li id="mediaFormInterview"><a href="{% url 'mediaFormInterview' %}"><div class="interview-button"></div>Interview</a></li>
+			</ul>
+		</div>
+	{% endif %}
+	{{ pageId }}
 	<div class="row">
-		<ul class="nav nav-tabs nav-justified nav-tabs-media">
-		    <li><a href="{% url 'mediaFormImage' %}"><div class="image-button"></div>Image</a></li>
-		    <li><a href="{% url 'mediaFormAudio' %}"><div class="audio-button"></div>Audio</a></li>
-		    <li class="active"><a href="{% url 'mediaFormNote' %}"><div class="note-button"></div>Note</a></li>
-		    <li><a href="{% url 'mediaFormInterview' %}"><div class="interview-button"></div>Interview</a></li>
-		</ul>
-	</div>
-	<div class="row">
-		<form role="form" enctype="multipart/form-data" method="post" action="{% url 'mediaFormNote' %}" >{% csrf_token %}
+		<form role="form" enctype="multipart/form-data" method="post" action="." >{% csrf_token %}
 			<div class="form-group">
 				<label for="title">Title</label>{% if form.title.errors %} <span class="text-danger">{{ form.title.errors|join:", " }}</span>{% endif %}
 				{{ form.title|add_class:"form-control" }}
@@ -82,8 +94,8 @@
 				<label for="tags">Tags</label>{% if form.tags.errors %} <span class="text-danger">{{ form.tags.errors|join:", " }}</span>{% endif %}
 				{{ form.tags|add_class:"form-control" }}
 			</div>	
-			<button type="submit" class="btn btn-primary" name="publish" value="submit">Publish</button>
-			<button type="submit" class="btn btn-default" name="saveDraft" value="saveDraft">Save Draft</button>
+			<button type="submit" class="btn btn-primary" name="publish" id="publish" value="submit">Publish</button>
+			<button type="submit" class="btn btn-default" name="saveDraft" id="saveDraft" value="saveDraft">Save Draft</button>
 			<button type="submit" class="btn btn-default" name="cancel" value="cancel">Cancel</button>
 		</form>
 	</div>	
@@ -102,6 +114,10 @@
 	var initialLat = "{{ form.latitude.value }}";
 	var initialLng = "{{ form.longitude.value }}";
 	var marker = '';
+	$(document).ready( function() {
+		// set mediaFormNote to active
+		$('#mediaFormNote').addClass('active');			
+	});	
 	</script>
 	<script type="text/javascript" src="{% static 'CashCity/js/mapbox.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/l.control.geosearch.js' %}"></script>

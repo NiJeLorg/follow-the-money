@@ -159,7 +159,7 @@ CityDigitsMapThumb.prototype.load_CREATEMAP3_PAWN_SHOPS_PER_SQMILE = function (m
 
 CityDigitsMapThumb.prototype.load_CREATEMAP4_MCDONALDS_PER_SQMILE = function (mapid){
     var self = this;
-			
+
 	// define layer styles and oneachfeature popup styling
 	this.CREATEMAP4_MCDONALDS_PER_SQMILE_style = L.geoJson(null, {
 		style: CityDigitsMapThumb.getStyleColorFor_CREATEMAP4_MCDONALDS_PER_SQMILE
@@ -861,7 +861,7 @@ CityDigitsMapThumb.prototype.load_LOC3_WIRE_TRANSFER = function(mapid){
 
 CityDigitsMapThumb.prototype.load_LOC4_BANKS = function(mapid){
     var self = this;
-
+	
 	// define layer styles and oneachfeature popup styling
 	this.LOC4_BANKS_style = L.geoJson(null, {
 		pointToLayer: CityDigitsMapThumb.getStyleFor_LOC4_BANKS
@@ -877,6 +877,8 @@ CityDigitsMapThumb.prototype.load_LOC4_BANKS = function(mapid){
 
 CityDigitsMapThumb.prototype.load_LOC5_MCDONALDS = function(mapid){
     var self = this;
+	
+	console.log(mapid.map);
 
 	// define layer styles and oneachfeature popup styling
 	this.LOC5_MCDONALDS_style = L.geoJson(null, {

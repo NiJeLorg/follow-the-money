@@ -76,25 +76,19 @@ def index(request):
         mapSnaps = {} 
         
     #pass in a form for tag autocomplete
-    form = MediaFormImage() 
+    form = MediaFormImage()
       
     context_dict = {'mediaImages': mediaImages, 'mediaAudios': mediaAudio, 'mediaNotes': mediaNote, 'mediaInterviews': mediaInterview, 'mapSnaps':mapSnaps, 'form':form, 'profile':profile}
 
     return render_to_response('CashCity/index.html', context_dict, context)
     
 
-def filterIndex(request):
+def filterIndexImage(request):
     """
-      Loads the filtered media on the map
+      Loads the filtered images on teh map
     """
     context = RequestContext(request)
-    
-    #get user profile data and pass to view
-    if request.user.id:
-        profile = ExUserProfile.objects.get(user=request.user.id)
-    else:
-        profile = False
-        
+            
     # get all media and pass to template to create geojson file
     #build query
     kwargs = {}
@@ -112,24 +106,100 @@ def filterIndex(request):
 
     #get mediaImages
     mediaImages = MediaImage.objects.filter(**kwargs)
-
-    #get mediaAudio
-    mediaAudio = MediaAudio.objects.filter(**kwargs)
-
-    #get mediaNote
-    mediaNote = MediaNote.objects.filter(**kwargs)
-
-    #get mediaInterview
-    mediaInterview = MediaInterview.objects.filter(**kwargs)
         
     #pass in a form for tag autocomplete
     form = MediaFormImage() 
       
-    context_dict = {'mediaImages': mediaImages, 'mediaAudios': mediaAudio, 'mediaNotes': mediaNote, 'mediaInterviews': mediaInterview, 'searchTags': searchTags, 'form':form, 'profile':profile}
+    context_dict = {'mediaImages': mediaImages, 'searchTags': searchTags, 'form':form}
 
-    return render_to_response('CashCity/mapFilterMedia.html', context_dict, context)
+    return render_to_response('CashCity/mapFilterMediaImage.html', context_dict, context)
+
+
+def filterIndexAudio(request):
+    """
+      Loads the filtered audio
+    """
+    context = RequestContext(request)    
+        
+    # get all media and pass to template to create geojson file
+    #build query
+    kwargs = {}
+    # show only published media
+    kwargs['published__exact'] = True
+    
+    #get search tags
+    searchTags = request.GET.get("tags","All")
+    
+    #query for tags
+    if(searchTags != ""):
+        tagsArray = searchTags.split(',')
+        kwargs['tags__name__in'] = tagsArray
+    
+    #get mediaAudio
+    mediaAudio = MediaAudio.objects.filter(**kwargs)
+      
+    context_dict = {'mediaAudios': mediaAudio}
+
+    return render_to_response('CashCity/mapFilterMediaAudio.html', context_dict, context)
     
     
+        
+def filterIndexNote(request):
+    """
+      Loads the filtered notes on the map
+    """
+    context = RequestContext(request)
+            
+    # get all media and pass to template to create geojson file
+    #build query
+    kwargs = {}
+    # show only published media
+    kwargs['published__exact'] = True
+    
+    #get search tags
+    searchTags = request.GET.get("tags","All")
+    
+    #query for tags
+    if(searchTags != ""):
+        tagsArray = searchTags.split(',')
+        kwargs['tags__name__in'] = tagsArray
+    
+    #get mediaNote
+    mediaNote = MediaNote.objects.filter(**kwargs)
+      
+    context_dict = {'mediaNotes': mediaNote}
+
+    return render_to_response('CashCity/mapFilterMediaNote.html', context_dict, context)
+ 
+    
+def filterIndexInterview(request):
+    """
+      Loads the filtered interviews on the map
+    """
+    context = RequestContext(request)
+    
+    # get all media and pass to template to create geojson file
+    #build query
+    kwargs = {}
+    # show only published media
+    kwargs['published__exact'] = True
+    
+    #get search tags
+    searchTags = request.GET.get("tags","All")
+    
+    #query for tags
+    if(searchTags != ""):
+        tagsArray = searchTags.split(',')
+        kwargs['tags__name__in'] = tagsArray
+        
+    #get mediaInterview
+    mediaInterview = MediaInterview.objects.filter(**kwargs)
+              
+    context_dict = {'mediaInterviews': mediaInterview}
+
+    return render_to_response('CashCity/mapFilterMediaInterview.html', context_dict, context)
+       
+
 def mapSnaps(request, id=None):
     """
       Loads the map snap bookmarks on the main map index page
@@ -1477,7 +1547,125 @@ def mediaInterviewPublish(request, id=None):
             return HttpResponseRedirect('/accounts/profile/media/')
         else:   
             return HttpResponseRedirect('/accounts/profile/student/media/') 
+
+@login_required
+def mediaFormCommentImageRemove(request, id=None):
+    """
+      Allows for removing of image comments
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view -- don't print comment form is user is not logged in
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+        comment_form = MediaFormImageComment()
+    else:
+        profile = False
+        comment_form = False
+    
+    if id:
+        comment = MediaImageComments.objects.get(pk=id)  
+        mediaImageObject = MediaImage.objects.get(pk=comment.mediaImage.id)
+        comment.delete()
+
+    # get MediaImageComments
+    comments = MediaImageComments.objects.filter(mediaImage=id) 
+    
+    # removed
+    removed = True                           
+
+    return render_to_response('CashCity/mediaPageImage.html', {'mediaImageObject': mediaImageObject, 'comments':comments, 'comment_form':comment_form, 'profile':profile, 'removed':removed}, context)
+
+    
+@login_required
+def mediaFormCommentAudioRemove(request, id=None):
+    """
+      Allows for removing of audio comments
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view -- don't print comment form is user is not logged in
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+        comment_form = MediaFormAudioComment()
+    else:
+        profile = False
+        comment_form = False
+
+    if id:
+        comment = MediaAudioComments.objects.get(pk=id)  
+        mediaAudioObject = MediaAudio.objects.get(pk=comment.mediaAudio.id)
+        comment.delete()
+
+    # get MediaAudioComments
+    comments = MediaAudioComments.objects.filter(mediaAudio=id) 
+
+    # removed
+    removed = True                           
+
+    return render_to_response('CashCity/mediaPageAudio.html', {'mediaAudioObject': mediaAudioObject, 'comments':comments, 'comment_form':comment_form, 'profile':profile, 'removed':removed}, context)
+    
+    
+@login_required
+def mediaFormCommentNoteRemove(request, id=None):
+    """
+      Allows for removing of note comments
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view -- don't print comment form is user is not logged in
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+        comment_form = MediaFormNoteComment()
+    else:
+        profile = False
+        comment_form = False
+
+    if id:
+        comment = MediaNoteComments.objects.get(pk=id)  
+        mediaNoteObject = MediaNote.objects.get(pk=comment.mediaNote.id)
+        comment.delete()
+
+    # get MediaNoteComments
+    comments = MediaNoteComments.objects.filter(mediaNote=id) 
+
+    # removed
+    removed = True                           
+
+    return render_to_response('CashCity/mediaPageNote.html', {'mediaNoteObject': mediaNoteObject, 'comments':comments, 'comment_form':comment_form, 'profile':profile, 'removed':removed}, context)
             
+
+@login_required
+def mediaFormCommentInterviewRemove(request, id=None):
+    """
+      Allows for removing of interview comments
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view -- don't print comment form is user is not logged in
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+        comment_form = MediaFormInterviewComment()
+    else:
+        profile = False
+        comment_form = False
+    
+    if id:
+        comment = MediaInterviewComments.objects.get(pk=id)  
+        mediaInterviewObject = MediaInterview.objects.get(pk=comment.mediaInterview.id)
+        comment.delete()
+
+    # get MediaInterviewComments
+    comments = MediaInterviewComments.objects.filter(mediaInterview=id) 
+    
+    # removed
+    removed = True                           
+
+    return render_to_response('CashCity/mediaPageInterview.html', {'mediaInterviewObject': mediaInterviewObject, 'comments':comments, 'comment_form':comment_form, 'profile':profile, 'removed':removed}, context)
+    
+    
+
+
 
 def media(request):
     """
@@ -2366,3 +2554,74 @@ def opinionPage(request, id=None):
         comments = OpinionComments.objects.filter(opinion=id)
 
     return render_to_response('CashCity/opinionPage.html', {'opinionObject': opinionObject, 'opinionSections': opinionSections, 'mediaImages':mediaImages, 'mediaAudio':mediaAudio, 'mediaNotes':mediaNotes, 'mediaInterviews':mediaInterviews, 'mapSnaps':mapSnaps,'comments':comments, 'comment_form':comment_form, 'profile':profile}, context)
+    
+    
+    
+@login_required
+def opinionFormCommentRemove(request, id=None):
+    """
+      Allows for removing of opinion comments
+    """
+    context = RequestContext(request)
+
+    #get user profile data and pass to view -- don't print comment form is user is not logged in
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+        comment_form = OpinionsFormComment()
+    else:
+        profile = False
+        comment_form = False
+
+    if id:
+        comment = OpinionComments.objects.get(pk=id)  
+        opinionObject = Opinions.objects.get(pk=comment.opinion.id)
+        comment.delete()
+        
+        opinionSections = OpinionSections.objects.filter(opinion=opinionObject).order_by('sectionNumber');
+        imageKwargs = {}
+        imageIds = list()
+        audioKwargs = {}
+        audioIds = list()
+        noteKwargs = {}
+        noteIds = list()
+        interviewKwargs = {}
+        interviewIds = list()
+        mapSnapKwargs = {}
+        mapSnapIds = list()
+
+        for section in opinionSections:
+            if section.image:
+                imageIds.append(section.image.id)
+            if section.audio:
+                audioIds.append(section.audio.id)
+            if section.note:
+                noteIds.append(section.note.id)
+            if section.interview:
+                interviewIds.append(section.interview.id)
+            if section.mapSnap:
+                mapSnapIds.append(section.mapSnap.id)
+            
+        imageKwargs['pk__in'] = imageIds
+        audioKwargs['pk__in'] = audioIds
+        noteKwargs['pk__in'] = noteIds
+        interviewKwargs['pk__in'] = interviewIds
+        mapSnapKwargs['pk__in'] = mapSnapIds
+    
+        mediaImages = MediaImage.objects.filter(**imageKwargs)
+        mediaAudio = MediaAudio.objects.filter(**audioKwargs)
+        mediaNotes = MediaNote.objects.filter(**noteKwargs)
+        mediaInterviews = MediaInterview.objects.filter(**interviewKwargs)
+        mapSnaps = MapSettings.objects.filter(**mapSnapKwargs)
+    
+        # loop throuhg mapSnaps and increase zoom by 1
+        for mapSnap in mapSnaps:
+            mapSnap.zoom = mapSnap.zoom - 1
+        
+
+    # get MediaNoteComments
+    comments = MediaNoteComments.objects.filter(mediaNote=id) 
+
+    # removed
+    removed = True                           
+
+    return render_to_response('CashCity/opinionPage.html', {'opinionObject': opinionObject, 'opinionSections': opinionSections, 'mediaImages':mediaImages, 'mediaAudio':mediaAudio, 'mediaNotes':mediaNotes, 'mediaInterviews':mediaInterviews, 'mapSnaps':mapSnaps,'comments':comments, 'comment_form':comment_form, 'profile':profile, 'removed':removed}, context)

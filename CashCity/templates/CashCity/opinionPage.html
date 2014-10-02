@@ -278,6 +278,13 @@
 		    height: 27px;
 			background-image: url({% static 'CashCity/img/opinion_yellow.png' %})
 		}
+		
+		.trash-icon {
+			display: inline-block;
+		    width: 22px;
+		    height: 17px;
+			background-image: url({% static 'CashCity/img/trash.png' %})
+		}
 				
 	</style>
 {% endblock %}		
@@ -721,6 +728,9 @@
 			<h4>Comments</h4>
 			<hr>
 			{% for comment in comments %}
+				{% if comment.getUserProfile.user == request.user %}
+					<a class="pull-right" href="/cashcity/opinion/form/remove/comment/{{ comment.id }}/"><div class="trash-icon"></div></a>					
+				{% endif %}					
 				<div class="opinion_{{ comment.getUserProfile.color }} pull-left margin-right"></div>
 				{% if comment.getUserProfile.teacherOrStudent %}
 					<p>{{ comment.getUserProfile.teacherName }}
@@ -736,6 +746,12 @@
 		{% if success %}
 			<div class="alert alert-success fade in" role="alert">
 				<strong>Comment Saved!</strong>
+				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			</div>
+		{% endif %}
+		{% if removed %}
+			<div class="alert alert-danger fade in" role="alert">
+				<strong>Comment Removed!</strong>
 				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 			</div>
 		{% endif %}
@@ -785,10 +801,19 @@
 	var LOC6 = null;
 	var LOC7 = null;
 	var MEDIA_IMAGES = null;
+	var MEDIA_AUDIO = null;
+	var MEDIA_NOTE = null;
+	var MEDIA_INTERVIEW = null;
 	var MY_MAP = null;
 	var SCREEN_HEIGHT = null;
 	var CURRENT_LAYER = null;
 	</script>
-	{% include 'CashCity/mapFilterMedia.html' %}
+	<script type="text/javascript">
+		<!-- create media geojson -->
+		var mediaImageGeojson = {% include 'CashCity/mapFilterMediaImage.html' %};
+		var mediaAudioGeojson = {% include 'CashCity/mapFilterMediaAudio.html' %};
+		var mediaNoteGeojson = {% include 'CashCity/mapFilterMediaNote.html' %};
+		var mediaInterviewGeojson = {% include 'CashCity/mapFilterMediaInterview.html' %};		
+	</script>
 	<script type="text/javascript" src="{% static 'CashCity/js/CityDigitsMapOpinion.js' %}"></script>
 {% endblock %}

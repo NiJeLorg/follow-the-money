@@ -79,6 +79,14 @@
 		    height: 27px;
 			background-image: url({% static 'CashCity/img/opinion_yellow.png' %})
 		}
+		
+		.trash-icon {
+			display: inline-block;
+		    width: 22px;
+		    height: 17px;
+			background-image: url({% static 'CashCity/img/trash.png' %})
+		}
+		
 				
 	</style>
 {% endblock %}		
@@ -87,13 +95,12 @@
 {% block body_block %}
 <div class="half-container">
 	<div class="row">
-		<div class="audio_{{ mediaAudioObject.getUserProfile.color }} pull-left margin-right"></div>
 		{% if mediaAudioObject.getUserProfile.color == None %}
-			<p><strong>Teacher Added: </strong>{{ mediaAudioObject.getUserProfile.teacherName }} 		
+			<p><strong>Teacher Added</strong><span class="pull-right">{{ mediaAudioObject.last_modified|date:"F j, Y" }}</span><br />Teacher: {{ mediaAudioObject.getUserProfile.teacherName }}</p>
 		{% else %}
-			<p><strong>{{ mediaAudioObject.getUserProfile.color|title }} Team</strong>	
-		{% endif %}
-		<span class="pull-right">{{ mediaAudioObject.last_modified|date:"F j, Y" }}</span></p>	
+			<div class="audio_{{ mediaAudioObject.getUserProfile.color }} pull-left margin-right"></div>
+			<p><strong>{{ mediaAudioObject.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaAudioObject.last_modified|date:"F j, Y" }}</span><br />{{ mediaAudioObject.getUserProfile.teacherName }}'s Section {{ mediaAudioObject.getUserProfile.section }}</p>
+		{% endif %}	
 	</div>
 	<div class="row">
 		<hr />
@@ -115,6 +122,9 @@
 			<h4>Comments</h4>
 			<hr>
 			{% for comment in comments %}
+				{% if comment.getUserProfile.user == request.user %}
+					<a class="pull-right" href="/cashcity/media/form/remove/comment/audio/{{ comment.id }}/"><div class="trash-icon"></div></a>					
+				{% endif %}			
 				<div class="opinion_{{ comment.getUserProfile.color }} pull-left margin-right"></div>
 				{% if comment.getUserProfile.teacherOrStudent %}
 					<p>{{ comment.getUserProfile.teacherName }}
@@ -130,6 +140,12 @@
 		{% if success %}
 			<div class="alert alert-success fade in" role="alert">
 				<strong>Comment Saved!</strong>
+				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			</div>
+		{% endif %}
+		{% if removed %}
+			<div class="alert alert-danger fade in" role="alert">
+				<strong>Comment Removed!</strong>
 				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 			</div>
 		{% endif %}
@@ -154,9 +170,13 @@
 	<script type="text/javascript">
 	var lat = {{ mediaAudioObject.latitude }};
 	var lng = {{ mediaAudioObject.longitude }};
-	{% with 'CashCity/img/audio_'|add:mediaAudioObject.getUserProfile.color|add:'.png' as image_static %}
-		var iconUrl = "{% static image_static %}";
-	{% endwith %}
+	{% if mediaAudioObject.getUserProfile.color == None %}
+		var iconUrl = "{% static 'CashCity/img/audio_red.png' %}";
+	{% else %}		
+		{% with 'CashCity/img/audio_'|add:mediaAudioObject.getUserProfile.color|add:'.png' as image_static %}
+			var iconUrl = "{% static image_static %}";
+		{% endwith %}
+	{% endif %}
 	</script>
 	<script type="text/javascript" src="{% static 'CashCity/js/mapbox.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/media-map.js' %}"></script>		

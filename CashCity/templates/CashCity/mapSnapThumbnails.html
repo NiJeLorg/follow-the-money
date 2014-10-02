@@ -5,10 +5,15 @@
 	<div id="map{{ mapSnap.id }}" num="{{ mapSnap.id }}" class="map-thumbnail mediaSelect"></div>
 {% endfor %}
 
-	<script type="text/javascript">				
+	<script type="text/javascript">	
+	{% for mapSnap in mapSnaps %}
+		var activeMap{{ mapSnap.id }} = null;
+	{% endfor %}
+				
 		function getMapSnaps() {
 			{% for mapSnap in mapSnaps %}
 		    	var map{{ mapSnap.id }} = new CityDigitsMapThumb({{ mapSnap.id }},'',{{ mapSnap.latitude }},{{ mapSnap.longitude }},{{ mapSnap.zoom }});
+				activeMap{{ mapSnap.id }} = map{{ mapSnap.id }};
 						
 				var MapLayer{{ mapSnap.id }} = '{{ mapSnap.MapLayer }}';	
 				var LOC1{{ mapSnap.id }} = '{{ mapSnap.PawnShops }}';
@@ -29,81 +34,81 @@
 				
 				// add in layers that were turned on
 				if (MapLayer{{ mapSnap.id }} == 'legendpoverty') {
-					map{{ mapSnap.id }}.load_MAP1_POP_POVERTY(map{{ mapSnap.id }});	
+					map{{ mapSnap.id }}.load_MAP1_POP_POVERTY(activeMap{{ mapSnap.id }});	
 				} 
 				if (MapLayer{{ mapSnap.id }} == 'legendmedhhinc') {
-					map{{ mapSnap.id }}.load_MAP2_MED_HH_INCOME(map{{ mapSnap.id }});	
+					map{{ mapSnap.id }}.load_MAP2_MED_HH_INCOME(activeMap{{ mapSnap.id }});	
 				}
 				if (MapLayer{{ mapSnap.id }} == 'legendunemploy') {
-					map{{ mapSnap.id }}.load_MAP3_PCT_UNEMPLOYED(map{{ mapSnap.id }});	
+					map{{ mapSnap.id }}.load_MAP3_PCT_UNEMPLOYED(activeMap{{ mapSnap.id }});	
 				} 
 				if (MapLayer{{ mapSnap.id }} == 'legendforeignborn') {
-					map{{ mapSnap.id }}.load_MAP4_PCT_FOREIGN_BORN(map{{ mapSnap.id }});	
+					map{{ mapSnap.id }}.load_MAP4_PCT_FOREIGN_BORN(activeMap{{ mapSnap.id }});	
 				} 
 				if (MapLayer{{ mapSnap.id }} == 'legendAFIpersqmi') {
-					map{{ mapSnap.id }}.load_CREATEMAP1_AFI_PER_SQMILE(map{{ mapSnap.id }});	
+					map{{ mapSnap.id }}.load_CREATEMAP1_AFI_PER_SQMILE(activeMap{{ mapSnap.id }});	
 				} 
 				if (MapLayer{{ mapSnap.id }} == 'legendbankspersqmi') {
-					map{{ mapSnap.id }}.load_CREATEMAP2_BANKS_PER_SQMILE(map{{ mapSnap.id }});	
+					map{{ mapSnap.id }}.load_CREATEMAP2_BANKS_PER_SQMILE(activeMap{{ mapSnap.id }});	
 				} 
 				if (MapLayer{{ mapSnap.id }} == 'legendpawnsqmi') {
-					map{{ mapSnap.id }}.load_CREATEMAP3_PAWN_SHOPS_PER_SQMILE(map{{ mapSnap.id }});	
+					map{{ mapSnap.id }}.load_CREATEMAP3_PAWN_SHOPS_PER_SQMILE(activeMap{{ mapSnap.id }});	
 				} 
 				if (MapLayer{{ mapSnap.id }} == 'legendmcdonaldspersqi') {
-					map{{ mapSnap.id }}.load_CREATEMAP4_MCDONALDS_PER_SQMILE(map{{ mapSnap.id }});	
+					map{{ mapSnap.id }}.load_CREATEMAP4_MCDONALDS_PER_SQMILE(activeMap{{ mapSnap.id }});	
 				} 
 				if (MapLayer{{ mapSnap.id }} == 'legendhouseholdsperAFI') {
-					map{{ mapSnap.id }}.load_CREATEMAP5_HH_PER_AFI(map{{ mapSnap.id }});	
+					map{{ mapSnap.id }}.load_CREATEMAP5_HH_PER_AFI(activeMap{{ mapSnap.id }});	
 				} 
 				if (MapLayer{{ mapSnap.id }} == 'legendhouseholdsperbank') {
-					map{{ mapSnap.id }}.load_CREATEMAP6_HH_PER_BANK(map{{ mapSnap.id }});	
+					map{{ mapSnap.id }}.load_CREATEMAP6_HH_PER_BANK(activeMap{{ mapSnap.id }});	
 				} 
 				if (MapLayer{{ mapSnap.id }} == 'legendhouseholdsperMcD') {
-					map{{ mapSnap.id }}.load_CREATEMAP7_HH_PER_MCDONALDS(map{{ mapSnap.id }});	
+					map{{ mapSnap.id }}.load_CREATEMAP7_HH_PER_MCDONALDS(activeMap{{ mapSnap.id }});	
 				} 
 				if (MapLayer{{ mapSnap.id }} == 'legendhouseholdsperpawn') {
-					map{{ mapSnap.id }}.load_CREATEMAP8_HH_PER_PAWN_SHOP(map{{ mapSnap.id }});	
+					map{{ mapSnap.id }}.load_CREATEMAP8_HH_PER_PAWN_SHOP(activeMap{{ mapSnap.id }});	
 				} 
 				if (MapLayer{{ mapSnap.id }} == 'legendAFIsperbank') {
-					map{{ mapSnap.id }}.load_CREATEMAP9_AFIS_PER_BANK(map{{ mapSnap.id }});	
+					map{{ mapSnap.id }}.load_CREATEMAP9_AFIS_PER_BANK(activeMap{{ mapSnap.id }});	
 				} 
 				if (MapLayer{{ mapSnap.id }} == 'legendbanksperAFIs') {
-					map{{ mapSnap.id }}.load_CREATEMAP10_BANKS_PER_AFI(map{{ mapSnap.id }});	
+					map{{ mapSnap.id }}.load_CREATEMAP10_BANKS_PER_AFI(activeMap{{ mapSnap.id }});	
 				}
 
-				function addLocations() {
+				function addLocations{{ mapSnap.id }}() {
 					if (LOC1{{ mapSnap.id }} == 'True') {
-						map{{ mapSnap.id }}.load_LOC1_PAWN_SHOPS(map{{ mapSnap.id }});	
+						map{{ mapSnap.id }}.load_LOC1_PAWN_SHOPS(activeMap{{ mapSnap.id }});
 					}
 					// add in layers that were turned on
 					if (LOC2{{ mapSnap.id }} == 'True') {
-						map{{ mapSnap.id }}.load_LOC2_CHECK_CASHING(map{{ mapSnap.id }});	
+						map{{ mapSnap.id }}.load_LOC2_CHECK_CASHING(activeMap{{ mapSnap.id }});	
 					}
 					// add in layers that were turned on
 					if (LOC3{{ mapSnap.id }} == 'True') {
-						map{{ mapSnap.id }}.load_LOC3_WIRE_TRANSFER(map{{ mapSnap.id }});	
+						map{{ mapSnap.id }}.load_LOC3_WIRE_TRANSFER(activeMap{{ mapSnap.id }});	
 					}
 					// add in layers that were turned on
 					if (LOC4{{ mapSnap.id }} == 'True') {
-						map{{ mapSnap.id }}.load_LOC4_BANKS(map{{ mapSnap.id }});	
-					}
+						map{{ mapSnap.id }}.load_LOC4_BANKS(activeMap{{ mapSnap.id }});
+					}	
 					// add in layers that were turned on
 					if (LOC5{{ mapSnap.id }} == 'True') {
-						map{{ mapSnap.id }}.load_LOC5_MCDONALDS(map{{ mapSnap.id }});	
+						map{{ mapSnap.id }}.load_LOC5_MCDONALDS(activeMap{{ mapSnap.id }});
 					}
 					// add in layers that were turned on
 					if (LOC6{{ mapSnap.id }} == 'True') {
-						map{{ mapSnap.id }}.load_LOC6_SUBWAY_LINES(map{{ mapSnap.id }});	
+						map{{ mapSnap.id }}.load_LOC6_SUBWAY_LINES(activeMap{{ mapSnap.id }});	
 					}			
 
 					// add in layers that were turned on
 					if (MEDIA{{ mapSnap.id }} == 'True') {
-						map{{ mapSnap.id }}.loadMEDIA(map{{ mapSnap.id }});	
+						map{{ mapSnap.id }}.loadMEDIA(activeMap{{ mapSnap.id }});	
 					}
 				
 				}
 
-				setTimeout ( addLocations, 3000);																
+				setTimeout ( addLocations{{ mapSnap.id }}, 3000 );
 							
 
 
@@ -318,12 +323,23 @@
 			{% endfor %}
 			
 			// ensure thumbnail maps render in dropdown				
-			$("#openMapSnaps").click(function() {
+			$("#openMapSnaps").click(function(e) {
+				e.stopPropagation();
 				$("#mapSnaps").slideToggle( "slow" );
 				// use invalidate size to make maps show appropriately
 				{% for mapSnap in mapSnaps %}
 					map{{ mapSnap.id }}.map.invalidateSize(false);
 				{% endfor %}
+			});
+			
+			$('html').click(function() {
+				if ($("#mapSnaps").css("display") == 'block') {
+					$("#mapSnaps").slideToggle( "slow" );
+				}
+			});
+			
+			$('#mapSnaps').click(function(event){
+			    event.stopPropagation();
 			});
 			
 			

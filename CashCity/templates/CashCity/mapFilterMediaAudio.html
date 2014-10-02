@@ -1,0 +1,22 @@
+{% load staticfiles %}
+{% load cropping %}
+	{
+		"type": "FeatureCollection",
+    	"features": [ {% for mediaAudio in mediaAudios %}
+			{
+			    "type": "Feature",
+			    "properties": {
+					"id": "{{ mediaAudio.id }}",
+			        "name": "{{ mediaAudio.title }}",
+			        "audio": "/media/{{ mediaAudio.audio }}",
+			        "color": "{{ mediaAudio.getUserProfile.color }}",
+			        "section": "{{ mediaAudio.getUserProfile.teacherName }}'s Section {{ mediaAudio.getUserProfile.section }}",
+					"iconUrl": {% if mediaAudio.getUserProfile.color == None %}"{% static 'CashCity/img/audio_red.png' %}"{% else %}{% with 'CashCity/img/audio_'|add:mediaAudio.getUserProfile.color|add:'.png' as image_static %}"{% static image_static %}"{% endwith %}{% endif %}
+			    },
+			    "geometry": {
+			        "type": "Point",
+			        "coordinates": [ {{ mediaAudio.longitude }}, {{ mediaAudio.latitude }} ]
+			    }
+			}{% if forloop.last %}{% else %},{% endif %}{% endfor %}
+	    ]
+	}

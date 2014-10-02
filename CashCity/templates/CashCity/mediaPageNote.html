@@ -79,6 +79,14 @@
 		    height: 27px;
 			background-image: url({% static 'CashCity/img/opinion_yellow.png' %})
 		}
+		
+		.trash-icon {
+			display: inline-block;
+		    width: 22px;
+		    height: 17px;
+			background-image: url({% static 'CashCity/img/trash.png' %})
+		}
+		
 				
 	</style>
 {% endblock %}		
@@ -87,13 +95,12 @@
 {% block body_block %}
 <div class="half-container">
 	<div class="row">
-		<div class="note_{{ mediaNoteObject.getUserProfile.color }} pull-left margin-right"></div>
 		{% if mediaNoteObject.getUserProfile.color == None %}
-			<p><strong>Teacher Added: </strong>{{ mediaNoteObject.getUserProfile.teacherName }} 		
+			<p><strong>Teacher Added</strong><span class="pull-right">{{ mediaNoteObject.last_modified|date:"F j, Y" }}</span><br />Teacher: {{ mediaNoteObject.getUserProfile.teacherName }}</p>
 		{% else %}
-			<p><strong>{{ mediaNoteObject.getUserProfile.color|title }} Team</strong>	
+			<div class="note_{{ mediaNoteObject.getUserProfile.color }} pull-left margin-right"></div>
+			<p><strong>{{ mediaNoteObject.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaNoteObject.last_modified|date:"F j, Y" }}</span><br />{{ mediaNoteObject.getUserProfile.teacherName }}'s Section {{ mediaNoteObject.getUserProfile.section }}</p>
 		{% endif %}
-		<span class="pull-right">{{ mediaNoteObject.last_modified|date:"F j, Y" }}</span></p>	
 	</div>
 	<div class="row">
 		<hr />
@@ -114,6 +121,9 @@
 			<h4>Comments</h4>
 			<hr>
 			{% for comment in comments %}
+				{% if comment.getUserProfile.user == request.user %}
+					<a class="pull-right" href="/cashcity/media/form/remove/comment/note/{{ comment.id }}/"><div class="trash-icon"></div></a>					
+				{% endif %}			
 				<div class="opinion_{{ comment.getUserProfile.color }} pull-left margin-right"></div>
 				{% if comment.getUserProfile.teacherOrStudent %}
 					<p>{{ comment.getUserProfile.teacherName }}
@@ -129,6 +139,12 @@
 		{% if success %}
 			<div class="alert alert-success fade in" role="alert">
 				<strong>Comment Saved!</strong>
+				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			</div>
+		{% endif %}
+		{% if removed %}
+			<div class="alert alert-danger fade in" role="alert">
+				<strong>Comment Removed!</strong>
 				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 			</div>
 		{% endif %}
@@ -153,9 +169,13 @@
 	<script type="text/javascript">
 	var lat = {{ mediaNoteObject.latitude }};
 	var lng = {{ mediaNoteObject.longitude }};
-	{% with 'CashCity/img/note_'|add:mediaNoteObject.getUserProfile.color|add:'.png' as image_static %}
-		var iconUrl = "{% static image_static %}";
-	{% endwith %}
+	{% if mediaNoteObject.getUserProfile.color == None %}
+		var iconUrl = "{% static 'CashCity/img/note_red.png' %}";
+	{% else %}		
+		{% with 'CashCity/img/note_'|add:mediaNoteObject.getUserProfile.color|add:'.png' as image_static %}
+			var iconUrl = "{% static image_static %}";
+		{% endwith %}
+	{% endif %}	
 	</script>
 	<script type="text/javascript" src="{% static 'CashCity/js/mapbox.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/media-map.js' %}"></script>		

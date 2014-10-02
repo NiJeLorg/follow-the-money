@@ -285,104 +285,107 @@
       <div class="modal-body">
 		<div class="mapSnaps-content-container">	
 
-			<!-- load thumbnail mini-maps -->
+		<!-- load thumbnail mini-maps -->
+		{% for mapSnap in mapSnaps %}
+			<div id="map{{ mapSnap.id }}_1" num="{{ mapSnap.id }}" class="map-thumbnail mediaSelect"></div>
+		{% endfor %}
+
+			<script type="text/javascript">	
 			{% for mapSnap in mapSnaps %}
-				<div id="map{{ mapSnap.id }}_1" num="{{ mapSnap.id }}" class="map-thumbnail mapSnapSelect_1 mediaSelect"></div>
+				var activeMap{{ mapSnap.id }}_1 = null;
 			{% endfor %}
-
-				<script type="text/javascript">				
-					function getMapSnaps1() {
-						{% for mapSnap in mapSnaps %}
-					    	var map{{ mapSnap.id }}_1 = new CityDigitsMapThumb({{ mapSnap.id }},'_1',{{ mapSnap.latitude }},{{ mapSnap.longitude }},{{ mapSnap.zoom }});
+			
+				function getMapSnaps1() {
+					{% for mapSnap in mapSnaps %}
+				    	var map{{ mapSnap.id }}_1 = new CityDigitsMapThumb({{ mapSnap.id }},'_1',{{ mapSnap.latitude }},{{ mapSnap.longitude }},{{ mapSnap.zoom }});
+						activeMap{{ mapSnap.id }}_1 = map{{ mapSnap.id }}_1;
+					
+						var MapLayer{{ mapSnap.id }}_1 = '{{ mapSnap.MapLayer }}';	
+						var LOC1{{ mapSnap.id }}_1 = '{{ mapSnap.PawnShops }}';
+						var LOC2{{ mapSnap.id }}_1 = '{{ mapSnap.CheckCashing }}';
+						var LOC3{{ mapSnap.id }}_1 = '{{ mapSnap.WireTransfer }}';
+						var LOC4{{ mapSnap.id }}_1 = '{{ mapSnap.Banks }}';
+						var LOC5{{ mapSnap.id }}_1 = '{{ mapSnap.McDonalds }}';
+						var LOC6{{ mapSnap.id }}_1 = '{{ mapSnap.SubwayLines }}';
+						var MEDIA{{ mapSnap.id }}_1= '{{ mapSnap.MEDIA }}';
 						
-							var MapLayer = '{{ mapSnap.MapLayer }}';	
-							var LOC1 = '{{ mapSnap.PawnShops }}';
-							var LOC2 = '{{ mapSnap.CheckCashing }}';
-							var LOC3 = '{{ mapSnap.WireTransfer }}';
-							var LOC4 = '{{ mapSnap.Banks }}';
-							var LOC5 = '{{ mapSnap.McDonalds }}';
-							var LOC6 = '{{ mapSnap.SubwayLines }}';
-							var MEDIA = '{{ mapSnap.Media }}';
-				
+						// add in layers that were turned on
+						if (MapLayer{{ mapSnap.id }}_1 == 'legendpoverty') {
+							map{{ mapSnap.id }}_1.load_MAP1_POP_POVERTY(activeMap{{ mapSnap.id }}_1);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_1 == 'legendmedhhinc') {
+							map{{ mapSnap.id }}_1.load_MAP2_MED_HH_INCOME(activeMap{{ mapSnap.id }}_1);	
+						}
+						if (MapLayer{{ mapSnap.id }}_1 == 'legendunemploy') {
+							map{{ mapSnap.id }}_1.load_MAP3_PCT_UNEMPLOYED(activeMap{{ mapSnap.id }}_1);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_1 == 'legendforeignborn') {
+							map{{ mapSnap.id }}_1.load_MAP4_PCT_FOREIGN_BORN(activeMap{{ mapSnap.id }}_1);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_1 == 'legendAFIpersqmi') {
+							map{{ mapSnap.id }}_1.load_CREATEMAP1_AFI_PER_SQMILE(activeMap{{ mapSnap.id }}_1);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_1 == 'legendbankspersqmi') {
+							map{{ mapSnap.id }}_1.load_CREATEMAP2_BANKS_PER_SQMILE(activeMap{{ mapSnap.id }}_1);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_1 == 'legendpawnsqmi') {
+							map{{ mapSnap.id }}_1.load_CREATEMAP3_PAWN_SHOPS_PER_SQMILE(activeMap{{ mapSnap.id }}_1);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_1 == 'legendmcdonaldspersqi') {
+							map{{ mapSnap.id }}_1.load_CREATEMAP4_MCDONALDS_PER_SQMILE(activeMap{{ mapSnap.id }}_1);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_1 == 'legendhouseholdsperAFI') {
+							map{{ mapSnap.id }}_1.load_CREATEMAP5_HH_PER_AFI(activeMap{{ mapSnap.id }}_1);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_1 == 'legendhouseholdsperbank') {
+							map{{ mapSnap.id }}_1.load_CREATEMAP6_HH_PER_BANK(activeMap{{ mapSnap.id }}_1);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_1 == 'legendhouseholdsperMcD') {
+							map{{ mapSnap.id }}_1.load_CREATEMAP7_HH_PER_MCDONALDS(activeMap{{ mapSnap.id }}_1);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_1 == 'legendhouseholdsperpawn') {
+							map{{ mapSnap.id }}_1.load_CREATEMAP8_HH_PER_PAWN_SHOP(activeMap{{ mapSnap.id }}_1);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_1 == 'legendAFIsperbank') {
+							map{{ mapSnap.id }}_1.load_CREATEMAP9_AFIS_PER_BANK(activeMap{{ mapSnap.id }}_1);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_1 == 'legendbanksperAFIs') {
+							map{{ mapSnap.id }}_1.load_CREATEMAP10_BANKS_PER_AFI(activeMap{{ mapSnap.id }}_1);	
+						}
+
+						function addLocations{{ mapSnap.id }}_1() {
+							if (LOC1{{ mapSnap.id }}_1 == 'True') {
+								map{{ mapSnap.id }}_1.load_LOC1_PAWN_SHOPS(activeMap{{ mapSnap.id }}_1);
+							}
 							// add in layers that were turned on
-							if (MapLayer == 'legendpoverty') {
-								map{{ mapSnap.id }}_1.load_MAP1_POP_POVERTY(map{{ mapSnap.id }}_1);	
-							} 
-							if (MapLayer == 'legendmedhhinc') {
-								map{{ mapSnap.id }}_1.load_MAP2_MED_HH_INCOME(map{{ mapSnap.id }}_1);	
+							if (LOC2{{ mapSnap.id }}_1 == 'True') {
+								map{{ mapSnap.id }}_1.load_LOC2_CHECK_CASHING(activeMap{{ mapSnap.id }}_1);	
 							}
-							if (MapLayer == 'legendunemploy') {
-								map{{ mapSnap.id }}_1.load_MAP3_PCT_UNEMPLOYED(map{{ mapSnap.id }}_1);	
-							} 
-							if (MapLayer == 'legendforeignborn') {
-								map{{ mapSnap.id }}_1.load_MAP4_PCT_FOREIGN_BORN(map{{ mapSnap.id }}_1);	
-							} 
-							if (MapLayer == 'legendAFIpersqmi') {
-								map{{ mapSnap.id }}_1.load_CREATEMAP1_AFI_PER_SQMILE(map{{ mapSnap.id }}_1);	
-							} 
-							if (MapLayer == 'legendbankspersqmi') {
-								map{{ mapSnap.id }}_1.load_CREATEMAP2_BANKS_PER_SQMILE(map{{ mapSnap.id }}_1);	
-							} 
-							if (MapLayer == 'legendpawnsqmi') {
-								map{{ mapSnap.id }}_1.load_CREATEMAP3_PAWN_SHOPS_PER_SQMILE(map{{ mapSnap.id }}_1);	
-							} 
-							if (MapLayer == 'legendmcdonaldspersqi') {
-								map{{ mapSnap.id }}_1.load_CREATEMAP4_MCDONALDS_PER_SQMILE(map{{ mapSnap.id }}_1);	
-							} 
-							if (MapLayer == 'legendhouseholdsperAFI') {
-								map{{ mapSnap.id }}_1.load_CREATEMAP5_HH_PER_AFI(map{{ mapSnap.id }}_1);	
-							} 
-							if (MapLayer == 'legendhouseholdsperbank') {
-								map{{ mapSnap.id }}_1.load_CREATEMAP6_HH_PER_BANK(map{{ mapSnap.id }}_1);	
-							} 
-							if (MapLayer == 'legendhouseholdsperMcD') {
-								map{{ mapSnap.id }}_1.load_CREATEMAP7_HH_PER_MCDONALDS(map{{ mapSnap.id }}_1);	
-							} 
-							if (MapLayer == 'legendhouseholdsperpawn') {
-								map{{ mapSnap.id }}_1.load_CREATEMAP8_HH_PER_PAWN_SHOP(map{{ mapSnap.id }}_1);	
-							} 
-							if (MapLayer == 'legendAFIsperbank') {
-								map{{ mapSnap.id }}_1.load_CREATEMAP9_AFIS_PER_BANK(map{{ mapSnap.id }}_1);	
-							} 
-							if (MapLayer == 'legendbanksperAFIs') {
-								map{{ mapSnap.id }}_1.load_CREATEMAP10_BANKS_PER_AFI(map{{ mapSnap.id }}_1);	
+							// add in layers that were turned on
+							if (LOC3{{ mapSnap.id }}_1 == 'True') {
+								map{{ mapSnap.id }}_1.load_LOC3_WIRE_TRANSFER(activeMap{{ mapSnap.id }}_1);	
 							}
-
-							function addLocations() {
-
-								if (LOC1 == 'True') {
-									map{{ mapSnap.id }}_1.load_LOC1_PAWN_SHOPS(map{{ mapSnap.id }}_1);	
-								}
-								// add in layers that were turned on
-								if (LOC2 == 'True') {
-									map{{ mapSnap.id }}_1.load_LOC2_CHECK_CASHING(map{{ mapSnap.id }}_1);	
-								}
-								// add in layers that were turned on
-								if (LOC3 == 'True') {
-									map{{ mapSnap.id }}_1.load_LOC3_WIRE_TRANSFER(map{{ mapSnap.id }}_1);	
-								}
-								// add in layers that were turned on
-								if (LOC4 == 'True') {
-									map{{ mapSnap.id }}_1.load_LOC4_BANKS(map{{ mapSnap.id }}_1);	
-								}
-								// add in layers that were turned on
-								if (LOC5 == 'True') {
-									map{{ mapSnap.id }}_1.load_LOC5_MCDONALDS(map{{ mapSnap.id }}_1);	
-								}
-								// add in layers that were turned on
-								if (LOC6 == 'True') {
-									map{{ mapSnap.id }}_1.load_LOC6_SUBWAY_LINES(map{{ mapSnap.id }}_1);	
-								}			
-
-								// add in layers that were turned on
-								if (MEDIA == 'True') {
-									map{{ mapSnap.id }}_1.loadMedia(map{{ mapSnap.id }}_1);	
-								}
-							
+							// add in layers that were turned on
+							if (LOC4{{ mapSnap.id }}_1 == 'True') {
+								map{{ mapSnap.id }}_1.load_LOC4_BANKS(activeMap{{ mapSnap.id }}_1);
+							}	
+							// add in layers that were turned on
+							if (LOC5{{ mapSnap.id }}_1 == 'True') {
+								map{{ mapSnap.id }}_1.load_LOC5_MCDONALDS(activeMap{{ mapSnap.id }}_1);
 							}
+							// add in layers that were turned on
+							if (LOC6{{ mapSnap.id }}_1 == 'True') {
+								map{{ mapSnap.id }}_1.load_LOC6_SUBWAY_LINES(activeMap{{ mapSnap.id }}_1);	
+							}			
 
-							setTimeout ( addLocations, 3000);										
-										
+							// add in layers that were turned on
+							if (MEDIA{{ mapSnap.id }}_1 == 'True') {
+								map{{ mapSnap.id }}_1.loadMEDIA(activeMap{{ mapSnap.id }}_1);	
+							}
+			
+						}
+
+						setTimeout ( addLocations{{ mapSnap.id }}_1, 3000 );	
 			
 						{% endfor %}
 						
@@ -511,103 +514,107 @@
       <div class="modal-body">
 		<div class="mapSnaps-content-container">	
 
-			<!-- load thumbnail mini-maps -->
+		<!-- load thumbnail mini-maps -->
+		{% for mapSnap in mapSnaps %}
+			<div id="map{{ mapSnap.id }}_2" num="{{ mapSnap.id }}" class="map-thumbnail mediaSelect"></div>
+		{% endfor %}
+
+			<script type="text/javascript">	
 			{% for mapSnap in mapSnaps %}
-				<div id="map{{ mapSnap.id }}_2" num="{{ mapSnap.id }}" class="map-thumbnail mapSnapSelect_2 mediaSelect"></div>
+				var activeMap{{ mapSnap.id }}_2 = null;
 			{% endfor %}
-
-				<script type="text/javascript">				
-					function getMapSnaps2() {
-						{% for mapSnap in mapSnaps %}
-					    	var map{{ mapSnap.id }}_2 = new CityDigitsMapThumb({{ mapSnap.id }},'_2',{{ mapSnap.latitude }},{{ mapSnap.longitude }},{{ mapSnap.zoom }});
+			
+				function getMapSnaps2() {
+					{% for mapSnap in mapSnaps %}
+				    	var map{{ mapSnap.id }}_2 = new CityDigitsMapThumb({{ mapSnap.id }},'_2',{{ mapSnap.latitude }},{{ mapSnap.longitude }},{{ mapSnap.zoom }});
+						activeMap{{ mapSnap.id }}_2 = map{{ mapSnap.id }}_2;
+					
+						var MapLayer{{ mapSnap.id }}_2 = '{{ mapSnap.MapLayer }}';	
+						var LOC1{{ mapSnap.id }}_2 = '{{ mapSnap.PawnShops }}';
+						var LOC2{{ mapSnap.id }}_2 = '{{ mapSnap.CheckCashing }}';
+						var LOC3{{ mapSnap.id }}_2 = '{{ mapSnap.WireTransfer }}';
+						var LOC4{{ mapSnap.id }}_2 = '{{ mapSnap.Banks }}';
+						var LOC5{{ mapSnap.id }}_2 = '{{ mapSnap.McDonalds }}';
+						var LOC6{{ mapSnap.id }}_2 = '{{ mapSnap.SubwayLines }}';
+						var MEDIA{{ mapSnap.id }}_2= '{{ mapSnap.MEDIA }}';
 						
-							var MapLayer = '{{ mapSnap.MapLayer }}';	
-							var LOC1 = '{{ mapSnap.PawnShops }}';
-							var LOC2 = '{{ mapSnap.CheckCashing }}';
-							var LOC3 = '{{ mapSnap.WireTransfer }}';
-							var LOC4 = '{{ mapSnap.Banks }}';
-							var LOC5 = '{{ mapSnap.McDonalds }}';
-							var LOC6 = '{{ mapSnap.SubwayLines }}';
-							var MEDIA = '{{ mapSnap.Media }}';
-				
+						// add in layers that were turned on
+						if (MapLayer{{ mapSnap.id }}_2 == 'legendpoverty') {
+							map{{ mapSnap.id }}_2.load_MAP1_POP_POVERTY(activeMap{{ mapSnap.id }}_2);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_2 == 'legendmedhhinc') {
+							map{{ mapSnap.id }}_2.load_MAP2_MED_HH_INCOME(activeMap{{ mapSnap.id }}_2);	
+						}
+						if (MapLayer{{ mapSnap.id }}_2 == 'legendunemploy') {
+							map{{ mapSnap.id }}_2.load_MAP3_PCT_UNEMPLOYED(activeMap{{ mapSnap.id }}_2);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_2 == 'legendforeignborn') {
+							map{{ mapSnap.id }}_2.load_MAP4_PCT_FOREIGN_BORN(activeMap{{ mapSnap.id }}_2);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_2 == 'legendAFIpersqmi') {
+							map{{ mapSnap.id }}_2.load_CREATEMAP1_AFI_PER_SQMILE(activeMap{{ mapSnap.id }}_2);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_2 == 'legendbankspersqmi') {
+							map{{ mapSnap.id }}_2.load_CREATEMAP2_BANKS_PER_SQMILE(activeMap{{ mapSnap.id }}_2);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_2 == 'legendpawnsqmi') {
+							map{{ mapSnap.id }}_2.load_CREATEMAP3_PAWN_SHOPS_PER_SQMILE(activeMap{{ mapSnap.id }}_2);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_2 == 'legendmcdonaldspersqi') {
+							map{{ mapSnap.id }}_2.load_CREATEMAP4_MCDONALDS_PER_SQMILE(activeMap{{ mapSnap.id }}_2);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_2 == 'legendhouseholdsperAFI') {
+							map{{ mapSnap.id }}_2.load_CREATEMAP5_HH_PER_AFI(activeMap{{ mapSnap.id }}_2);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_2 == 'legendhouseholdsperbank') {
+							map{{ mapSnap.id }}_2.load_CREATEMAP6_HH_PER_BANK(activeMap{{ mapSnap.id }}_2);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_2 == 'legendhouseholdsperMcD') {
+							map{{ mapSnap.id }}_2.load_CREATEMAP7_HH_PER_MCDONALDS(activeMap{{ mapSnap.id }}_2);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_2 == 'legendhouseholdsperpawn') {
+							map{{ mapSnap.id }}_2.load_CREATEMAP8_HH_PER_PAWN_SHOP(activeMap{{ mapSnap.id }}_2);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_2 == 'legendAFIsperbank') {
+							map{{ mapSnap.id }}_2.load_CREATEMAP9_AFIS_PER_BANK(activeMap{{ mapSnap.id }}_2);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_2 == 'legendbanksperAFIs') {
+							map{{ mapSnap.id }}_2.load_CREATEMAP10_BANKS_PER_AFI(activeMap{{ mapSnap.id }}_2);	
+						}
+
+						function addLocations{{ mapSnap.id }}_2() {
+							if (LOC1{{ mapSnap.id }}_2 == 'True') {
+								map{{ mapSnap.id }}_2.load_LOC1_PAWN_SHOPS(activeMap{{ mapSnap.id }}_2);
+							}
 							// add in layers that were turned on
-							if (MapLayer == 'legendpoverty') {
-								map{{ mapSnap.id }}_2.load_MAP1_POP_POVERTY(map{{ mapSnap.id }}_2);	
-							} 
-							if (MapLayer == 'legendmedhhinc') {
-								map{{ mapSnap.id }}_2.load_MAP2_MED_HH_INCOME(map{{ mapSnap.id }}_2);	
+							if (LOC2{{ mapSnap.id }}_2 == 'True') {
+								map{{ mapSnap.id }}_2.load_LOC2_CHECK_CASHING(activeMap{{ mapSnap.id }}_2);	
 							}
-							if (MapLayer == 'legendunemploy') {
-								map{{ mapSnap.id }}_2.load_MAP3_PCT_UNEMPLOYED(map{{ mapSnap.id }}_2);	
-							} 
-							if (MapLayer == 'legendforeignborn') {
-								map{{ mapSnap.id }}_2.load_MAP4_PCT_FOREIGN_BORN(map{{ mapSnap.id }}_2);	
-							} 
-							if (MapLayer == 'legendAFIpersqmi') {
-								map{{ mapSnap.id }}_2.load_CREATEMAP1_AFI_PER_SQMILE(map{{ mapSnap.id }}_2);	
-							} 
-							if (MapLayer == 'legendbankspersqmi') {
-								map{{ mapSnap.id }}_2.load_CREATEMAP2_BANKS_PER_SQMILE(map{{ mapSnap.id }}_2);	
-							} 
-							if (MapLayer == 'legendpawnsqmi') {
-								map{{ mapSnap.id }}_2.load_CREATEMAP3_PAWN_SHOPS_PER_SQMILE(map{{ mapSnap.id }}_2);	
-							} 
-							if (MapLayer == 'legendmcdonaldspersqi') {
-								map{{ mapSnap.id }}_2.load_CREATEMAP4_MCDONALDS_PER_SQMILE(map{{ mapSnap.id }}_2);	
-							} 
-							if (MapLayer == 'legendhouseholdsperAFI') {
-								map{{ mapSnap.id }}_2.load_CREATEMAP5_HH_PER_AFI(map{{ mapSnap.id }}_2);	
-							} 
-							if (MapLayer == 'legendhouseholdsperbank') {
-								map{{ mapSnap.id }}_2.load_CREATEMAP6_HH_PER_BANK(map{{ mapSnap.id }}_2);	
-							} 
-							if (MapLayer == 'legendhouseholdsperMcD') {
-								map{{ mapSnap.id }}_2.load_CREATEMAP7_HH_PER_MCDONALDS(map{{ mapSnap.id }}_2);	
-							} 
-							if (MapLayer == 'legendhouseholdsperpawn') {
-								map{{ mapSnap.id }}_2.load_CREATEMAP8_HH_PER_PAWN_SHOP(map{{ mapSnap.id }}_2);	
-							} 
-							if (MapLayer == 'legendAFIsperbank') {
-								map{{ mapSnap.id }}_2.load_CREATEMAP9_AFIS_PER_BANK(map{{ mapSnap.id }}_2);	
-							} 
-							if (MapLayer == 'legendbanksperAFIs') {
-								map{{ mapSnap.id }}_2.load_CREATEMAP10_BANKS_PER_AFI(map{{ mapSnap.id }}_2);	
+							// add in layers that were turned on
+							if (LOC3{{ mapSnap.id }}_2 == 'True') {
+								map{{ mapSnap.id }}_2.load_LOC3_WIRE_TRANSFER(activeMap{{ mapSnap.id }}_2);	
 							}
-
-							function addLocations() {
-
-								if (LOC1 == 'True') {
-									map{{ mapSnap.id }}_2.load_LOC1_PAWN_SHOPS(map{{ mapSnap.id }}_2);	
-								}
-								// add in layers that were turned on
-								if (LOC2 == 'True') {
-									map{{ mapSnap.id }}_2.load_LOC2_CHECK_CASHING(map{{ mapSnap.id }}_2);	
-								}
-								// add in layers that were turned on
-								if (LOC3 == 'True') {
-									map{{ mapSnap.id }}_2.load_LOC3_WIRE_TRANSFER(map{{ mapSnap.id }}_2);	
-								}
-								// add in layers that were turned on
-								if (LOC4 == 'True') {
-									map{{ mapSnap.id }}_2.load_LOC4_BANKS(map{{ mapSnap.id }}_2);	
-								}
-								// add in layers that were turned on
-								if (LOC5 == 'True') {
-									map{{ mapSnap.id }}_2.load_LOC5_MCDONALDS(map{{ mapSnap.id }}_2);	
-								}
-								// add in layers that were turned on
-								if (LOC6 == 'True') {
-									map{{ mapSnap.id }}_2.load_LOC6_SUBWAY_LINES(map{{ mapSnap.id }}_2);	
-								}			
-
-								// add in layers that were turned on
-								if (MEDIA == 'True') {
-									map{{ mapSnap.id }}_2.loadMedia(map{{ mapSnap.id }}_2);	
-								}
-							
+							// add in layers that were turned on
+							if (LOC4{{ mapSnap.id }}_2 == 'True') {
+								map{{ mapSnap.id }}_2.load_LOC4_BANKS(activeMap{{ mapSnap.id }}_2);
+							}	
+							// add in layers that were turned on
+							if (LOC5{{ mapSnap.id }}_2 == 'True') {
+								map{{ mapSnap.id }}_2.load_LOC5_MCDONALDS(activeMap{{ mapSnap.id }}_2);
 							}
+							// add in layers that were turned on
+							if (LOC6{{ mapSnap.id }}_2 == 'True') {
+								map{{ mapSnap.id }}_2.load_LOC6_SUBWAY_LINES(activeMap{{ mapSnap.id }}_2);	
+							}			
 
-							setTimeout ( addLocations, 3000);										
+							// add in layers that were turned on
+							if (MEDIA{{ mapSnap.id }}_2 == 'True') {
+								map{{ mapSnap.id }}_2.loadMEDIA(activeMap{{ mapSnap.id }}_2);	
+							}
+			
+						}
+
+						setTimeout ( addLocations{{ mapSnap.id }}_2, 3000 );	
 			
 						{% endfor %}
 						
@@ -737,103 +744,107 @@
       <div class="modal-body">
 		<div class="mapSnaps-content-container">	
 
-			<!-- load thumbnail mini-maps -->
+		<!-- load thumbnail mini-maps -->
+		{% for mapSnap in mapSnaps %}
+			<div id="map{{ mapSnap.id }}_3" num="{{ mapSnap.id }}" class="map-thumbnail mediaSelect"></div>
+		{% endfor %}
+
+			<script type="text/javascript">	
 			{% for mapSnap in mapSnaps %}
-				<div id="map{{ mapSnap.id }}_3" num="{{ mapSnap.id }}" class="map-thumbnail mapSnapSelect_3 mediaSelect"></div>
+				var activeMap{{ mapSnap.id }}_3 = null;
 			{% endfor %}
-
-				<script type="text/javascript">				
-					function getMapSnaps3() {
-						{% for mapSnap in mapSnaps %}
-					    	var map{{ mapSnap.id }}_3 = new CityDigitsMapThumb({{ mapSnap.id }},'_3',{{ mapSnap.latitude }},{{ mapSnap.longitude }},{{ mapSnap.zoom }});
+			
+				function getMapSnaps3() {
+					{% for mapSnap in mapSnaps %}
+				    	var map{{ mapSnap.id }}_3 = new CityDigitsMapThumb({{ mapSnap.id }},'_3',{{ mapSnap.latitude }},{{ mapSnap.longitude }},{{ mapSnap.zoom }});
+						activeMap{{ mapSnap.id }}_3 = map{{ mapSnap.id }}_3;
+					
+						var MapLayer{{ mapSnap.id }}_3 = '{{ mapSnap.MapLayer }}';	
+						var LOC1{{ mapSnap.id }}_3 = '{{ mapSnap.PawnShops }}';
+						var LOC2{{ mapSnap.id }}_3 = '{{ mapSnap.CheckCashing }}';
+						var LOC3{{ mapSnap.id }}_3 = '{{ mapSnap.WireTransfer }}';
+						var LOC4{{ mapSnap.id }}_3 = '{{ mapSnap.Banks }}';
+						var LOC5{{ mapSnap.id }}_3 = '{{ mapSnap.McDonalds }}';
+						var LOC6{{ mapSnap.id }}_3 = '{{ mapSnap.SubwayLines }}';
+						var MEDIA{{ mapSnap.id }}_3= '{{ mapSnap.MEDIA }}';
 						
-							var MapLayer = '{{ mapSnap.MapLayer }}';	
-							var LOC1 = '{{ mapSnap.PawnShops }}';
-							var LOC2 = '{{ mapSnap.CheckCashing }}';
-							var LOC3 = '{{ mapSnap.WireTransfer }}';
-							var LOC4 = '{{ mapSnap.Banks }}';
-							var LOC5 = '{{ mapSnap.McDonalds }}';
-							var LOC6 = '{{ mapSnap.SubwayLines }}';
-							var MEDIA = '{{ mapSnap.Media }}';
-				
+						// add in layers that were turned on
+						if (MapLayer{{ mapSnap.id }}_3 == 'legendpoverty') {
+							map{{ mapSnap.id }}_3.load_MAP1_POP_POVERTY(activeMap{{ mapSnap.id }}_3);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_3 == 'legendmedhhinc') {
+							map{{ mapSnap.id }}_3.load_MAP2_MED_HH_INCOME(activeMap{{ mapSnap.id }}_3);	
+						}
+						if (MapLayer{{ mapSnap.id }}_3 == 'legendunemploy') {
+							map{{ mapSnap.id }}_3.load_MAP3_PCT_UNEMPLOYED(activeMap{{ mapSnap.id }}_3);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_3 == 'legendforeignborn') {
+							map{{ mapSnap.id }}_3.load_MAP4_PCT_FOREIGN_BORN(activeMap{{ mapSnap.id }}_3);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_3 == 'legendAFIpersqmi') {
+							map{{ mapSnap.id }}_3.load_CREATEMAP1_AFI_PER_SQMILE(activeMap{{ mapSnap.id }}_3);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_3 == 'legendbankspersqmi') {
+							map{{ mapSnap.id }}_3.load_CREATEMAP2_BANKS_PER_SQMILE(activeMap{{ mapSnap.id }}_3);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_3 == 'legendpawnsqmi') {
+							map{{ mapSnap.id }}_3.load_CREATEMAP3_PAWN_SHOPS_PER_SQMILE(activeMap{{ mapSnap.id }}_3);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_3 == 'legendmcdonaldspersqi') {
+							map{{ mapSnap.id }}_3.load_CREATEMAP4_MCDONALDS_PER_SQMILE(activeMap{{ mapSnap.id }}_3);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_3 == 'legendhouseholdsperAFI') {
+							map{{ mapSnap.id }}_3.load_CREATEMAP5_HH_PER_AFI(activeMap{{ mapSnap.id }}_3);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_3 == 'legendhouseholdsperbank') {
+							map{{ mapSnap.id }}_3.load_CREATEMAP6_HH_PER_BANK(activeMap{{ mapSnap.id }}_3);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_3 == 'legendhouseholdsperMcD') {
+							map{{ mapSnap.id }}_3.load_CREATEMAP7_HH_PER_MCDONALDS(activeMap{{ mapSnap.id }}_3);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_3 == 'legendhouseholdsperpawn') {
+							map{{ mapSnap.id }}_3.load_CREATEMAP8_HH_PER_PAWN_SHOP(activeMap{{ mapSnap.id }}_3);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_3 == 'legendAFIsperbank') {
+							map{{ mapSnap.id }}_3.load_CREATEMAP9_AFIS_PER_BANK(activeMap{{ mapSnap.id }}_3);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_3 == 'legendbanksperAFIs') {
+							map{{ mapSnap.id }}_3.load_CREATEMAP10_BANKS_PER_AFI(activeMap{{ mapSnap.id }}_3);	
+						}
+
+						function addLocations{{ mapSnap.id }}_3() {
+							if (LOC1{{ mapSnap.id }}_3 == 'True') {
+								map{{ mapSnap.id }}_3.load_LOC1_PAWN_SHOPS(activeMap{{ mapSnap.id }}_3);
+							}
 							// add in layers that were turned on
-							if (MapLayer == 'legendpoverty') {
-								map{{ mapSnap.id }}_3.load_MAP1_POP_POVERTY(map{{ mapSnap.id }}_3);	
-							} 
-							if (MapLayer == 'legendmedhhinc') {
-								map{{ mapSnap.id }}_3.load_MAP2_MED_HH_INCOME(map{{ mapSnap.id }}_3);	
+							if (LOC2{{ mapSnap.id }}_3 == 'True') {
+								map{{ mapSnap.id }}_3.load_LOC2_CHECK_CASHING(activeMap{{ mapSnap.id }}_3);	
 							}
-							if (MapLayer == 'legendunemploy') {
-								map{{ mapSnap.id }}_3.load_MAP3_PCT_UNEMPLOYED(map{{ mapSnap.id }}_3);	
-							} 
-							if (MapLayer == 'legendforeignborn') {
-								map{{ mapSnap.id }}_3.load_MAP4_PCT_FOREIGN_BORN(map{{ mapSnap.id }}_3);	
-							} 
-							if (MapLayer == 'legendAFIpersqmi') {
-								map{{ mapSnap.id }}_3.load_CREATEMAP1_AFI_PER_SQMILE(map{{ mapSnap.id }}_3);	
-							} 
-							if (MapLayer == 'legendbankspersqmi') {
-								map{{ mapSnap.id }}_3.load_CREATEMAP2_BANKS_PER_SQMILE(map{{ mapSnap.id }}_3);	
-							} 
-							if (MapLayer == 'legendpawnsqmi') {
-								map{{ mapSnap.id }}_3.load_CREATEMAP3_PAWN_SHOPS_PER_SQMILE(map{{ mapSnap.id }}_3);	
-							} 
-							if (MapLayer == 'legendmcdonaldspersqi') {
-								map{{ mapSnap.id }}_3.load_CREATEMAP4_MCDONALDS_PER_SQMILE(map{{ mapSnap.id }}_3);	
-							} 
-							if (MapLayer == 'legendhouseholdsperAFI') {
-								map{{ mapSnap.id }}_3.load_CREATEMAP5_HH_PER_AFI(map{{ mapSnap.id }}_3);	
-							} 
-							if (MapLayer == 'legendhouseholdsperbank') {
-								map{{ mapSnap.id }}_3.load_CREATEMAP6_HH_PER_BANK(map{{ mapSnap.id }}_3);	
-							} 
-							if (MapLayer == 'legendhouseholdsperMcD') {
-								map{{ mapSnap.id }}_3.load_CREATEMAP7_HH_PER_MCDONALDS(map{{ mapSnap.id }}_3);	
-							} 
-							if (MapLayer == 'legendhouseholdsperpawn') {
-								map{{ mapSnap.id }}_3.load_CREATEMAP8_HH_PER_PAWN_SHOP(map{{ mapSnap.id }}_3);	
-							} 
-							if (MapLayer == 'legendAFIsperbank') {
-								map{{ mapSnap.id }}_3.load_CREATEMAP9_AFIS_PER_BANK(map{{ mapSnap.id }}_3);	
-							} 
-							if (MapLayer == 'legendbanksperAFIs') {
-								map{{ mapSnap.id }}_3.load_CREATEMAP10_BANKS_PER_AFI(map{{ mapSnap.id }}_3);	
+							// add in layers that were turned on
+							if (LOC3{{ mapSnap.id }}_3 == 'True') {
+								map{{ mapSnap.id }}_3.load_LOC3_WIRE_TRANSFER(activeMap{{ mapSnap.id }}_3);	
 							}
-
-							function addLocations() {
-
-								if (LOC1 == 'True') {
-									map{{ mapSnap.id }}_3.load_LOC1_PAWN_SHOPS(map{{ mapSnap.id }}_3);	
-								}
-								// add in layers that were turned on
-								if (LOC2 == 'True') {
-									map{{ mapSnap.id }}_3.load_LOC2_CHECK_CASHING(map{{ mapSnap.id }}_3);	
-								}
-								// add in layers that were turned on
-								if (LOC3 == 'True') {
-									map{{ mapSnap.id }}_3.load_LOC3_WIRE_TRANSFER(map{{ mapSnap.id }}_3);	
-								}
-								// add in layers that were turned on
-								if (LOC4 == 'True') {
-									map{{ mapSnap.id }}_3.load_LOC4_BANKS(map{{ mapSnap.id }}_3);	
-								}
-								// add in layers that were turned on
-								if (LOC5 == 'True') {
-									map{{ mapSnap.id }}_3.load_LOC5_MCDONALDS(map{{ mapSnap.id }}_3);	
-								}
-								// add in layers that were turned on
-								if (LOC6 == 'True') {
-									map{{ mapSnap.id }}_3.load_LOC6_SUBWAY_LINES(map{{ mapSnap.id }}_3);	
-								}			
-
-								// add in layers that were turned on
-								if (MEDIA == 'True') {
-									map{{ mapSnap.id }}_3.loadMedia(map{{ mapSnap.id }}_3);	
-								}
-							
+							// add in layers that were turned on
+							if (LOC4{{ mapSnap.id }}_3 == 'True') {
+								map{{ mapSnap.id }}_3.load_LOC4_BANKS(activeMap{{ mapSnap.id }}_3);
+							}	
+							// add in layers that were turned on
+							if (LOC5{{ mapSnap.id }}_3 == 'True') {
+								map{{ mapSnap.id }}_3.load_LOC5_MCDONALDS(activeMap{{ mapSnap.id }}_3);
 							}
+							// add in layers that were turned on
+							if (LOC6{{ mapSnap.id }}_3 == 'True') {
+								map{{ mapSnap.id }}_3.load_LOC6_SUBWAY_LINES(activeMap{{ mapSnap.id }}_3);	
+							}			
 
-							setTimeout ( addLocations, 3000);										
+							// add in layers that were turned on
+							if (MEDIA{{ mapSnap.id }}_3 == 'True') {
+								map{{ mapSnap.id }}_3.loadMEDIA(activeMap{{ mapSnap.id }}_3);	
+							}
+			
+						}
+
+						setTimeout ( addLocations{{ mapSnap.id }}_3, 3000 );	
 			
 						{% endfor %}
 						
@@ -963,103 +974,107 @@
       <div class="modal-body">
 		<div class="mapSnaps-content-container">	
 
-			<!-- load thumbnail mini-maps -->
+		<!-- load thumbnail mini-maps -->
+		{% for mapSnap in mapSnaps %}
+			<div id="map{{ mapSnap.id }}_4" num="{{ mapSnap.id }}" class="map-thumbnail mediaSelect"></div>
+		{% endfor %}
+
+			<script type="text/javascript">	
 			{% for mapSnap in mapSnaps %}
-				<div id="map{{ mapSnap.id }}_4" num="{{ mapSnap.id }}" class="map-thumbnail mapSnapSelect_4 mediaSelect"></div>
+				var activeMap{{ mapSnap.id }}_4 = null;
 			{% endfor %}
-
-				<script type="text/javascript">				
-					function getMapSnaps4() {
-						{% for mapSnap in mapSnaps %}
-					    	var map{{ mapSnap.id }}_4 = new CityDigitsMapThumb({{ mapSnap.id }},'_4',{{ mapSnap.latitude }},{{ mapSnap.longitude }},{{ mapSnap.zoom }});
+			
+				function getMapSnaps4() {
+					{% for mapSnap in mapSnaps %}
+				    	var map{{ mapSnap.id }}_4 = new CityDigitsMapThumb({{ mapSnap.id }},'_4',{{ mapSnap.latitude }},{{ mapSnap.longitude }},{{ mapSnap.zoom }});
+						activeMap{{ mapSnap.id }}_4 = map{{ mapSnap.id }}_4;
+					
+						var MapLayer{{ mapSnap.id }}_4 = '{{ mapSnap.MapLayer }}';	
+						var LOC1{{ mapSnap.id }}_4 = '{{ mapSnap.PawnShops }}';
+						var LOC2{{ mapSnap.id }}_4 = '{{ mapSnap.CheckCashing }}';
+						var LOC3{{ mapSnap.id }}_4 = '{{ mapSnap.WireTransfer }}';
+						var LOC4{{ mapSnap.id }}_4 = '{{ mapSnap.Banks }}';
+						var LOC5{{ mapSnap.id }}_4 = '{{ mapSnap.McDonalds }}';
+						var LOC6{{ mapSnap.id }}_4 = '{{ mapSnap.SubwayLines }}';
+						var MEDIA{{ mapSnap.id }}_4= '{{ mapSnap.MEDIA }}';
 						
-							var MapLayer = '{{ mapSnap.MapLayer }}';	
-							var LOC1 = '{{ mapSnap.PawnShops }}';
-							var LOC2 = '{{ mapSnap.CheckCashing }}';
-							var LOC3 = '{{ mapSnap.WireTransfer }}';
-							var LOC4 = '{{ mapSnap.Banks }}';
-							var LOC5 = '{{ mapSnap.McDonalds }}';
-							var LOC6 = '{{ mapSnap.SubwayLines }}';
-							var MEDIA = '{{ mapSnap.Media }}';
-				
+						// add in layers that were turned on
+						if (MapLayer{{ mapSnap.id }}_4 == 'legendpoverty') {
+							map{{ mapSnap.id }}_4.load_MAP1_POP_POVERTY(activeMap{{ mapSnap.id }}_4);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_4 == 'legendmedhhinc') {
+							map{{ mapSnap.id }}_4.load_MAP2_MED_HH_INCOME(activeMap{{ mapSnap.id }}_4);	
+						}
+						if (MapLayer{{ mapSnap.id }}_4 == 'legendunemploy') {
+							map{{ mapSnap.id }}_4.load_MAP3_PCT_UNEMPLOYED(activeMap{{ mapSnap.id }}_4);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_4 == 'legendforeignborn') {
+							map{{ mapSnap.id }}_4.load_MAP4_PCT_FOREIGN_BORN(activeMap{{ mapSnap.id }}_4);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_4 == 'legendAFIpersqmi') {
+							map{{ mapSnap.id }}_4.load_CREATEMAP1_AFI_PER_SQMILE(activeMap{{ mapSnap.id }}_4);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_4 == 'legendbankspersqmi') {
+							map{{ mapSnap.id }}_4.load_CREATEMAP2_BANKS_PER_SQMILE(activeMap{{ mapSnap.id }}_4);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_4 == 'legendpawnsqmi') {
+							map{{ mapSnap.id }}_4.load_CREATEMAP3_PAWN_SHOPS_PER_SQMILE(activeMap{{ mapSnap.id }}_4);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_4 == 'legendmcdonaldspersqi') {
+							map{{ mapSnap.id }}_4.load_CREATEMAP4_MCDONALDS_PER_SQMILE(activeMap{{ mapSnap.id }}_4);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_4 == 'legendhouseholdsperAFI') {
+							map{{ mapSnap.id }}_4.load_CREATEMAP5_HH_PER_AFI(activeMap{{ mapSnap.id }}_4);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_4 == 'legendhouseholdsperbank') {
+							map{{ mapSnap.id }}_4.load_CREATEMAP6_HH_PER_BANK(activeMap{{ mapSnap.id }}_4);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_4 == 'legendhouseholdsperMcD') {
+							map{{ mapSnap.id }}_4.load_CREATEMAP7_HH_PER_MCDONALDS(activeMap{{ mapSnap.id }}_4);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_4 == 'legendhouseholdsperpawn') {
+							map{{ mapSnap.id }}_4.load_CREATEMAP8_HH_PER_PAWN_SHOP(activeMap{{ mapSnap.id }}_4);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_4 == 'legendAFIsperbank') {
+							map{{ mapSnap.id }}_4.load_CREATEMAP9_AFIS_PER_BANK(activeMap{{ mapSnap.id }}_4);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_4 == 'legendbanksperAFIs') {
+							map{{ mapSnap.id }}_4.load_CREATEMAP10_BANKS_PER_AFI(activeMap{{ mapSnap.id }}_4);	
+						}
+
+						function addLocations{{ mapSnap.id }}_4() {
+							if (LOC1{{ mapSnap.id }}_4 == 'True') {
+								map{{ mapSnap.id }}_4.load_LOC1_PAWN_SHOPS(activeMap{{ mapSnap.id }}_4);
+							}
 							// add in layers that were turned on
-							if (MapLayer == 'legendpoverty') {
-								map{{ mapSnap.id }}_4.load_MAP1_POP_POVERTY(map{{ mapSnap.id }}_4);	
-							} 
-							if (MapLayer == 'legendmedhhinc') {
-								map{{ mapSnap.id }}_4.load_MAP2_MED_HH_INCOME(map{{ mapSnap.id }}_4);	
+							if (LOC2{{ mapSnap.id }}_4 == 'True') {
+								map{{ mapSnap.id }}_4.load_LOC2_CHECK_CASHING(activeMap{{ mapSnap.id }}_4);	
 							}
-							if (MapLayer == 'legendunemploy') {
-								map{{ mapSnap.id }}_4.load_MAP3_PCT_UNEMPLOYED(map{{ mapSnap.id }}_4);	
-							} 
-							if (MapLayer == 'legendforeignborn') {
-								map{{ mapSnap.id }}_4.load_MAP4_PCT_FOREIGN_BORN(map{{ mapSnap.id }}_4);	
-							} 
-							if (MapLayer == 'legendAFIpersqmi') {
-								map{{ mapSnap.id }}_4.load_CREATEMAP1_AFI_PER_SQMILE(map{{ mapSnap.id }}_4);	
-							} 
-							if (MapLayer == 'legendbankspersqmi') {
-								map{{ mapSnap.id }}_4.load_CREATEMAP2_BANKS_PER_SQMILE(map{{ mapSnap.id }}_4);	
-							} 
-							if (MapLayer == 'legendpawnsqmi') {
-								map{{ mapSnap.id }}_4.load_CREATEMAP3_PAWN_SHOPS_PER_SQMILE(map{{ mapSnap.id }}_4);	
-							} 
-							if (MapLayer == 'legendmcdonaldspersqi') {
-								map{{ mapSnap.id }}_4.load_CREATEMAP4_MCDONALDS_PER_SQMILE(map{{ mapSnap.id }}_4);	
-							} 
-							if (MapLayer == 'legendhouseholdsperAFI') {
-								map{{ mapSnap.id }}_4.load_CREATEMAP5_HH_PER_AFI(map{{ mapSnap.id }}_4);	
-							} 
-							if (MapLayer == 'legendhouseholdsperbank') {
-								map{{ mapSnap.id }}_4.load_CREATEMAP6_HH_PER_BANK(map{{ mapSnap.id }}_4);	
-							} 
-							if (MapLayer == 'legendhouseholdsperMcD') {
-								map{{ mapSnap.id }}_4.load_CREATEMAP7_HH_PER_MCDONALDS(map{{ mapSnap.id }}_4);	
-							} 
-							if (MapLayer == 'legendhouseholdsperpawn') {
-								map{{ mapSnap.id }}_4.load_CREATEMAP8_HH_PER_PAWN_SHOP(map{{ mapSnap.id }}_4);	
-							} 
-							if (MapLayer == 'legendAFIsperbank') {
-								map{{ mapSnap.id }}_4.load_CREATEMAP9_AFIS_PER_BANK(map{{ mapSnap.id }}_4);	
-							} 
-							if (MapLayer == 'legendbanksperAFIs') {
-								map{{ mapSnap.id }}_4.load_CREATEMAP10_BANKS_PER_AFI(map{{ mapSnap.id }}_4);	
+							// add in layers that were turned on
+							if (LOC3{{ mapSnap.id }}_4 == 'True') {
+								map{{ mapSnap.id }}_4.load_LOC3_WIRE_TRANSFER(activeMap{{ mapSnap.id }}_4);	
 							}
-
-							function addLocations() {
-
-								if (LOC1 == 'True') {
-									map{{ mapSnap.id }}_4.load_LOC1_PAWN_SHOPS(map{{ mapSnap.id }}_4);	
-								}
-								// add in layers that were turned on
-								if (LOC2 == 'True') {
-									map{{ mapSnap.id }}_4.load_LOC2_CHECK_CASHING(map{{ mapSnap.id }}_4);	
-								}
-								// add in layers that were turned on
-								if (LOC3 == 'True') {
-									map{{ mapSnap.id }}_4.load_LOC3_WIRE_TRANSFER(map{{ mapSnap.id }}_4);	
-								}
-								// add in layers that were turned on
-								if (LOC4 == 'True') {
-									map{{ mapSnap.id }}_4.load_LOC4_BANKS(map{{ mapSnap.id }}_4);	
-								}
-								// add in layers that were turned on
-								if (LOC5 == 'True') {
-									map{{ mapSnap.id }}_4.load_LOC5_MCDONALDS(map{{ mapSnap.id }}_4);	
-								}
-								// add in layers that were turned on
-								if (LOC6 == 'True') {
-									map{{ mapSnap.id }}_4.load_LOC6_SUBWAY_LINES(map{{ mapSnap.id }}_4);	
-								}			
-
-								// add in layers that were turned on
-								if (MEDIA == 'True') {
-									map{{ mapSnap.id }}_4.loadMedia(map{{ mapSnap.id }}_4);	
-								}
-							
+							// add in layers that were turned on
+							if (LOC4{{ mapSnap.id }}_4 == 'True') {
+								map{{ mapSnap.id }}_4.load_LOC4_BANKS(activeMap{{ mapSnap.id }}_4);
+							}	
+							// add in layers that were turned on
+							if (LOC5{{ mapSnap.id }}_4 == 'True') {
+								map{{ mapSnap.id }}_4.load_LOC5_MCDONALDS(activeMap{{ mapSnap.id }}_4);
 							}
+							// add in layers that were turned on
+							if (LOC6{{ mapSnap.id }}_4 == 'True') {
+								map{{ mapSnap.id }}_4.load_LOC6_SUBWAY_LINES(activeMap{{ mapSnap.id }}_4);	
+							}			
 
-							setTimeout ( addLocations, 3000);		
+							// add in layers that were turned on
+							if (MEDIA{{ mapSnap.id }}_4 == 'True') {
+								map{{ mapSnap.id }}_4.loadMEDIA(activeMap{{ mapSnap.id }}_4);	
+							}
+			
+						}
+
+						setTimeout ( addLocations{{ mapSnap.id }}_4, 3000 );	
 			
 						{% endfor %}
 						
@@ -1078,6 +1093,7 @@
 						getMapSnaps4();
 					});
 				</script>
+
 
 
 
@@ -1189,103 +1205,107 @@
       <div class="modal-body">
 		<div class="mapSnaps-content-container">	
 
-			<!-- load thumbnail mini-maps -->
+		<!-- load thumbnail mini-maps -->
+		{% for mapSnap in mapSnaps %}
+			<div id="map{{ mapSnap.id }}_5" num="{{ mapSnap.id }}" class="map-thumbnail mediaSelect"></div>
+		{% endfor %}
+
+			<script type="text/javascript">	
 			{% for mapSnap in mapSnaps %}
-				<div id="map{{ mapSnap.id }}_5" num="{{ mapSnap.id }}" class="map-thumbnail mapSnapSelect_5 mediaSelect"></div>
+				var activeMap{{ mapSnap.id }}_5 = null;
 			{% endfor %}
-
-				<script type="text/javascript">				
-					function getMapSnaps5() {
-						{% for mapSnap in mapSnaps %}
-					    	var map{{ mapSnap.id }}_5 = new CityDigitsMapThumb({{ mapSnap.id }},'_5',{{ mapSnap.latitude }},{{ mapSnap.longitude }},{{ mapSnap.zoom }});
+			
+				function getMapSnaps5() {
+					{% for mapSnap in mapSnaps %}
+				    	var map{{ mapSnap.id }}_5 = new CityDigitsMapThumb({{ mapSnap.id }},'_5',{{ mapSnap.latitude }},{{ mapSnap.longitude }},{{ mapSnap.zoom }});
+						activeMap{{ mapSnap.id }}_5 = map{{ mapSnap.id }}_5;
+					
+						var MapLayer{{ mapSnap.id }}_5 = '{{ mapSnap.MapLayer }}';	
+						var LOC1{{ mapSnap.id }}_5 = '{{ mapSnap.PawnShops }}';
+						var LOC2{{ mapSnap.id }}_5 = '{{ mapSnap.CheckCashing }}';
+						var LOC3{{ mapSnap.id }}_5 = '{{ mapSnap.WireTransfer }}';
+						var LOC4{{ mapSnap.id }}_5 = '{{ mapSnap.Banks }}';
+						var LOC5{{ mapSnap.id }}_5 = '{{ mapSnap.McDonalds }}';
+						var LOC6{{ mapSnap.id }}_5 = '{{ mapSnap.SubwayLines }}';
+						var MEDIA{{ mapSnap.id }}_5= '{{ mapSnap.MEDIA }}';
 						
-							var MapLayer = '{{ mapSnap.MapLayer }}';	
-							var LOC1 = '{{ mapSnap.PawnShops }}';
-							var LOC2 = '{{ mapSnap.CheckCashing }}';
-							var LOC3 = '{{ mapSnap.WireTransfer }}';
-							var LOC4 = '{{ mapSnap.Banks }}';
-							var LOC5 = '{{ mapSnap.McDonalds }}';
-							var LOC6 = '{{ mapSnap.SubwayLines }}';
-							var MEDIA = '{{ mapSnap.Media }}';
-				
+						// add in layers that were turned on
+						if (MapLayer{{ mapSnap.id }}_5 == 'legendpoverty') {
+							map{{ mapSnap.id }}_5.load_MAP1_POP_POVERTY(activeMap{{ mapSnap.id }}_5);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_5 == 'legendmedhhinc') {
+							map{{ mapSnap.id }}_5.load_MAP2_MED_HH_INCOME(activeMap{{ mapSnap.id }}_5);	
+						}
+						if (MapLayer{{ mapSnap.id }}_5 == 'legendunemploy') {
+							map{{ mapSnap.id }}_5.load_MAP3_PCT_UNEMPLOYED(activeMap{{ mapSnap.id }}_5);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_5 == 'legendforeignborn') {
+							map{{ mapSnap.id }}_5.load_MAP4_PCT_FOREIGN_BORN(activeMap{{ mapSnap.id }}_5);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_5 == 'legendAFIpersqmi') {
+							map{{ mapSnap.id }}_5.load_CREATEMAP1_AFI_PER_SQMILE(activeMap{{ mapSnap.id }}_5);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_5 == 'legendbankspersqmi') {
+							map{{ mapSnap.id }}_5.load_CREATEMAP2_BANKS_PER_SQMILE(activeMap{{ mapSnap.id }}_5);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_5 == 'legendpawnsqmi') {
+							map{{ mapSnap.id }}_5.load_CREATEMAP3_PAWN_SHOPS_PER_SQMILE(activeMap{{ mapSnap.id }}_5);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_5 == 'legendmcdonaldspersqi') {
+							map{{ mapSnap.id }}_5.load_CREATEMAP4_MCDONALDS_PER_SQMILE(activeMap{{ mapSnap.id }}_5);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_5 == 'legendhouseholdsperAFI') {
+							map{{ mapSnap.id }}_5.load_CREATEMAP5_HH_PER_AFI(activeMap{{ mapSnap.id }}_5);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_5 == 'legendhouseholdsperbank') {
+							map{{ mapSnap.id }}_5.load_CREATEMAP6_HH_PER_BANK(activeMap{{ mapSnap.id }}_5);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_5 == 'legendhouseholdsperMcD') {
+							map{{ mapSnap.id }}_5.load_CREATEMAP7_HH_PER_MCDONALDS(activeMap{{ mapSnap.id }}_5);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_5 == 'legendhouseholdsperpawn') {
+							map{{ mapSnap.id }}_5.load_CREATEMAP8_HH_PER_PAWN_SHOP(activeMap{{ mapSnap.id }}_5);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_5 == 'legendAFIsperbank') {
+							map{{ mapSnap.id }}_5.load_CREATEMAP9_AFIS_PER_BANK(activeMap{{ mapSnap.id }}_5);	
+						} 
+						if (MapLayer{{ mapSnap.id }}_5 == 'legendbanksperAFIs') {
+							map{{ mapSnap.id }}_5.load_CREATEMAP10_BANKS_PER_AFI(activeMap{{ mapSnap.id }}_5);	
+						}
+
+						function addLocations{{ mapSnap.id }}_5() {
+							if (LOC1{{ mapSnap.id }}_5 == 'True') {
+								map{{ mapSnap.id }}_5.load_LOC1_PAWN_SHOPS(activeMap{{ mapSnap.id }}_5);
+							}
 							// add in layers that were turned on
-							if (MapLayer == 'legendpoverty') {
-								map{{ mapSnap.id }}_5.load_MAP1_POP_POVERTY(map{{ mapSnap.id }}_5);	
-							} 
-							if (MapLayer == 'legendmedhhinc') {
-								map{{ mapSnap.id }}_5.load_MAP2_MED_HH_INCOME(map{{ mapSnap.id }}_5);	
+							if (LOC2{{ mapSnap.id }}_5 == 'True') {
+								map{{ mapSnap.id }}_5.load_LOC2_CHECK_CASHING(activeMap{{ mapSnap.id }}_5);	
 							}
-							if (MapLayer == 'legendunemploy') {
-								map{{ mapSnap.id }}_5.load_MAP3_PCT_UNEMPLOYED(map{{ mapSnap.id }}_5);	
-							} 
-							if (MapLayer == 'legendforeignborn') {
-								map{{ mapSnap.id }}_5.load_MAP4_PCT_FOREIGN_BORN(map{{ mapSnap.id }}_5);	
-							} 
-							if (MapLayer == 'legendAFIpersqmi') {
-								map{{ mapSnap.id }}_5.load_CREATEMAP1_AFI_PER_SQMILE(map{{ mapSnap.id }}_5);	
-							} 
-							if (MapLayer == 'legendbankspersqmi') {
-								map{{ mapSnap.id }}_5.load_CREATEMAP2_BANKS_PER_SQMILE(map{{ mapSnap.id }}_5);	
-							} 
-							if (MapLayer == 'legendpawnsqmi') {
-								map{{ mapSnap.id }}_5.load_CREATEMAP3_PAWN_SHOPS_PER_SQMILE(map{{ mapSnap.id }}_5);	
-							} 
-							if (MapLayer == 'legendmcdonaldspersqi') {
-								map{{ mapSnap.id }}_5.load_CREATEMAP4_MCDONALDS_PER_SQMILE(map{{ mapSnap.id }}_5);	
-							} 
-							if (MapLayer == 'legendhouseholdsperAFI') {
-								map{{ mapSnap.id }}_5.load_CREATEMAP5_HH_PER_AFI(map{{ mapSnap.id }}_5);	
-							} 
-							if (MapLayer == 'legendhouseholdsperbank') {
-								map{{ mapSnap.id }}_5.load_CREATEMAP6_HH_PER_BANK(map{{ mapSnap.id }}_5);	
-							} 
-							if (MapLayer == 'legendhouseholdsperMcD') {
-								map{{ mapSnap.id }}_5.load_CREATEMAP7_HH_PER_MCDONALDS(map{{ mapSnap.id }}_5);	
-							} 
-							if (MapLayer == 'legendhouseholdsperpawn') {
-								map{{ mapSnap.id }}_5.load_CREATEMAP8_HH_PER_PAWN_SHOP(map{{ mapSnap.id }}_5);	
-							} 
-							if (MapLayer == 'legendAFIsperbank') {
-								map{{ mapSnap.id }}_5.load_CREATEMAP9_AFIS_PER_BANK(map{{ mapSnap.id }}_5);	
-							} 
-							if (MapLayer == 'legendbanksperAFIs') {
-								map{{ mapSnap.id }}_5.load_CREATEMAP10_BANKS_PER_AFI(map{{ mapSnap.id }}_5);	
+							// add in layers that were turned on
+							if (LOC3{{ mapSnap.id }}_5 == 'True') {
+								map{{ mapSnap.id }}_5.load_LOC3_WIRE_TRANSFER(activeMap{{ mapSnap.id }}_5);	
 							}
-
-							function addLocations() {
-
-								if (LOC1 == 'True') {
-									map{{ mapSnap.id }}_5.load_LOC1_PAWN_SHOPS(map{{ mapSnap.id }}_5);	
-								}
-								// add in layers that were turned on
-								if (LOC2 == 'True') {
-									map{{ mapSnap.id }}_5.load_LOC2_CHECK_CASHING(map{{ mapSnap.id }}_5);	
-								}
-								// add in layers that were turned on
-								if (LOC3 == 'True') {
-									map{{ mapSnap.id }}_5.load_LOC3_WIRE_TRANSFER(map{{ mapSnap.id }}_5);	
-								}
-								// add in layers that were turned on
-								if (LOC4 == 'True') {
-									map{{ mapSnap.id }}_5.load_LOC4_BANKS(map{{ mapSnap.id }}_5);	
-								}
-								// add in layers that were turned on
-								if (LOC5 == 'True') {
-									map{{ mapSnap.id }}_5.load_LOC5_MCDONALDS(map{{ mapSnap.id }}_5);	
-								}
-								// add in layers that were turned on
-								if (LOC6 == 'True') {
-									map{{ mapSnap.id }}_5.load_LOC6_SUBWAY_LINES(map{{ mapSnap.id }}_5);	
-								}			
-
-								// add in layers that were turned on
-								if (MEDIA == 'True') {
-									map{{ mapSnap.id }}_5.loadMedia(map{{ mapSnap.id }}_5);	
-								}
-							
+							// add in layers that were turned on
+							if (LOC4{{ mapSnap.id }}_5 == 'True') {
+								map{{ mapSnap.id }}_5.load_LOC4_BANKS(activeMap{{ mapSnap.id }}_5);
+							}	
+							// add in layers that were turned on
+							if (LOC5{{ mapSnap.id }}_5 == 'True') {
+								map{{ mapSnap.id }}_5.load_LOC5_MCDONALDS(activeMap{{ mapSnap.id }}_5);
 							}
+							// add in layers that were turned on
+							if (LOC6{{ mapSnap.id }}_5 == 'True') {
+								map{{ mapSnap.id }}_5.load_LOC6_SUBWAY_LINES(activeMap{{ mapSnap.id }}_5);	
+							}			
 
-							setTimeout ( addLocations, 3000);		
+							// add in layers that were turned on
+							if (MEDIA{{ mapSnap.id }}_5 == 'True') {
+								map{{ mapSnap.id }}_5.loadMEDIA(activeMap{{ mapSnap.id }}_5);	
+							}
+			
+						}
+
+						setTimeout ( addLocations{{ mapSnap.id }}_5, 3000 );	
 			
 						{% endfor %}
 						
@@ -1337,7 +1357,13 @@
 	var PawnShops = "{% static 'CashCity/locationData/PawnShops.csv' %}";
 	var closeButtonGray	= "{% static 'CashCity/img/close_gray.png' %}";
 	</script>
-	{% include 'CashCity/mapFilterMedia.html' %}
+	<script type="text/javascript">
+		<!-- create media geojson -->
+		var mediaImageGeojson = {% include 'CashCity/mapFilterMediaImage.html' %};
+		var mediaAudioGeojson = {% include 'CashCity/mapFilterMediaAudio.html' %};
+		var mediaNoteGeojson = {% include 'CashCity/mapFilterMediaNote.html' %};
+		var mediaInterviewGeojson = {% include 'CashCity/mapFilterMediaInterview.html' %};		
+	</script>
 	<script type="text/javascript" src="{% static 'CashCity/js/CityDigitsMapThumb.js' %}"></script>	
 	<script type="text/javascript" src="{% static 'CashCity/js/opinionForm.js' %}"></script>
 	<!-- set opinion number in each section -->	

@@ -21,6 +21,9 @@ var LOC5 = null;
 var LOC6 = null;
 var LOC7 = null;
 var MEDIA_IMAGES = null;
+var MEDIA_AUDIO = null;
+var MEDIA_NOTE = null;
+var MEDIA_INTERVIEW = null;
 var MY_MAP = null;
 var SCREEN_HEIGHT = null;
 var CURRENT_LAYER = null;
@@ -35,8 +38,10 @@ $().ready(new function(){
     var myMap = new CityDigitsMap();
     myMap.loadLayers();
     myMap.loadMarkers();
+    myMap.loadMedia();
     mainLayer = myMap.neighborhoodLayer;
     MY_MAP = myMap;	
+	
 	
 	
 });
