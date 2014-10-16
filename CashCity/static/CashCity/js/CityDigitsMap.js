@@ -25,6 +25,8 @@ function CityDigitsMap() {
 	//load legend
 	$("#citydigits-legend").attr({'class':'citydigits-legend'});
 	
+	//load mapbox geocoder control
+	this.map.addControl(L.Control.geocoder());
 	
     //set params
     this.height = $(window).height()-$(".navbar").height();
@@ -2843,77 +2845,91 @@ CityDigitsMap.drawChart = function(layerId){
 		var propertyName = 'PovertyPer';
 		var formatter = d3.format(".0%");
 		var title = 'Percent Population in Poverty';
+		var yMin = 0;
 	} 
 	if (layerId == 'legendmedhhinc') {
 		var propertyName = 'MedHouInco';
 		var formatNumber = d3.format(",.0f")
 		var formatter = function(d) { return "$" + formatNumber(d); };
 		var title = 'Median Household Income';
+		var yMin = 0;
 	}
 	if (layerId == 'legendunemploy') {
 		var propertyName = 'UnempRate';
 		var formatter = d3.format(".1%");
 		var title = 'Percent Unemployed';
+		var yMin = 0;
 	} 
 	if (layerId == 'legendforeignborn') {
 		var propertyName = 'ForBornPer';
 		var formatter = d3.format(".0%");
 		var title = 'Percent Population Foreign Born';
+		var yMin = 0;
 	} 
 	if (layerId == 'legendAFIpersqmi') {
 		var propertyName = 'AFS_SQMI';
 		var formatter = d3.format(",.2f")
 		var title = 'Alternative Financial Insitutions per Square Mile';
+		var yMin = -1;
 	} 
 	if (layerId == 'legendbankspersqmi') {
 		var propertyName = 'BANK_SQMI';
 		var formatter = d3.format(",.2f")
 		var title = 'Banks per Square Mile';
+		var yMin = -1;
 	} 
 	if (layerId == 'legendpawnsqmi') {
 		var propertyName = 'PAWN_SQMI';
 		var formatter = d3.format(",.2f")
 		var title = 'Pawn Shops per Square Mile';
+		var yMin = -1;
 	} 
 	if (layerId == 'legendmcdonaldspersqi') {
 		var propertyName = 'McD_SQMI';
 		var formatter = d3.format(",.2f")
 		var title = 'McDonald\'s per Square Mile';
+		var yMin = -1;
 	} 
 	if (layerId == 'legendhouseholdsperAFI') {
 		var propertyName = 'HH_AFS';
 		var formatter = d3.format(",.2f")
 		var title = 'Households per Alternative Financial Insitution';
+		var yMin = -500;
 	} 
 	if (layerId == 'legendhouseholdsperbank') {
 		var propertyName = 'HH_BANK';
 		var formatter = d3.format(",.2f")
 		var title = 'Households per Bank';
+		var yMin = -500;
 	} 
 	if (layerId == 'legendhouseholdsperMcD') {
 		var propertyName = 'HH_McD';
 		var formatter = d3.format(",.2f")
 		var title = 'Households per McDonald\'s';
+		var yMin = -500;
 	} 
 	if (layerId == 'legendhouseholdsperpawn') {
 		var propertyName = 'HH_PAWN';
 		var formatter = d3.format(",.2f")
 		var title = 'Households per Pawn Shop';
+		var yMin = -999;
 	} 
 	if (layerId == 'legendAFIsperbank') {
 		var propertyName = 'AFS_BANK';
 		var formatter = d3.format(",.2f")
 		var title = 'Alternative Financial Insitutions per Bank';
+		var yMin = -1;
 	} 
 	if (layerId == 'legendbanksperAFIs') {
 		var propertyName = 'BANK_AFS';
 		var formatter = d3.format(",.2f")
 		var title = 'Banks per Alternative Financial Insitution';
+		var yMin = -1;
 	} 
 	
 	
 	var margin = {top: 50, right: 20, bottom: 30, left: 70},
-	    width = 500 - margin.left - margin.right,
+			width = 500 - margin.left - margin.right,
 	    height = 400 - margin.top - margin.bottom;
 	
 	var x = d3.scale.ordinal()
@@ -2943,6 +2959,14 @@ CityDigitsMap.drawChart = function(layerId){
 		      return d.properties[propertyName] <= 999;
 		  });
 	  }  
+
+	  // filter out < -1s for household-level data
+	  if (propertyName == 'HH_AFS' || propertyName == 'HH_BANK' || propertyName == 'HH_McD' || propertyName == 'HH_PAWN') {
+		  openedTopoJson = $.grep(openedTopoJson, function(d) {
+		      return d.properties[propertyName] > -1;
+		  });
+	  }  
+
 	  	  
 	  openedTopoJson.sort(function (a, b) {
 	      if (Number(a.properties[propertyName]) > Number(b.properties[propertyName])) {
@@ -2955,7 +2979,7 @@ CityDigitsMap.drawChart = function(layerId){
 	      }
 	  });
 	  x.domain(openedTopoJson.map(function(d) { return d.properties.Name; }));
-	  y.domain([0, d3.max(openedTopoJson, function(d) { return d.properties[propertyName]; })]);
+	  y.domain([yMin, d3.max(openedTopoJson, function(d) { return d.properties[propertyName]; })]);
 	  
 	  svg.append("g")
 	      .attr("class", "chartTitle")

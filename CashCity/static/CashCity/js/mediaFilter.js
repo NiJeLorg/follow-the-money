@@ -12,7 +12,8 @@ $( document ).ready(function() {
 	$('#type').addClass('white').selectpicker('setStyle');
 	$('#class').addClass('white').selectpicker('setStyle');
 	$('#team').addClass('white').selectpicker('setStyle');
-	onChangeListener();	
+	onChangeListener();
+	refreshOnCloseTag();
 	
 	
 	// add event listeners to run functions on change
@@ -64,6 +65,21 @@ $( document ).ready(function() {
 		});
 		
 	}
+	
+	// refresh media when tagit items are x-ed out
+	function refreshOnCloseTag() {
+		$( ".tagit-close" ).on("remove", function () {
+		    //get search values
+		    //get search values
+			var type = $("#type").val();
+			var classes = $("#class").val();
+			var team = $("#team").val();
+			var tags = $("#tags").val();
+		    loadMedia(type, classes, team, tags);
+						
+		});
+		
+	}
 
 	
 	// functions that are run on change
@@ -83,6 +99,7 @@ $( document ).ready(function() {
 				$('#class').addClass('white').selectpicker('setStyle');
 				$('#team').addClass('white').selectpicker('setStyle');
 				onChangeListener();
+				refreshOnCloseTag();
 	        }
 	    });
 	}

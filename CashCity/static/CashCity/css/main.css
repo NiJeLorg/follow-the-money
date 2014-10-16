@@ -327,11 +327,13 @@ hr {
 
 #map {
     position:absolute;
+    left:0;
+    right:0;
     top:0;
     bottom:0;
     width:100%;
     margin-top: 50px;
-	overflow: visible;
+	overflow: hidden;
 }
 
 .map-ui {
@@ -400,10 +402,15 @@ hr {
 	
 .leaflet-popup-content {
 	background-color:#3f3f3f;
+	color:#fff;
 }
 
 .leaflet-popup-tip {
 	border-top: 10px solid #3f3f3f;
+}
+
+.leaflet-top {
+	top: 35px;
 }
 
 /*

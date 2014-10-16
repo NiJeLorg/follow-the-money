@@ -42,6 +42,12 @@ class TeamForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'password',)
+        
+    def clean_username(self):
+        data = self.cleaned_data['username']
+        if " " in data:
+            raise forms.ValidationError("Please do not include spaces in team usernames. Please try again.")
+        return data
 
 # team profile form
 class TeamProfileForm(forms.ModelForm):
