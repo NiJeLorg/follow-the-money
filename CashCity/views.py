@@ -275,7 +275,7 @@ def accountProfile(request):
     if profile.teacherOrStudent:
         doNothingVar = ''
     else:
-        return HttpResponseRedirect('/accounts/profile/student/media/')
+        return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
     
     if request.method == 'POST':
         user_form = UserInfoForm(data=request.POST, instance=request.user)
@@ -758,7 +758,7 @@ def createTeam(request, id=None):
     if request.method == 'POST':
         # if user hits cancel, send back to media page without saving
         if "cancel" in request.POST:
-            return HttpResponseRedirect('/accounts/profile/teams/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/teams/')
         # user has clicked save
         else:
             user_form = TeamForm(data=request.POST, instance=student_user)
@@ -822,7 +822,7 @@ def removeTeam(request, id=None):
     if request.method == 'POST':
         # if user hits cancel, send back to media page without saving
         if "cancel" in request.POST:
-            return HttpResponseRedirect('/accounts/profile/teams/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/teams/')
         # user has clicked save
         else:
             student_profile.delete()
@@ -870,9 +870,9 @@ def mediaFormImage(request, id=None):
         # if user hits cancel, send back to media page without saving
         if "cancel" in request.POST:
             if profile.teacherOrStudent:
-                return HttpResponseRedirect('/accounts/profile/media/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/media/')
             else:   
-                return HttpResponseRedirect('/accounts/profile/student/media/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
                 
         # if user hits save as draft, flag data in media image table as draft
         elif "saveDraft" in request.POST:
@@ -894,9 +894,9 @@ def mediaFormImage(request, id=None):
                 form.save_m2m()
             
                 if profile.teacherOrStudent:
-                    return HttpResponseRedirect('/accounts/profile/media/')
+                    return HttpResponseRedirect('/cashcity/accounts/profile/media/')
                 else:   
-                    return HttpResponseRedirect('/accounts/profile/student/media/')
+                    return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
 
             else:
                 # The supplied form contained errors - just print them to the terminal.
@@ -920,9 +920,9 @@ def mediaFormImage(request, id=None):
                 form.save_m2m()
             
                 if profile.teacherOrStudent:
-                    return HttpResponseRedirect('/accounts/profile/media/')
+                    return HttpResponseRedirect('/cashcity/accounts/profile/media/')
                 else:   
-                    return HttpResponseRedirect('/accounts/profile/student/media/')
+                    return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
 
             else:
                 # The supplied form contained errors - just print them to the terminal.
@@ -955,17 +955,17 @@ def mediaFormImageRemove(request, id=None):
         # if user hits cancel, send back to media page without saving
         if "cancel" in request.POST:
             if profile.teacherOrStudent:
-                return HttpResponseRedirect('/accounts/profile/media/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/media/')
             else:   
-                return HttpResponseRedirect('/accounts/profile/student/media/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
         # user has clicked save
         else:
             mediaImage.delete()
         
             if profile.teacherOrStudent:
-                return HttpResponseRedirect('/accounts/profile/media/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/media/')
             else:   
-                return HttpResponseRedirect('/accounts/profile/student/media/')            
+                return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')            
             
     if profile.teacherOrStudent:
         template = 'CashCity/mediaFormImageRemove.html'
@@ -991,15 +991,15 @@ def mediaImageSaveDraft(request, id=None):
         mediaImage.published = False
         mediaImage.save()
         if profile.teacherOrStudent:
-            return HttpResponseRedirect('/accounts/profile/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/media/')
         else:   
-            return HttpResponseRedirect('/accounts/profile/student/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
     
     else:  
         if profile.teacherOrStudent:
-            return HttpResponseRedirect('/accounts/profile/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/media/')
         else:   
-            return HttpResponseRedirect('/accounts/profile/student/media/')            
+            return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')            
             
 
 @login_required
@@ -1017,15 +1017,15 @@ def mediaImagePublish(request, id=None):
         mediaImage.published = True
         mediaImage.save()
         if profile.teacherOrStudent:
-            return HttpResponseRedirect('/accounts/profile/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/media/')
         else:   
-            return HttpResponseRedirect('/accounts/profile/student/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
     
     else:  
         if profile.teacherOrStudent:
-            return HttpResponseRedirect('/accounts/profile/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/media/')
         else:   
-            return HttpResponseRedirect('/accounts/profile/student/media/') 
+            return HttpResponseRedirect('/cashcity/accounts/profile/student/media/') 
             
             
 
@@ -1050,9 +1050,9 @@ def mediaFormAudio(request, id=None):
         # if user hits cancel, send back to media page without saving
         if "cancel" in request.POST:
             if profile.teacherOrStudent:
-                return HttpResponseRedirect('/accounts/profile/media/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/media/')
             else:   
-                return HttpResponseRedirect('/accounts/profile/student/media/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
 
         # if user hits save as draft, flag data in media Audio table as draft
         elif "saveDraft" in request.POST:
@@ -1071,9 +1071,9 @@ def mediaFormAudio(request, id=None):
                 form.save_m2m()
             
                 if profile.teacherOrStudent:
-                    return HttpResponseRedirect('/accounts/profile/media/')
+                    return HttpResponseRedirect('/cashcity/accounts/profile/media/')
                 else:   
-                    return HttpResponseRedirect('/accounts/profile/student/media/')
+                    return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
 
             else:
                 # The supplied form contained errors - just print them to the terminal.
@@ -1095,9 +1095,9 @@ def mediaFormAudio(request, id=None):
                 form.save_m2m()
             
                 if profile.teacherOrStudent:
-                    return HttpResponseRedirect('/accounts/profile/media/')
+                    return HttpResponseRedirect('/cashcity/accounts/profile/media/')
                 else:   
-                    return HttpResponseRedirect('/accounts/profile/student/media/')
+                    return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
 
             else:
                 # The supplied form contained errors - just print them to the terminal.
@@ -1130,17 +1130,17 @@ def mediaFormAudioRemove(request, id=None):
         # if user hits cancel, send back to media page without saving
         if "cancel" in request.POST:
             if profile.teacherOrStudent:
-                return HttpResponseRedirect('/accounts/profile/media/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/media/')
             else:   
-                return HttpResponseRedirect('/accounts/profile/student/media/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
         # user has clicked save
         else:
             mediaAudio.delete()
         
             if profile.teacherOrStudent:
-                return HttpResponseRedirect('/accounts/profile/media/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/media/')
             else:   
-                return HttpResponseRedirect('/accounts/profile/student/media/')            
+                return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')            
             
     if profile.teacherOrStudent:
         template = 'CashCity/mediaFormAudioRemove.html'
@@ -1166,15 +1166,15 @@ def mediaAudioSaveDraft(request, id=None):
         mediaAudio.published = False
         mediaAudio.save()
         if profile.teacherOrStudent:
-            return HttpResponseRedirect('/accounts/profile/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/media/')
         else:   
-            return HttpResponseRedirect('/accounts/profile/student/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
     
     else:  
         if profile.teacherOrStudent:
-            return HttpResponseRedirect('/accounts/profile/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/media/')
         else:   
-            return HttpResponseRedirect('/accounts/profile/student/media/')            
+            return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')            
             
 
 @login_required
@@ -1192,15 +1192,15 @@ def mediaAudioPublish(request, id=None):
         mediaAudio.published = True
         mediaAudio.save()
         if profile.teacherOrStudent:
-            return HttpResponseRedirect('/accounts/profile/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/media/')
         else:   
-            return HttpResponseRedirect('/accounts/profile/student/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
     
     else:  
         if profile.teacherOrStudent:
-            return HttpResponseRedirect('/accounts/profile/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/media/')
         else:   
-            return HttpResponseRedirect('/accounts/profile/student/media/') 
+            return HttpResponseRedirect('/cashcity/accounts/profile/student/media/') 
             
                      
     
@@ -1224,9 +1224,9 @@ def mediaFormNote(request, id=None):
         # if user hits cancel, send back to media page without saving
         if "cancel" in request.POST:
             if profile.teacherOrStudent:
-                return HttpResponseRedirect('/accounts/profile/media/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/media/')
             else:   
-                return HttpResponseRedirect('/accounts/profile/student/media/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
 
         # if user hits save as draft, flag data in media Audio table as draft
         elif "saveDraft" in request.POST:
@@ -1245,9 +1245,9 @@ def mediaFormNote(request, id=None):
                 form.save_m2m()
             
                 if profile.teacherOrStudent:
-                    return HttpResponseRedirect('/accounts/profile/media/')
+                    return HttpResponseRedirect('/cashcity/accounts/profile/media/')
                 else:   
-                    return HttpResponseRedirect('/accounts/profile/student/media/')
+                    return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
 
             else:
                 # The supplied form contained errors - just print them to the terminal.
@@ -1269,9 +1269,9 @@ def mediaFormNote(request, id=None):
                 form.save_m2m()
             
                 if profile.teacherOrStudent:
-                    return HttpResponseRedirect('/accounts/profile/media/')
+                    return HttpResponseRedirect('/cashcity/accounts/profile/media/')
                 else:   
-                    return HttpResponseRedirect('/accounts/profile/student/media/')
+                    return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
 
             else:
                 # The supplied form contained errors - just print them to the terminal.
@@ -1304,17 +1304,17 @@ def mediaFormNoteRemove(request, id=None):
         # if user hits cancel, send back to media page without saving
         if "cancel" in request.POST:
             if profile.teacherOrStudent:
-                return HttpResponseRedirect('/accounts/profile/media/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/media/')
             else:   
-                return HttpResponseRedirect('/accounts/profile/student/media/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
         # user has clicked save
         else:
             mediaNote.delete()
         
             if profile.teacherOrStudent:
-                return HttpResponseRedirect('/accounts/profile/media/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/media/')
             else:   
-                return HttpResponseRedirect('/accounts/profile/student/media/')            
+                return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')            
             
     if profile.teacherOrStudent:
         template = 'CashCity/mediaFormNoteRemove.html'
@@ -1339,15 +1339,15 @@ def mediaNoteSaveDraft(request, id=None):
         mediaNote.published = False
         mediaNote.save()
         if profile.teacherOrStudent:
-            return HttpResponseRedirect('/accounts/profile/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/media/')
         else:   
-            return HttpResponseRedirect('/accounts/profile/student/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
     
     else:  
         if profile.teacherOrStudent:
-            return HttpResponseRedirect('/accounts/profile/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/media/')
         else:   
-            return HttpResponseRedirect('/accounts/profile/student/media/')            
+            return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')            
             
 
 @login_required
@@ -1365,15 +1365,15 @@ def mediaNotePublish(request, id=None):
         mediaNote.published = True
         mediaNote.save()
         if profile.teacherOrStudent:
-            return HttpResponseRedirect('/accounts/profile/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/media/')
         else:   
-            return HttpResponseRedirect('/accounts/profile/student/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
     
     else:  
         if profile.teacherOrStudent:
-            return HttpResponseRedirect('/accounts/profile/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/media/')
         else:   
-            return HttpResponseRedirect('/accounts/profile/student/media/') 
+            return HttpResponseRedirect('/cashcity/accounts/profile/student/media/') 
             
     
 # view for media image form
@@ -1396,9 +1396,9 @@ def mediaFormInterview(request, id=None):
         # if user hits cancel, send back to media page without saving
         if "cancel" in request.POST:
             if profile.teacherOrStudent:
-                return HttpResponseRedirect('/accounts/profile/media/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/media/')
             else:   
-                return HttpResponseRedirect('/accounts/profile/student/media/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
 
         # if user hits save as draft, flag data in media image table as draft
         elif "saveDraft" in request.POST:
@@ -1417,9 +1417,9 @@ def mediaFormInterview(request, id=None):
                 form.save_m2m()
             
                 if profile.teacherOrStudent:
-                    return HttpResponseRedirect('/accounts/profile/media/')
+                    return HttpResponseRedirect('/cashcity/accounts/profile/media/')
                 else:   
-                    return HttpResponseRedirect('/accounts/profile/student/media/')
+                    return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
 
             else:
                 # The supplied form contained errors - just print them to the terminal.
@@ -1441,9 +1441,9 @@ def mediaFormInterview(request, id=None):
                 form.save_m2m()
             
                 if profile.teacherOrStudent:
-                    return HttpResponseRedirect('/accounts/profile/media/')
+                    return HttpResponseRedirect('/cashcity/accounts/profile/media/')
                 else:   
-                    return HttpResponseRedirect('/accounts/profile/student/media/')
+                    return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
 
             else:
                 # The supplied form contained errors - just print them to the terminal.
@@ -1476,17 +1476,17 @@ def mediaFormInterviewRemove(request, id=None):
         # if user hits cancel, send back to media page without saving
         if "cancel" in request.POST:
             if profile.teacherOrStudent:
-                return HttpResponseRedirect('/accounts/profile/media/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/media/')
             else:   
-                return HttpResponseRedirect('/accounts/profile/student/media/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
         # user has clicked save
         else:
             mediaInterview.delete()
         
             if profile.teacherOrStudent:
-                return HttpResponseRedirect('/accounts/profile/media/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/media/')
             else:   
-                return HttpResponseRedirect('/accounts/profile/student/media/')            
+                return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')            
             
     if profile.teacherOrStudent:
         template = 'CashCity/mediaFormInterviewRemove.html'
@@ -1512,15 +1512,15 @@ def mediaInterviewSaveDraft(request, id=None):
         mediaInterview.published = False
         mediaInterview.save()
         if profile.teacherOrStudent:
-            return HttpResponseRedirect('/accounts/profile/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/media/')
         else:   
-            return HttpResponseRedirect('/accounts/profile/student/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
     
     else:  
         if profile.teacherOrStudent:
-            return HttpResponseRedirect('/accounts/profile/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/media/')
         else:   
-            return HttpResponseRedirect('/accounts/profile/student/media/')            
+            return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')            
             
 
 @login_required
@@ -1538,15 +1538,15 @@ def mediaInterviewPublish(request, id=None):
         mediaInterview.published = True
         mediaInterview.save()
         if profile.teacherOrStudent:
-            return HttpResponseRedirect('/accounts/profile/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/media/')
         else:   
-            return HttpResponseRedirect('/accounts/profile/student/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/student/media/')
     
     else:  
         if profile.teacherOrStudent:
-            return HttpResponseRedirect('/accounts/profile/media/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/media/')
         else:   
-            return HttpResponseRedirect('/accounts/profile/student/media/') 
+            return HttpResponseRedirect('/cashcity/accounts/profile/student/media/') 
 
 @login_required
 def mediaFormCommentImageRemove(request, id=None):
@@ -2254,9 +2254,9 @@ def opinionForm(request, id=None):
         # if user hits cancel, send back to media page without saving
         if "cancel" in request.POST:
             if profile.teacherOrStudent:
-                return HttpResponseRedirect('/accounts/profile/opinion/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/opinion/')
             else:   
-                return HttpResponseRedirect('/accounts/profile/student/opinion/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/student/opinion/')
                 
         # if user hits save as draft, flag data in media image table as draft
         elif "saveDraft" in request.POST: 
@@ -2301,9 +2301,9 @@ def opinionForm(request, id=None):
                     form.save()
                     
                 if profile.teacherOrStudent:
-                    return HttpResponseRedirect('/accounts/profile/opinion/')
+                    return HttpResponseRedirect('/cashcity/accounts/profile/opinion/')
                 else:   
-                    return HttpResponseRedirect('/accounts/profile/student/opinion/')
+                    return HttpResponseRedirect('/cashcity/accounts/profile/student/opinion/')
            
             else:
                 # The supplied form contained errors - just print them to the terminal.
@@ -2353,9 +2353,9 @@ def opinionForm(request, id=None):
                     form.save()
                     
                 if profile.teacherOrStudent:
-                    return HttpResponseRedirect('/accounts/profile/opinion/')
+                    return HttpResponseRedirect('/cashcity/accounts/profile/opinion/')
                 else:   
-                    return HttpResponseRedirect('/accounts/profile/student/opinion/')
+                    return HttpResponseRedirect('/cashcity/accounts/profile/student/opinion/')
            
             else:
                 # The supplied form contained errors - just print them to the terminal.
@@ -2393,17 +2393,17 @@ def opinionFormRemove(request, id=None):
         # if user hits cancel, send back to media page without saving
         if "cancel" in request.POST:
             if profile.teacherOrStudent:
-                return HttpResponseRedirect('/accounts/profile/opinion/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/opinion/')
             else:   
-                return HttpResponseRedirect('/accounts/profile/student/opinion/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/student/opinion/')
         # user has clicked save
         else:
             opinion.delete()
         
             if profile.teacherOrStudent:
-                return HttpResponseRedirect('/accounts/profile/opinion/')
+                return HttpResponseRedirect('/cashcity/accounts/profile/opinion/')
             else:   
-                return HttpResponseRedirect('/accounts/profile/student/opinion/')            
+                return HttpResponseRedirect('/cashcity/accounts/profile/student/opinion/')            
             
     if profile.teacherOrStudent:
         template = 'CashCity/opinionRemove.html'
@@ -2429,15 +2429,15 @@ def opinionSaveDraft(request, id=None):
         opinion.published = False
         opinion.save()
         if profile.teacherOrStudent:
-            return HttpResponseRedirect('/accounts/profile/opinion/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/opinion/')
         else:   
-            return HttpResponseRedirect('/accounts/profile/student/opinion/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/student/opinion/')
     
     else:  
         if profile.teacherOrStudent:
-            return HttpResponseRedirect('/accounts/profile/opinion/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/opinion/')
         else:   
-            return HttpResponseRedirect('/accounts/profile/student/opinion/')            
+            return HttpResponseRedirect('/cashcity/accounts/profile/student/opinion/')            
             
 
 @login_required
@@ -2455,15 +2455,15 @@ def opinionPublish(request, id=None):
         opinion.published = True
         opinion.save()
         if profile.teacherOrStudent:
-            return HttpResponseRedirect('/accounts/profile/opinion/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/opinion/')
         else:   
-            return HttpResponseRedirect('/accounts/profile/student/opinion/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/student/opinion/')
     
     else:  
         if profile.teacherOrStudent:
-            return HttpResponseRedirect('/accounts/profile/opinion/')
+            return HttpResponseRedirect('/cashcity/accounts/profile/opinion/')
         else:   
-            return HttpResponseRedirect('/accounts/profile/student/opinion/') 
+            return HttpResponseRedirect('/cashcity/accounts/profile/student/opinion/') 
 
            
 def opinionPage(request, id=None):

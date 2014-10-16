@@ -19,41 +19,49 @@ urlpatterns = patterns('',
     url(r'^media/form/note/', views.mediaFormNote, name='mediaFormNote'),
     url(r'^media/form/interview/', views.mediaFormInterview, name='mediaFormInterview'),
     # media edit forms
-    url(r'media/form/edit/image/(?P<id>\d+)/$', views.mediaFormImage, name = 'mediaFormImageEdit'),
-    url(r'media/form/edit/audio/(?P<id>\d+)/$', views.mediaFormAudio, name = 'mediaFormAudioEdit'),
-    url(r'media/form/edit/note/(?P<id>\d+)/$', views.mediaFormNote, name = 'mediaFormNoteEdit'),
-    url(r'media/form/edit/interview/(?P<id>\d+)/$', views.mediaFormInterview, name = 'mediaFormInterviewEdit'),
+    url(r'^media/form/edit/image/(?P<id>\d+)/$', views.mediaFormImage, name = 'mediaFormImageEdit'),
+    url(r'^media/form/edit/audio/(?P<id>\d+)/$', views.mediaFormAudio, name = 'mediaFormAudioEdit'),
+    url(r'^media/form/edit/note/(?P<id>\d+)/$', views.mediaFormNote, name = 'mediaFormNoteEdit'),
+    url(r'^media/form/edit/interview/(?P<id>\d+)/$', views.mediaFormInterview, name = 'mediaFormInterviewEdit'),
     #media remove forms
-    url(r'media/form/remove/image/(?P<id>\d+)/$', views.mediaFormImageRemove, name = 'mediaFormImageRemove'),
-    url(r'media/form/remove/audio/(?P<id>\d+)/$', views.mediaFormAudioRemove, name = 'mediaFormAudioRemove'),
-    url(r'media/form/remove/note/(?P<id>\d+)/$', views.mediaFormNoteRemove, name = 'mediaFormNoteRemove'),
-    url(r'media/form/remove/interview/(?P<id>\d+)/$', views.mediaFormInterviewRemove, name = 'mediaFormInterviewRemove'),
+    url(r'^media/form/remove/image/(?P<id>\d+)/$', views.mediaFormImageRemove, name = 'mediaFormImageRemove'),
+    url(r'^media/form/remove/audio/(?P<id>\d+)/$', views.mediaFormAudioRemove, name = 'mediaFormAudioRemove'),
+    url(r'^media/form/remove/note/(?P<id>\d+)/$', views.mediaFormNoteRemove, name = 'mediaFormNoteRemove'),
+    url(r'^media/form/remove/interview/(?P<id>\d+)/$', views.mediaFormInterviewRemove, name = 'mediaFormInterviewRemove'),
     #media saveDraft
-    url(r'media/saveDraft/image/(?P<id>\d+)/$', views.mediaImageSaveDraft, name = 'mediaImageSaveDraft'),
-    url(r'media/saveDraft/audio/(?P<id>\d+)/$', views.mediaAudioSaveDraft, name = 'mediaAudioSaveDraft'),
-    url(r'media/saveDraft/note/(?P<id>\d+)/$', views.mediaNoteSaveDraft, name = 'mediaNoteSaveDraft'),
-    url(r'media/saveDraft/interview/(?P<id>\d+)/$', views.mediaInterviewSaveDraft, name = 'mediaInterviewSaveDraft'),
+    url(r'^media/saveDraft/image/(?P<id>\d+)/$', views.mediaImageSaveDraft, name = 'mediaImageSaveDraft'),
+    url(r'^media/saveDraft/audio/(?P<id>\d+)/$', views.mediaAudioSaveDraft, name = 'mediaAudioSaveDraft'),
+    url(r'^media/saveDraft/note/(?P<id>\d+)/$', views.mediaNoteSaveDraft, name = 'mediaNoteSaveDraft'),
+    url(r'^media/saveDraft/interview/(?P<id>\d+)/$', views.mediaInterviewSaveDraft, name = 'mediaInterviewSaveDraft'),
     #media publish
-    url(r'media/publish/image/(?P<id>\d+)/$', views.mediaImagePublish, name = 'mediaImagePublish'),
-    url(r'media/publish/audio/(?P<id>\d+)/$', views.mediaAudioPublish, name = 'mediaAudioPublish'),
-    url(r'media/publish/note/(?P<id>\d+)/$', views.mediaNotePublish, name = 'mediaNotePublish'),
-    url(r'media/publish/interview/(?P<id>\d+)/$', views.mediaInterviewPublish, name = 'mediaInterviewPublish'),
+    url(r'^media/publish/image/(?P<id>\d+)/$', views.mediaImagePublish, name = 'mediaImagePublish'),
+    url(r'^media/publish/audio/(?P<id>\d+)/$', views.mediaAudioPublish, name = 'mediaAudioPublish'),
+    url(r'^media/publish/note/(?P<id>\d+)/$', views.mediaNotePublish, name = 'mediaNotePublish'),
+    url(r'^media/publish/interview/(?P<id>\d+)/$', views.mediaInterviewPublish, name = 'mediaInterviewPublish'),
     # media single pages
     url(r'^media/image/(?P<id>\d+)/$', views.mediaPageImage, name='mediaPageImage'), 
     url(r'^media/audio/(?P<id>\d+)/$', views.mediaPageAudio, name='mediaPageAudio'), 
     url(r'^media/note/(?P<id>\d+)/$', views.mediaPageNote, name='mediaPageNote'), 
     url(r'^media/interview/(?P<id>\d+)/$', views.mediaPageInterview, name='mediaPageInterview'), 
+    #media remove comments
+    url(r'^media/form/remove/comment/image/(?P<id>\d+)/$', views.mediaFormCommentImageRemove, name = 'mediaFormCommentImageRemove'),
+    url(r'^media/form/remove/comment/audio/(?P<id>\d+)/$', views.mediaFormCommentAudioRemove, name = 'mediaFormCommentAudioRemove'),
+    url(r'^media/form/remove/comment/note/(?P<id>\d+)/$', views.mediaFormCommentNoteRemove, name = 'mediaFormCommentNoteRemove'),
+    url(r'^media/form/remove/comment/interview/(?P<id>\d+)/$', views.mediaFormCommentInterviewRemove, name = 'mediaFormCommentInterviewRemove'),
+    
     # media filter
     url(r'^media/filter/$', views.filterMedia, name='filterMedia'),    
     url(r'^media/', views.media, name='media'),
+    # opinion remove comment
+    url(r'^opinion/form/remove/comment/(?P<id>\d+)/$', views.opinionFormCommentRemove, name = 'opinionFormCommentRemove'),
     # opinion edit form
-    url(r'opinion/form/edit/(?P<id>\d+)/$', views.opinionForm, name = 'opinionFormEdit'),
+    url(r'^opinion/form/edit/(?P<id>\d+)/$', views.opinionForm, name = 'opinionFormEdit'),
     # opinion remove form
-    url(r'opinion/form/remove/(?P<id>\d+)/$', views.opinionFormRemove, name = 'opinionFormRemove'),
+    url(r'^opinion/form/remove/(?P<id>\d+)/$', views.opinionFormRemove, name = 'opinionFormRemove'),
     # opinion saveDraft
-    url(r'opinion/saveDraft/(?P<id>\d+)/$', views.opinionSaveDraft, name = 'opinionSaveDraft'),
+    url(r'^opinion/saveDraft/(?P<id>\d+)/$', views.opinionSaveDraft, name = 'opinionSaveDraft'),
     # opinion publish
-    url(r'opinion/publish/(?P<id>\d+)/$', views.opinionPublish, name = 'opinionPublish'),
+    url(r'^opinion/publish/(?P<id>\d+)/$', views.opinionPublish, name = 'opinionPublish'),
     # opinion form url
     url(r'^opinion/form/', views.opinionForm, name='opinionForm'),
     # opinion single page

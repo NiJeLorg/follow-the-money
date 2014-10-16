@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     # admin urls
     url(r'^admin/', include(admin.site.urls)),
     # CashCity app urls,
-    url(r'^', include('CashCity.urls')),
+    url(r'^cashcity/', include('CashCity.urls')),
 )
 
 urlpatterns += staticfiles_urlpatterns()

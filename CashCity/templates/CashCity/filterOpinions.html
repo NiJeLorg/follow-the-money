@@ -48,7 +48,7 @@
 			<div id="media-content" class="container-fluid">
 				{% for opinion in opinions %}
 					<div class="col-xs-4 media-stub">
-						<a href="/cashcity/opinion/{{ opinion.id }}/" style="text-decoration:none; color:inherit">
+						<a href="{{ opinion.id }}/" style="text-decoration:none; color:inherit">
 						
 							<div class="opinion_{{ opinion.getUserProfile.color }} pull-left margin-right"></div>
 							{% if opinion.getUserProfile.color == None %}

@@ -1,6 +1,6 @@
 CityDigits/database_settings.py
 CityDigits/settings.py
-CityDigits/ftm.db
+CityDigits/urls.py
 maptest/
 contacts/
 ftm/
