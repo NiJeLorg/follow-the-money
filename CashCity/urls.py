@@ -1,6 +1,9 @@
 # add urls for the CashCity app here
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, include, url
 from django.conf import settings
+# override django-registration registration form
+from CashCity.forms import ExRegistrationForm
+from registration.backends.default.views import RegistrationView
 
 from CashCity import views
 
@@ -9,12 +12,6 @@ urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     #map bookmarks
     url(r'^mapsnaps/(?P<id>\d+)/$', views.mapSnaps, name='mapSnaps'),
-    # map filters
-    url(r'^filterIndexImage/$', views.filterIndexImage, name='filterIndexImage'),    
-    url(r'^filterIndexAudio/$', views.filterIndexAudio, name='filterIndexAudio'),    
-    url(r'^filterIndexNote/$', views.filterIndexNote, name='filterIndexNote'),    
-    url(r'^filterIndexInterview/$', views.filterIndexInterview, name='filterIndexInterview'),    
-    
 
     # media form urls
     url(r'^media/form/image/', views.mediaFormImage, name='mediaFormImage'),
@@ -46,17 +43,9 @@ urlpatterns = patterns('',
     url(r'^media/audio/(?P<id>\d+)/$', views.mediaPageAudio, name='mediaPageAudio'), 
     url(r'^media/note/(?P<id>\d+)/$', views.mediaPageNote, name='mediaPageNote'), 
     url(r'^media/interview/(?P<id>\d+)/$', views.mediaPageInterview, name='mediaPageInterview'), 
-    #media remove comments
-    url(r'media/form/remove/comment/image/(?P<id>\d+)/$', views.mediaFormCommentImageRemove, name = 'mediaFormCommentImageRemove'),
-    url(r'media/form/remove/comment/audio/(?P<id>\d+)/$', views.mediaFormCommentAudioRemove, name = 'mediaFormCommentAudioRemove'),
-    url(r'media/form/remove/comment/note/(?P<id>\d+)/$', views.mediaFormCommentNoteRemove, name = 'mediaFormCommentNoteRemove'),
-    url(r'media/form/remove/comment/interview/(?P<id>\d+)/$', views.mediaFormCommentInterviewRemove, name = 'mediaFormCommentInterviewRemove'),
-    
     # media filter
     url(r'^media/filter/$', views.filterMedia, name='filterMedia'),    
     url(r'^media/', views.media, name='media'),
-    # opinion edit form
-    url(r'opinion/form/remove/comment/(?P<id>\d+)/$', views.opinionFormCommentRemove, name = 'opinionFormCommentRemove'),
     # opinion edit form
     url(r'opinion/form/edit/(?P<id>\d+)/$', views.opinionForm, name = 'opinionFormEdit'),
     # opinion remove form
@@ -74,5 +63,40 @@ urlpatterns = patterns('',
     url(r'^opinion/', views.opinion, name='opinion'),
     # save map snaps   
 	url(r'^savemap/$',views.SaveMap, name='savemap'),
+    # override registration form to add new teachers
+
+    #accounts section - includes Django registration and adding teams, etc that are related
+    url(r'accounts/register/$', 
+        RegistrationView.as_view(form_class = ExRegistrationForm), 
+        name = 'registration_register'),
+    # add new team
+    url(r'accounts/register/team/$', views.createTeam, name = 'createTeam'),
+    # edit team
+    url(r'accounts/edit/team/(?P<id>\d+)/$', views.createTeam, name = 'editTeam'),
+    # remove team
+    url(r'accounts/remove/team/(?P<id>\d+)/$', views.removeTeam, name = 'removeTeam'),
+    # registration urls
+    url(r'^accounts/', include('registration.backends.default.urls')),
+    # teacher account profile url
+    url(r'^accounts/profile/$', views.accountProfile, name='accountProfile'),
+    # teams in teacher profile url
+    url(r'^accounts/profile/teams/$', views.teams, name='teams'),
+    # media in teacher profile filter
+    url(r'^accounts/profile/media/filter/$', views.accountFilterMedia, name='accountFilterMedia'),    
+    # media in teacher profile url
+    url(r'^accounts/profile/media/', views.accountMedia, name='accountMedia'),
+    # opinions in teacher profile filter
+    #url(r'^accounts/profile/opinion/filter/$', views.accountFilterOpinion, name='accountFilterOpinion'),    
+    # opinions in teacher profile url
+    url(r'^accounts/profile/opinion/$', views.accountOpinion, name='accountOpinion'),
+    # media in student profile filter
+    url(r'^accounts/profile/student/media/filter/$', views.studentFilterMedia, name='studentFilterMedia'),    
+    # student account media profile urls
+    url(r'^accounts/profile/student/media/$', views.studentProfileMedia, name='studentProfileMedia'),
+    # opinion in student profile filter
+    #url(r'^accounts/profile/student/opinion/filter/$', views.studentFilterOpinion, name='studentFilterOpinion'),    
+    # student account opinion profile urls
+    url(r'^accounts/profile/student/opinion/$', views.studentProfileOpinion, name='studentProfileOpinion'),
+       
 )
 
