@@ -1,6 +1,8 @@
 {% load cropping %}
 {% load widget_tweaks %}
-
+<div class='filter-container'>
+	<a href="{% url 'opinionForm' %}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Opinion</button></a>
+</div>
 <div class='filter-container'>
     <label for="class"><b>Class:</b></label>
     <select id="class" name="class">

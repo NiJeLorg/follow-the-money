@@ -12,7 +12,7 @@ function CityDigitsMap() {
     var basemap = "sw2279.NYCLotto";
 
     //where brooklyn at?!40.7429 N, 73.9188
-    this.map = L.mapbox.map('map', basemap,{minZoom:11,maxZoom:16,zoomControl:false}).setView([40.7429,-73.9188], 13);
+    this.map = L.mapbox.map('map', basemap,{minZoom:11,maxZoom:16,zoomControl:false}).setView([40.7429,-73.9188], 12);
 	
     //load zoomer
     $("#citydigits-zoomer").attr({'class':'citydigits-zoomer'});
@@ -2291,7 +2291,7 @@ CityDigitsMap.getStyleFor_LOC1_PAWN_SHOPS = function (feature, latlng){
 	var pawnShopMarker = L.circle(latlng, 80, {
 		stroke: false,
 		fillColor: '#eb4a42',
-		fillOpacity: 0.75
+		fillOpacity: 1
 	});
 	
 	return pawnShopMarker;
@@ -2302,7 +2302,7 @@ CityDigitsMap.getStyleFor_LOC2_CHECK_CASHING = function (feature, latlng){
 	var checkCashingMarker = L.circle(latlng, 80, {
 		stroke: false,
 		fillColor: '#ffa77f',
-		fillOpacity: 0.75
+		fillOpacity: 1
 	});
 	
 	return checkCashingMarker;
@@ -2313,7 +2313,7 @@ CityDigitsMap.getStyleFor_LOC3_WIRE_TRANSFER = function (feature, latlng){
 	var wireTransferMarker = L.circle(latlng, 80, {
 		stroke: false,
 		fillColor: '#fa8a12',
-		fillOpacity: 0.75
+		fillOpacity: 1
 	});
 	
 	return wireTransferMarker;
@@ -2324,7 +2324,7 @@ CityDigitsMap.getStyleFor_LOC4_BANKS = function (feature, latlng){
 	var banksMarker = L.circle(latlng, 80, {
 		stroke: false,
 		fillColor: '#fa8aa3',
-		fillOpacity: 0.75
+		fillOpacity: 1
 	});
 	
 	return banksMarker;
@@ -2335,7 +2335,7 @@ CityDigitsMap.getStyleFor_LOC5_MCDONALDS = function (feature, latlng){
 	var mcdonaldsMarker = L.circle(latlng, 80, {
 		stroke: false,
 		fillColor: '#ebcf42',
-		fillOpacity: 0.75
+		fillOpacity: 1
 	});
 	
 	return mcdonaldsMarker;
@@ -2346,7 +2346,7 @@ CityDigitsMap.getStyleFor_LOC6_SUBWAY_LINES = function (feature, layer){
 	var subwayLinesInitialStyle = {
 	    color: "#9c9c9c",
 	    weight: 3,
-	    opacity: 0.75
+	    opacity: 1
 	};
 	
 	return subwayLinesInitialStyle;
@@ -2357,7 +2357,7 @@ CityDigitsMap.getStyleFor_LOC7_SUBWAY_STATIONS = function (feature, latlng){
 	var subwayStationInitialStyle = L.circleMarker(latlng, {
 	    radius: 0,
 	    weight: 0,
-	    fillOpacity: 0.75
+	    fillOpacity: 1
 	});
 	
 	return subwayStationInitialStyle;
@@ -2956,7 +2956,7 @@ CityDigitsMap.drawChart = function(layerId){
 	  // filter out over 1000 values for BANK_AFS and AFS_BANK to remove undefined values set in the data
 	  if (propertyName == 'BANK_AFS' || propertyName == 'AFS_BANK') {
 		  openedTopoJson = $.grep(openedTopoJson, function(d) {
-		      return d.properties[propertyName] <= 999;
+		      return d.properties[propertyName] > -1 && d.properties[propertyName] <= 999;
 		  });
 	  }  
 

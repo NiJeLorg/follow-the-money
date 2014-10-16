@@ -23,11 +23,7 @@ $(document).ready( function() {
 	if ( ( $('#id_form-4-image').val() == '' ) && ( $('#id_form-4-audio').val() == '' ) && ( $('#id_form-4-note').val() == '' ) &&  ( $('#id_form-4-interview').val() == '' ) && ( $('#id_form-4-mapSnap').val() == '' ) && ( $('#readonlyField_5').attr('placeholder') == 'Nothing Selected' )  ){
 		$('#section_4').hide();		
 	}
-	
-	//$('#section_2').hide();
-	//$('#section_3').hide();
-	//$('#section_4').hide();
-	
+		
 	// hide form fields that django needs for storing opinions
 	$('#id_form-0-sectionNumber').hide();
 	$('#id_form-0-image').hide();
@@ -308,7 +304,8 @@ $(document).ready( function() {
 			$('#id_form-0-interview').val(null);
 			$('#readonlyField_1').attr('placeholder', 'Nothing Selected');
 			selected_1 = false;
-		} else {
+		} else {			
+			console.log(this);
 			// remove all other active classes and set clicked to active
 	        $(".imageSelect_1").removeClass('active');
 	        $(".audioSelect_1").removeClass('active');

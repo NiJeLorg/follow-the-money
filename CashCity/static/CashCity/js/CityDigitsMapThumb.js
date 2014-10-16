@@ -878,7 +878,7 @@ CityDigitsMapThumb.prototype.load_LOC4_BANKS = function(mapid){
 CityDigitsMapThumb.prototype.load_LOC5_MCDONALDS = function(mapid){
     var self = this;
 	
-	console.log(mapid.map);
+	//console.log(mapid.map);
 
 	// define layer styles and oneachfeature popup styling
 	this.LOC5_MCDONALDS_style = L.geoJson(null, {
