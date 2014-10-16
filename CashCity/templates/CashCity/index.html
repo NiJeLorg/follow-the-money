@@ -7,6 +7,7 @@
 {% block css_block %}
     <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/bootstrap-select.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/mapbox.css' %}">	
+    <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/Control.Geocoder.css' %}">	
 	<!-- style embedded in django template for static file usage -->
 	<style type="text/css">		
 		.nav-tabs.nav-mapui > li > a > .edit-button {
@@ -497,8 +498,7 @@
 	<script type="text/javascript" src="{% static 'CashCity/js/mapbox.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/leaflet-omnivore.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/topojson.js' %}"></script>
-	<script type="text/javascript" src="{% static 'CashCity/js/l.control.geosearch.js' %}"></script>
-	<script type="text/javascript" src="{% static 'CashCity/js/l.geosearch.provider.google.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/Control.Geocoder.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/accounting.min.js' %}"></script>
 	<!-- set varible for topojson and csv urls -->
 	<script type="text/javascript">
@@ -731,7 +731,7 @@
 				}			
 				// add in layers that were turned on
 				if (MEDIA{{ mapSnapBookmark.id }} == 'True') {
-					CityDigitsMap.loadMediaLayers();	
+					CityDigitsMap.loadMediaLayers();		
 					$('#MEDIA').prop('checked', true);
 				}			
 

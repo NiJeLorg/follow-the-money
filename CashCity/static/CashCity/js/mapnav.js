@@ -134,6 +134,12 @@ $( document ).ready(function() {
 			$('#MAP3').prop('checked', false);						
 		}
 		
+		// ensure that create map selections are cleared
+		$('#var1Select').selectpicker('val', 'Variable 1');
+		$("#var2Select").html("<option value='Variable 2' class='grey'>Variable 2</option>");
+		$("#var2Select").selectpicker('refresh');
+		$("#normalizationText").html('');
+		
 				
 	});
 	
@@ -356,7 +362,7 @@ $( document ).ready(function() {
 	} 
 	
 	function refreshOnCloseTag () {
-		$( ".tagit-close" ).click(function() {
+		$( ".tagit-close" ).on("remove", function () {
 		    //get search values
 			var tags = $("#tags").val();
 			//remove media layers if they exist on the map 
