@@ -30,6 +30,7 @@ $(function() {
 		            $(".mapSnaps-content-container").html(data);
 					// unbind event handler on the drop down so we can reinitiate it later
 					$("#openMapSnaps").off( "click" );
+					$('html').off( "click" );
 					getMapSnaps();
 		        }
 				
@@ -37,6 +38,7 @@ $(function() {
 		}
 
     });
+
 	
 		
 });

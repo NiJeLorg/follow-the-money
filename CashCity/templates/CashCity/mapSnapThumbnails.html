@@ -2,12 +2,15 @@
 
 <!-- load thumbnail mini-maps -->
 {% for mapSnap in mapSnaps %}
-	<div id="map{{ mapSnap.id }}" num="{{ mapSnap.id }}" class="map-thumbnail mediaSelect"></div>
+	<span id="{{ mapSnap.id }}" class="removeMapSnap trash-icon"></span>
+	<div id="map{{ mapSnap.id }}" title="Remove this map." class="map-thumbnail mediaSelect"></div>
+	{{ id }}
 {% endfor %}
 
-	<script type="text/javascript">	
+	<script type="text/javascript">		
 	{% for mapSnap in mapSnaps %}
-		var activeMap{{ mapSnap.id }} = null;
+		// ensure each map is set as inactive to start
+		var activeMap{{ mapSnap.id }} = null;		
 	{% endfor %}
 				
 		function getMapSnaps() {
@@ -316,9 +319,6 @@
 					}
 		
 				});
-
-
-
 			
 			{% endfor %}
 			
@@ -341,11 +341,29 @@
 			$('#mapSnaps').click(function(event){
 			    event.stopPropagation();
 			});
+					
 			
+		}
+		
+		// listener to remove map snaps
+	    $(".removeMapSnap").click(function() {
+			var mapSnapId = $(this).attr('id');
+	
+			    $.ajax({
+			        type: 'GET',
+			        url:  'removemap/?mapId=' + mapSnapId, 
+			        success: function(data){
+			            $(".mapSnaps-content-container").html(data);
+						// unbind event handler on the drop down so we can reinitiate it later
+						$("#openMapSnaps").off( "click" );
+						$('html').off( "click" );
+						getMapSnaps();
+			        }
 			
-			
-			
-		}					
+			    });
+
+	    });
+							
 		
 		$( window ).load(function() {
 			getMapSnaps();

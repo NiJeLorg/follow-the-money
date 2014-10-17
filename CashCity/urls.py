@@ -71,7 +71,8 @@ urlpatterns = patterns('',
     url(r'^opinion/', views.opinion, name='opinion'),
     # save map snaps   
 	url(r'^savemap/$',views.SaveMap, name='savemap'),
-    # override registration form to add new teachers
+    # remove map snaps   
+	url(r'^removemap/$',views.RemoveMap, name='removemap'),
 
     #accounts section - includes Django registration and adding teams, etc that are related
     url(r'accounts/register/$', 

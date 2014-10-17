@@ -25,8 +25,11 @@ function CityDigitsMap() {
 	//load legend
 	$("#citydigits-legend").attr({'class':'citydigits-legend'});
 	
-	//load mapbox geocoder control
+	//load geocoder control
 	this.map.addControl(L.Control.geocoder());
+
+	//load mapbox scale bars
+	this.map.addControl(L.control.scale());
 	
     //set params
     this.height = $(window).height()-$(".navbar").height();

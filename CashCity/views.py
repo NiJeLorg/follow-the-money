@@ -22,11 +22,6 @@ from registration.forms import RegistrationForm
 from CashCity.forms import *
 from CashCity.models import *
 
-def redirectToIndex(request):
-    """
-      Loads the index page
-    """
-    return HttpResponseRedirect('http://citydigits.org/')
 
 def index(request):
     """
@@ -2180,6 +2175,44 @@ def SaveMap(request):
         mapSnaps = {}     
           
     context_dict = {'mapSnaps':mapSnaps, 'profile':profile}
+
+    return render_to_response('CashCity/mapSnapThumbnails.html', context_dict, context)
+    
+    
+@login_required
+def RemoveMap(request):
+    context = RequestContext(request)
+    
+    #get user profile data and pass to view
+    if request.user.id:
+        profile = ExUserProfile.objects.get(user=request.user.id)
+    else:
+        profile = False 
+      
+    mapId = request.GET.get("mapId","")
+    
+    if mapId:
+        mapSettings = MapSettings.objects.get(pk=mapId)
+        mapSettings.delete()
+    
+    #new query for mapSnaps
+    kwargs = {}
+
+    #get user profile data and pass to view
+    if request.user.id:
+        # show only media tied to this student group's account
+        kwargs['user__exact'] = request.user.id
+        #get mapSnaps
+        mapSnaps = MapSettings.objects.filter(**kwargs)
+        
+        # loop throuhg mapSnaps and increase zoom to way out
+        for mapSnap in mapSnaps:
+            mapSnap.zoom = mapSnap.zoom - 3
+               
+    else:
+        mapSnaps = {}     
+          
+    context_dict = {'mapSnaps':mapSnaps, 'profile':profile, 'id':id}
 
     return render_to_response('CashCity/mapSnapThumbnails.html', context_dict, context)
 
