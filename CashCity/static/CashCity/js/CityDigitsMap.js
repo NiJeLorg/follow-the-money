@@ -2567,28 +2567,39 @@ CityDigitsMap.prototype.loadMedia = function(){
 	clusterMedia.addLayer(this.MEDIA_AUDIO);
 	clusterMedia.addLayer(this.MEDIA_NOTE);
 	clusterMedia.addLayer(this.MEDIA_INTERVIEW);
-		
+	
 }
 
 CityDigitsMap.loadFilteredMediaImage = function(data){
 	
 	MY_MAP.MEDIA_IMAGES.addData(data);
-	
+	// add media to cluster library
+	clusterMedia.addLayer(MY_MAP.MEDIA_IMAGES);
+
 }
 
 CityDigitsMap.loadFilteredMediaAudio = function(data){
 	
 	MY_MAP.MEDIA_AUDIO.addData(data);
+	// add media to cluster library
+	clusterMedia.addLayer(MY_MAP.MEDIA_AUDIO);
+
 }
 
 CityDigitsMap.loadFilteredMediaNote = function(data){
 	
-	MY_MAP.MEDIA_NOTE.addData(data);
+	MY_MAP.MEDIA_NOTE.addData(data);	
+	// add media to cluster library
+	clusterMedia.addLayer(MY_MAP.MEDIA_NOTE);
+
 }
 
 CityDigitsMap.loadFilteredMediaInterview = function(data){
 	
 	MY_MAP.MEDIA_INTERVIEW.addData(data);
+	// add media to cluster library
+	clusterMedia.addLayer(MY_MAP.MEDIA_INTERVIEW);
+
 }
 
 
@@ -2821,9 +2832,18 @@ CityDigitsMap.loadLocationsLayerFor = function(layerId){
 }
 
 CityDigitsMap.loadMediaLayers = function(){
-	
-	MY_MAP.map.addLayer(clusterMedia);
+		
+	// set on mouseover interaction for cluster group
+	clusterMedia.on('clustermouseover', function (ev) {
+		// only have on mouseover work if popup2 isn't open
+		if (!MY_MAP.popup2._isOpen) {
+			// close all popups first
+			MY_MAP.map.closePopup();
+		}
+	});
 
+	MY_MAP.map.addLayer(clusterMedia);
+	
 }
 
 CityDigitsMap.removeLayerFor = function(layerId){
@@ -2838,6 +2858,7 @@ CityDigitsMap.removeMediaLayers = function(){
 	MY_MAP.map.closePopup();
 	// then remove media layers
 	MY_MAP.map.removeLayer(clusterMedia); 
+
 }
 
 CityDigitsMap.clearMediaLayers = function(){
@@ -2847,8 +2868,7 @@ CityDigitsMap.clearMediaLayers = function(){
 	MY_MAP.MEDIA_NOTE.clearLayers();	
 	MY_MAP.MEDIA_INTERVIEW.clearLayers();
 	clusterMedia.clearLayers();	
-		
-
+	
 }
 
 CityDigitsMap.drawChart = function(layerId){

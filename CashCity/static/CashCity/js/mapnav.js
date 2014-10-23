@@ -335,9 +335,10 @@ $( document ).ready(function() {
 	// add event listeners to run functions on change
 	function onChangeListener() {	
 		$( ".ui-autocomplete-input" ).keydown(function(e) {
+			console.log(e.which);
 		    var code = e.which;
 		    if(code==13)e.preventDefault();
-		    if(code==13 || code==32 || code==8){
+		    if(code==13 || code==32){
 			    //get search values
 				var tags = $("#tags").val();
 				//remove media layers if they exist on the map 
@@ -396,8 +397,11 @@ $( document ).ready(function() {
 				// make sure media checkbox is checked
 				$('#MEDIA').prop('checked', true);
 				
-				// set up refresh on close tag
-				refreshOnCloseTag();
+				// set up refresh on close tag if no listners already exist
+				var numTagItCloseDivs = $('.tagit-close').length;
+				if (numTagItCloseDivs <= 1) {
+					refreshOnCloseTag();					
+				}
 
 	        },
 			error: function (req, status, error) {
