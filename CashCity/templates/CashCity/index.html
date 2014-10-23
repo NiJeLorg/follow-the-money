@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/bootstrap-select.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/mapbox.css' %}">	
     <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/Control.Geocoder.css' %}">	
+    <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/MarkerCluster.css' %}">	
+    <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/MarkerCluster.Default.css' %}">	
 	<!-- style embedded in django template for static file usage -->
 	<style type="text/css">		
 		.nav-tabs.nav-mapui > li > a > .edit-button {
@@ -344,7 +346,7 @@
            <div id="map-nav" class="map-nav map-ui">
 			<ul id="navTabs" class="nav nav-tabs nav-mapui nav-justified" role="tablist">
 			  <li id='locations-tab'><a href="#locations" role="tab" data-toggle="tab"><div class="location-button"></div>LOCATIONS</a></li>
-			  <li><a href="#maps" role="tab" data-toggle="tab"><div class="map-button"></div>MAPS</a></li>
+			  <li id='maps-tab'><a href="#maps" role="tab" data-toggle="tab"><div class="map-button"></div>MAPS</a></li>
 			  <li id='createMap-tab'><a href="#createMap" role="tab" data-toggle="tab"><div class="edit-button"></div>CREATE MAP</a></li>
 			</ul>
 
@@ -499,21 +501,13 @@
 
 
 {% block js_block %}
-	<script type="text/javascript">
-		// show loading modal
-		$("body").addClass("loading");
-		// remove after page load
-		$(window).load(function () {
-			// remove modal after layers loaded
-			$("body").removeClass("loading");
-		});		
-	</script>
 	<script type="text/javascript" src="{% static 'CashCity/js/bootstrap-select.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/d3.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/mapbox.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/leaflet-omnivore.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/topojson.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/Control.Geocoder.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/leaflet.markercluster.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/accounting.min.js' %}"></script>
 	<!-- set varible for topojson and csv urls -->
 	<script type="text/javascript">

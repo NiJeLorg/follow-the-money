@@ -67,6 +67,8 @@ function CityDigitsMap() {
 	this.CREATEMAP9_AFIS_PER_BANK = null;
 	this.CREATEMAP10_BANKS_PER_AFI = null;
 	
+	clusterMedia = L.markerClusterGroup();
+	
 	// popup containers to catch popups
 	this.popup = new L.Popup({ 
 		autoPan: false, 
@@ -1279,7 +1281,7 @@ CityDigitsMap.onEachFeature_CREATEMAP10_BANKS_PER_AFI = function(feature,layer){
 }
 
 
-CityDigitsMap.prototype.loadLayers = function (){
+CityDigitsMap.prototype.loadLayer_MAP1 = function (){
     var self = this;
 		
 	// load topoJSON data for neighborhoods
@@ -1290,6 +1292,24 @@ CityDigitsMap.prototype.loadLayers = function (){
 	    style: CityDigitsMap.getStyleColorFor_MAP1_POP_POVERTY,
 		onEachFeature: CityDigitsMap.onEachFeature_MAP1_POP_POVERTY
 	});
+			
+	// load layers
+	this.MAP1_POP_POVERTY = omnivore.topojson(neighborhoods, null, this.MAP1_POP_POVERTY_style);
+	
+	//start with value population in poverty for initial load
+	this.neighborhoodLayer = this.MAP1_POP_POVERTY;
+	this.neighborhoodLayer._leaflet_id = 'legendpoverty';
+	this.neighborhoodLayer.addTo(this.map).bringToBack();
+	
+}
+
+CityDigitsMap.prototype.loadOtherLayers = function (){
+    var self = this;
+		
+	// load topoJSON data for neighborhoods
+	// path to neighborhoods defined in index.html django template
+
+	// define layer styles and oneachfeature popup styling
 	this.MAP2_MED_HH_INCOME_style = L.geoJson(null, {
 		style: CityDigitsMap.getStyleColorFor_MAP2_MED_HH_INCOME,
 		onEachFeature: CityDigitsMap.onEachFeature_MAP2_MED_HH_INCOME
@@ -1304,16 +1324,15 @@ CityDigitsMap.prototype.loadLayers = function (){
 	});
 			
 	// load layers
-	this.MAP1_POP_POVERTY = omnivore.topojson(neighborhoods, null, this.MAP1_POP_POVERTY_style);
 	this.MAP2_MED_HH_INCOME = omnivore.topojson(neighborhoods, null, this.MAP2_MED_HH_INCOME_style);
 	this.MAP3_PCT_UNEMPLOYED = omnivore.topojson(neighborhoods, null, this.MAP3_PCT_UNEMPLOYED_style);
-	this.MAP4_PCT_FOREIGN_BORN = omnivore.topojson(neighborhoods, null, this.MAP4_PCT_FOREIGN_BORN_style);
+	this.MAP4_PCT_FOREIGN_BORN = omnivore.topojson(neighborhoods, null, this.MAP4_PCT_FOREIGN_BORN_style).on('ready', function() {
+		$("body").removeClass("loading");
+    });
 	
-	//start with value population in poverty for initial load
-	this.neighborhoodLayer = this.MAP1_POP_POVERTY;
-	this.neighborhoodLayer._leaflet_id = 'legendpoverty';
-	this.neighborhoodLayer.addTo(this.map).bringToBack();
-	
+	//flag to indicate that other map layers have been loaded
+	otherLayersLoaded = true;
+		
 }
 
 CityDigitsMap.prototype.loadCreateMapLayers = function (callBack){
@@ -2289,7 +2308,6 @@ CityDigitsMap.prototype.loadMarkers = function(){
 
 }
 
-
 CityDigitsMap.getStyleFor_LOC1_PAWN_SHOPS = function (feature, latlng){
 	var pawnShopMarker = L.circle(latlng, 80, {
 		stroke: false,
@@ -2517,7 +2535,7 @@ CityDigitsMap.onEachFeatureFor_MEDIA_INTERVIEW = function(feature, layer){
 }
 
 CityDigitsMap.prototype.loadMedia = function(){
-			
+				
 	this.MEDIA_IMAGES = null;
 	this.MEDIA_AUDIO = null;
 	this.MEDIA_NOTE = null;
@@ -2543,6 +2561,12 @@ CityDigitsMap.prototype.loadMedia = function(){
 		pointToLayer: CityDigitsMap.getStyleFor_MEDIA,
 		onEachFeature: CityDigitsMap.onEachFeatureFor_MEDIA_INTERVIEW
 	});	
+	
+	// add media to cluster library
+	clusterMedia.addLayer(this.MEDIA_IMAGES);
+	clusterMedia.addLayer(this.MEDIA_AUDIO);
+	clusterMedia.addLayer(this.MEDIA_NOTE);
+	clusterMedia.addLayer(this.MEDIA_INTERVIEW);
 		
 }
 
@@ -2798,10 +2822,7 @@ CityDigitsMap.loadLocationsLayerFor = function(layerId){
 
 CityDigitsMap.loadMediaLayers = function(){
 	
-	MEDIA_IMAGES = MY_MAP.MEDIA_IMAGES.addTo(MY_MAP.map).bringToFront();
-	MEDIA_AUDIO = MY_MAP.MEDIA_AUDIO.addTo(MY_MAP.map).bringToFront();
-	MEDIA_NOTE = MY_MAP.MEDIA_NOTE.addTo(MY_MAP.map).bringToFront();
-	MEDIA_INTERVIEW = MY_MAP.MEDIA_INTERVIEW.addTo(MY_MAP.map).bringToFront();		
+	MY_MAP.map.addLayer(clusterMedia);
 
 }
 
@@ -2816,18 +2837,17 @@ CityDigitsMap.removeMediaLayers = function(){
 	// remove all popups first
 	MY_MAP.map.closePopup();
 	// then remove media layers
-	MY_MAP.map.removeLayer(MY_MAP.MEDIA_IMAGES); 
-	MY_MAP.map.removeLayer(MY_MAP.MEDIA_AUDIO); 
-	MY_MAP.map.removeLayer(MY_MAP.MEDIA_NOTE); 
-	MY_MAP.map.removeLayer(MY_MAP.MEDIA_INTERVIEW); 
+	MY_MAP.map.removeLayer(clusterMedia); 
 }
 
 CityDigitsMap.clearMediaLayers = function(){
-	// clear geojson contents of media layers
+	// clear data out of cluserMedia when users search by tag
 	MY_MAP.MEDIA_IMAGES.clearLayers();	
 	MY_MAP.MEDIA_AUDIO.clearLayers();	
 	MY_MAP.MEDIA_NOTE.clearLayers();	
-	MY_MAP.MEDIA_INTERVIEW.clearLayers();	
+	MY_MAP.MEDIA_INTERVIEW.clearLayers();
+	clusterMedia.clearLayers();	
+		
 
 }
 

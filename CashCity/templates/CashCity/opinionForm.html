@@ -101,7 +101,7 @@
 				<div class="input-group">				
 	                <span class="input-group-btn">
 	                    <span class="btn btn-default btn-file">
-	                        Add Image {{ opinionsForm.teamImage }}
+	                        Add Image {{ opinionsForm.teamImage|attr:"accept:image/*"|attr:"capture:camera" }}
 	                    </span>
 	                </span>
 					{% if opinionsForm.errors %}
@@ -218,7 +218,7 @@
 						<div class="row">
 							<div class="col-xs-7">
 								<p><strong>{{ audio.title }}</strong></p>
-								<audio src="/media/{{ audio.audio }}" preload="auto" controls></audio>
+								<audio src="/cashcity/media/{{ audio.audio }}" preload="auto" controls></audio>
 							</div>
 							<div class="col-xs-5">
 								<p>{{ audio.caption }}</p>
@@ -447,7 +447,7 @@
 						<div class="row">
 							<div class="col-xs-7">
 								<p><strong>{{ audio.title }}</strong></p>
-								<audio src="/media/{{ audio.audio }}" preload="auto" controls></audio>
+								<audio src="/cashcity/media/{{ audio.audio }}" preload="auto" controls></audio>
 							</div>
 							<div class="col-xs-5">
 								<p>{{ audio.caption }}</p>
@@ -677,7 +677,7 @@
 						<div class="row">
 							<div class="col-xs-7">
 								<p><strong>{{ audio.title }}</strong></p>
-								<audio src="/media/{{ audio.audio }}" preload="auto" controls></audio>
+								<audio src="/cashcity/media/{{ audio.audio }}" preload="auto" controls></audio>
 							</div>
 							<div class="col-xs-5">
 								<p>{{ audio.caption }}</p>
@@ -907,7 +907,7 @@
 						<div class="row">
 							<div class="col-xs-7">
 								<p><strong>{{ audio.title }}</strong></p>
-								<audio src="/media/{{ audio.audio }}" preload="auto" controls></audio>
+								<audio src="/cashcity/media/{{ audio.audio }}" preload="auto" controls></audio>
 							</div>
 							<div class="col-xs-5">
 								<p>{{ audio.caption }}</p>
@@ -1138,7 +1138,7 @@
 						<div class="row">
 							<div class="col-xs-7">
 								<p><strong>{{ audio.title }}</strong></p>
-								<audio src="/media/{{ audio.audio }}" preload="auto" controls></audio>
+								<audio src="/cashcity/media/{{ audio.audio }}" preload="auto" controls></audio>
 							</div>
 							<div class="col-xs-5">
 								<p>{{ audio.caption }}</p>

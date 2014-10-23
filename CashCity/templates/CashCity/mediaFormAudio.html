@@ -70,7 +70,7 @@
 				<div class="input-group">				
 	                <span class="input-group-btn">
 	                    <span class="btn btn-default btn-file">
-	                        Add Audio {{ form.audio }}
+	                        Add Audio {{ form.audio|attr:"accept:audio/*"|attr:"capture:microphone" }}
 	                    </span>
 	                </span>
 					{% if form.errors %}

@@ -107,7 +107,7 @@
 	<div class="row">
 		<h3>{{ mediaInterviewObject.title|title }}</h3>
 		<img src="{% cropped_thumbnail mediaInterviewObject 'cropped_image_w640_h480' %}">
-		<audio style="margin: 10px 0px;" src="/media/{{ mediaInterviewObject.audio }}" preload="auto" controls></audio>
+		<audio src="/cashcity/media/{{ mediaInterviewObject.audio }}" preload="auto" controls style="margin: 10px 0px;"></audio>
 		<div id="mediaMap"></div>
 		<p>{{ mediaInterviewObject.caption }}</p>
 		<p><strong>Tags:</strong> 

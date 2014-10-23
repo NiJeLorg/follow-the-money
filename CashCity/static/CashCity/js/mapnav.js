@@ -96,7 +96,7 @@ $( document ).ready(function() {
 			// create a new empty media group
 			CityDigitsMap.loadMediaLayers();
 	    } else {
-			if(MY_MAP.map.hasLayer(MY_MAP.MEDIA_IMAGES) == true) {
+			if(MY_MAP.map.hasLayer(clusterMedia) == true) {
 				CityDigitsMap.removeMediaLayers();
 			}
 		}
@@ -335,17 +335,16 @@ $( document ).ready(function() {
 	// add event listeners to run functions on change
 	function onChangeListener() {	
 		$( ".ui-autocomplete-input" ).keydown(function(e) {
-			console.log(e.which);
 		    var code = e.which;
 		    if(code==13)e.preventDefault();
 		    if(code==13 || code==32 || code==8){
 			    //get search values
 				var tags = $("#tags").val();
 				//remove media layers if they exist on the map 
-				if (MY_MAP.map.hasLayer(MY_MAP.MEDIA_IMAGES) == true) {
+				if (MY_MAP.map.hasLayer(clusterMedia) == true) {
 					CityDigitsMap.removeMediaLayers();
 				}
-				// clear geojson contents of all media layers
+				// clear data out of media layers
 				CityDigitsMap.clearMediaLayers();
 				
 			    loadMediaImage(tags);
@@ -356,7 +355,7 @@ $( document ).ready(function() {
 				// load media layers after data has been replaced
 				CityDigitsMap.loadMediaLayers();
 				
-		    } // missing closing if brace
+		    } 
 		});
 				
 	} 
@@ -366,10 +365,10 @@ $( document ).ready(function() {
 		    //get search values
 			var tags = $("#tags").val();
 			//remove media layers if they exist on the map 
-			if (MY_MAP.map.hasLayer(MY_MAP.MEDIA_IMAGES) == true) {
+			if (MY_MAP.map.hasLayer(clusterMedia) == true) {
 				CityDigitsMap.removeMediaLayers();
 			}
-			// clear geojson contents of all media layers
+			// clear data out of media layers
 			CityDigitsMap.clearMediaLayers();
 			
 		    loadMediaImage(tags);
@@ -461,6 +460,15 @@ $( document ).ready(function() {
 			// show loading modal
 			$("body").addClass("loading");						
 			MY_MAP.loadCreateMapLayers();
+		}		
+	});
+
+	// set up listener to add other map layers to map on click of tab
+	$('#maps-tab').click(function() {
+		if (otherLayersLoaded == false) {
+			// show loading modal
+			$("body").addClass("loading");						
+			MY_MAP.loadOtherLayers();
 		}		
 	});
 	
