@@ -78,6 +78,15 @@
 			{% endif %}
 		}
 		
+		.trash-button {
+			cursor: pointer;
+			display: inline-block;
+			width: 22px;
+			height: 17px;
+			background-image: url({% static 'CashCity/img/trash.png' %})
+		}
+		
+		
 	</style>
 
 {% endblock %}		
@@ -87,6 +96,7 @@
 <div class="half-container">
 	<div class="row">
 		<h3>Add Your Opinion</h3>
+		<small><em>Use this form to add your opinion. Make sure to include all the fields below.</em></small>
 		<hr />
 	</div>
 	<div class="row">
@@ -124,6 +134,7 @@
 				{{ form.id }}
 				<div id="section_{{ forloop.counter0 }}">
 					<hr />
+					<div id="removeSection_{{ forloop.counter0 }}" class="trash-button pull-right" title="Remove Section {{ forloop.counter }}"></div>
 					<h4>SECTION {{ forloop.counter }}</h4>
 					<p><strong>Media</strong></p>
 					<div class="fileGroup">

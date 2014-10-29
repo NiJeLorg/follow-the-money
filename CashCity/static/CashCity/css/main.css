@@ -195,6 +195,10 @@ hr {
 	padding: 10px;
 }
 
+.padding10bottom {
+	padding-bottom: 10px;
+}
+
 .grey {
 	color: #9c9c9c !important;
 }

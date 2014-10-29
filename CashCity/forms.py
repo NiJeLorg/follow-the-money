@@ -179,7 +179,8 @@ class OpinionsForm(forms.ModelForm):
         widgets = {
             'text': forms.widgets.Textarea(attrs={'rows': 3}),
             'teamImage': forms.widgets.FileInput,
-        }     
+        } 
+
 
 # Form for OpinionSections
 class OpinionSectionsForm(forms.ModelForm):

@@ -50,6 +50,11 @@
 	</div>
 	<br />
 	<div class="row">
+		<div class="col-xs-6 padding10bottom">
+			<small><em>This section allows you to create teams that you can then organize students by. Fill in the following information and pass along the username and passwords to the students you want to be in that team.</em></small>
+		</div>
+	</div>
+	<div class="row">
 		<div class="col-xs-12">
 			{% if success %}
 			<div class="alert alert-success fade in" role="alert">
@@ -75,7 +80,7 @@
 						<td><span class="glyphicon glyphicon-certificate {{ team.color }}-icon"></span></td>
 						<td>{{ team.user }}</td>
 						<td>********</td>
-						<td><a href="/accounts/edit/team/{{ team.id }}/"><div class="edit-button"></div></a><a href="/accounts/remove/team/{{ team.id }}/"><div class="trash-button"></div></a></td>
+						<td><a href="/cashcity/accounts/edit/team/{{ team.id }}/"><div class="edit-button"></div></a><a href="/cashcity/accounts/remove/team/{{ team.id }}/"><div class="trash-button"></div></a></td>
 					</tr>
 				{% endfor %}					
 				</tbody>

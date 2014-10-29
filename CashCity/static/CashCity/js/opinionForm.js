@@ -87,7 +87,135 @@ $(document).ready( function() {
 	$('#addSection_4').click(function() {
 		$('#section_4').show();
 		$('#addSection_4').attr("disabled","disabled");
+	});
+	
+	// remove sections
+	$('#removeSection_0').click(function() {
+		// set form data to null
+		$('#id_form-0-image').val(null);
+		$('#id_form-0-audio').val(null);
+		$('#id_form-0-note').val(null);
+		$('#id_form-0-interview').val(null);
+		$('#id_form-0-mapSnap').val(null);
+		$('#id_form-0-text').val(null);
+		// ensure all media is deselected
+        $(".imageSelect_1").removeClass('active');
+        $(".audioSelect_1").removeClass('active');
+        $(".noteSelect_1").removeClass('active');
+        $(".interviewSelect_1").removeClass('active');
+		// ensure map snap is not selected
+        $(".mapSnapSelect_1").removeClass('active');
+		// remove any uploaded images
+		resetFormElement( $('#id_form-0-uploadImage') );			
+		resetFormElement( $('#readonlyField_1') );			
+		// reset the name of selected in the form field to "Nothing selected"
+		$('#readonlyField_1').attr('placeholder', 'Nothing Selected');
+		selected_1 = false;				
 	});	
+	
+	$('#removeSection_1').click(function() {
+		// set form data to null
+		$('#id_form-1-image').val(null);
+		$('#id_form-1-audio').val(null);
+		$('#id_form-1-note').val(null);
+		$('#id_form-1-interview').val(null);
+		$('#id_form-1-mapSnap').val(null);
+		$('#id_form-1-text').val(null);
+		// ensure all media is deselected
+        $(".imageSelect_2").removeClass('active');
+        $(".audioSelect_2").removeClass('active');
+        $(".noteSelect_2").removeClass('active');
+        $(".interviewSelect_2").removeClass('active');
+		// ensure map snap is not selected
+        $(".mapSnapSelect_2").removeClass('active');
+		// remove any uploaded images
+		resetFormElement( $('#id_form-1-uploadImage') );			
+		resetFormElement( $('#readonlyField_2') );			
+		// reset the name of selected in the form field to "Nothing selected"
+		$('#readonlyField_2').attr('placeholder', 'Nothing Selected');
+		selected_2 = false;
+		// close section 2 and re-enable
+		$('#section_1').hide();
+		$('#addSection_1').removeAttr("disabled");	 				
+	});	
+	
+	$('#removeSection_2').click(function() {
+		// set form data to null
+		$('#id_form-2-image').val(null);
+		$('#id_form-2-audio').val(null);
+		$('#id_form-2-note').val(null);
+		$('#id_form-2-interview').val(null);
+		$('#id_form-2-mapSnap').val(null);
+		$('#id_form-2-text').val(null);
+		// ensure all media is deselected
+        $(".imageSelect_3").removeClass('active');
+        $(".audioSelect_3").removeClass('active');
+        $(".noteSelect_3").removeClass('active');
+        $(".interviewSelect_3").removeClass('active');
+		// ensure map snap is not selected
+        $(".mapSnapSelect_3").removeClass('active');
+		// remove any uploaded images
+		resetFormElement( $('#id_form-2-uploadImage') );			
+		resetFormElement( $('#readonlyField_3') );			
+		// reset the name of selected in the form field to "Nothing selected"
+		$('#readonlyField_3').attr('placeholder', 'Nothing Selected');
+		selected_3 = false;
+		// close section 2 and re-enable
+		$('#section_2').hide();
+		$('#addSection_2').removeAttr("disabled");	 				
+	});	
+	
+	$('#removeSection_3').click(function() {
+		// set form data to null
+		$('#id_form-3-image').val(null);
+		$('#id_form-3-audio').val(null);
+		$('#id_form-3-note').val(null);
+		$('#id_form-3-interview').val(null);
+		$('#id_form-3-mapSnap').val(null);
+		$('#id_form-3-text').val(null);
+		// ensure all media is deselected
+        $(".imageSelect_4").removeClass('active');
+        $(".audioSelect_4").removeClass('active');
+        $(".noteSelect_4").removeClass('active');
+        $(".interviewSelect_4").removeClass('active');
+		// ensure map snap is not selected
+        $(".mapSnapSelect_4").removeClass('active');
+		// remove any uploaded images
+		resetFormElement( $('#id_form-3-uploadImage') );			
+		resetFormElement( $('#readonlyField_4') );			
+		// reset the name of selected in the form field to "Nothing selected"
+		$('#readonlyField_4').attr('placeholder', 'Nothing Selected');
+		selected_4 = false;
+		// close section 2 and re-enable
+		$('#section_3').hide();
+		$('#addSection_3').removeAttr("disabled");	 				
+	});	
+	
+	$('#removeSection_4').click(function() {
+		// set form data to null
+		$('#id_form-4-image').val(null);
+		$('#id_form-4-audio').val(null);
+		$('#id_form-4-note').val(null);
+		$('#id_form-4-interview').val(null);
+		$('#id_form-4-mapSnap').val(null);
+		$('#id_form-4-text').val(null);
+		// ensure all media is deselected
+        $(".imageSelect_5").removeClass('active');
+        $(".audioSelect_5").removeClass('active');
+        $(".noteSelect_5").removeClass('active');
+        $(".interviewSelect_5").removeClass('active');
+		// ensure map snap is not selected
+        $(".mapSnapSelect_5").removeClass('active');
+		// remove any uploaded images
+		resetFormElement( $('#id_form-4-uploadImage') );			
+		resetFormElement( $('#readonlyField_5') );			
+		// reset the name of selected in the form field to "Nothing selected"
+		$('#readonlyField_5').attr('placeholder', 'Nothing Selected');
+		selected_5 = false;
+		// close section 2 and re-enable
+		$('#section_4').hide();
+		$('#addSection_4').removeAttr("disabled");	 				
+	});			
 	
 	//submit buttons
 	var selected_1 = false;
@@ -1233,10 +1361,7 @@ $(document).ready( function() {
 		$('#readonlyField_5').attr('placeholder', "Map Number " + id);
 	}
 	
-	
- 
-			
-	
+
 
 });
 

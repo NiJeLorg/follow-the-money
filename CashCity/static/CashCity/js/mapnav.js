@@ -10,6 +10,17 @@
  */
 
 $( document ).ready(function() {
+	
+	// ensure all location boxes are unchecked
+	$('#All_AFS').prop('checked', false);
+	$('#LOC1').prop('checked', false);
+	$('#LOC2').prop('checked', false);
+	$('#LOC3').prop('checked', false);
+	$('#LOC4').prop('checked', false);
+	$('#LOC5').prop('checked', false);
+	$('#LOC6').prop('checked', false);
+	$('#MEDIA').prop('checked', false);
+	
 
 	$("input[name='locations']").change( function() {
 		var layerId = $(this).attr("id");

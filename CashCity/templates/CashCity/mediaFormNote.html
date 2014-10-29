@@ -59,7 +59,9 @@
 			</ul>
 		</div>
 	{% endif %}
-	{{ pageId }}
+	<div class="row padding10bottom">
+		<small><em>Add media to the map. Make sure to include all the fields below.</em></small>
+	</div>
 	<div class="row">
 		<form role="form" enctype="multipart/form-data" method="post" action="." >{% csrf_token %}
 			<div class="form-group">

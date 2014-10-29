@@ -2293,9 +2293,11 @@ def opinionForm(request, id=None):
                 
         # if user hits save as draft, flag data in media image table as draft
         elif "saveDraft" in request.POST: 
-            #save opinion for first           
-            opinionsForm = OpinionsForm(request.POST, request.FILES, instance=opinion) 
-                        
+            # store forms         
+            opinionsForm = OpinionsForm(request.POST, request.FILES, instance=opinion)                
+            opinionSectionsFormset = OpinionSectionsFormset(request.POST, request.FILES, queryset=formsetQueryset)
+            
+            #save opinion for first            
             # Have we been provided with a valid form?
             if opinionsForm.is_valid():
                     
@@ -2311,43 +2313,44 @@ def opinionForm(request, id=None):
                 
                 # store opinionId for later
                 opinionId = f.id                                               
+                
+                # now save opinion sections attaching it to the correct Opinion PK          
+                # Have we been provided with a valid form?
+                if opinionSectionsFormset.is_valid():
+
+                    # get opnions instace
+                    opinionObject = Opinions.objects.get(pk=opinionId)
+                                                                  
+                    # save the opinion sections
+                    fs = opinionSectionsFormset.save(commit=False)
+                
+                    for form in fs:
+                        form.opinion = opinionObject
+                
+                        form.save()
+                    
+                    if profile.teacherOrStudent:
+                        return HttpResponseRedirect('/cashcity/accounts/profile/opinion/')
+                    else:   
+                        return HttpResponseRedirect('/cashcity/accounts/profile/student/opinion/')
+           
+                else:
+                    # The supplied form contained errors - just print them to the terminal.
+                    print opinionSectionsFormset.errors
+
 
             else:
                 # The supplied form contained errors - just print them to the terminal.
                 print opinionsForm.errors
-
-            # now save opinion sections attaching it to the correct Opinion PK   
-            opinionSectionsFormset = OpinionSectionsFormset(request.POST, request.FILES, queryset=formsetQueryset)
-                            
-            # Have we been provided with a valid form?
-            if opinionSectionsFormset.is_valid():
-
-                # get opnions instace
-                opinionObject = Opinions.objects.get(pk=opinionId)
-                                                                  
-                # save the opinion sections
-                fs = opinionSectionsFormset.save(commit=False)
-                
-                for form in fs:
-                    form.opinion = opinionObject
-                
-                    form.save()
-                    
-                if profile.teacherOrStudent:
-                    return HttpResponseRedirect('/cashcity/accounts/profile/opinion/')
-                else:   
-                    return HttpResponseRedirect('/cashcity/accounts/profile/student/opinion/')
-           
-            else:
-                # The supplied form contained errors - just print them to the terminal.
-                print opinionSectionsFormset.errors
-            
-            
+                      
  
         else:
-            #save opinion for first           
-            opinionsForm = OpinionsForm(request.POST, request.FILES, instance=opinion) 
-                        
+            
+            # store forms         
+            opinionsForm = OpinionsForm(request.POST, request.FILES, instance=opinion)                
+            opinionSectionsFormset = OpinionSectionsFormset(request.POST, request.FILES, queryset=formsetQueryset)
+            
+            #save opinion for first            
             # Have we been provided with a valid form?
             if opinionsForm.is_valid():
                     
@@ -2363,36 +2366,35 @@ def opinionForm(request, id=None):
                 
                 # store opinionId for later
                 opinionId = f.id                                               
+                
+                # now save opinion sections attaching it to the correct Opinion PK          
+                # Have we been provided with a valid form?
+                if opinionSectionsFormset.is_valid():
+
+                    # get opnions instace
+                    opinionObject = Opinions.objects.get(pk=opinionId)
+                                                                  
+                    # save the opinion sections
+                    fs = opinionSectionsFormset.save(commit=False)
+                
+                    for form in fs:
+                        form.opinion = opinionObject
+                
+                        form.save()
+                    
+                    if profile.teacherOrStudent:
+                        return HttpResponseRedirect('/cashcity/accounts/profile/opinion/')
+                    else:   
+                        return HttpResponseRedirect('/cashcity/accounts/profile/student/opinion/')
+           
+                else:
+                    # The supplied form contained errors - just print them to the terminal.
+                    print opinionSectionsFormset.errors
+
 
             else:
                 # The supplied form contained errors - just print them to the terminal.
                 print opinionsForm.errors
-
-            # now save opinion sections attaching it to the correct Opinion PK   
-            opinionSectionsFormset = OpinionSectionsFormset(request.POST, request.FILES, queryset=formsetQueryset)
-                            
-            # Have we been provided with a valid form?
-            if opinionSectionsFormset.is_valid():
-
-                # get opnions instace
-                opinionObject = Opinions.objects.get(pk=opinionId)
-                                                                  
-                # save the opinion sections
-                fs = opinionSectionsFormset.save(commit=False)
-                
-                for form in fs:
-                    form.opinion = opinionObject
-                
-                    form.save()
-                    
-                if profile.teacherOrStudent:
-                    return HttpResponseRedirect('/cashcity/accounts/profile/opinion/')
-                else:   
-                    return HttpResponseRedirect('/cashcity/accounts/profile/student/opinion/')
-           
-            else:
-                # The supplied form contained errors - just print them to the terminal.
-                print opinionSectionsFormset.errors
 
                 
     else:
