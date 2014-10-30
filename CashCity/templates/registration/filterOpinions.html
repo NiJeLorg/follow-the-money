@@ -45,31 +45,61 @@
 	{% for opinion in opinions %}
 		{% if opinion.title %}
 			<tr>
-				<td><a href="/cashcity/opinion/{{ opinion.id }}/" style="text-decoration:none; color:inherit">{{ opinion.getUserProfile.section }}</a></td>
-				<td><a href="/cashcity/opinion/{{ opinion.id }}/" style="text-decoration:none; color:inherit"><div class="opinion_{{ opinion.getUserProfile.color }} pull-left margin-right"></div></a></td>
-				<td>
-					<a href="/cashcity/opinion/{{ opinion.id }}/" style="text-decoration:none; color:inherit">
-						{% if opinion.teamImage %}
-							<div style="height: 280px; width: 280px; margin-bottom: 5px; overflow: hidden;">
-				            	<img src="{% cropped_thumbnail opinion 'cropped_teamImage' %}">
-				            </div>
-						{% else %}
-						{% endif %}
-					</a>
+				<td>					
+					{% if opinion.published %}
+						<a href="/cashcity/opinion/{{ opinion.id }}/" style="text-decoration:none; color:inherit">{{ opinion.getUserProfile.section }}</a>
+					{% else %}
+						<a href="/cashcity/opinion/form/edit/{{ opinion.id }}/" style="text-decoration:none; color:inherit">{{ opinion.getUserProfile.section }}</a>
+					{% endif %}
 				</td>
 				<td>
-					<a href="/cashcity/opinion/{{ opinion.id }}/" style="text-decoration:none; color:inherit">	
-						<p><strong>{{ opinion.title }} </strong>
-						{% if opinion.published %}
-							<span class="label label-primary">Published</span>
-						{% else %}
-							<span class="label label-default">Draft</span>
-						{% endif %}
-						</p>
-						<p>by {{ opinion.authors }}</p>
-					</a>
+					{% if opinion.published %}
+						<a href="/cashcity/opinion/{{ opinion.id }}/" style="text-decoration:none; color:inherit"><div class="opinion_{{ opinion.getUserProfile.color }} pull-left margin-right"></div></a>
+					{% else %}
+						<a href="/cashcity/opinion/form/edit/{{ opinion.id }}/" style="text-decoration:none; color:inherit"><div class="opinion_{{ opinion.getUserProfile.color }} pull-left margin-right"></div></a>
+					{% endif %}
 				</td>
-				<td><a href="/cashcity/opinion/{{ opinion.id }}/" style="text-decoration:none; color:inherit">{{ opinion.last_modified|date:"F j, Y" }}</a></td>
+				<td>
+					{% if opinion.published %}
+						<a href="/cashcity/opinion/{{ opinion.id }}/" style="text-decoration:none; color:inherit">
+							{% if opinion.teamImage %}
+								<div style="height: 280px; width: 280px; margin-bottom: 5px; overflow: hidden;">
+					            	<img src="{% cropped_thumbnail opinion 'cropped_teamImage' %}">
+					            </div>
+							{% else %}
+							{% endif %}
+						</a>
+					{% else %}
+						<a href="/cashcity/opinion/form/edit/{{ opinion.id }}/" style="text-decoration:none; color:inherit">
+							{% if opinion.teamImage %}
+								<div style="height: 280px; width: 280px; margin-bottom: 5px; overflow: hidden;">
+					            	<img src="{% cropped_thumbnail opinion 'cropped_teamImage' %}">
+					            </div>
+							{% else %}
+							{% endif %}
+						</a>
+					{% endif %}
+				</td>
+				<td>
+					{% if opinion.published %}
+						<a href="/cashcity/opinion/{{ opinion.id }}/" style="text-decoration:none; color:inherit">	
+							<p><strong>{{ opinion.title }} </strong><span class="label label-primary">Published</span></p>
+							<p>by {{ opinion.authors }}</p>
+						</a>
+					{% else %}
+						<a href="/cashcity/opinion/form/edit/{{ opinion.id }}/" style="text-decoration:none; color:inherit">	
+							<p><strong>{{ opinion.title }} </strong><span class="label label-default">Draft</span></p>
+							<p>by {{ opinion.authors }}</p>
+						</a>
+					{% endif %}
+				</td>
+				<td>
+					{% if opinion.published %}
+						<a href="/cashcity/opinion/{{ opinion.id }}/" style="text-decoration:none; color:inherit">{{ opinion.last_modified|date:"F j, Y" }}</a>
+					{% else %}
+						<a href="/cashcity/opinion/form/edit/{{ opinion.id }}/" style="text-decoration:none; color:inherit">{{ opinion.last_modified|date:"F j, Y" }}</a>
+					{% endif %}
+				</td>
 				<td width='100'>
 					{% if opinion.published %}
 						<a href="/cashcity/opinion/saveDraft/{{ opinion.id }}/"><span class="glyphicon glyphicon-floppy-save noDecoration" title="Move to Draft"></span></a>
