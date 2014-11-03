@@ -2791,9 +2791,9 @@ CityDigitsMap.loadLayerFor = function(layerId){
 CityDigitsMap.prototype.showLocationsOnPageLoad = function(){
 	
 	// add AFIs to map			
-	this.LOC1_PAWN_SHOPS.addTo(this.map);
-	this.LOC2_CHECK_CASHING.addTo(this.map);
-	this.LOC3_WIRE_TRANSFER.addTo(this.map);
+	LOC1 = this.LOC1_PAWN_SHOPS.addTo(this.map);
+	LOC2 = this.LOC2_CHECK_CASHING.addTo(this.map);
+	LOC3 = this.LOC3_WIRE_TRANSFER.addTo(this.map);
 	
 }
 

@@ -556,6 +556,12 @@
 	<script type="text/javascript">
 		$( window ).load(function() {
 			
+			// ensure map layers are loaded
+			if (layersLoaded == false) {
+				// show loading modal
+				MY_MAP.loadLayers();
+			}		
+
 			// ensure create map layers are loaded
 			if (createMapLoaded == false) {
 				// show loading modal
