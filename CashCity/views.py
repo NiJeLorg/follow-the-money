@@ -46,7 +46,7 @@ def index(request):
 
     #get mediaAudio
     mediaAudio = MediaAudio.objects.filter(**kwargs)
-
+        
     #get mediaNote
     mediaNote = MediaNote.objects.filter(**kwargs)
 

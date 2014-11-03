@@ -40,7 +40,11 @@
 					<form role="form" method="post" action=".">{% csrf_token %}
 						<div class="col-xs-12">	
 							<div class="form-group">
-								<audio src="/media/CashCity/{{ mediaAudio.audio }}" preload="auto" controls></audio>
+								{% if ".amr" in mediaAudio.audio.path %}
+									<audio src="/media/CashCity/{{ mediaAudio.audio }}.mp3" preload="auto" controls></audio>
+								{% else %}
+									<audio src="/media/CashCity/{{ mediaAudio.audio }}" preload="auto" controls></audio>
+								{% endif %}
 							</div>
 							<div class="form-group">
 								<label for="title">Title:</label>

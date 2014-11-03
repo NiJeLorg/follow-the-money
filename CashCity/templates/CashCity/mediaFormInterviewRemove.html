@@ -44,7 +44,11 @@
 								<img src="{% cropped_thumbnail mediaInterview 'cropped_image' %}">
 							</div>
 							<div class="form-group">
-								<audio src="/media/CashCity/{{ mediaInterview.audio }}" preload="auto" controls></audio>
+								{% if ".amr" in mediaInterview.audio.path %}
+									<audio src="/media/CashCity/{{ mediaInterview.audio }}.mp3" preload="auto" controls></audio>
+								{% else %}
+									<audio src="/media/CashCity/{{ mediaInterview.audio }}" preload="auto" controls></audio>
+								{% endif %}
 							</div>
 							<div class="form-group">
 								<label for="title">Title:</label>

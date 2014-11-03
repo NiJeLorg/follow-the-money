@@ -106,8 +106,12 @@
 	</div>	
 	<div class="row">
 		<h3>{{ mediaInterviewObject.title|title }}</h3>
-		<img src="{% cropped_thumbnail mediaInterviewObject 'cropped_image_w640_h480' %}">
-		<audio src="/media/CashCity/{{ mediaInterviewObject.audio }}" preload="auto" controls style="margin: 10px 0px;"></audio>
+		<img src="{% cropped_thumbnail mediaInterviewObject 'cropped_image_w640_h480' %}">		
+		{% if ".amr" in mediaInterviewObject.audio.path %}
+			<audio src="/media/CashCity/{{ mediaInterviewObject.audio }}.mp3" preload="auto" controls style="margin: 10px 0px;"></audio>
+		{% else %}
+			<audio src="/media/CashCity/{{ mediaInterviewObject.audio }}" preload="auto" controls style="margin: 10px 0px;"></audio>
+		{% endif %}
 		<div id="mediaMap"></div>
 		<p>{{ mediaInterviewObject.caption }}</p>
 		<p><strong>Tags:</strong> 

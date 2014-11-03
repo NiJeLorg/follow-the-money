@@ -229,7 +229,11 @@
 						<div class="row">
 							<div class="col-xs-7">
 								<p><strong>{{ audio.title }}</strong></p>
-								<audio src="/media/CashCity/{{ audio.audio }}" preload="auto" controls></audio>
+								{% if ".amr" in audio.audio.path %}
+									<audio src="/media/CashCity/{{ audio.audio }}.mp3" preload="auto" controls></audio>
+								{% else %}
+									<audio src="/media/CashCity/{{ audio.audio }}" preload="auto" controls></audio>
+								{% endif %}
 							</div>
 							<div class="col-xs-5">
 								<p>{{ audio.caption }}</p>
@@ -458,7 +462,11 @@
 						<div class="row">
 							<div class="col-xs-7">
 								<p><strong>{{ audio.title }}</strong></p>
-								<audio src="/media/CashCity/{{ audio.audio }}" preload="auto" controls></audio>
+								{% if ".amr" in audio.audio.path %}
+									<audio src="/media/CashCity/{{ audio.audio }}.mp3" preload="auto" controls></audio>
+								{% else %}
+									<audio src="/media/CashCity/{{ audio.audio }}" preload="auto" controls></audio>
+								{% endif %}
 							</div>
 							<div class="col-xs-5">
 								<p>{{ audio.caption }}</p>
@@ -688,7 +696,11 @@
 						<div class="row">
 							<div class="col-xs-7">
 								<p><strong>{{ audio.title }}</strong></p>
-								<audio src="/media/CashCity/{{ audio.audio }}" preload="auto" controls></audio>
+								{% if ".amr" in audio.audio.path %}
+									<audio src="/media/CashCity/{{ audio.audio }}.mp3" preload="auto" controls></audio>
+								{% else %}
+									<audio src="/media/CashCity/{{ audio.audio }}" preload="auto" controls></audio>
+								{% endif %}
 							</div>
 							<div class="col-xs-5">
 								<p>{{ audio.caption }}</p>
@@ -918,7 +930,11 @@
 						<div class="row">
 							<div class="col-xs-7">
 								<p><strong>{{ audio.title }}</strong></p>
-								<audio src="/media/CashCity/{{ audio.audio }}" preload="auto" controls></audio>
+								{% if ".amr" in audio.audio.path %}
+									<audio src="/media/CashCity/{{ audio.audio }}.mp3" preload="auto" controls></audio>
+								{% else %}
+									<audio src="/media/CashCity/{{ audio.audio }}" preload="auto" controls></audio>
+								{% endif %}
 							</div>
 							<div class="col-xs-5">
 								<p>{{ audio.caption }}</p>
@@ -1149,7 +1165,11 @@
 						<div class="row">
 							<div class="col-xs-7">
 								<p><strong>{{ audio.title }}</strong></p>
-								<audio src="/media/CashCity/{{ audio.audio }}" preload="auto" controls></audio>
+								{% if ".amr" in audio.audio.path %}
+									<audio src="/media/CashCity/{{ audio.audio }}.mp3" preload="auto" controls></audio>
+								{% else %}
+									<audio src="/media/CashCity/{{ audio.audio }}" preload="auto" controls></audio>
+								{% endif %}
 							</div>
 							<div class="col-xs-5">
 								<p>{{ audio.caption }}</p>

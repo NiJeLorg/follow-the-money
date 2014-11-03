@@ -36,7 +36,7 @@ class Command(BaseCommand):
         """
             Returns a listing of the application's audio directory
         """
-        for dirpath, dirnames, filenames in os.walk(os.path.dirname(os.path.realpath(__file__)) + "/../../media/audio/"):
+        for dirpath, dirnames, filenames in os.walk(os.path.dirname(os.path.realpath(__file__)) + "/../../../CityDigits/media/audio/"):
             self.findAMRFiles(dirpath, dirnames, filenames)
 
     def handle(self, *args, **options):

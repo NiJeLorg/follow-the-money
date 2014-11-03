@@ -32,8 +32,12 @@
 			    "type": "Feature",
 			    "properties": {
 					"id": "{{ mediaAudio.id }}",
-			        "name": "{{ mediaAudio.title }}",
-			        "audio": "/media/{{ mediaAudio.audio }}",
+			        "name": "{{ mediaAudio.title }}",								
+					{% if ".amr" in mediaAudio.audio.path %}
+				        "audio": "/media/CashCity/{{ mediaAudio.audio }}.mp3",
+					{% else %}
+				        "audio": "/media/CashCity/{{ mediaAudio.audio }}",
+					{% endif %}
 			        "color": "{{ mediaAudio.getUserProfile.color }}",
 			        "section": "{{ mediaAudio.getUserProfile.teacherName }}'s Section {{ mediaAudio.getUserProfile.section }}",
 					"iconUrl": {% if mediaAudio.getUserProfile.color == None %}"{% static 'CashCity/img/audio_red.png' %}",{% else %}{% with 'CashCity/img/audio_'|add:mediaAudio.getUserProfile.color|add:'.png' as image_static %}"{% static image_static %}",{% endwith %}{% endif %}
@@ -80,7 +84,11 @@
 					"id": "{{ mediaInterview.id }}",
 			        "name": "{{ mediaInterview.title }}",
 			        "image": "{% cropped_thumbnail mediaInterview 'cropped_image' %}",
-			        "audio": "/media/{{ mediaInterview.audio }}",
+					{% if ".amr" in mediaInterview.audio.path %}
+				        "audio": "/media/CashCity/{{ mediaInterview.audio }}.mp3",
+					{% else %}
+				        "audio": "/media/CashCity/{{ mediaInterview.audio }}",
+					{% endif %}
 			        "color": "{{ mediaInterview.getUserProfile.color }}",
 			        "section": "{{ mediaInterview.getUserProfile.teacherName }}'s Section {{ mediaInterview.getUserProfile.section }}",
 					"iconUrl": {% if mediaInterview.getUserProfile.color == None %}"{% static 'CashCity/img/interview_red.png' %}",{% else %}{% with 'CashCity/img/interview_'|add:mediaInterview.getUserProfile.color|add:'.png' as image_static %}"{% static image_static %}",{% endwith %}{% endif %}

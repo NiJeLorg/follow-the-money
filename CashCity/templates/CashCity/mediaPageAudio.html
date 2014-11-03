@@ -107,7 +107,11 @@
 	</div>	
 	<div class="row">
 		<h3>{{ mediaAudioObject.title|title }}</h3>
-		<audio src="/media/CashCity/{{ mediaAudioObject.audio }}" preload="auto" controls></audio>
+		{% if ".amr" in mediaAudioObject.audio.path %}
+			<audio src="/media/CashCity/{{ mediaAudioObject.audio }}.mp3" preload="auto" controls></audio>
+		{% else %}
+			<audio src="/media/CashCity/{{ mediaAudioObject.audio }}" preload="auto" controls></audio>
+		{% endif %}
 		<div id="mediaMap"></div>
 		<p>{{ mediaAudioObject.caption }}</p>
 		<p><strong>Tags:</strong> 
