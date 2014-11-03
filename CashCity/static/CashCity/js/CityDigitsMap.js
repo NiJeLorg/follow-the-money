@@ -1280,8 +1280,7 @@ CityDigitsMap.onEachFeature_CREATEMAP10_BANKS_PER_AFI = function(feature,layer){
 	
 }
 
-
-CityDigitsMap.prototype.loadLayer_MAP1 = function (){
+CityDigitsMap.prototype.loadLayers = function (){
     var self = this;
 		
 	// load topoJSON data for neighborhoods
@@ -1292,24 +1291,6 @@ CityDigitsMap.prototype.loadLayer_MAP1 = function (){
 	    style: CityDigitsMap.getStyleColorFor_MAP1_POP_POVERTY,
 		onEachFeature: CityDigitsMap.onEachFeature_MAP1_POP_POVERTY
 	});
-			
-	// load layers
-	this.MAP1_POP_POVERTY = omnivore.topojson(neighborhoods, null, this.MAP1_POP_POVERTY_style);
-	
-	//start with value population in poverty for initial load
-	this.neighborhoodLayer = this.MAP1_POP_POVERTY;
-	this.neighborhoodLayer._leaflet_id = 'legendpoverty';
-	this.neighborhoodLayer.addTo(this.map).bringToBack();
-	
-}
-
-CityDigitsMap.prototype.loadOtherLayers = function (){
-    var self = this;
-		
-	// load topoJSON data for neighborhoods
-	// path to neighborhoods defined in index.html django template
-
-	// define layer styles and oneachfeature popup styling
 	this.MAP2_MED_HH_INCOME_style = L.geoJson(null, {
 		style: CityDigitsMap.getStyleColorFor_MAP2_MED_HH_INCOME,
 		onEachFeature: CityDigitsMap.onEachFeature_MAP2_MED_HH_INCOME
@@ -1324,6 +1305,7 @@ CityDigitsMap.prototype.loadOtherLayers = function (){
 	});
 			
 	// load layers
+	this.MAP1_POP_POVERTY = omnivore.topojson(neighborhoods, null, this.MAP1_POP_POVERTY_style);
 	this.MAP2_MED_HH_INCOME = omnivore.topojson(neighborhoods, null, this.MAP2_MED_HH_INCOME_style);
 	this.MAP3_PCT_UNEMPLOYED = omnivore.topojson(neighborhoods, null, this.MAP3_PCT_UNEMPLOYED_style);
 	this.MAP4_PCT_FOREIGN_BORN = omnivore.topojson(neighborhoods, null, this.MAP4_PCT_FOREIGN_BORN_style).on('ready', function() {
@@ -1331,7 +1313,7 @@ CityDigitsMap.prototype.loadOtherLayers = function (){
     });
 	
 	//flag to indicate that other map layers have been loaded
-	otherLayersLoaded = true;
+	layersLoaded = true;
 		
 }
 
@@ -2804,6 +2786,15 @@ CityDigitsMap.loadLayerFor = function(layerId){
 				CityDigitsMap.drawChartOnSwap();
     }
 
+}
+
+CityDigitsMap.prototype.showLocationsOnPageLoad = function(){
+	
+	// add AFIs to map			
+	this.LOC1_PAWN_SHOPS.addTo(this.map);
+	this.LOC2_CHECK_CASHING.addTo(this.map);
+	this.LOC3_WIRE_TRANSFER.addTo(this.map);
+	
 }
 
 CityDigitsMap.loadLocationsLayerFor = function(layerId){

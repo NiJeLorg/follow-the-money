@@ -11,11 +11,11 @@
 
 $( document ).ready(function() {
 	
-	// ensure all location boxes are unchecked
-	$('#All_AFS').prop('checked', false);
-	$('#LOC1').prop('checked', false);
-	$('#LOC2').prop('checked', false);
-	$('#LOC3').prop('checked', false);
+	// ensure AFS location boxes are checked and the rest are unchecked
+	$('#All_AFS').prop('checked', true);
+	$('#LOC1').prop('checked', true);
+	$('#LOC2').prop('checked', true);
+	$('#LOC3').prop('checked', true);
 	$('#LOC4').prop('checked', false);
 	$('#LOC5').prop('checked', false);
 	$('#LOC6').prop('checked', false);
@@ -307,18 +307,20 @@ $( document ).ready(function() {
 	});
 	
 	// have legends open until user chooses to close them
-	var mapid = mainLayer._leaflet_id;
-	$('#legendid').attr('class', mapid);
+	//var mapid = mainLayer._leaflet_id;
+	//$('#legendid').attr('class', mapid);
 	
 	//allow legend button to be clicked and show/hide legend
 	$('#legend').click(function() {
-		var mapid = mainLayer._leaflet_id;
-		if ($( "#legendid" ).hasClass( "legendClosed" )) {
-			// change to legend AFI
-			$('#legendid').attr('class', mapid);	
-		} else {
-			//Switch back to legend
-			$('#legendid').attr('class', 'legendClosed');	
+		if (mainLayer != null) {
+			var mapid = mainLayer._leaflet_id;
+			if ($( "#legendid" ).hasClass( "legendClosed" )) {
+				// change to legend AFI
+				$('#legendid').attr('class', mapid);	
+			} else {
+				//Switch back to legend
+				$('#legendid').attr('class', 'legendClosed');	
+			}			
 		}
 	});
 	
@@ -480,10 +482,10 @@ $( document ).ready(function() {
 
 	// set up listener to add other map layers to map on click of tab
 	$('#maps-tab').click(function() {
-		if (otherLayersLoaded == false) {
+		if (layersLoaded == false) {
 			// show loading modal
 			$("body").addClass("loading");						
-			MY_MAP.loadOtherLayers();
+			MY_MAP.loadLayers();
 		}		
 	});
 	

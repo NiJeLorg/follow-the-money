@@ -10,7 +10,7 @@
 var map_popups = [];
 var open_tooltips = [];
 var mainLayer = null;
-var otherLayersLoaded = false;
+var layersLoaded = false;
 var createMapLoaded = false;
 var mediaLoaded = false;
 var mainChart = null;
@@ -38,12 +38,9 @@ $().ready(new function(){
     //get screen measurements
     SCREEN_HEIGHT =  $(window).height();
     var myMap = new CityDigitsMap();
-    myMap.loadLayer_MAP1();
     myMap.loadMarkers();
     myMap.loadMedia();
-    mainLayer = myMap.neighborhoodLayer;
+	myMap.showLocationsOnPageLoad();
     MY_MAP = myMap;	
-	
-	
-	
+		
 });
