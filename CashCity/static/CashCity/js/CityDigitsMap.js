@@ -1947,6 +1947,9 @@ CityDigitsMap.onEachFeatureFor_LOC1_PAWN_SHOPS = function(feature,layer){
 	
     layer.on('mousemove', function(ev) {
 		
+		//highlight point
+		layer.setStyle(highlight);		
+		
 		// only have on mousemove work if popup2 isn't open
 		if (!MY_MAP.popup2._isOpen) {
 	        //get lat/long
@@ -1959,17 +1962,36 @@ CityDigitsMap.onEachFeatureFor_LOC1_PAWN_SHOPS = function(feature,layer){
 			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.name,open_tooltips)<0)){
 				MY_MAP.popup.openOn(MY_MAP.map);
 			}
-
-			//highlight point
-			layer.setStyle(highlight);		
 						
 		}
     });
 	
     layer.on('mouseout', function(ev) {
 		//highlight point
-		layer.setStyle(noHighlight);		
+		layer.setStyle(noHighlight);
+		
+		// close popup
+		if (!MY_MAP.popup2._isOpen) {
+			MY_MAP.map.closePopup();
+		}
+				
     });
+
+	
+	// add on click popups for each layer -- these will be different
+	layer.on("click",function(ev){
+		// close all open popups
+		MY_MAP.map.closePopup();
+		
+		// bind popup with data to the feature
+		MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+		MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize"><div class="pawnshop-icon"></div>Pawn Shop<h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+
+		// open popup
+		MY_MAP.popup.openOn(MY_MAP.map);
+
+	});
+	
 	
 }
 
@@ -2029,8 +2051,28 @@ CityDigitsMap.onEachFeatureFor_LOC2_CHECK_CASHING = function(feature,layer){
 	
     layer.on('mouseout', function(ev) {
 		//highlight point
-		layer.setStyle(noHighlight);		
+		layer.setStyle(noHighlight);
+		
+		// close popup
+		if (!MY_MAP.popup2._isOpen) {
+			MY_MAP.map.closePopup();
+		}
+				
     });
+	
+	// add on click popups for each layer -- these will be different
+	layer.on("click",function(ev){
+		// close all open popups
+		MY_MAP.map.closePopup();
+		
+		// bind popup with data to the feature
+		MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+		MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize"><div class="checkcashing-icon"></div>Check Cashing<h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+
+		// open popup
+		MY_MAP.popup.openOn(MY_MAP.map);
+
+	});
 	
 	
 }
@@ -2091,9 +2133,28 @@ CityDigitsMap.onEachFeatureFor_LOC3_WIRE_TRANSFER = function(feature,layer){
 	
     layer.on('mouseout', function(ev) {
 		//highlight point
-		layer.setStyle(noHighlight);		
+		layer.setStyle(noHighlight);
+		
+		// close popup
+		if (!MY_MAP.popup2._isOpen) {
+			MY_MAP.map.closePopup();
+		}
+				
     });
-	
+
+	// add on click popups for each layer -- these will be different
+	layer.on("click",function(ev){
+		// close all open popups
+		MY_MAP.map.closePopup();
+		
+		// bind popup with data to the feature
+		MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+		MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize"><div class="wiretransfer-icon"></div>Wire Transfer<h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+
+		// open popup
+		MY_MAP.popup.openOn(MY_MAP.map);
+
+	});
 	
 }
 
@@ -2153,9 +2214,28 @@ CityDigitsMap.onEachFeatureFor_LOC4_BANKS = function(feature,layer){
 	
     layer.on('mouseout', function(ev) {
 		//highlight point
-		layer.setStyle(noHighlight);		
+		layer.setStyle(noHighlight);
+		
+		// close popup
+		if (!MY_MAP.popup2._isOpen) {
+			MY_MAP.map.closePopup();
+		}
+				
     });
-	
+
+	// add on click popups for each layer -- these will be different
+	layer.on("click",function(ev){
+		// close all open popups
+		MY_MAP.map.closePopup();
+		
+		// bind popup with data to the feature
+		MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+		MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize"><div class="banks-icon"></div>Bank<h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+
+		// open popup
+		MY_MAP.popup.openOn(MY_MAP.map);
+
+	});
 	
 }
 
@@ -2215,9 +2295,28 @@ CityDigitsMap.onEachFeatureFor_LOC5_MCDONALDS = function(feature,layer){
 	
     layer.on('mouseout', function(ev) {
 		//highlight point
-		layer.setStyle(noHighlight);		
+		layer.setStyle(noHighlight);
+		
+		// close popup
+		if (!MY_MAP.popup2._isOpen) {
+			MY_MAP.map.closePopup();
+		}
+				
     });
-	
+
+	// add on click popups for each layer -- these will be different
+	layer.on("click",function(ev){
+		// close all open popups
+		MY_MAP.map.closePopup();
+		
+		// bind popup with data to the feature
+		MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+		MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize"><div class="mcdonalds-icon"></div>McDonald\'s<h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+
+		// open popup
+		MY_MAP.popup.openOn(MY_MAP.map);
+
+	});
 	
 }
 

@@ -1204,7 +1204,6 @@ CityDigitsMapOpinion.prototype.loadCreateMapLayers = function (){
 	this.CREATEMAP10_BANKS_PER_AFI_style = L.geoJson(null, {
 		style: CityDigitsMapOpinion.getStyleColorFor_CREATEMAP10_BANKS_PER_AFI,
 		onEachFeature: function(feature,layer){
-			console.log(activeMap);
 			var highlight = {
 			    weight: 3,
 			    opacity: 1
@@ -1918,11 +1917,33 @@ CityDigitsMapOpinion.prototype.loadMarkers = function(){
 						
 				}
 		    });
-	
+				
 		    layer.on('mouseout', function(ev) {
 				//highlight point
-				layer.setStyle(noHighlight);		
+				layer.setStyle(noHighlight);
+		
+				// close popup
+				if (!activeMap.popup2._isOpen) {
+					activeMap.map.closePopup();
+				}
+				
 		    });
+
+	
+			// add on click popups for each layer -- these will be different
+			layer.on("click",function(ev){
+				// close all open popups
+				activeMap.map.closePopup();
+		
+				// bind popup with data to the feature
+				activeMap.popup.setLatLng(activeMap.map.layerPointToLatLng(ev.layerPoint));
+				activeMap.popup.setContent('<div class="rollover-tooltip text-capitalize"><div class="pawnshop-icon"></div>Pawn Shop<h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+
+				// open popup
+				activeMap.popup.openOn(activeMap.map);
+
+			});
+			
 	
 		}
 	});
@@ -1984,8 +2005,29 @@ CityDigitsMapOpinion.prototype.loadMarkers = function(){
 	
 		    layer.on('mouseout', function(ev) {
 				//highlight point
-				layer.setStyle(noHighlight);		
+				layer.setStyle(noHighlight);
+		
+				// close popup
+				if (!activeMap.popup2._isOpen) {
+					activeMap.map.closePopup();
+				}
+				
 		    });
+
+	
+			// add on click popups for each layer -- these will be different
+			layer.on("click",function(ev){
+				// close all open popups
+				activeMap.map.closePopup();
+		
+				// bind popup with data to the feature
+				activeMap.popup.setLatLng(activeMap.map.layerPointToLatLng(ev.layerPoint));
+				activeMap.popup.setContent('<div class="rollover-tooltip text-capitalize"><div class="checkcashing-icon"></div>Check Cashing<h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+
+				// open popup
+				activeMap.popup.openOn(activeMap.map);
+
+			});
 	
 	
 		}
@@ -2048,9 +2090,29 @@ CityDigitsMapOpinion.prototype.loadMarkers = function(){
 	
 		    layer.on('mouseout', function(ev) {
 				//highlight point
-				layer.setStyle(noHighlight);		
+				layer.setStyle(noHighlight);
+		
+				// close popup
+				if (!activeMap.popup2._isOpen) {
+					activeMap.map.closePopup();
+				}
+				
 		    });
+
 	
+			// add on click popups for each layer -- these will be different
+			layer.on("click",function(ev){
+				// close all open popups
+				activeMap.map.closePopup();
+		
+				// bind popup with data to the feature
+				activeMap.popup.setLatLng(activeMap.map.layerPointToLatLng(ev.layerPoint));
+				activeMap.popup.setContent('<div class="rollover-tooltip text-capitalize"><div class="wiretransfer-icon"></div>Wire Transfer<h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+
+				// open popup
+				activeMap.popup.openOn(activeMap.map);
+
+			});	
 	
 		}
 	});	
@@ -2112,9 +2174,29 @@ CityDigitsMapOpinion.prototype.loadMarkers = function(){
 	
 		    layer.on('mouseout', function(ev) {
 				//highlight point
-				layer.setStyle(noHighlight);		
+				layer.setStyle(noHighlight);
+		
+				// close popup
+				if (!activeMap.popup2._isOpen) {
+					activeMap.map.closePopup();
+				}
+				
 		    });
+
 	
+			// add on click popups for each layer -- these will be different
+			layer.on("click",function(ev){
+				// close all open popups
+				activeMap.map.closePopup();
+		
+				// bind popup with data to the feature
+				activeMap.popup.setLatLng(activeMap.map.layerPointToLatLng(ev.layerPoint));
+				activeMap.popup.setContent('<div class="rollover-tooltip text-capitalize"><div class="banks-icon"></div>Bank<h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+
+				// open popup
+				activeMap.popup.openOn(activeMap.map);
+
+			});		
 	
 		}
 	});	
@@ -2176,8 +2258,29 @@ CityDigitsMapOpinion.prototype.loadMarkers = function(){
 	
 		    layer.on('mouseout', function(ev) {
 				//highlight point
-				layer.setStyle(noHighlight);		
+				layer.setStyle(noHighlight);
+		
+				// close popup
+				if (!activeMap.popup2._isOpen) {
+					activeMap.map.closePopup();
+				}
+				
 		    });
+
+	
+			// add on click popups for each layer -- these will be different
+			layer.on("click",function(ev){
+				// close all open popups
+				activeMap.map.closePopup();
+		
+				// bind popup with data to the feature
+				activeMap.popup.setLatLng(activeMap.map.layerPointToLatLng(ev.layerPoint));
+				activeMap.popup.setContent('<div class="rollover-tooltip text-capitalize"><div class="mcdonalds-icon"></div>McDonald\'s<h4>' + feature.properties.name + '</h4><p>'+ feature.properties.address + '</p></div>');
+
+				// open popup
+				activeMap.popup.openOn(activeMap.map);
+
+			});		
 	
 	
 		}
