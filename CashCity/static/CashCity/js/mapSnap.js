@@ -10,7 +10,11 @@ $(function() {
 		var latitude =MY_MAP.map.getCenter().lat;
 		var longitude =MY_MAP.map.getCenter().lng;
 		var zoom =MY_MAP.map.getZoom();
-		var MapLayer =mainLayer._leaflet_id;
+		if (mainLayer != null) {
+			var MapLayer =mainLayer._leaflet_id;
+		} else {
+			var MapLayer = '';
+		}
 		var PawnShops =MY_MAP.map.hasLayer(LOC1);
 		var CheckCashing =MY_MAP.map.hasLayer(LOC2);
 		var WireTransfer =MY_MAP.map.hasLayer(LOC3);

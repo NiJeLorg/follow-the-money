@@ -27,10 +27,13 @@
 				var LOC6{{ mapSnap.id }} = '{{ mapSnap.SubwayLines }}';
 				var MEDIA{{ mapSnap.id }} = '{{ mapSnap.MEDIA }}';
 				
+				// load map layers if not loaded yet
+				if (layersLoaded == false) {
+					MY_MAP.loadLayers();
+				}		
+				
 				// load create map layers if not loaded yet
 				if (createMapLoaded == false) {
-					// show loading modal
-					$("body").addClass("loading");						
 					MY_MAP.loadCreateMapLayers();
 				}		
 				

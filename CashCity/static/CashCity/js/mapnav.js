@@ -298,11 +298,13 @@ $( document ).ready(function() {
 	
 	// draw chart based on layer selected
 	$('#chart').click(function() {
-		// get id of layer selected
-		var layerId = mainLayer._leaflet_id;
-		if (!mainChart) {
-			// draw chart
-			CityDigitsMap.drawChart(layerId);
+		if (mainLayer != null) {
+			// get id of layer selected
+			var layerId = mainLayer._leaflet_id;
+			if (!mainChart) {
+				// draw chart
+				CityDigitsMap.drawChart(layerId);
+			}
 		}		
 	});
 	
