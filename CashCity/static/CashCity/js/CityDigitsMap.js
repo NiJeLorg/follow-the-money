@@ -3084,7 +3084,7 @@ CityDigitsMap.drawChart = function(layerId){
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 		
 	d3.json(neighborhoods, function(error, data) {
-	  var openedTopoJson = topojson.feature(data, data.objects.all_map_data_boundariesfixed_july22).features;
+	  var openedTopoJson = topojson.feature(data, data.objects.all_map_data_boundariesfixed_Nov13).features;
 	  
 	  // filter out over 1000 values for BANK_AFS and AFS_BANK to remove undefined values set in the data
 	  if (propertyName == 'BANK_AFS' || propertyName == 'AFS_BANK') {
