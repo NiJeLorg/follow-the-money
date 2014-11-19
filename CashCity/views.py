@@ -2237,6 +2237,13 @@ def opinionForm(request, id=None):
     kwargs = {}
     # show only published media
     kwargs['published__exact'] = True
+    
+    # show only media tied to this teacher's student groups
+    classRequest = list(ExUserProfile.objects.filter(user=request.user.id).values_list('teacherId', flat=True))
+    #add in the teacher's own account
+    classRequest.append(request.user.id)
+    kwargs['user__in'] = classRequest
+    
 
     #get mediaImages
     mediaImages = MediaImage.objects.filter(**kwargs).order_by('-last_modified')
@@ -2249,7 +2256,6 @@ def opinionForm(request, id=None):
 
     #get mediaInterview
     mediaInterview = MediaInterview.objects.filter(**kwargs).order_by('-last_modified')
-
 
     #build query
     kwargs = {}
