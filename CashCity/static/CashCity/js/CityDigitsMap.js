@@ -12,7 +12,7 @@ function CityDigitsMap() {
     var basemap = "sw2279.NYCLotto";
 
     //where brooklyn at?!40.7429 N, 73.9188
-    this.map = L.mapbox.map('map', basemap,{minZoom:11,maxZoom:16,zoomControl:false}).setView([40.7429,-73.9188], 12);
+    this.map = L.mapbox.map('map', basemap,{minZoom:11,maxZoom:17,zoomControl:false}).setView([40.7429,-73.9188], 12);
 	
     //load zoomer
     $("#citydigits-zoomer").attr({'class':'citydigits-zoomer'});

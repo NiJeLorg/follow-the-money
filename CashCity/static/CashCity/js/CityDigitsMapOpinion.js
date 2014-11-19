@@ -8,7 +8,7 @@ function CityDigitsMapOpinion(id, lat, lon, zoom) {
     var basemap = "sw2279.NYCLotto";
 
     //where brooklyn at?!40.7429 N, 73.9188
-    this.map = L.mapbox.map('map_'+id, basemap,{minZoom:10,maxZoom:16}).setView([lat,lon], zoom);
+    this.map = L.mapbox.map('map_'+id, basemap,{minZoom:10,maxZoom:17}).setView([lat,lon], zoom);
 	
     //disable unwanted events
     this.map.doubleClickZoom.enable();

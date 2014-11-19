@@ -9,7 +9,7 @@
 					"id": "{{ mediaInterview.id }}",
 			        "name": "{{ mediaInterview.title }}",
 			        "image": "{% cropped_thumbnail mediaInterview 'cropped_image' %}",
-					{% if ".amr" in mediaAudio.audio.path %}
+					{% if ".amr" in mediaInterview.audio.path %}
 			        	"audio": "/media/CashCity/{{ mediaInterview.audio }}.mp3",
 					{% else %}
 						"audio": "/media/CashCity/{{ mediaInterview.audio }}",
