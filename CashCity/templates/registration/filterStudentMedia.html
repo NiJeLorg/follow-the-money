@@ -74,7 +74,11 @@
 				            </div>
 						</a>
 				            <div style="margin: auto;">
-				            	<audio src="/media/CashCity/{{ mediaResult.audio }}" preload="auto" controls></audio>
+								{% if ".amr" in mediaResult.audio.path %}
+					            	<audio src="/media/CashCity/{{ mediaResult.audio }}.mp3" preload="auto" controls></audio>
+								{% else %}
+					            	<audio src="/media/CashCity/{{ mediaResult.audio }}" preload="auto" controls></audio>
+								{% endif %}
 				            </div>
 					</td>
 					<td>
@@ -140,7 +144,11 @@
 					<td><a href="/cashcity/media/audio/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit"><div class="audio_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></a></td>
 					<td>
 			            <div style="margin: auto;">
-			            	<audio src="/media/CashCity/{{ mediaResult.audio }}" preload="auto" controls></audio>
+							{% if ".amr" in mediaResult.audio.path %}
+				            	<audio src="/media/CashCity/{{ mediaResult.audio }}.mp3" preload="auto" controls></audio>
+							{% else %}
+				            	<audio src="/media/CashCity/{{ mediaResult.audio }}" preload="auto" controls></audio>
+							{% endif %}
 			            </div>
 					</td>
 					<td>

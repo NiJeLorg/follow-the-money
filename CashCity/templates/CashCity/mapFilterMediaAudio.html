@@ -9,7 +9,7 @@
 					"id": "{{ mediaAudio.id }}",
 			        "name": "{{ mediaAudio.title }}",
 					{% if ".amr" in mediaAudio.audio.path %}
-			        	"audio": "/media/CashCity/{{ mediaAudio.audio }}",
+			        	"audio": "/media/CashCity/{{ mediaAudio.audio }}.mp3",
 					{% else %}
 						"audio": "/media/CashCity/{{ mediaAudio.audio }}",
 					{% endif %}
