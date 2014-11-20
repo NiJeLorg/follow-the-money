@@ -310,7 +310,7 @@ class Opinions(models.Model):
     # Links Opinions to a User model instance.
     user = models.ForeignKey(User)
     authors = models.CharField(max_length=255, null=False, blank=False)
-    teamImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=False, blank=False)
+    teamImage = models.ImageField(upload_to="img/%Y_%m_%d_%h_%M_%s", null=True, blank=True)
     # thumb for opinion 'stubs'
     cropped_teamImage = ImageRatioField('teamImage', '280x280')
     # smaller version for opinion page
