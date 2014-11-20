@@ -307,7 +307,9 @@
 	<div class="row">
 		<h3>{{ opinionObject.title|title }}</h3>
 		<p>By {{ opinionObject.authors }}</p>
-		<img src="{% cropped_thumbnail opinionObject 'cropped_teamImage_w640_h480' %}">
+		{% if opinionObject.teamImage %}
+			<img src="{% cropped_thumbnail opinionObject 'cropped_teamImage_w640_h480' %}">
+		{% endif %}
 		<hr />
 	</div>
 	{% for section in opinionSections %}
@@ -331,7 +333,7 @@
 					<div class="row">
 						<h4>SECTION 1</h4>
 						{% if ".amr" in audio.audio.path %}
-							<audio src="/media/CashCity/{{ audio.audio }}.mp3" preload="auto" controls></audio>
+							<	="/media/CashCity/{{ audio.audio }}.mp3" preload="auto" controls></audio>
 						{% else %}
 							<audio src="/media/CashCity/{{ audio.audio }}" preload="auto" controls></audio>
 						{% endif %}
