@@ -42,11 +42,13 @@
 								<label for="author">Author:</label>
 								{{ opinion.authors }}
 							</div>							
-							<div class="form-group">
-								<label for="Team Image">Team Image:</label>
-								<div class="clearfix"></div>
-								<img src="{% cropped_thumbnail opinion 'cropped_teamImage' %}">
-							</div>
+							{% if opinion.teamImage %}
+								<div class="form-group">
+									<label for="Team Image">Team Image:</label>
+									<div class="clearfix"></div>
+									<img src="{% cropped_thumbnail opinion 'cropped_teamImage' %}">
+								</div>
+							{% endif %}
 						</div>
 						<div class="col-xs-6">		
 							<button type="submit" class="btn btn-danger pull-left" name="save">Remove</button>

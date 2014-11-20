@@ -333,7 +333,7 @@
 					<div class="row">
 						<h4>SECTION 1</h4>
 						{% if ".amr" in audio.audio.path %}
-							<	="/media/CashCity/{{ audio.audio }}.mp3" preload="auto" controls></audio>
+							<audio src="/media/CashCity/{{ audio.audio }}.mp3" preload="auto" controls></audio>
 						{% else %}
 							<audio src="/media/CashCity/{{ audio.audio }}" preload="auto" controls></audio>
 						{% endif %}

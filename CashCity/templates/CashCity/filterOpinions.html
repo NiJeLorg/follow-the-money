@@ -56,10 +56,13 @@
 								<p><strong>Teacher Added</strong><span class="pull-right">{{ opinion.last_modified|date:"F j" }}</span><br />Teacher: {{ opinion.getUserProfile.teacherName }}</p>
 							{% else %}
 								<p><strong>{{ opinion.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ opinion.last_modified|date:"F j" }}</span><br />{{ opinion.getUserProfile.teacherName }}'s Section {{ opinion.getUserProfile.section }}</p>
-							{% endif %}							
-				            <div style="height: 280px; width: 280px; margin-right: auto; margin-left: auto; margin-bottom: 5px; overflow: hidden;">
-				            	<img src="{% cropped_thumbnail opinion 'cropped_teamImage' %}">
-				            </div>
+							{% endif %}
+							{% if opinion.teamImage %}
+					            <div style="height: 280px; width: 280px; margin-right: auto; margin-left: auto; margin-bottom: 5px; overflow: hidden;">
+					            	<img src="{% cropped_thumbnail opinion 'cropped_teamImage' %}">
+					            </div>
+							{% endif %}
+														
 							<h4>{{ opinion.title }}</h4>
 						</a>
 					</div>
