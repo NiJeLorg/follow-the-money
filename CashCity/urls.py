@@ -110,6 +110,7 @@ urlpatterns = patterns('',
     #url(r'^accounts/profile/student/opinion/filter/$', views.studentFilterOpinion, name='studentFilterOpinion'),    
     # student account opinion profile urls
     url(r'^accounts/profile/student/opinion/$', views.studentProfileOpinion, name='studentProfileOpinion'),
-       
+    # about page
+    url(r'^about/$', views.about, name='about') 
 )
 

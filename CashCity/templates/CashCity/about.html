@@ -1,0 +1,52 @@
+{% extends 'CashCity/base.html' %}
+{% load staticfiles %}
+{% load cropping %}
+
+{% block body_block %}
+<div class="full-container">
+<center>
+<h1>What is City Digits: Cash City?</h1>
+<p>The Cash City tool is a visualization of the spatial patterns of AFIs, or alternative financial institutions (i.e. pawn shops, cash checking, wire transfers), in New York City. The interactive map allows users to understand where people might be using the services provided by these AFIs rather than using more traditional financial institutions such as banks. All this can be done while also learning about the social demographics of those neighborhoods. It is a site for discussion about how AFIs affect local communities.</p>
+
+<p>This tool is part of the Cash City curriculum, a high-school-level module that uses the theme of alternative financial institutions and banks to teach mathematical concepts in data analysis and probability and to explore social issues surrounding the lottery.</p>
+
+<p>Cash City is the second module of the City Digits project, an effort to develop place-based curricular modules that investigate and analyze specific themes related to the local, urban context to support high school students' learning of mathematics. The curricular modules are enhanced by the integration of geo-spatial technologies, like the Cash City tool, which enable students to explore their local urban landscape, collect field data, and organize and visualize patterns. For more information, visit citydigits.org.</p>
+
+<h1>Where does your data come from?</h1>
+
+<p>The geocoded list of pawnshops, received by the NYC Dept. of Consumer Affairs (DCA) in February, 2014; this represents a list of all establishments that currently possess a "pawnbrokers" license from DCA; please note that a handful (10-15) of establishments have overlapping addresses and thus multiple licenses </p>
+
+<p>Data Sources: Business Analyst/RefUSA/NYC DCA </p>
+<p>All InfoShare.org demographic and socioeconomic data compiled from the 2007-2011 ACS 5 year 
+estimates (downloaded March 2014) </p>
+
+<p>McDonalds = locations of McDonalds fast food chain (identified through RefUSA in March 2014)</p>
+<p>Check Cashing = Geocoded list of 'check cashing' establishments (RefUSA) using SIC Code 609903 </p>
+<p>Money Transfer Services = Geocoded list of 'money transfer services' establishments (RefUSA) using SIC Code 609910<p>
+<p>Commercial Banks = Geocoded list of commercial banks (ESRI Business Analyst) using SIC Code 602110 </p>
+
+<h1>Who made this?</h1>
+<p>MIT Civic Data Design Lab, Brooklyn College, and the Center for Urban Pedagogy collaborated to create Cash City as part of a three year project to conduct urban investigations with youth to promote science and math literacy in New York City. MIT's Civic Data Design Lab collected the data, worked to geographical represent the information, and develop and interactive interface. The whole project team worked toward the ultimate design directions and use scenarios of the tool.</p>
+
+<h1>City Digits Team</h1>
+<h2>Civic Data Design Lab</h2>
+<p>Sarah Williams, Director </p>
+<p>Pierre Beaudreau, Research Assistant</p>
+<p>Phil Tinn, Research Assistant</p>
+<p>Mike Foster, Research Assistant</p>
+<p>Karuna Mehta, Research Assistant</p>
+<p>JD Godchaux, Developer (NiJel)</p>
+<p>Lela Prashad, Developer (NiJel)</p>
+<p>Kat Hartman, Developer (NiJel)</p>
+
+<h2>Brooklyn College of the City University of New York</h2>
+<p>Laurie Rubel, P.I. of City Digits and Associate Professor of Secondary Education</p>
+<p>Vivian Lim, Research Assistant</p>
+
+<h2>Funded by the National Science Foundation (NSF)</h2>
+This material is based upon work supported by the National Science Foundation under Grant No. DRL-1222430. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.
+</center>
+</div>	
+{% endblock %}
+
+

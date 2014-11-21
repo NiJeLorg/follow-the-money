@@ -22,6 +22,11 @@ from registration.forms import RegistrationForm
 from CashCity.forms import *
 from CashCity.models import *
 
+def about(request):
+
+    context = RequestContext(request)
+    context_dict = {}
+    return render_to_response('CashCity/about.html', context_dict, context)
 
 def index(request):
     """
