@@ -316,6 +316,7 @@ class Opinions(models.Model):
     # smaller version for opinion page
     cropped_teamImage_w640_h480 = ImageRatioField('teamImage', '640x480')
     title = models.CharField(max_length=255, null=False, blank=False)
+    opinionText = models.CharField(max_length=10000, null=True, blank=True)
 
     # metadata
     published = models.BooleanField()

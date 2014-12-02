@@ -106,7 +106,7 @@
 				{{ opinionsForm.authors|add_class:"form-control" }}
 			</div>
 			<div class="form-group fileGroup">
-				<label for="teamImage">Add A Team Image</label>
+				<label for="teamImage">Add A Cover Photo</label>
 				{% if opinionsForm.teamImage.errors %} <span class="text-danger">{{ opinionsForm.teamImage.errors|join:", " }}</span>{% endif %}
 				<div class="input-group">				
 	                <span class="input-group-btn">
@@ -127,6 +127,10 @@
 			<div class="form-group">
 				<label for="title">Title</label>{% if opinionsForm.title.errors %} <span class="text-danger">{{ opinionsForm.title.errors|join:", " }}</span>{% endif %}
 				{{ opinionsForm.title|add_class:"form-control" }}
+			</div>
+			<div class="form-group">
+				<label for="opinionText">Your Opinion</label>{% if opinionsForm.opinionText.errors %} <span class="text-danger">{{ opinionsForm.opinionText.errors|join:", " }}</span>{% endif %}
+				{{ opinionsForm.opinionText|add_class:"form-control" }}
 			</div>
 			<br />
 		    {{ opinionSectionsFormset.management_form }}

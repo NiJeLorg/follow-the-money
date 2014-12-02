@@ -310,6 +310,10 @@
 		{% if opinionObject.teamImage %}
 			<img src="{% cropped_thumbnail opinionObject 'cropped_teamImage_w640_h480' %}">
 		{% endif %}
+		{% if opinionObject.opinionText %}
+			<br /><br />
+			<p>{{ opinionObject.opinionText }}</p>		
+		{% endif %}
 		<hr />
 	</div>
 	{% for section in opinionSections %}

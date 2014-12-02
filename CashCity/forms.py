@@ -177,6 +177,7 @@ class OpinionsForm(forms.ModelForm):
         model = Opinions
         exclude = ["user"] 
         widgets = {
+            'opinionText': forms.widgets.Textarea(attrs={'rows': 3}),
             'text': forms.widgets.Textarea(attrs={'rows': 3}),
             'teamImage': forms.widgets.FileInput,
         } 
