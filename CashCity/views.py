@@ -2334,13 +2334,17 @@ def opinionForm(request, id=None):
     
     if id:
         opinion = Opinions.objects.get(pk=id)
-        # select cover photo image
-        coverPhotoImage = MediaImage.objects.get(pk=opinion.coverPhoto.id)
-        
+        # select cover photo image, if it exists
+        if opinion.coverPhoto:
+            coverPhotoImage = MediaImage.objects.get(pk=opinion.coverPhoto.id)
+        else:
+            coverPhotoImage = False    
+                
         opinionSections = OpinionSections.objects.filter(opinion=opinion)
         formsetQueryset = opinionSections
     else:
         opinion = Opinions()
+        coverPhotoImage = False
         opinionSections = OpinionSections.objects.none();
         formsetQueryset = opinionSections
         
@@ -2580,8 +2584,11 @@ def opinionPage(request, id=None):
     
     if id:
         opinionObject = Opinions.objects.get(pk=id)
-        # select cover photo image
-        coverPhotoImage = MediaImage.objects.get(pk=opinionObject.coverPhoto.id)
+        # select cover photo image, if it exists
+        if opinionObject.coverPhoto:
+            coverPhotoImage = MediaImage.objects.get(pk=opinionObject.coverPhoto.id)
+        else:
+            coverPhotoImage = False    
         
         opinionSections = OpinionSections.objects.filter(opinion=opinionObject).order_by('sectionNumber');
         imageKwargs = {}
