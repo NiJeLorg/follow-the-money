@@ -110,17 +110,17 @@
 				{% if opinionsForm.teamImage.errors %} <span class="text-danger">{{ opinionsForm.teamImage.errors|join:", " }}</span>{% endif %}
 				<div class="input-group">				
 	                <span class="input-group-btn">
-	                    <span class="btn btn-default btn-file">
-	                        Add Image {{ opinionsForm.teamImage|attr:"accept:image/*"|attr:"capture:camera" }}
-	                    </span>
+						<button id="addCoverPhoto" type="button" class="btn btn-default" data-toggle="modal" data-target="#coverphoto">Add Image</button>
 	                </span>
 					{% if opinionsForm.errors %}
-	               		<input type="text" class="form-control" placeholder='No File Chosen' readonly>
+	               		<input type="text" id="coverPhotoPlaceholder" class="form-control" placeholder='No File Chosen' readonly>
 					{% elif opinionsForm.teamImage.value %}
-	               		<input type="text" class="form-control" placeholder='{{ opinionsForm.teamImage.value }}' readonly>
+	               		<input type="text" id="coverPhotoPlaceholder" class="form-control" placeholder='{{ opinionsForm.teamImage.value }}' readonly>
 					{% else %}
-	               		<input type="text" class="form-control" placeholder='No File Chosen' readonly>
+	               		<input type="text" id="coverPhotoPlaceholder" class="form-control" placeholder='No File Chosen' readonly>
 					{% endif %}
+					<!-- will hide this form field from view with jQuery -->
+					{{ opinionsForm.coverPhoto }}
 				</div>
 				
 			</div>
@@ -206,6 +206,31 @@
 
 
 <!-- Modals! -->
+<div class="modal fade" id="coverphoto" tabindex="-1" role="dialog" aria-labelledby="coverphoto" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+	    <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<h4 class="modal-title">Choose a Cover Photo</h4>
+	    </div>
+		<div class="modal-body">
+			<div id='coverPhotoGallery'>
+				{% for image in mediaImages %}
+					<img class="imageSelect coverPhotoSelect" id="{{ image.id }}" title="{{ image.title }}" src="{% cropped_thumbnail image 'cropped_image_w640_h480' scale=0.25 %}">
+				{% endfor %}
+			</div>
+		</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="submit_coverPhoto">Select</button>
+        </div>
+	 </div>
+  </div>
+</div>
+
+
+
+
 <div class="modal fade" id="sectionmedia_1" tabindex="-1" role="dialog" aria-labelledby="sectionmedia_1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -1392,8 +1417,8 @@
 	var PawnShops = "{% static 'CashCity/locationData/PawnShops.csv' %}";
 	var closeButtonGray	= "{% static 'CashCity/img/close_gray.png' %}";
 	</script>
+	<!-- create media geojson -->
 	<script type="text/javascript">
-		<!-- create media geojson -->
 		var mediaImageGeojson = {% include 'CashCity/mapFilterMediaImage.html' %};
 		var mediaAudioGeojson = {% include 'CashCity/mapFilterMediaAudio.html' %};
 		var mediaNoteGeojson = {% include 'CashCity/mapFilterMediaNote.html' %};

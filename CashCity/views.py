@@ -496,6 +496,18 @@ def accountOpinion(request):
 
     #get opinions
     opinions = Opinions.objects.filter(**kwargs).order_by('-last_modified')
+    
+    # get cover photos
+    coverKwargs = {}
+    coverIds = list()
+
+    for opinion in opinions:
+        if opinion.coverPhoto:
+            coverIds.append(opinion.coverPhoto.id)
+            
+    coverKwargs['pk__in'] = coverIds
+    
+    coverPhotoImages = MediaImage.objects.filter(**coverKwargs)    
         
     # get list of tachers and sections
     classes = ExUserProfile.objects.filter(teacherOrStudent=False, teacherId=request.user.id).values('teacherId', 'teacherName', 'section').order_by('teacherName', 'section').distinct()
@@ -503,7 +515,7 @@ def accountOpinion(request):
     # get list of teams across all classes
     teams = ExUserProfile.objects.filter(teacherOrStudent=False, teacherId=request.user.id).values_list('color', flat=True).order_by('color').distinct()   
     
-    return render_to_response('registration/teacherOpinions.html', {'opinions':opinions, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
+    return render_to_response('registration/teacherOpinions.html', {'opinions':opinions, 'coverPhotoImages': coverPhotoImages, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
 
 
 @login_required
@@ -572,6 +584,18 @@ def accountFilterOpinion(request):
 
     #get opinions
     opinions = Opinions.objects.filter(**kwargs).distinct().order_by('-last_modified')
+    
+    # get cover photos
+    coverKwargs = {}
+    coverIds = list()
+
+    for opinion in opinions:
+        if opinion.coverPhoto:
+            coverIds.append(opinion.coverPhoto.id)
+            
+    coverKwargs['pk__in'] = coverIds
+    
+    coverPhotoImages = MediaImage.objects.filter(**coverKwargs)    
 
     # get list of tachers and sections
     classes = ExUserProfile.objects.filter(teacherOrStudent=False, teacherId=request.user.id).values('teacherId', 'teacherName', 'section').order_by('teacherName', 'section').distinct()
@@ -580,7 +604,7 @@ def accountFilterOpinion(request):
     teams = ExUserProfile.objects.filter(teacherOrStudent=False, teacherId=request.user.id).values_list('color', flat=True).order_by('color').distinct()   
     
     #render
-    return render_to_response('registration/filterOpinion.html', {'opinions':opinions, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
+    return render_to_response('registration/filterOpinion.html', {'opinions':opinions, 'coverPhotoImages': coverPhotoImages, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
 
 
 @login_required
@@ -1859,6 +1883,18 @@ def opinion(request):
 
     #get opinions
     opinions = Opinions.objects.filter(**kwargs).order_by('-last_modified')
+    
+    # get cover photos
+    coverKwargs = {}
+    coverIds = list()
+
+    for opinion in opinions:
+        if opinion.coverPhoto:
+            coverIds.append(opinion.coverPhoto.id)
+            
+    coverKwargs['pk__in'] = coverIds
+    
+    coverPhotoImages = MediaImage.objects.filter(**coverKwargs)    
 
     # get list of tachers and sections
     classes = ExUserProfile.objects.filter(teacherOrStudent=False).values('teacherId', 'teacherName', 'section').order_by('teacherName', 'section').distinct();
@@ -1867,7 +1903,7 @@ def opinion(request):
     teams = ExUserProfile.objects.filter(teacherOrStudent=False).values_list('color', flat=True).order_by('color').distinct()   
     
     #render
-    return render_to_response('CashCity/opinion.html', {'opinions':opinions, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
+    return render_to_response('CashCity/opinion.html', {'opinions':opinions, 'coverPhotoImages': coverPhotoImages, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
 
 
 def filterOpinions(request):
@@ -1932,6 +1968,19 @@ def filterOpinions(request):
 
     #get opinions
     opinions = Opinions.objects.filter(**kwargs).distinct().order_by('-last_modified')
+    
+    # get cover photos
+    coverKwargs = {}
+    coverIds = list()
+
+    for opinion in opinions:
+        if opinion.coverPhoto:
+            coverIds.append(opinion.coverPhoto.id)
+            
+    coverKwargs['pk__in'] = coverIds
+    
+    coverPhotoImages = MediaImage.objects.filter(**coverKwargs)    
+    
 
     # get list of tachers and sections
     classes = ExUserProfile.objects.filter(teacherOrStudent=False).values('teacherId', 'teacherName', 'section').order_by('teacherName', 'section').distinct()
@@ -1940,7 +1989,7 @@ def filterOpinions(request):
     teams = ExUserProfile.objects.filter(teacherOrStudent=False).values_list('color', flat=True).order_by('color').distinct() 
     
     #render
-    return render_to_response('CashCity/filterOpinions.html', {'opinions':opinions, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
+    return render_to_response('CashCity/filterOpinions.html', {'opinions':opinions, 'coverPhotoImages': coverPhotoImages, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
 
 
 def mediaPageImage(request, id=None):
@@ -2285,6 +2334,9 @@ def opinionForm(request, id=None):
     
     if id:
         opinion = Opinions.objects.get(pk=id)
+        # select cover photo image
+        coverPhotoImage = MediaImage.objects.get(pk=opinion.coverPhoto.id)
+        
         opinionSections = OpinionSections.objects.filter(opinion=opinion)
         formsetQueryset = opinionSections
     else:
@@ -2417,7 +2469,7 @@ def opinionForm(request, id=None):
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
-    return render_to_response('CashCity/opinionForm.html', {'opinionsForm': opinionsForm, 'opinionSectionsFormset': opinionSectionsFormset, 'profile':profile, 'mediaImages': mediaImages, 'mediaAudio':mediaAudio, 'mediaNote':mediaNote, 'mediaInterview':mediaInterview, 'mapSnaps':mapSnaps, 'opinion':opinion}, context)
+    return render_to_response('CashCity/opinionForm.html', {'opinionsForm': opinionsForm, 'opinionSectionsFormset': opinionSectionsFormset, 'coverPhotoImage':coverPhotoImage, 'profile':profile, 'mediaImages': mediaImages, 'mediaAudio':mediaAudio, 'mediaNote':mediaNote, 'mediaInterview':mediaInterview, 'mapSnaps':mapSnaps, 'opinion':opinion}, context)
 
 
 
@@ -2514,11 +2566,11 @@ def opinionPublish(request, id=None):
            
 def opinionPage(request, id=None):
     """
-      Loads a page for an interview
+      Loads a page for an opinion
     """
     context = RequestContext(request)
 
-    #get user profile data and pass to view -- don't print comment form is user is not logged in
+    #get user profile data and pass to view -- don't print comment form if user is not logged in
     if request.user.id:
         profile = ExUserProfile.objects.get(user=request.user.id)
         comment_form = OpinionsFormComment()
@@ -2528,6 +2580,9 @@ def opinionPage(request, id=None):
     
     if id:
         opinionObject = Opinions.objects.get(pk=id)
+        # select cover photo image
+        coverPhotoImage = MediaImage.objects.get(pk=opinionObject.coverPhoto.id)
+        
         opinionSections = OpinionSections.objects.filter(opinion=opinionObject).order_by('sectionNumber');
         imageKwargs = {}
         imageIds = list()
@@ -2590,7 +2645,7 @@ def opinionPage(request, id=None):
             # send along blank comment form
             comment_form = OpinionsFormComment()
             
-            return render_to_response('CashCity/opinionPage.html', {'opinionObject': opinionObject, 'opinionSections': opinionSections, 'mediaImages':mediaImages, 'mediaAudio':mediaAudio, 'mediaNotes':mediaNotes, 'mediaInterviews':mediaInterviews, 'mapSnaps':mapSnaps, 'comments':comments, 'comment_form':comment_form, 'success': success, 'profile':profile}, context)
+            return render_to_response('CashCity/opinionPage.html', {'opinionObject': opinionObject, 'coverPhotoImage': coverPhotoImage, 'opinionSections': opinionSections, 'mediaImages':mediaImages, 'mediaAudio':mediaAudio, 'mediaNotes':mediaNotes, 'mediaInterviews':mediaInterviews, 'mapSnaps':mapSnaps, 'comments':comments, 'comment_form':comment_form, 'success': success, 'profile':profile}, context)
             
         else:
             print comment_form.errors
@@ -2599,7 +2654,7 @@ def opinionPage(request, id=None):
         # get MediaInterviewComments
         comments = OpinionComments.objects.filter(opinion=id)
 
-    return render_to_response('CashCity/opinionPage.html', {'opinionObject': opinionObject, 'opinionSections': opinionSections, 'mediaImages':mediaImages, 'mediaAudio':mediaAudio, 'mediaNotes':mediaNotes, 'mediaInterviews':mediaInterviews, 'mapSnaps':mapSnaps,'comments':comments, 'comment_form':comment_form, 'profile':profile}, context)
+    return render_to_response('CashCity/opinionPage.html', {'opinionObject': opinionObject, 'coverPhotoImage': coverPhotoImage, 'opinionSections': opinionSections, 'mediaImages':mediaImages, 'mediaAudio':mediaAudio, 'mediaNotes':mediaNotes, 'mediaInterviews':mediaInterviews, 'mapSnaps':mapSnaps,'comments':comments, 'comment_form':comment_form, 'profile':profile}, context)
     
     
     

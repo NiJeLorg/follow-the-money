@@ -25,6 +25,8 @@ $(document).ready( function() {
 	}
 		
 	// hide form fields that django needs for storing opinions
+	$('#id_coverPhoto').hide();
+	
 	$('#id_form-0-sectionNumber').hide();
 	$('#id_form-0-image').hide();
 	$('#id_form-0-audio').hide();
@@ -218,6 +220,19 @@ $(document).ready( function() {
 	});			
 	
 	//submit buttons
+	var selected_coverPhoto = false;
+	$('#submit_coverPhoto').click(function() {
+		// alert if nothing selected 
+		if (selected_coverPhoto) {
+			// close modal
+			$('#coverphoto').modal('hide')
+		} else {
+			// alert
+			alert('Nothing has been selected. Please select a cover photo.');
+		}
+	});
+	
+	
 	var selected_1 = false;
 	$('#submit_1').click(function() {
 		// alert if nothing selected 
@@ -337,6 +352,25 @@ $(document).ready( function() {
 		}
 	});
 
+
+	// highlighting for cover photo
+	$(".coverPhotoSelect").click(function() {
+		if ($(this).hasClass("active")) {
+			$(this).removeClass('active');
+			$('#id_coverPhoto').val(null);
+			$('#coverPhotoPlaceholder').attr('placeholder', 'Nothing Selected');
+			selected_coverPhoto = false;
+		} else {			
+			// remove all other active classes and set clicked to active
+	        $(".coverPhotoSelect").removeClass('active');
+			$(this).addClass('active');
+			// set other values to null
+			$('#id_coverPhoto').val(this.id);
+			// set name of selected in the form field
+			$('#coverPhotoPlaceholder').attr('placeholder', this.title);
+			selected_coverPhoto = true;			
+		}
+	});
 		
 	// highlighting for section 1
 	$(".imageSelect_1").click(function() {
@@ -1209,6 +1243,13 @@ $(document).ready( function() {
 		label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
 		input.trigger('fileselect', [numFiles, label]);
 	});
+
+
+	// set class to active on edit form if cover photo
+	if ( $('#id_coverPhoto').val() != '' ) {
+		$( "#coverPhotoGallery > #" + $('#id_coverPhoto').val() ).addClass('active');	
+		$('#coverPhotoPlaceholder').attr('placeholder', $( "#coverPhotoGallery > #" + $('#id_coverPhoto').val() )[0].title);
+	}
 
 
 	// set class to active on edit form if media or map snap was selected previously
