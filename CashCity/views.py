@@ -604,7 +604,7 @@ def accountFilterOpinion(request):
     teams = ExUserProfile.objects.filter(teacherOrStudent=False, teacherId=request.user.id).values_list('color', flat=True).order_by('color').distinct()   
     
     #render
-    return render_to_response('registration/filterOpinion.html', {'opinions':opinions, 'coverPhotoImages': coverPhotoImages, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
+    return render_to_response('registration/filterOpinion.html', {'opinions':opinions, 'coverPhotoImages':coverPhotoImages, 'classes':classes, 'teams':teams, 'toolbar':toolbar, 'profile':profile}, context)
 
 
 @login_required
@@ -734,8 +734,20 @@ def studentProfileOpinion(request):
 
     #get opinions
     opinions = Opinions.objects.filter(**kwargs).order_by('-last_modified')
+    
+    # get cover photos
+    coverKwargs = {}
+    coverIds = list()
+
+    for opinion in opinions:
+        if opinion.coverPhoto:
+            coverIds.append(opinion.coverPhoto.id)
             
-    return render_to_response('registration/studentOpinions.html', {'opinions':opinions, 'profile':profile}, context)
+    coverKwargs['pk__in'] = coverIds
+    
+    coverPhotoImages = MediaImage.objects.filter(**coverKwargs)
+            
+    return render_to_response('registration/studentOpinions.html', {'opinions':opinions, 'coverPhotoImages':coverPhotoImages, 'profile':profile}, context)
 
 
 @login_required

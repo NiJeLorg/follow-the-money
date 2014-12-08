@@ -62,13 +62,13 @@
 					            	<img src="{% cropped_thumbnail opinion 'cropped_teamImage' %}">
 					            </div>
 							{% elif opinion.coverPhoto %}
-					            <div style="height: 280px; width: 280px; margin-right: auto; margin-left: auto; margin-bottom: 5px; overflow: hidden;">									
 									{% for image in coverPhotoImages %}
 										{% if image.id == opinion.coverPhoto.id %}
-											<img src="{% cropped_thumbnail image 'cropped_image' %}">
+											<div style="height: 280px; width: 280px; margin-right: auto; margin-left: auto; margin-bottom: 5px; overflow: hidden;">									
+												<img src="{% cropped_thumbnail image 'cropped_image' %}">
+					            			</div>
 										{% endif %}
 									{% endfor %}
-					            </div>
 							{% else %}
 							{% endif %}														
 							<h4>{{ opinion.title }}</h4>
