@@ -54,6 +54,10 @@ def index(request):
         
     #get mediaNote
     mediaNote = MediaNote.objects.filter(**kwargs)
+    
+    #find and replace line breaks in notes for geojson
+    for note in mediaNote:
+        note.notes = note.notes.replace('\n', ' ').replace('\r', '')    
 
     #get mediaInterview
     mediaInterview = MediaInterview.objects.filter(**kwargs)
@@ -166,6 +170,11 @@ def filterIndexNote(request):
     
     #get mediaNote
     mediaNote = MediaNote.objects.filter(**kwargs)
+    
+    #find and replace line breaks in notes for geojson
+    for note in mediaNote:
+        note.notes = note.notes.replace('\n', ' ').replace('\r', '')    
+    
       
     context_dict = {'mediaNotes': mediaNote}
 
@@ -226,6 +235,11 @@ def mapSnaps(request, id=None):
 
     #get mediaNote
     mediaNote = MediaNote.objects.filter(**kwargs)
+    
+    #find and replace line breaks in notes for geojson
+    for note in mediaNote:
+        note.notes = note.notes.replace('\n', ' ').replace('\r', '')    
+    
 
     #get mediaInterview
     mediaInterview = MediaInterview.objects.filter(**kwargs)
