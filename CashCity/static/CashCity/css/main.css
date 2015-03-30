@@ -13,22 +13,22 @@ body {
 
 .loginFormcontainer {
     width: 50%;
-	margin-top: 10%;
+	margin-top: 100px;
 }
 
 .midPageFormcontainer {
     width: 60%;
-	margin-top: 3%;
+	margin-top: 100px;
 }
 
 .TeacherRegistrationcontainer {
     width: 50%;
-	margin-top: 10%;
+	margin-top: 100px;
 }
 
 .half-container {
     width: 50%;
-	margin-top: 7%;
+	margin-top: 100px;
 	margin-bottom: 4%;
 	margin-left: auto;
 	margin-right: auto;
@@ -36,7 +36,7 @@ body {
 
 .full-container {
     width: 85%;
-	margin-top: 7%;
+	margin-top: 100px;
 	margin-bottom: 4%;
 	margin-left: auto;
 	margin-right: auto;
@@ -44,7 +44,7 @@ body {
 
 .stubs-container {
     width: 95%;
-	margin-top: 7%;
+	margin-top: 100px;
 	margin-bottom: 4%;
 	margin-left: auto;
 	margin-right: auto;
@@ -87,6 +87,10 @@ hr {
 	height:100%;
 }
 
+.showMobile {
+	display: none !important;
+}
+
 @media (min-width: 992px) {
 	.navbar-default .navbar-center {
 		left: 50px;
@@ -104,7 +108,21 @@ hr {
 		left: 0px;
 		z-index: -1;
 	}
+
+	.map-ui, .citydigits-charts, .citydigits-legend, .media-button, .citydigits-navbar-right, .nav-tabs-media {
+		display: none;
+	}
+
+	.half-container, .loginFormcontainer, .midPageFormcontainer, .TeacherRegistrationcontainer {
+		width: 85%;
+	}
+
+	.showMobile {
+		display: block !important;
+	}
+
 }
+
 
 .navbar-default .navbar-center .brand-fade {
     font-weight: 200;
@@ -142,20 +160,6 @@ hr {
 .nav-mapui-width {
 	width: 620px;
 }
-
-@media (min-width: 768px) {
-  .nav-tabs.nav-mapui > li > a {
-  	color: #fff;
-  	border-radius: 0px;
-  }
-  
-  .nav-tabs.nav-mapui > .active > a,
-  .nav-tabs.nav-mapui > .active > a:hover,
-  .nav-tabs.nav-mapui > .active > a:focus {
-  	color: #333;
-  }
-}
-
 
 .nav-tabs.nav-tabs-media {
 	margin-bottom: 20px;

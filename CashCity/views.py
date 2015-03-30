@@ -22,6 +22,7 @@ from registration.forms import RegistrationForm
 from CashCity.forms import *
 from CashCity.models import *
 
+
 def about(request):
 
     context = RequestContext(request)
@@ -1085,6 +1086,12 @@ def mediaFormAudio(request, id=None):
     # Get the context from the request.
     context = RequestContext(request)
 
+    # if browser is Andriod 4.0 or lower, specify in variable 
+    if request.user_agent.os.family == 'Android' and ((request.user_agent.os.version[0] == 4 and request.user_agent.os.version[1] == 0) or request.user_agent.os.version[0] <= 3):
+        audio_tag = True
+    else:
+        audio_tag = False
+
     #get user profile data and pass to view
     profile = ExUserProfile.objects.get(user=request.user) 
     
@@ -1159,7 +1166,7 @@ def mediaFormAudio(request, id=None):
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
-    return render_to_response('CashCity/mediaFormAudio.html', {'form': form, 'profile':profile}, context)
+    return render_to_response('CashCity/mediaFormAudio.html', {'form': form, 'profile':profile, 'audio_tag':audio_tag}, context)
     
 
 @login_required
@@ -1432,6 +1439,13 @@ def mediaFormInterview(request, id=None):
     # Get the context from the request.
     context = RequestContext(request)
 
+    # if browser is Andriod 4.0 or lower, specify in variable 
+    if request.user_agent.os.family == 'Android' and ((request.user_agent.os.version[0] == 4 and request.user_agent.os.version[1] == 0) or request.user_agent.os.version[0] <= 3):
+        audio_tag = True
+    else:
+        audio_tag = False
+
+
     #get user profile data and pass to view
     profile = ExUserProfile.objects.get(user=request.user)    
 
@@ -1505,7 +1519,7 @@ def mediaFormInterview(request, id=None):
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
-    return render_to_response('CashCity/mediaFormInterview.html', {'form': form, 'profile':profile}, context)
+    return render_to_response('CashCity/mediaFormInterview.html', {'form': form, 'profile':profile, 'audio_tag':audio_tag}, context)
 
 
 @login_required

@@ -60,6 +60,7 @@
 		</div>
 	{% endif %}
 	<div class="row padding10bottom">
+		<h4>Add Interview</h4>
 		<small><em>Add media to the map. Make sure to include all the fields below.</em></small>
 	</div>
 
@@ -88,20 +89,39 @@
 			</div>
 			<div class="form-group">
 				{% if form.audio.errors %} <span class="text-danger">{{ form.audio.errors|join:", " }}</span>{% endif %}
-				<div class="input-group">				
-	                <span class="input-group-btn">
-	                    <span class="btn btn-default btn-file">
-	                        Add Audio {{ form.audio|attr:"accept:audio/*"|attr:"capture:microphone" }}
-	                    </span>
-	                </span>
-					{% if form.errors %}
-	               		<input type="text" class="form-control" placeholder='No File Chosen' readonly>
-					{% elif form.audio.value %}
-	               		<input type="text" class="form-control" placeholder='{{ form.audio.value }}' readonly>
-					{% else %}
-	               		<input type="text" class="form-control" placeholder='No File Chosen' readonly>
-					{% endif %}
-				</div>
+				{{ family }}
+	            {% if audio_tag %}
+					<div class="input-group">				
+		                <span class="input-group-btn">
+		                    <span class="btn btn-default btn-file">
+		                        Add Audio {{ form.audio|attr:"accept:audio/*"|attr:"capture:microphone" }}
+		                    </span>
+		                </span>
+						{% if form.errors %}
+		               		<input type="text" class="form-control" placeholder='No File Chosen' readonly>
+						{% elif form.audio.value %}
+		               		<input type="text" class="form-control" placeholder='{{ form.audio.value }}' readonly>
+						{% else %}
+							<input type="text" class="form-control" placeholder='No File Chosen' readonly>
+						{% endif %}
+					</div>
+				{% else %}
+					<div class="input-group">				
+		                <span class="input-group-btn">
+		                    <span class="btn btn-default btn-file">
+		                        Add Audio {{ form.audio|attr:"accept:video/*"|attr:"capture:camcorder" }}
+		                    </span>
+		                </span>
+						{% if form.errors %}
+		               		<input type="text" class="form-control" placeholder='No File Chosen' readonly>
+						{% elif form.audio.value %}
+		               		<input type="text" class="form-control" placeholder='{{ form.audio.value }}' readonly>
+						{% else %}
+							<input type="text" class="form-control" placeholder='No File Chosen' readonly>
+						{% endif %}
+					</div>
+					<em><strong>Only audio will be saved from your video recording.</strong></em>
+				{% endif %}
 			</div>
 			<div class="form-group">
 				<label for="caption">Caption</label>{% if form.caption.errors %} <span class="text-danger">{{ form.caption.errors|join:", " }}</span>{% endif %}
