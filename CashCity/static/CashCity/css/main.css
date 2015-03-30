@@ -109,6 +109,10 @@ hr {
 		display: block !important;
 	}
 
+	.navbar-default .navbar-center {
+		text-align: left;
+	}
+
 }
 
 
