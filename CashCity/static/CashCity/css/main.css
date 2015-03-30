@@ -111,6 +111,7 @@ hr {
 
 	.navbar-default .navbar-center {
 		text-align: left;
+		z-index: -1;
 	}
 
 }
