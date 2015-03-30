@@ -79,7 +79,7 @@ hr {
 .navbar-default .navbar-center {
 	position: absolute;
 	width: 100%;
-	left: 100px;
+	left: 0px;
 	top: 0;
 	margin-left: 0px !important;
 	text-align: center;
@@ -87,27 +87,15 @@ hr {
 	height:100%;
 }
 
+.navbar-brand {
+	padding: 15px 5px;
+}
+
 .showMobile {
 	display: none !important;
 }
 
-@media (min-width: 992px) {
-	.navbar-default .navbar-center {
-		left: 50px;
-	}
-}
-
-@media (min-width: 1200px) {
-	.navbar-default .navbar-center {
-		left: 0;
-	}
-}
-
 @media (max-width: 768px) {
-	.navbar-default .navbar-center {
-		left: 0px;
-		z-index: -1;
-	}
 
 	.map-ui, .citydigits-charts, .citydigits-legend, .media-button, .citydigits-navbar-right, .nav-tabs-media {
 		display: none;
