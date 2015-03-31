@@ -40,7 +40,7 @@
 					<form role="form" method="post" action=".">{% csrf_token %}
 						<div class="col-xs-12">	
 							<div class="form-group">
-								{% if ".amr" in mediaAudio.audio.path %}
+								{% if ".amr" in mediaAudio.audio.path or ".mov" in mediaAudio.audio.path or ".MOV" in mediaAudio.audio.path or ".gp3" in mediaAudio.audio.path or ".mp4" in mediaAudio.audio.path %}
 									<audio src="/media/CashCity/{{ mediaAudio.audio }}.mp3" preload="auto" controls></audio>
 								{% else %}
 									<audio src="/media/CashCity/{{ mediaAudio.audio }}" preload="auto" controls></audio>

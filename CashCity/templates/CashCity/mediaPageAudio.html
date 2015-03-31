@@ -107,7 +107,7 @@
 	</div>	
 	<div class="row">
 		<h3>{{ mediaAudioObject.title|title }}</h3>
-		{% if ".amr" in mediaAudioObject.audio.path %}
+		{% if ".amr" in mediaAudioObject.audio.path or ".mov" in mediaAudioObject.audio.path or ".MOV" in mediaAudioObjectaudio.path or ".gp3" in mediaAudioObject.audio.path or ".mp4" in mediaAudioObject.audio.path %}
 			<audio src="/media/CashCity/{{ mediaAudioObject.audio }}.mp3" preload="auto" controls></audio>
 		{% else %}
 			<audio src="/media/CashCity/{{ mediaAudioObject.audio }}" preload="auto" controls></audio>

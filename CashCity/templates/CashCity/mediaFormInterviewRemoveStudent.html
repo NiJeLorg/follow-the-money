@@ -38,7 +38,7 @@
 								<img src="{% cropped_thumbnail mediaInterview 'cropped_image' %}">
 							</div>
 							<div class="form-group">
-								{% if ".amr" in mediaInterview.audio.path %}
+								{% if ".amr" in mediaInterview.audio.path or ".mov" in mediaInterview.audio.path or ".MOV" in mediaInterview.audio.path or ".gp3" in mediaInterview.audio.path or ".mp4" in mediaInterview.audio.path %}
 									<audio src="/media/CashCity/{{ mediaInterview.audio }}.mp3" preload="auto" controls></audio>
 								{% else %}
 									<audio src="/media/CashCity/{{ mediaInterview.audio }}" preload="auto" controls></audio>

@@ -8,7 +8,7 @@
 			    "properties": {
 					"id": "{{ mediaAudio.id }}",
 			        "name": "{{ mediaAudio.title }}",
-					{% if ".amr" in mediaAudio.audio.path %}
+			        {% if ".amr" in mediaAudio.audio.path or ".mov" in mediaAudio.audio.path or ".MOV" in mediaAudio.audio.path or ".gp3" in mediaAudio.audio.path or ".mp4" in mediaAudio.audio.path %}
 			        	"audio": "/media/CashCity/{{ mediaAudio.audio }}.mp3",
 					{% else %}
 						"audio": "/media/CashCity/{{ mediaAudio.audio }}",
