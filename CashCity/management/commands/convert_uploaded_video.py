@@ -19,7 +19,7 @@ class Command(BaseCommand):
         print "Creating file: " + pathToMP3
           
         # ffmpeg -i .MOV test.mp3
-        call(["ffmpeg","-i",pathToMOV,pathToMP3])
+        call(["ffmpeg","-i",pathToVIDEO,pathToMP3])
 
     def findVIDEOFiles(self, dirpath,dirnames,filenames):
         fileToProcess = None
