@@ -25,7 +25,7 @@ class Command(BaseCommand):
         fileToProcess = None
         alreadyEncodedFlag = False
         for filename in filenames:
-            if ".mov" in filename or ".gp3" in filename or ".mp4" in filename:
+            if ".mov" in filename or ".MOV" in filename or ".gp3" in filename or ".mp4" in filename:
                 fileToProcess = (dirpath,filename)
             if ".mp3" in filename:
                 alreadyEncodedFlag = True
