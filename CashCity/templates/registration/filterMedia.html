@@ -89,6 +89,15 @@
 
 {% if mediaResults %}
 <table class="table">
+	<thead>
+		<th>Section</th>
+		<th>Team Color</th>
+		<th>Media</th>
+		<th>Privacy/Visibility</th>
+		<th>Name</th>
+		<th>Date Added</th>
+		<th>Options</th>
+	</thead>
 	<tbody>
 		{% for mediaResult in mediaResults %}
 			{% if mediaResult.image and mediaResult.audio %}
@@ -116,6 +125,13 @@
 					            	<audio src="/media/CashCity/{{ mediaResult.audio }}" preload="auto" controls></audio>
 								{% endif %}
 				            </div>
+					</td>
+					<td>
+						{% if mediaResult.shared %}
+							All My Teams <input type="checkbox" class="interviewShare" value="{{ mediaResult.id }}" checked>
+						{% else %}
+							All My Teams <input type="checkbox" class="interviewShare" value="{{ mediaResult.id }}" >
+						{% endif %}						
 					</td>
 					<td>
 						{% if mediaResult.published %}
@@ -161,6 +177,13 @@
 						{% endif %}
 					</td>
 					<td>
+						{% if mediaResult.shared %}
+							All My Teams <input type="checkbox" class="imageShare" value="{{ mediaResult.id }}" checked>
+						{% else %}
+							All My Teams <input type="checkbox" class="imageShare" value="{{ mediaResult.id }}" >
+						{% endif %}						
+					</td>
+					<td>
 						{% if mediaResult.published %}
 							<a href="/cashcity/media/image/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
 								<p><strong>{{ mediaResult.title }} </strong><span class="label label-primary">Published</span></p>
@@ -198,6 +221,13 @@
 				            </div>
 					</td>
 					<td>
+						{% if mediaResult.shared %}
+							All My Teams <input type="checkbox" class="audioShare" value="{{ mediaResult.id }}" checked>
+						{% else %}
+							All My Teams <input type="checkbox" class="audioShare" value="{{ mediaResult.id }}" >
+						{% endif %}						
+					</td>
+					<td>
 						{% if mediaResult.published %}
 							<a href="/cashcity/media/audio/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
 								<p><strong>{{ mediaResult.title }} </strong><span class="label label-primary">Published</span></p>
@@ -226,6 +256,13 @@
 					<td>{{ mediaResult.getUserProfile.section }}</td>
 					<td><div class="note_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></td>
 					<td></td>
+					<td>
+						{% if mediaResult.shared %}
+							All My Teams <input type="checkbox" class="noteShare" value="{{ mediaResult.id }}" checked>
+						{% else %}
+							All My Teams <input type="checkbox" class="noteShare" value="{{ mediaResult.id }}" >
+						{% endif %}							
+					</td>
 					<td>
 						{% if mediaResult.published %}
 							<a href="/cashcity/media/note/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">

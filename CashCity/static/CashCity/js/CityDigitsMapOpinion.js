@@ -20,9 +20,6 @@ function CityDigitsMapOpinion(id, lat, lon, zoom) {
 	//load legend
 	$("#citydigits-legend"+id).attr({'class':'citydigits-legend'});
 
-	//load geocoder control
-	this.map.addControl(L.Control.geocoder());
-
 	//load mapbox scale bars
 	this.map.addControl(L.control.scale());
 

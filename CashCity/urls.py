@@ -42,6 +42,16 @@ urlpatterns = patterns('',
     url(r'^media/publish/audio/(?P<id>\d+)/$', views.mediaAudioPublish, name = 'mediaAudioPublish'),
     url(r'^media/publish/note/(?P<id>\d+)/$', views.mediaNotePublish, name = 'mediaNotePublish'),
     url(r'^media/publish/interview/(?P<id>\d+)/$', views.mediaInterviewPublish, name = 'mediaInterviewPublish'),
+    #media share
+    url(r'^media/share/image/(?P<id>\d+)/$', views.mediaImageShare, name = 'mediaImageShare'),
+    url(r'^media/share/audio/(?P<id>\d+)/$', views.mediaAudioShare, name = 'mediaAudioShare'),
+    url(r'^media/share/note/(?P<id>\d+)/$', views.mediaNoteShare, name = 'mediaNoteShare'),
+    url(r'^media/share/interview/(?P<id>\d+)/$', views.mediaInterviewShare, name = 'mediaInterviewShare'),
+    #media un-share
+    url(r'^media/unshare/image/(?P<id>\d+)/$', views.mediaImageUnshare, name = 'mediaImageUnshare'),
+    url(r'^media/unshare/audio/(?P<id>\d+)/$', views.mediaAudioUnshare, name = 'mediaAudioUnshare'),
+    url(r'^media/unshare/note/(?P<id>\d+)/$', views.mediaNoteUnshare, name = 'mediaNoteUnshare'),
+    url(r'^media/unshare/interview/(?P<id>\d+)/$', views.mediaInterviewUnshare, name = 'mediaInterviewUnshare'),
     # media single pages
     url(r'^media/image/(?P<id>\d+)/$', views.mediaPageImage, name='mediaPageImage'), 
     url(r'^media/audio/(?P<id>\d+)/$', views.mediaPageAudio, name='mediaPageAudio'), 

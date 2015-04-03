@@ -1056,7 +1056,7 @@ def mediaImageSaveDraft(request, id=None):
 @login_required
 def mediaImagePublish(request, id=None):
     """
-      Allows for moving images to draft
+      Allows for publishing images
     """
     context = RequestContext(request)
 
@@ -1078,7 +1078,30 @@ def mediaImagePublish(request, id=None):
         else:   
             return HttpResponseRedirect('/cashcity/accounts/profile/student/media/') 
             
-            
+@login_required           
+def mediaImageShare(request, id=None):
+    """
+      Allows for sharing images with other teams
+    """
+    if id:
+        mediaImage = MediaImage.objects.get(pk=id)
+        mediaImage.shared = True
+        mediaImage.save()
+
+    return HttpResponse({})
+
+@login_required
+def mediaImageUnshare(request, id=None):
+    """
+      Allows for removing sharing
+    """
+    if id:
+        mediaImage = MediaImage.objects.get(pk=id)
+        mediaImage.shared = False
+        mediaImage.save()
+
+    return HttpResponse({})
+
 
 # view for media audio form
 @login_required
@@ -1265,7 +1288,30 @@ def mediaAudioPublish(request, id=None):
         else:   
             return HttpResponseRedirect('/cashcity/accounts/profile/student/media/') 
             
-                     
+@login_required           
+def mediaAudioShare(request, id=None):
+    """
+      Allows for sharing audio with other teams
+    """
+    if id:
+        mediaAudio = MediaAudio.objects.get(pk=id)
+        mediaAudio.shared = True
+        mediaAudio.save()
+
+    return HttpResponse({})
+
+@login_required
+def mediaAudioUnshare(request, id=None):
+    """
+      Allows for removing sharing
+    """
+    if id:
+        mediaAudio = MediaAudio.objects.get(pk=id)
+        mediaAudio.shared = False
+        mediaAudio.save()
+
+    return HttpResponse({})
+                   
     
 # view for media notes form
 @login_required
@@ -1437,6 +1483,30 @@ def mediaNotePublish(request, id=None):
             return HttpResponseRedirect('/cashcity/accounts/profile/media/')
         else:   
             return HttpResponseRedirect('/cashcity/accounts/profile/student/media/') 
+
+@login_required           
+def mediaNoteShare(request, id=None):
+    """
+      Allows for sharing notes with other teams
+    """
+    if id:
+        mediaNote = MediaNote.objects.get(pk=id)
+        mediaNote.shared = True
+        mediaNote.save()
+
+    return HttpResponse({})
+
+@login_required
+def mediaNoteUnshare(request, id=None):
+    """
+      Allows for removing sharing
+    """
+    if id:
+        mediaNote = MediaNote.objects.get(pk=id)
+        mediaNote.shared = False
+        mediaNote.save()
+
+    return HttpResponse({})
             
     
 # view for media image form
@@ -1623,6 +1693,31 @@ def mediaInterviewPublish(request, id=None):
             return HttpResponseRedirect('/cashcity/accounts/profile/media/')
         else:   
             return HttpResponseRedirect('/cashcity/accounts/profile/student/media/') 
+
+@login_required           
+def mediaInterviewShare(request, id=None):
+    """
+      Allows for sharing interview with other teams
+    """
+    if id:
+        mediaInterview = MediaInterview.objects.get(pk=id)
+        mediaInterview.shared = True
+        mediaInterview.save()
+
+    return HttpResponse({})
+
+@login_required
+def mediaInterviewUnshare(request, id=None):
+    """
+      Allows for removing sharing
+    """
+    if id:
+        mediaInterview = MediaInterview.objects.get(pk=id)
+        mediaInterview.shared = False
+        mediaInterview.save()
+
+    return HttpResponse({})
+
 
 @login_required
 def mediaFormCommentImageRemove(request, id=None):

@@ -95,6 +95,10 @@ hr {
 	display: none !important;
 }
 
+.navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
+  max-height: 1000px;
+}
+
 @media (max-width: 768px) {
 
 	.map-ui, .citydigits-charts, .citydigits-legend, .media-button, .citydigits-navbar-right, .nav-tabs-media {

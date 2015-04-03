@@ -41,6 +41,14 @@
 
 {% if opinions %}
 <table class="table">
+	<thead>
+		<th>Section</th>
+		<th>Team Color</th>
+		<th>Cover Photo</th>
+		<th>Name</th>
+		<th>Date Added</th>
+		<th>Options</th>
+	</thead>
 	<tbody>
 	{% for opinion in opinions %}
 		{% if opinion.title %}

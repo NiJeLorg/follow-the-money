@@ -61,6 +61,14 @@
 
 {% if mediaResults %}
 <table class="table">
+	<thead>
+		<th>Section</th>
+		<th>Team Color</th>
+		<th>Media</th>
+		<th>Name</th>
+		<th>Date Added</th>
+		<th>Options</th>
+	</thead>
 	<tbody>
 		{% for mediaResult in mediaResults %}
 			{% if mediaResult.image and mediaResult.audio %}

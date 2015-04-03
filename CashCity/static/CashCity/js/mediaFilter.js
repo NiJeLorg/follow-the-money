@@ -63,6 +63,88 @@ $( document ).ready(function() {
 		    } // missing closing if brace
 
 		});
+
+		// share media with all teams
+		$(".imageShare").on("change", function(e){
+			$(this).is(':checked')
+		    //get search values
+			var mediaID = $(".imageShare").val();
+			// send ajax
+			if ($(this).is(':checked')) {
+				$.ajax({
+			        type: 'GET',
+			        url:  '/cashcity/media/share/image/' + mediaID + '/',
+			        success: function(data){}
+			    });				
+			} else {
+				$.ajax({
+			        type: 'GET',
+			        url:  '/cashcity/media/unshare/image/' + mediaID + '/',
+			        success: function(data){}
+			    });								
+			}
+		});
+
+		$(".interviewShare").on("change", function(e){
+			$(this).is(':checked')
+		    //get search values
+			var mediaID = $(".interviewShare").val();
+			// send ajax
+			if ($(this).is(':checked')) {
+				$.ajax({
+			        type: 'GET',
+			        url:  '/cashcity/media/share/interview/' + mediaID + '/',
+			        success: function(data){}
+			    });				
+			} else {
+				$.ajax({
+			        type: 'GET',
+			        url:  '/cashcity/media/unshare/interview/' + mediaID + '/',
+			        success: function(data){}
+			    });								
+			}
+		});	
+
+		$(".audioShare").on("change", function(e){
+			$(this).is(':checked')
+		    //get search values
+			var mediaID = $(".audioShare").val();
+			// send ajax
+			if ($(this).is(':checked')) {
+				$.ajax({
+			        type: 'GET',
+			        url:  '/cashcity/media/share/audio/' + mediaID + '/',
+			        success: function(data){}
+			    });				
+			} else {
+				$.ajax({
+			        type: 'GET',
+			        url:  '/cashcity/media/unshare/audio/' + mediaID + '/',
+			        success: function(data){}
+			    });								
+			}
+		});	
+
+		$(".noteShare").on("change", function(e){
+			$(this).is(':checked')
+		    //get search values
+			var mediaID = $(".noteShare").val();
+			// send ajax
+			if ($(this).is(':checked')) {
+				$.ajax({
+			        type: 'GET',
+			        url:  '/cashcity/media/share/note/' + mediaID + '/',
+			        success: function(data){}
+			    });				
+			} else {
+				$.ajax({
+			        type: 'GET',
+			        url:  '/cashcity/media/unshare/note/' + mediaID + '/',
+			        success: function(data){}
+			    });								
+			}
+		});	
+
 		
 	}
 	

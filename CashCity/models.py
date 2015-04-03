@@ -87,6 +87,7 @@ class MediaImage(models.Model):
     longitude = models.DecimalField(max_digits=10, decimal_places=6, null=False, blank=False)
     tags = TaggableManager(blank=True)
     published = models.BooleanField()
+    shared = models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
 
@@ -144,6 +145,7 @@ class MediaAudio(models.Model):
     longitude = models.DecimalField(max_digits=10, decimal_places=6, null=False, blank=False)
     tags = TaggableManager(blank=True)
     published = models.BooleanField()
+    shared = models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
 
@@ -201,6 +203,7 @@ class MediaNote(models.Model):
     longitude = models.DecimalField(max_digits=10, decimal_places=6, null=False, blank=False)
     tags = TaggableManager(blank=True)
     published = models.BooleanField()
+    shared = models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
     
@@ -261,6 +264,7 @@ class MediaInterview(models.Model):
     longitude = models.DecimalField(max_digits=10, decimal_places=6, null=False, blank=False)
     tags = TaggableManager(blank=True)
     published = models.BooleanField()
+    shared = models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
 

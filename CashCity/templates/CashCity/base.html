@@ -112,6 +112,11 @@
 	        <li><a href="{% url 'media' %}">MEDIA</a></li>
 	        <li><a href="{% url 'opinion' %}">OPINIONS</a></li>
 	        <li><a href="{% url 'about' %}">ABOUT</a></li>
+	        {% if user.is_authenticated %}
+		        <li class="showMobile"><a href="{% url 'auth_logout' %}">LOGOUT</a></li>
+	        {% else %}
+		        <li class="showMobile"><a href="{% url 'auth_login' %}">LOGIN</a></li>
+	        {% endif %}
 		  </ul>
 	      <ul class="nav navbar-nav navbar-right citydigits-navbar-right">
 			  {% if user.is_authenticated %}
