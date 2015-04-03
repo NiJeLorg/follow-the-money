@@ -522,7 +522,7 @@ $(document).ready( function() {
 			resetFormElement( $('#id_form-0-uploadImage') );			
 			resetFormElement( $('#readonlyField_1') );			
 			// set name of selected in the form field
-			$('#readonlyField_1').attr('placeholder', "Map Number " + id);
+			$('#readonlyField_1').attr('placeholder', "Map: " + $("p", this).text());
 			selected_1 = true;
 		}
 	});
@@ -677,7 +677,7 @@ $(document).ready( function() {
 			resetFormElement( $('#id_form-1-uploadImage') );			
 			resetFormElement( $('#readonlyField_2') );			
 			// set name of selected in the form field
-			$('#readonlyField_2').attr('placeholder', "Map Number " + id);
+			$('#readonlyField_2').attr('placeholder', "Map: " + $("p", this).text());
 			selected_2 = true;
 		}
 	});
@@ -833,7 +833,7 @@ $(document).ready( function() {
 			resetFormElement( $('#id_form-2-uploadImage') );			
 			resetFormElement( $('#readonlyField_3') );			
 			// set name of selected in the form field
-			$('#readonlyField_3').attr('placeholder', "Map Number " + id);
+			$('#readonlyField_3').attr('placeholder', "Map: " + $("p", this).text());
 			selected_3 = true;
 		}
 	});
@@ -988,7 +988,7 @@ $(document).ready( function() {
 			resetFormElement( $('#id_form-3-uploadImage') );			
 			resetFormElement( $('#readonlyField_4') );			
 			// set name of selected in the form field
-			$('#readonlyField_4').attr('placeholder', "Map Number " + id);
+			$('#readonlyField_4').attr('placeholder', "Map: " + $("p", this).text());
 			selected_4 = true;
 		}
 	});
@@ -1144,7 +1144,7 @@ $(document).ready( function() {
 			resetFormElement( $('#id_form-4-uploadImage') );			
 			resetFormElement( $('#readonlyField_5') );			
 			// set name of selected in the form field
-			$('#readonlyField_5').attr('placeholder', "Map Number " + id);
+			$('#readonlyField_5').attr('placeholder', "Map: " + $("p", this).text());
 			selected_5 = true;
 		}
 	});
@@ -1279,7 +1279,7 @@ $(document).ready( function() {
 						.replace("_4", "")
 						.replace("_5", "");
 		
-		$('#readonlyField_1').attr('placeholder', "Map Number " + id);
+		$('#readonlyField_1').attr('placeholder', "Map: " + $("p", this).text());
 	}
 	
 	// set class to active on edit form if media or map snap was selected previously
@@ -1309,7 +1309,7 @@ $(document).ready( function() {
 						.replace("_4", "")
 						.replace("_5", "");
 		
-		$('#readonlyField_2').attr('placeholder', "Map Number " + id);
+		$('#readonlyField_2').attr('placeholder', "Map: " + $("p", this).text());
 	}
 	
 	// set class to active on edit form if media or map snap was selected previously
@@ -1339,7 +1339,7 @@ $(document).ready( function() {
 						.replace("_4", "")
 						.replace("_5", "");
 		
-		$('#readonlyField_3').attr('placeholder', "Map Number " + id);
+		$('#readonlyField_3').attr('placeholder', "Map: " + $("p", this).text());
 	}
 	
 	// set class to active on edit form if media or map snap was selected previously
@@ -1369,7 +1369,7 @@ $(document).ready( function() {
 						.replace("_4", "")
 						.replace("_5", "");
 		
-		$('#readonlyField_4').attr('placeholder', "Map Number " + id);
+		$('#readonlyField_4').attr('placeholder', "Map: " + $("p", this).text());
 	}
 	
 	// set class to active on edit form if media or map snap was selected previously
@@ -1399,7 +1399,7 @@ $(document).ready( function() {
 						.replace("_4", "")
 						.replace("_5", "");
 		
-		$('#readonlyField_5').attr('placeholder', "Map Number " + id);
+		$('#readonlyField_5').attr('placeholder', "Map: " + $("p", this).text());
 	}
 	
 

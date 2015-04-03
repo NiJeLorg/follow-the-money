@@ -230,1171 +230,241 @@
 
 
 
-
-<div class="modal fade" id="sectionmedia_1" tabindex="-1" role="dialog" aria-labelledby="sectionmedia_1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-		<!-- Nav tabs -->
-		<ul class="nav nav-tabs nav-justified nav-tabs-media-modal" role="tablist">
-		    <li class="shouldbeActive"><a href="#images_1" role="tab" data-toggle="tab"><div class="image-button"></div>Image</a></li>
-		    <li><a href="#audio_1" role="tab" data-toggle="tab"><div class="audio-button"></div>Audio</a></li>
-		    <li><a href="#notes_1" role="tab" data-toggle="tab"><div class="note-button"></div>Note</a></li>
-		    <li><a href="#interviews_1" role="tab" data-toggle="tab"><div class="interview-button"></div>Interview</a></li>
-		</ul>
-		<!-- Tab panes -->
-		<div class="tab-content">
-		  <div class="tab-pane active" id="images_1">
-			<div id="imageSelect_1">
-				{% for image in mediaImages %}
-	            	<img class="imageSelect imageSelect_1" id="{{ image.id }}" title="{{ image.title }}" src="{% cropped_thumbnail image 'cropped_image_w640_h480' scale=0.25 %}">
-				{% endfor %}
-			</div>
-		  </div>
-		  <div class="tab-pane" id="audio_1">
-			<div id="audioSelect_1">
-				{% for audio in mediaAudio %}
-					<div id="{{ audio.id }}" title="{{ audio.title }}" class="container-fluid audioSelect_1 mediaSelect">
-						<div class="row">
-							<div class="col-xs-7">
-								<p><strong>{{ audio.title }}</strong></p>
-								{% if ".amr" in audio.audio.path or ".mov" in audio.audio.path or ".MOV" in audio.audio.path or ".gp3" in audio.audio.path or ".mp4" in audio.audio.path %}
-									<audio src="/media/CashCity/{{ audio.audio }}.mp3" preload="auto" controls></audio>
-								{% else %}
-									<audio src="/media/CashCity/{{ audio.audio }}" preload="auto" controls></audio>
-								{% endif %}
-							</div>
-							<div class="col-xs-5">
-								<p>{{ audio.caption }}</p>
-							</div>
-						</div>
-					</div>
-					<hr />
-				{% endfor %}
-			</div>
-		  </div>
-		  <div class="tab-pane" id="notes_1">
-			<div id="noteSelect_1">
-				{% for note in mediaNote %}
-					<div id="{{ note.id }}" title="{{ note.title }}" class="container-fluid noteSelect_1 mediaSelect">
-						<div class="row">
-							<div class="col-xs-6">
-								<p><strong>{{ note.title }}</strong></p>
-							</div>
-							<div class="col-xs-6">
-								<p>{{ note.notes }}</p>
+{% for form in opinionSectionsFormset %}
+	<div class="modal fade" id="sectionmedia_{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="sectionmedia_{{ forloop.counter }}" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-body">
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs nav-justified nav-tabs-media-modal" role="tablist">
+			    <li class="shouldbeActive"><a href="#images_{{ forloop.counter }}" role="tab" data-toggle="tab"><div class="image-button"></div>Image</a></li>
+			    <li><a href="#audio_{{ forloop.counter }}" role="tab" data-toggle="tab"><div class="audio-button"></div>Audio</a></li>
+			    <li><a href="#notes_{{ forloop.counter }}" role="tab" data-toggle="tab"><div class="note-button"></div>Note</a></li>
+			    <li><a href="#interviews_{{ forloop.counter }}" role="tab" data-toggle="tab"><div class="interview-button"></div>Interview</a></li>
+			</ul>
+			<!-- Tab panes -->
+			<div class="tab-content">
+			  <div class="tab-pane active" id="images_{{ forloop.counter }}">
+				<div id="imageSelect_{{ forloop.counter }}">
+					{% for image in mediaImages %}
+		            	<img class="imageSelect imageSelect_{{ forloop.counter }}" id="{{ image.id }}" title="{{ image.title }}" src="{% cropped_thumbnail image 'cropped_image_w640_h480' scale=0.25 %}">
+					{% endfor %}
+				</div>
+			  </div>
+			  <div class="tab-pane" id="audio_{{ forloop.counter }}">
+				<div id="audioSelect_{{ forloop.counter }}">
+					{% for audio in mediaAudio %}
+						<div id="{{ audio.id }}" title="{{ audio.title }}" class="container-fluid audioSelect_{{ forloop.counter }} mediaSelect">
+							<div class="row">
+								<div class="col-xs-7">
+									<p><strong>{{ audio.title }}</strong></p>
+									{% if ".amr" in audio.audio.path or ".mov" in audio.audio.path or ".MOV" in audio.audio.path or ".gp3" in audio.audio.path or ".mp4" in audio.audio.path %}
+										<audio src="/media/CashCity/{{ audio.audio }}.mp3" preload="auto" controls></audio>
+									{% else %}
+										<audio src="/media/CashCity/{{ audio.audio }}" preload="auto" controls></audio>
+									{% endif %}
+								</div>
+								<div class="col-xs-5">
+									<p>{{ audio.caption }}</p>
+								</div>
 							</div>
 						</div>
-					</div>
-					<hr />
-				{% endfor %}
-			</div>		  	
-		  </div>
-		  <div class="tab-pane" id="interviews_1">
-			<div id="interviewSelect_1">
-				{% for interview in mediaInterview %}
-					<div id="{{ interview.id }}" title="{{ interview.title }}" class="container-fluid interviewSelect_1 mediaSelect">
-						<div class="row">
-							<div class="col-xs-4">
-								<img class="imageSelect" src="{% cropped_thumbnail interview 'cropped_image_w640_h480' scale=0.25 %}">
-							</div>
-							<div class="col-xs-3">
-								<p><strong>{{ interview.title }}</strong></p>
-							</div>
-							<div class="col-xs-5">
-								<p>{{ interview.caption }}</p>
+						<hr />
+					{% endfor %}
+				</div>
+			  </div>
+			  <div class="tab-pane" id="notes_{{ forloop.counter }}">
+				<div id="noteSelect_{{ forloop.counter }}">
+					{% for note in mediaNote %}
+						<div id="{{ note.id }}" title="{{ note.title }}" class="container-fluid noteSelect_{{ forloop.counter }} mediaSelect">
+							<div class="row">
+								<div class="col-xs-6">
+									<p><strong>{{ note.title }}</strong></p>
+								</div>
+								<div class="col-xs-6">
+									<p>{{ note.notes }}</p>
+								</div>
 							</div>
 						</div>
-					</div>
-					<hr />
-				{% endfor %}
-			</div>		  			  	
-		  </div>
-		</div>		
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="submit_1">Select</button>
-      </div>
-    </div>
-  </div>
-</div>
+						<hr />
+					{% endfor %}
+				</div>		  	
+			  </div>
+			  <div class="tab-pane" id="interviews_{{ forloop.counter }}">
+				<div id="interviewSelect_{{ forloop.counter }}">
+					{% for interview in mediaInterview %}
+						<div id="{{ interview.id }}" title="{{ interview.title }}" class="container-fluid interviewSelect_{{ forloop.counter }} mediaSelect">
+							<div class="row">
+								<div class="col-xs-4">
+									<img class="imageSelect" src="{% cropped_thumbnail interview 'cropped_image_w640_h480' scale=0.25 %}">
+								</div>
+								<div class="col-xs-3">
+									<p><strong>{{ interview.title }}</strong></p>
+								</div>
+								<div class="col-xs-5">
+									<p>{{ interview.caption }}</p>
+								</div>
+							</div>
+						</div>
+						<hr />
+					{% endfor %}
+				</div>		  			  	
+			  </div>
+			</div>		
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	        <button type="button" class="btn btn-primary" id="submit_{{ forloop.counter }}">Select</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
-<div class="modal fade" id="sectionmapsnaps_1" tabindex="-1" role="dialog" aria-labelledby="sectionmapsnaps_1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    <div class="modal-header">
-      <div class="snaps-button"></div> <strong>Map Snaps</strong>
-    </div>
-      <div class="modal-body">
-		<div class="mapSnaps-content-container">	
+	<div class="modal fade" id="sectionmapsnaps_{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="sectionmapsnaps_{{ forloop.counter }}" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	    <div class="modal-header">
+	      <div class="snaps-button"></div> <strong>Map Snaps</strong>
+	    </div>
+	      <div class="modal-body">
+			<div class="mapSnaps-content-container">	
 
-		<!-- load thumbnail mini-maps -->
-		{% for mapSnap in mapSnaps %}
-			<div id="map{{ mapSnap.id }}_1" num="{{ mapSnap.id }}" class="map-thumbnail mediaSelect mapSnapSelect_1"></div>
-		{% endfor %}
-
-			<script type="text/javascript">	
+			<!-- load thumbnail mini-maps -->
 			{% for mapSnap in mapSnaps %}
-				var activeMap{{ mapSnap.id }}_1 = null;
+				<div id="map{{ mapSnap.id }}{{ forloop.parentloop.counter }}" num="{{ mapSnap.id }}" class="map-thumbnail mediaSelect mapSnapSelect_{{ forloop.parentloop.counter }}">
+					{% if mapSnap.title %}
+						<span class="mapSnapTitle"><p class="mapSnapTitleText">{{ mapSnap.title }}</p></span>
+					{% endif %}		
+				</div>
 			{% endfor %}
-			
-				function getMapSnaps1() {
-					{% for mapSnap in mapSnaps %}
-				    	var map{{ mapSnap.id }}_1 = new CityDigitsMapThumb({{ mapSnap.id }},'_1',{{ mapSnap.latitude }},{{ mapSnap.longitude }},{{ mapSnap.zoom }});
-						activeMap{{ mapSnap.id }}_1 = map{{ mapSnap.id }}_1;
-					
-						var MapLayer{{ mapSnap.id }}_1 = '{{ mapSnap.MapLayer }}';	
-						var LOC1{{ mapSnap.id }}_1 = '{{ mapSnap.PawnShops }}';
-						var LOC2{{ mapSnap.id }}_1 = '{{ mapSnap.CheckCashing }}';
-						var LOC3{{ mapSnap.id }}_1 = '{{ mapSnap.WireTransfer }}';
-						var LOC4{{ mapSnap.id }}_1 = '{{ mapSnap.Banks }}';
-						var LOC5{{ mapSnap.id }}_1 = '{{ mapSnap.McDonalds }}';
-						var LOC6{{ mapSnap.id }}_1 = '{{ mapSnap.SubwayLines }}';
-						var MEDIA{{ mapSnap.id }}_1= '{{ mapSnap.MEDIA }}';
-						
-						// add in layers that were turned on
-						if (MapLayer{{ mapSnap.id }}_1 == 'legendpoverty') {
-							map{{ mapSnap.id }}_1.load_MAP1_POP_POVERTY(activeMap{{ mapSnap.id }}_1);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_1 == 'legendmedhhinc') {
-							map{{ mapSnap.id }}_1.load_MAP2_MED_HH_INCOME(activeMap{{ mapSnap.id }}_1);	
-						}
-						if (MapLayer{{ mapSnap.id }}_1 == 'legendunemploy') {
-							map{{ mapSnap.id }}_1.load_MAP3_PCT_UNEMPLOYED(activeMap{{ mapSnap.id }}_1);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_1 == 'legendforeignborn') {
-							map{{ mapSnap.id }}_1.load_MAP4_PCT_FOREIGN_BORN(activeMap{{ mapSnap.id }}_1);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_1 == 'legendAFIpersqmi') {
-							map{{ mapSnap.id }}_1.load_CREATEMAP1_AFI_PER_SQMILE(activeMap{{ mapSnap.id }}_1);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_1 == 'legendbankspersqmi') {
-							map{{ mapSnap.id }}_1.load_CREATEMAP2_BANKS_PER_SQMILE(activeMap{{ mapSnap.id }}_1);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_1 == 'legendpawnsqmi') {
-							map{{ mapSnap.id }}_1.load_CREATEMAP3_PAWN_SHOPS_PER_SQMILE(activeMap{{ mapSnap.id }}_1);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_1 == 'legendmcdonaldspersqi') {
-							map{{ mapSnap.id }}_1.load_CREATEMAP4_MCDONALDS_PER_SQMILE(activeMap{{ mapSnap.id }}_1);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_1 == 'legendhouseholdsperAFI') {
-							map{{ mapSnap.id }}_1.load_CREATEMAP5_HH_PER_AFI(activeMap{{ mapSnap.id }}_1);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_1 == 'legendhouseholdsperbank') {
-							map{{ mapSnap.id }}_1.load_CREATEMAP6_HH_PER_BANK(activeMap{{ mapSnap.id }}_1);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_1 == 'legendhouseholdsperMcD') {
-							map{{ mapSnap.id }}_1.load_CREATEMAP7_HH_PER_MCDONALDS(activeMap{{ mapSnap.id }}_1);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_1 == 'legendhouseholdsperpawn') {
-							map{{ mapSnap.id }}_1.load_CREATEMAP8_HH_PER_PAWN_SHOP(activeMap{{ mapSnap.id }}_1);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_1 == 'legendAFIsperbank') {
-							map{{ mapSnap.id }}_1.load_CREATEMAP9_AFIS_PER_BANK(activeMap{{ mapSnap.id }}_1);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_1 == 'legendbanksperAFIs') {
-							map{{ mapSnap.id }}_1.load_CREATEMAP10_BANKS_PER_AFI(activeMap{{ mapSnap.id }}_1);	
-						}
 
-						function addLocations{{ mapSnap.id }}_1() {
-							if (LOC1{{ mapSnap.id }}_1 == 'True') {
-								map{{ mapSnap.id }}_1.load_LOC1_PAWN_SHOPS(activeMap{{ mapSnap.id }}_1);
-							}
-							// add in layers that were turned on
-							if (LOC2{{ mapSnap.id }}_1 == 'True') {
-								map{{ mapSnap.id }}_1.load_LOC2_CHECK_CASHING(activeMap{{ mapSnap.id }}_1);	
-							}
-							// add in layers that were turned on
-							if (LOC3{{ mapSnap.id }}_1 == 'True') {
-								map{{ mapSnap.id }}_1.load_LOC3_WIRE_TRANSFER(activeMap{{ mapSnap.id }}_1);	
-							}
-							// add in layers that were turned on
-							if (LOC4{{ mapSnap.id }}_1 == 'True') {
-								map{{ mapSnap.id }}_1.load_LOC4_BANKS(activeMap{{ mapSnap.id }}_1);
-							}	
-							// add in layers that were turned on
-							if (LOC5{{ mapSnap.id }}_1 == 'True') {
-								map{{ mapSnap.id }}_1.load_LOC5_MCDONALDS(activeMap{{ mapSnap.id }}_1);
-							}
-							// add in layers that were turned on
-							if (LOC6{{ mapSnap.id }}_1 == 'True') {
-								map{{ mapSnap.id }}_1.load_LOC6_SUBWAY_LINES(activeMap{{ mapSnap.id }}_1);	
-							}			
-
-							// add in layers that were turned on
-							if (MEDIA{{ mapSnap.id }}_1 == 'True') {
-								map{{ mapSnap.id }}_1.loadMEDIA(activeMap{{ mapSnap.id }}_1);	
-							}
-			
-						}
-
-						setTimeout ( addLocations{{ mapSnap.id }}_1, 3000 );	
-			
-						{% endfor %}
-						
-						// ensure thumbnail maps render in modals
-						$('#sectionmapsnaps_1').on('shown.bs.modal', function (e) {
-							// use invalidate size to make maps show appropriately
-							{% for mapSnap in mapSnaps %}
-								map{{ mapSnap.id }}_1.map.invalidateSize(false);
-							{% endfor %}
-						});
+				<script type="text/javascript">	
+				{% for mapSnap in mapSnaps %}
+					var activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }} = null;
+				{% endfor %}
 				
-			
-					}					
-		
-					$('#addMapSnaps_1').click(function() {
-						getMapSnaps1();
-					});
-				</script>
-
-
-		</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="submitmap_1">Select</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-<div class="modal fade" id="sectionmedia_2" tabindex="-1" role="dialog" aria-labelledby="sectionmedia_2" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-		<!-- Nav tabs -->
-		<ul class="nav nav-tabs nav-justified nav-tabs-media-modal" role="tablist">
-		    <li class="shouldbeActive"><a href="#images_2" role="tab" data-toggle="tab"><div class="image-button"></div>Image</a></li>
-		    <li><a href="#audio_2" role="tab" data-toggle="tab"><div class="audio-button"></div>Audio</a></li>
-		    <li><a href="#notes_2" role="tab" data-toggle="tab"><div class="note-button"></div>Note</a></li>
-		    <li><a href="#interviews_2" role="tab" data-toggle="tab"><div class="interview-button"></div>Interview</a></li>
-		</ul>
-		<!-- Tab panes -->
-		<div class="tab-content">
-		  <div class="tab-pane active" id="images_2">
-			<div id="imageSelect_2">
-				{% for image in mediaImages %}
-	            	<img class="imageSelect imageSelect_2" id="{{ image.id }}" title="{{ image.title }}" src="{% cropped_thumbnail image 'cropped_image_w640_h480' scale=0.25 %}">
-				{% endfor %}
-			</div>
-		  </div>
-		  <div class="tab-pane" id="audio_2">
-			<div id="audioSelect_2">
-				{% for audio in mediaAudio %}
-					<div id="{{ audio.id }}" title="{{ audio.title }}" class="container-fluid audioSelect_2 mediaSelect">
-						<div class="row">
-							<div class="col-xs-7">
-								<p><strong>{{ audio.title }}</strong></p>
-								{% if ".amr" in audio.audio.path or ".mov" in audio.audio.path or ".MOV" in audio.audio.path or ".gp3" in audio.audio.path or ".mp4" in audio.audio.path %}
-									<audio src="/media/CashCity/{{ audio.audio }}.mp3" preload="auto" controls></audio>
-								{% else %}
-									<audio src="/media/CashCity/{{ audio.audio }}" preload="auto" controls></audio>
-								{% endif %}
-							</div>
-							<div class="col-xs-5">
-								<p>{{ audio.caption }}</p>
-							</div>
-						</div>
-					</div>
-					<hr />
-				{% endfor %}
-			</div>
-		  </div>
-		  <div class="tab-pane" id="notes_2">
-			<div id="noteSelect_2">
-				{% for note in mediaNote %}
-					<div id="{{ note.id }}" title="{{ note.title }}" class="container-fluid noteSelect_2 mediaSelect">
-						<div class="row">
-							<div class="col-xs-6">
-								<p><strong>{{ note.title }}</strong></p>
-							</div>
-							<div class="col-xs-6">
-								<p>{{ note.notes }}</p>
-							</div>
-						</div>
-					</div>
-					<hr />
-				{% endfor %}
-			</div>		  	
-		  </div>
-		  <div class="tab-pane" id="interviews_2">
-			<div id="interviewSelect_2">
-				{% for interview in mediaInterview %}
-					<div id="{{ interview.id }}" title="{{ interview.title }}" class="container-fluid interviewSelect_2 mediaSelect">
-						<div class="row">
-							<div class="col-xs-4">
-								<img class="imageSelect" src="{% cropped_thumbnail interview 'cropped_image_w640_h480' scale=0.25 %}">
-							</div>
-							<div class="col-xs-3">
-								<p><strong>{{ interview.title }}</strong></p>
-							</div>
-							<div class="col-xs-5">
-								<p>{{ interview.caption }}</p>
-							</div>
-						</div>
-					</div>
-					<hr />
-				{% endfor %}
-			</div>		  			  	
-		  </div>
-		</div>		
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="submit_2">Select</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="sectionmapsnaps_2" tabindex="-1" role="dialog" aria-labelledby="sectionmapsnaps_2" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    <div class="modal-header">
-      <div class="snaps-button"></div> <strong>Map Snaps</strong>
-    </div>
-      <div class="modal-body">
-		<div class="mapSnaps-content-container">	
-
-		<!-- load thumbnail mini-maps -->
-		{% for mapSnap in mapSnaps %}
-			<div id="map{{ mapSnap.id }}_2" num="{{ mapSnap.id }}" class="map-thumbnail mediaSelect mapSnapSelect_2"></div>
-		{% endfor %}
-
-			<script type="text/javascript">	
-			{% for mapSnap in mapSnaps %}
-				var activeMap{{ mapSnap.id }}_2 = null;
-			{% endfor %}
-			
-				function getMapSnaps2() {
-					{% for mapSnap in mapSnaps %}
-				    	var map{{ mapSnap.id }}_2 = new CityDigitsMapThumb({{ mapSnap.id }},'_2',{{ mapSnap.latitude }},{{ mapSnap.longitude }},{{ mapSnap.zoom }});
-						activeMap{{ mapSnap.id }}_2 = map{{ mapSnap.id }}_2;
-					
-						var MapLayer{{ mapSnap.id }}_2 = '{{ mapSnap.MapLayer }}';	
-						var LOC1{{ mapSnap.id }}_2 = '{{ mapSnap.PawnShops }}';
-						var LOC2{{ mapSnap.id }}_2 = '{{ mapSnap.CheckCashing }}';
-						var LOC3{{ mapSnap.id }}_2 = '{{ mapSnap.WireTransfer }}';
-						var LOC4{{ mapSnap.id }}_2 = '{{ mapSnap.Banks }}';
-						var LOC5{{ mapSnap.id }}_2 = '{{ mapSnap.McDonalds }}';
-						var LOC6{{ mapSnap.id }}_2 = '{{ mapSnap.SubwayLines }}';
-						var MEDIA{{ mapSnap.id }}_2= '{{ mapSnap.MEDIA }}';
+					function getMapSnaps{{ forloop.counter }}() {
+						{% for mapSnap in mapSnaps %}
+					    	var map{{ mapSnap.id }}{{ forloop.parentloop.counter }} = new CityDigitsMapThumb({{ mapSnap.id }},{{ forloop.parentloop.counter }},{{ mapSnap.latitude }},{{ mapSnap.longitude }},{{ mapSnap.zoom }});
+							activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }} = map{{ mapSnap.id }}{{ forloop.parentloop.counter }};
 						
-						// add in layers that were turned on
-						if (MapLayer{{ mapSnap.id }}_2 == 'legendpoverty') {
-							map{{ mapSnap.id }}_2.load_MAP1_POP_POVERTY(activeMap{{ mapSnap.id }}_2);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_2 == 'legendmedhhinc') {
-							map{{ mapSnap.id }}_2.load_MAP2_MED_HH_INCOME(activeMap{{ mapSnap.id }}_2);	
-						}
-						if (MapLayer{{ mapSnap.id }}_2 == 'legendunemploy') {
-							map{{ mapSnap.id }}_2.load_MAP3_PCT_UNEMPLOYED(activeMap{{ mapSnap.id }}_2);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_2 == 'legendforeignborn') {
-							map{{ mapSnap.id }}_2.load_MAP4_PCT_FOREIGN_BORN(activeMap{{ mapSnap.id }}_2);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_2 == 'legendAFIpersqmi') {
-							map{{ mapSnap.id }}_2.load_CREATEMAP1_AFI_PER_SQMILE(activeMap{{ mapSnap.id }}_2);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_2 == 'legendbankspersqmi') {
-							map{{ mapSnap.id }}_2.load_CREATEMAP2_BANKS_PER_SQMILE(activeMap{{ mapSnap.id }}_2);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_2 == 'legendpawnsqmi') {
-							map{{ mapSnap.id }}_2.load_CREATEMAP3_PAWN_SHOPS_PER_SQMILE(activeMap{{ mapSnap.id }}_2);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_2 == 'legendmcdonaldspersqi') {
-							map{{ mapSnap.id }}_2.load_CREATEMAP4_MCDONALDS_PER_SQMILE(activeMap{{ mapSnap.id }}_2);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_2 == 'legendhouseholdsperAFI') {
-							map{{ mapSnap.id }}_2.load_CREATEMAP5_HH_PER_AFI(activeMap{{ mapSnap.id }}_2);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_2 == 'legendhouseholdsperbank') {
-							map{{ mapSnap.id }}_2.load_CREATEMAP6_HH_PER_BANK(activeMap{{ mapSnap.id }}_2);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_2 == 'legendhouseholdsperMcD') {
-							map{{ mapSnap.id }}_2.load_CREATEMAP7_HH_PER_MCDONALDS(activeMap{{ mapSnap.id }}_2);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_2 == 'legendhouseholdsperpawn') {
-							map{{ mapSnap.id }}_2.load_CREATEMAP8_HH_PER_PAWN_SHOP(activeMap{{ mapSnap.id }}_2);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_2 == 'legendAFIsperbank') {
-							map{{ mapSnap.id }}_2.load_CREATEMAP9_AFIS_PER_BANK(activeMap{{ mapSnap.id }}_2);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_2 == 'legendbanksperAFIs') {
-							map{{ mapSnap.id }}_2.load_CREATEMAP10_BANKS_PER_AFI(activeMap{{ mapSnap.id }}_2);	
-						}
+							var MapLayer{{ mapSnap.id }}{{ forloop.parentloop.counter }} = '{{ mapSnap.MapLayer }}';	
+							var LOC1{{ mapSnap.id }}{{ forloop.parentloop.counter }} = '{{ mapSnap.PawnShops }}';
+							var LOC2{{ mapSnap.id }}{{ forloop.parentloop.counter }} = '{{ mapSnap.CheckCashing }}';
+							var LOC3{{ mapSnap.id }}{{ forloop.parentloop.counter }} = '{{ mapSnap.WireTransfer }}';
+							var LOC4{{ mapSnap.id }}{{ forloop.parentloop.counter }} = '{{ mapSnap.Banks }}';
+							var LOC5{{ mapSnap.id }}{{ forloop.parentloop.counter }} = '{{ mapSnap.McDonalds }}';
+							var LOC6{{ mapSnap.id }}{{ forloop.parentloop.counter }} = '{{ mapSnap.SubwayLines }}';
+							var MEDIA{{ mapSnap.id }}{{ forloop.parentloop.counter }}= '{{ mapSnap.MEDIA }}';
 
-						function addLocations{{ mapSnap.id }}_2() {
-							if (LOC1{{ mapSnap.id }}_2 == 'True') {
-								map{{ mapSnap.id }}_2.load_LOC1_PAWN_SHOPS(activeMap{{ mapSnap.id }}_2);
+							
+							// add in layers that were turned on
+							if (MapLayer{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'legendpoverty') {
+								map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.load_MAP1_POP_POVERTY(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});	
+							} 
+							if (MapLayer{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'legendmedhhinc') {
+								map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.load_MAP2_MED_HH_INCOME(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});	
 							}
-							// add in layers that were turned on
-							if (LOC2{{ mapSnap.id }}_2 == 'True') {
-								map{{ mapSnap.id }}_2.load_LOC2_CHECK_CASHING(activeMap{{ mapSnap.id }}_2);	
+							if (MapLayer{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'legendunemploy') {
+								map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.load_MAP3_PCT_UNEMPLOYED(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});	
+							} 
+							if (MapLayer{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'legendforeignborn') {
+								map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.load_MAP4_PCT_FOREIGN_BORN(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});	
+							} 
+							if (MapLayer{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'legendAFIpersqmi') {
+								map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.load_CREATEMAP1_AFI_PER_SQMILE(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});	
+							} 
+							if (MapLayer{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'legendbankspersqmi') {
+								map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.load_CREATEMAP2_BANKS_PER_SQMILE(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});	
+							} 
+							if (MapLayer{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'legendpawnsqmi') {
+								map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.load_CREATEMAP3_PAWN_SHOPS_PER_SQMILE(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});	
+							} 
+							if (MapLayer{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'legendmcdonaldspersqi') {
+								map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.load_CREATEMAP4_MCDONALDS_PER_SQMILE(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});	
+							} 
+							if (MapLayer{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'legendhouseholdsperAFI') {
+								map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.load_CREATEMAP5_HH_PER_AFI(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});	
+							} 
+							if (MapLayer{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'legendhouseholdsperbank') {
+								map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.load_CREATEMAP6_HH_PER_BANK(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});	
+							} 
+							if (MapLayer{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'legendhouseholdsperMcD') {
+								map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.load_CREATEMAP7_HH_PER_MCDONALDS(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});	
+							} 
+							if (MapLayer{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'legendhouseholdsperpawn') {
+								map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.load_CREATEMAP8_HH_PER_PAWN_SHOP(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});	
+							} 
+							if (MapLayer{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'legendAFIsperbank') {
+								map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.load_CREATEMAP9_AFIS_PER_BANK(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});	
+							} 
+							if (MapLayer{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'legendbanksperAFIs') {
+								map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.load_CREATEMAP10_BANKS_PER_AFI(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});	
 							}
-							// add in layers that were turned on
-							if (LOC3{{ mapSnap.id }}_2 == 'True') {
-								map{{ mapSnap.id }}_2.load_LOC3_WIRE_TRANSFER(activeMap{{ mapSnap.id }}_2);	
-							}
-							// add in layers that were turned on
-							if (LOC4{{ mapSnap.id }}_2 == 'True') {
-								map{{ mapSnap.id }}_2.load_LOC4_BANKS(activeMap{{ mapSnap.id }}_2);
-							}	
-							// add in layers that were turned on
-							if (LOC5{{ mapSnap.id }}_2 == 'True') {
-								map{{ mapSnap.id }}_2.load_LOC5_MCDONALDS(activeMap{{ mapSnap.id }}_2);
-							}
-							// add in layers that were turned on
-							if (LOC6{{ mapSnap.id }}_2 == 'True') {
-								map{{ mapSnap.id }}_2.load_LOC6_SUBWAY_LINES(activeMap{{ mapSnap.id }}_2);	
-							}			
 
-							// add in layers that were turned on
-							if (MEDIA{{ mapSnap.id }}_2 == 'True') {
-								map{{ mapSnap.id }}_2.loadMEDIA(activeMap{{ mapSnap.id }}_2);	
-							}
-			
-						}
+							function addLocations{{ mapSnap.id }}{{ forloop.parentloop.counter }}() {
+								if (LOC1{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'True') {
+									map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.load_LOC1_PAWN_SHOPS(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});
+								}
+								// add in layers that were turned on
+								if (LOC2{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'True') {
+									map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.load_LOC2_CHECK_CASHING(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});	
+								}
+								// add in layers that were turned on
+								if (LOC3{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'True') {
+									map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.load_LOC3_WIRE_TRANSFER(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});	
+								}
+								// add in layers that were turned on
+								if (LOC4{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'True') {
+									map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.load_LOC4_BANKS(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});
+								}	
+								// add in layers that were turned on
+								if (LOC5{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'True') {
+									map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.load_LOC5_MCDONALDS(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});
+								}
+								// add in layers that were turned on
+								if (LOC6{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'True') {
+									map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.load_LOC6_SUBWAY_LINES(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});	
+								}			
 
-						setTimeout ( addLocations{{ mapSnap.id }}_2, 3000 );	
-			
-						{% endfor %}
-						
-						// ensure thumbnail maps render in modals
-						$('#sectionmapsnaps_2').on('shown.bs.modal', function (e) {
-							// use invalidate size to make maps show appropriately
-							{% for mapSnap in mapSnaps %}
-								map{{ mapSnap.id }}_2.map.invalidateSize(false);
-							{% endfor %}
-						});
+								// add in layers that were turned on
+								if (MEDIA{{ mapSnap.id }}{{ forloop.parentloop.counter }} == 'True') {
+									map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.loadMEDIA(activeMap{{ mapSnap.id }}{{ forloop.parentloop.counter }});	
+								}
 				
-			
-					}					
-		
-					$('#addMapSnaps_2').click(function() {
-						getMapSnaps2();
-					});
-				</script>
-
-
-		</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="submitmap_2">Select</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-<div class="modal fade" id="sectionmedia_3" tabindex="-1" role="dialog" aria-labelledby="sectionmedia_3" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-		<!-- Nav tabs -->
-		<ul class="nav nav-tabs nav-justified nav-tabs-media-modal" role="tablist">
-		    <li class="shouldbeActive"><a href="#images_3" role="tab" data-toggle="tab"><div class="image-button"></div>Image</a></li>
-		    <li><a href="#audio_3" role="tab" data-toggle="tab"><div class="audio-button"></div>Audio</a></li>
-		    <li><a href="#notes_3" role="tab" data-toggle="tab"><div class="note-button"></div>Note</a></li>
-		    <li><a href="#interviews_3" role="tab" data-toggle="tab"><div class="interview-button"></div>Interview</a></li>
-		</ul>
-		<!-- Tab panes -->
-		<div class="tab-content">
-		  <div class="tab-pane active" id="images_3">
-			<div id="imageSelect_3">
-				{% for image in mediaImages %}
-	            	<img class="imageSelect imageSelect_3" id="{{ image.id }}" title="{{ image.title }}" src="{% cropped_thumbnail image 'cropped_image_w640_h480' scale=0.25 %}">
-				{% endfor %}
-			</div>
-		  </div>
-		  <div class="tab-pane" id="audio_3">
-			<div id="audioSelect_3">
-				{% for audio in mediaAudio %}
-					<div id="{{ audio.id }}" title="{{ audio.title }}" class="container-fluid audioSelect_3 mediaSelect">
-						<div class="row">
-							<div class="col-xs-7">
-								<p><strong>{{ audio.title }}</strong></p>
-								{% if ".amr" in audio.audio.path or ".mov" in audio.audio.path or ".MOV" in audio.audio.path or ".gp3" in audio.audio.path or ".mp4" in audio.audio.path %}
-									<audio src="/media/CashCity/{{ audio.audio }}.mp3" preload="auto" controls></audio>
-								{% else %}
-									<audio src="/media/CashCity/{{ audio.audio }}" preload="auto" controls></audio>
-								{% endif %}
-							</div>
-							<div class="col-xs-5">
-								<p>{{ audio.caption }}</p>
-							</div>
-						</div>
-					</div>
-					<hr />
-				{% endfor %}
-			</div>
-		  </div>
-		  <div class="tab-pane" id="notes_3">
-			<div id="noteSelect_3">
-				{% for note in mediaNote %}
-					<div id="{{ note.id }}" title="{{ note.title }}" class="container-fluid noteSelect_3 mediaSelect">
-						<div class="row">
-							<div class="col-xs-6">
-								<p><strong>{{ note.title }}</strong></p>
-							</div>
-							<div class="col-xs-6">
-								<p>{{ note.notes }}</p>
-							</div>
-						</div>
-					</div>
-					<hr />
-				{% endfor %}
-			</div>		  	
-		  </div>
-		  <div class="tab-pane" id="interviews_3">
-			<div id="interviewSelect_3">
-				{% for interview in mediaInterview %}
-					<div id="{{ interview.id }}" title="{{ interview.title }}" class="container-fluid interviewSelect_3 mediaSelect">
-						<div class="row">
-							<div class="col-xs-4">
-								<img class="imageSelect" src="{% cropped_thumbnail interview 'cropped_image_w640_h480' scale=0.25 %}">
-							</div>
-							<div class="col-xs-3">
-								<p><strong>{{ interview.title }}</strong></p>
-							</div>
-							<div class="col-xs-5">
-								<p>{{ interview.caption }}</p>
-							</div>
-						</div>
-					</div>
-					<hr />
-				{% endfor %}
-			</div>		  			  	
-		  </div>
-		</div>		
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="submit_3">Select</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="sectionmapsnaps_3" tabindex="-1" role="dialog" aria-labelledby="sectionmapsnaps_3" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    <div class="modal-header">
-      <div class="snaps-button"></div> <strong>Map Snaps</strong>
-    </div>
-      <div class="modal-body">
-		<div class="mapSnaps-content-container">	
-
-		<!-- load thumbnail mini-maps -->
-		{% for mapSnap in mapSnaps %}
-			<div id="map{{ mapSnap.id }}_3" num="{{ mapSnap.id }}" class="map-thumbnail mediaSelect mapSnapSelect_3"></div>
-		{% endfor %}
-
-			<script type="text/javascript">	
-			{% for mapSnap in mapSnaps %}
-				var activeMap{{ mapSnap.id }}_3 = null;
-			{% endfor %}
-			
-				function getMapSnaps3() {
-					{% for mapSnap in mapSnaps %}
-				    	var map{{ mapSnap.id }}_3 = new CityDigitsMapThumb({{ mapSnap.id }},'_3',{{ mapSnap.latitude }},{{ mapSnap.longitude }},{{ mapSnap.zoom }});
-						activeMap{{ mapSnap.id }}_3 = map{{ mapSnap.id }}_3;
-					
-						var MapLayer{{ mapSnap.id }}_3 = '{{ mapSnap.MapLayer }}';	
-						var LOC1{{ mapSnap.id }}_3 = '{{ mapSnap.PawnShops }}';
-						var LOC2{{ mapSnap.id }}_3 = '{{ mapSnap.CheckCashing }}';
-						var LOC3{{ mapSnap.id }}_3 = '{{ mapSnap.WireTransfer }}';
-						var LOC4{{ mapSnap.id }}_3 = '{{ mapSnap.Banks }}';
-						var LOC5{{ mapSnap.id }}_3 = '{{ mapSnap.McDonalds }}';
-						var LOC6{{ mapSnap.id }}_3 = '{{ mapSnap.SubwayLines }}';
-						var MEDIA{{ mapSnap.id }}_3= '{{ mapSnap.MEDIA }}';
-						
-						// add in layers that were turned on
-						if (MapLayer{{ mapSnap.id }}_3 == 'legendpoverty') {
-							map{{ mapSnap.id }}_3.load_MAP1_POP_POVERTY(activeMap{{ mapSnap.id }}_3);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_3 == 'legendmedhhinc') {
-							map{{ mapSnap.id }}_3.load_MAP2_MED_HH_INCOME(activeMap{{ mapSnap.id }}_3);	
-						}
-						if (MapLayer{{ mapSnap.id }}_3 == 'legendunemploy') {
-							map{{ mapSnap.id }}_3.load_MAP3_PCT_UNEMPLOYED(activeMap{{ mapSnap.id }}_3);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_3 == 'legendforeignborn') {
-							map{{ mapSnap.id }}_3.load_MAP4_PCT_FOREIGN_BORN(activeMap{{ mapSnap.id }}_3);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_3 == 'legendAFIpersqmi') {
-							map{{ mapSnap.id }}_3.load_CREATEMAP1_AFI_PER_SQMILE(activeMap{{ mapSnap.id }}_3);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_3 == 'legendbankspersqmi') {
-							map{{ mapSnap.id }}_3.load_CREATEMAP2_BANKS_PER_SQMILE(activeMap{{ mapSnap.id }}_3);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_3 == 'legendpawnsqmi') {
-							map{{ mapSnap.id }}_3.load_CREATEMAP3_PAWN_SHOPS_PER_SQMILE(activeMap{{ mapSnap.id }}_3);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_3 == 'legendmcdonaldspersqi') {
-							map{{ mapSnap.id }}_3.load_CREATEMAP4_MCDONALDS_PER_SQMILE(activeMap{{ mapSnap.id }}_3);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_3 == 'legendhouseholdsperAFI') {
-							map{{ mapSnap.id }}_3.load_CREATEMAP5_HH_PER_AFI(activeMap{{ mapSnap.id }}_3);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_3 == 'legendhouseholdsperbank') {
-							map{{ mapSnap.id }}_3.load_CREATEMAP6_HH_PER_BANK(activeMap{{ mapSnap.id }}_3);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_3 == 'legendhouseholdsperMcD') {
-							map{{ mapSnap.id }}_3.load_CREATEMAP7_HH_PER_MCDONALDS(activeMap{{ mapSnap.id }}_3);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_3 == 'legendhouseholdsperpawn') {
-							map{{ mapSnap.id }}_3.load_CREATEMAP8_HH_PER_PAWN_SHOP(activeMap{{ mapSnap.id }}_3);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_3 == 'legendAFIsperbank') {
-							map{{ mapSnap.id }}_3.load_CREATEMAP9_AFIS_PER_BANK(activeMap{{ mapSnap.id }}_3);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_3 == 'legendbanksperAFIs') {
-							map{{ mapSnap.id }}_3.load_CREATEMAP10_BANKS_PER_AFI(activeMap{{ mapSnap.id }}_3);	
-						}
-
-						function addLocations{{ mapSnap.id }}_3() {
-							if (LOC1{{ mapSnap.id }}_3 == 'True') {
-								map{{ mapSnap.id }}_3.load_LOC1_PAWN_SHOPS(activeMap{{ mapSnap.id }}_3);
 							}
-							// add in layers that were turned on
-							if (LOC2{{ mapSnap.id }}_3 == 'True') {
-								map{{ mapSnap.id }}_3.load_LOC2_CHECK_CASHING(activeMap{{ mapSnap.id }}_3);	
-							}
-							// add in layers that were turned on
-							if (LOC3{{ mapSnap.id }}_3 == 'True') {
-								map{{ mapSnap.id }}_3.load_LOC3_WIRE_TRANSFER(activeMap{{ mapSnap.id }}_3);	
-							}
-							// add in layers that were turned on
-							if (LOC4{{ mapSnap.id }}_3 == 'True') {
-								map{{ mapSnap.id }}_3.load_LOC4_BANKS(activeMap{{ mapSnap.id }}_3);
-							}	
-							// add in layers that were turned on
-							if (LOC5{{ mapSnap.id }}_3 == 'True') {
-								map{{ mapSnap.id }}_3.load_LOC5_MCDONALDS(activeMap{{ mapSnap.id }}_3);
-							}
-							// add in layers that were turned on
-							if (LOC6{{ mapSnap.id }}_3 == 'True') {
-								map{{ mapSnap.id }}_3.load_LOC6_SUBWAY_LINES(activeMap{{ mapSnap.id }}_3);	
-							}			
 
-							// add in layers that were turned on
-							if (MEDIA{{ mapSnap.id }}_3 == 'True') {
-								map{{ mapSnap.id }}_3.loadMEDIA(activeMap{{ mapSnap.id }}_3);	
-							}
-			
-						}
-
-						setTimeout ( addLocations{{ mapSnap.id }}_3, 3000 );	
-			
-						{% endfor %}
-						
-						// ensure thumbnail maps render in modals
-						$('#sectionmapsnaps_3').on('shown.bs.modal', function (e) {
-							// use invalidate size to make maps show appropriately
-							{% for mapSnap in mapSnaps %}
-								map{{ mapSnap.id }}_3.map.invalidateSize(false);
-							{% endfor %}
-						});
+							setTimeout ( addLocations{{ mapSnap.id }}{{ forloop.parentloop.counter }}, 3000 );	
 				
-			
-					}					
-		
-					$('#addMapSnaps_3').click(function() {
-						getMapSnaps3();
-					});
-				</script>
-
-
-		</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="submitmap_3">Select</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-<div class="modal fade" id="sectionmedia_4" tabindex="-1" role="dialog" aria-labelledby="sectionmedia_4" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-		<!-- Nav tabs -->
-		<ul class="nav nav-tabs nav-justified nav-tabs-media-modal" role="tablist">
-		    <li class="shouldbeActive"><a href="#images_4" role="tab" data-toggle="tab"><div class="image-button"></div>Image</a></li>
-		    <li><a href="#audio_4" role="tab" data-toggle="tab"><div class="audio-button"></div>Audio</a></li>
-		    <li><a href="#notes_4" role="tab" data-toggle="tab"><div class="note-button"></div>Note</a></li>
-		    <li><a href="#interviews_4" role="tab" data-toggle="tab"><div class="interview-button"></div>Interview</a></li>
-		</ul>
-		<!-- Tab panes -->
-		<div class="tab-content">
-		  <div class="tab-pane active" id="images_4">
-			<div id="imageSelect_4">
-				{% for image in mediaImages %}
-	            	<img class="imageSelect imageSelect_4" id="{{ image.id }}" title="{{ image.title }}" src="{% cropped_thumbnail image 'cropped_image_w640_h480' scale=0.25 %}">
-				{% endfor %}
-			</div>
-		  </div>
-		  <div class="tab-pane" id="audio_4">
-			<div id="audioSelect_4">
-				{% for audio in mediaAudio %}
-					<div id="{{ audio.id }}" title="{{ audio.title }}" class="container-fluid audioSelect_4 mediaSelect">
-						<div class="row">
-							<div class="col-xs-7">
-								<p><strong>{{ audio.title }}</strong></p>
-								{% if ".amr" in audio.audio.path or ".mov" in audio.audio.path or ".MOV" in audio.audio.path or ".gp3" in audio.audio.path or ".mp4" in audio.audio.path %}
-									<audio src="/media/CashCity/{{ audio.audio }}.mp3" preload="auto" controls></audio>
-								{% else %}
-									<audio src="/media/CashCity/{{ audio.audio }}" preload="auto" controls></audio>
-								{% endif %}
-							</div>
-							<div class="col-xs-5">
-								<p>{{ audio.caption }}</p>
-							</div>
-						</div>
-					</div>
-					<hr />
-				{% endfor %}
-			</div>
-		  </div>
-		  <div class="tab-pane" id="notes_4">
-			<div id="noteSelect_4">
-				{% for note in mediaNote %}
-					<div id="{{ note.id }}" title="{{ note.title }}" class="container-fluid noteSelect_4 mediaSelect">
-						<div class="row">
-							<div class="col-xs-6">
-								<p><strong>{{ note.title }}</strong></p>
-							</div>
-							<div class="col-xs-6">
-								<p>{{ note.notes }}</p>
-							</div>
-						</div>
-					</div>
-					<hr />
-				{% endfor %}
-			</div>		  	
-		  </div>
-		  <div class="tab-pane" id="interviews_4">
-			<div id="interviewSelect_4">
-				{% for interview in mediaInterview %}
-					<div id="{{ interview.id }}" title="{{ interview.title }}" class="container-fluid interviewSelect_4 mediaSelect">
-						<div class="row">
-							<div class="col-xs-4">
-								<img class="imageSelect" src="{% cropped_thumbnail interview 'cropped_image_w640_h480' scale=0.25 %}">
-							</div>
-							<div class="col-xs-3">
-								<p><strong>{{ interview.title }}</strong></p>
-							</div>
-							<div class="col-xs-5">
-								<p>{{ interview.caption }}</p>
-							</div>
-						</div>
-					</div>
-					<hr />
-				{% endfor %}
-			</div>		  			  	
-		  </div>
-		</div>		
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="submit_4">Select</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="sectionmapsnaps_4" tabindex="-1" role="dialog" aria-labelledby="sectionmapsnaps_4" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    <div class="modal-header">
-      <div class="snaps-button"></div> <strong>Map Snaps</strong>
-    </div>
-      <div class="modal-body">
-		<div class="mapSnaps-content-container">	
-
-		<!-- load thumbnail mini-maps -->
-		{% for mapSnap in mapSnaps %}
-			<div id="map{{ mapSnap.id }}_4" num="{{ mapSnap.id }}" class="map-thumbnail mediaSelect mapSnapSelect_4"></div>
-		{% endfor %}
-
-			<script type="text/javascript">	
-			{% for mapSnap in mapSnaps %}
-				var activeMap{{ mapSnap.id }}_4 = null;
-			{% endfor %}
-			
-				function getMapSnaps4() {
-					{% for mapSnap in mapSnaps %}
-				    	var map{{ mapSnap.id }}_4 = new CityDigitsMapThumb({{ mapSnap.id }},'_4',{{ mapSnap.latitude }},{{ mapSnap.longitude }},{{ mapSnap.zoom }});
-						activeMap{{ mapSnap.id }}_4 = map{{ mapSnap.id }}_4;
-					
-						var MapLayer{{ mapSnap.id }}_4 = '{{ mapSnap.MapLayer }}';	
-						var LOC1{{ mapSnap.id }}_4 = '{{ mapSnap.PawnShops }}';
-						var LOC2{{ mapSnap.id }}_4 = '{{ mapSnap.CheckCashing }}';
-						var LOC3{{ mapSnap.id }}_4 = '{{ mapSnap.WireTransfer }}';
-						var LOC4{{ mapSnap.id }}_4 = '{{ mapSnap.Banks }}';
-						var LOC5{{ mapSnap.id }}_4 = '{{ mapSnap.McDonalds }}';
-						var LOC6{{ mapSnap.id }}_4 = '{{ mapSnap.SubwayLines }}';
-						var MEDIA{{ mapSnap.id }}_4= '{{ mapSnap.MEDIA }}';
-						
-						// add in layers that were turned on
-						if (MapLayer{{ mapSnap.id }}_4 == 'legendpoverty') {
-							map{{ mapSnap.id }}_4.load_MAP1_POP_POVERTY(activeMap{{ mapSnap.id }}_4);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_4 == 'legendmedhhinc') {
-							map{{ mapSnap.id }}_4.load_MAP2_MED_HH_INCOME(activeMap{{ mapSnap.id }}_4);	
-						}
-						if (MapLayer{{ mapSnap.id }}_4 == 'legendunemploy') {
-							map{{ mapSnap.id }}_4.load_MAP3_PCT_UNEMPLOYED(activeMap{{ mapSnap.id }}_4);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_4 == 'legendforeignborn') {
-							map{{ mapSnap.id }}_4.load_MAP4_PCT_FOREIGN_BORN(activeMap{{ mapSnap.id }}_4);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_4 == 'legendAFIpersqmi') {
-							map{{ mapSnap.id }}_4.load_CREATEMAP1_AFI_PER_SQMILE(activeMap{{ mapSnap.id }}_4);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_4 == 'legendbankspersqmi') {
-							map{{ mapSnap.id }}_4.load_CREATEMAP2_BANKS_PER_SQMILE(activeMap{{ mapSnap.id }}_4);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_4 == 'legendpawnsqmi') {
-							map{{ mapSnap.id }}_4.load_CREATEMAP3_PAWN_SHOPS_PER_SQMILE(activeMap{{ mapSnap.id }}_4);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_4 == 'legendmcdonaldspersqi') {
-							map{{ mapSnap.id }}_4.load_CREATEMAP4_MCDONALDS_PER_SQMILE(activeMap{{ mapSnap.id }}_4);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_4 == 'legendhouseholdsperAFI') {
-							map{{ mapSnap.id }}_4.load_CREATEMAP5_HH_PER_AFI(activeMap{{ mapSnap.id }}_4);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_4 == 'legendhouseholdsperbank') {
-							map{{ mapSnap.id }}_4.load_CREATEMAP6_HH_PER_BANK(activeMap{{ mapSnap.id }}_4);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_4 == 'legendhouseholdsperMcD') {
-							map{{ mapSnap.id }}_4.load_CREATEMAP7_HH_PER_MCDONALDS(activeMap{{ mapSnap.id }}_4);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_4 == 'legendhouseholdsperpawn') {
-							map{{ mapSnap.id }}_4.load_CREATEMAP8_HH_PER_PAWN_SHOP(activeMap{{ mapSnap.id }}_4);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_4 == 'legendAFIsperbank') {
-							map{{ mapSnap.id }}_4.load_CREATEMAP9_AFIS_PER_BANK(activeMap{{ mapSnap.id }}_4);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_4 == 'legendbanksperAFIs') {
-							map{{ mapSnap.id }}_4.load_CREATEMAP10_BANKS_PER_AFI(activeMap{{ mapSnap.id }}_4);	
-						}
-
-						function addLocations{{ mapSnap.id }}_4() {
-							if (LOC1{{ mapSnap.id }}_4 == 'True') {
-								map{{ mapSnap.id }}_4.load_LOC1_PAWN_SHOPS(activeMap{{ mapSnap.id }}_4);
-							}
-							// add in layers that were turned on
-							if (LOC2{{ mapSnap.id }}_4 == 'True') {
-								map{{ mapSnap.id }}_4.load_LOC2_CHECK_CASHING(activeMap{{ mapSnap.id }}_4);	
-							}
-							// add in layers that were turned on
-							if (LOC3{{ mapSnap.id }}_4 == 'True') {
-								map{{ mapSnap.id }}_4.load_LOC3_WIRE_TRANSFER(activeMap{{ mapSnap.id }}_4);	
-							}
-							// add in layers that were turned on
-							if (LOC4{{ mapSnap.id }}_4 == 'True') {
-								map{{ mapSnap.id }}_4.load_LOC4_BANKS(activeMap{{ mapSnap.id }}_4);
-							}	
-							// add in layers that were turned on
-							if (LOC5{{ mapSnap.id }}_4 == 'True') {
-								map{{ mapSnap.id }}_4.load_LOC5_MCDONALDS(activeMap{{ mapSnap.id }}_4);
-							}
-							// add in layers that were turned on
-							if (LOC6{{ mapSnap.id }}_4 == 'True') {
-								map{{ mapSnap.id }}_4.load_LOC6_SUBWAY_LINES(activeMap{{ mapSnap.id }}_4);	
-							}			
-
-							// add in layers that were turned on
-							if (MEDIA{{ mapSnap.id }}_4 == 'True') {
-								map{{ mapSnap.id }}_4.loadMEDIA(activeMap{{ mapSnap.id }}_4);	
-							}
-			
-						}
-
-						setTimeout ( addLocations{{ mapSnap.id }}_4, 3000 );	
-			
-						{% endfor %}
-						
-						// ensure thumbnail maps render in modals
-						$('#sectionmapsnaps_4').on('shown.bs.modal', function (e) {
-							// use invalidate size to make maps show appropriately
-							{% for mapSnap in mapSnaps %}
-								map{{ mapSnap.id }}_4.map.invalidateSize(false);
 							{% endfor %}
-						});
-				
-			
-					}					
-		
-					$('#addMapSnaps_4').click(function() {
-						getMapSnaps4();
-					});
-				</script>
-
-
-
-
-		</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="submitmap_4">Select</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-<div class="modal fade" id="sectionmedia_5" tabindex="-1" role="dialog" aria-labelledby="sectionmedia_5" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-		<!-- Nav tabs -->
-		<ul class="nav nav-tabs nav-justified nav-tabs-media-modal" role="tablist">
-		    <li class="shouldbeActive"><a href="#images_5" role="tab" data-toggle="tab"><div class="image-button"></div>Image</a></li>
-		    <li><a href="#audio_5" role="tab" data-toggle="tab"><div class="audio-button"></div>Audio</a></li>
-		    <li><a href="#notes_5" role="tab" data-toggle="tab"><div class="note-button"></div>Note</a></li>
-		    <li><a href="#interviews_5" role="tab" data-toggle="tab"><div class="interview-button"></div>Interview</a></li>
-		</ul>
-		<!-- Tab panes -->
-		<div class="tab-content">
-		  <div class="tab-pane active" id="images_5">
-			<div id="imageSelect_5">
-				{% for image in mediaImages %}
-	            	<img class="imageSelect imageSelect_5" id="{{ image.id }}" title="{{ image.title }}" src="{% cropped_thumbnail image 'cropped_image_w640_h480' scale=0.25 %}">
-				{% endfor %}
-			</div>
-		  </div>
-		  <div class="tab-pane" id="audio_5">
-			<div id="audioSelect_5">
-				{% for audio in mediaAudio %}
-					<div id="{{ audio.id }}" title="{{ audio.title }}" class="container-fluid audioSelect_5 mediaSelect">
-						<div class="row">
-							<div class="col-xs-7">
-								<p><strong>{{ audio.title }}</strong></p>
-								{% if ".amr" in audio.audio.path or ".mov" in audio.audio.path or ".MOV" in audio.audio.path or ".gp3" in audio.audio.path or ".mp4" in audio.audio.path %}
-									<audio src="/media/CashCity/{{ audio.audio }}.mp3" preload="auto" controls></audio>
-								{% else %}
-									<audio src="/media/CashCity/{{ audio.audio }}" preload="auto" controls></audio>
-								{% endif %}
-							</div>
-							<div class="col-xs-5">
-								<p>{{ audio.caption }}</p>
-							</div>
-						</div>
-					</div>
-					<hr />
-				{% endfor %}
-			</div>
-		  </div>
-		  <div class="tab-pane" id="notes_5">
-			<div id="noteSelect_5">
-				{% for note in mediaNote %}
-					<div id="{{ note.id }}" title="{{ note.title }}" class="container-fluid noteSelect_5 mediaSelect">
-						<div class="row">
-							<div class="col-xs-6">
-								<p><strong>{{ note.title }}</strong></p>
-							</div>
-							<div class="col-xs-6">
-								<p>{{ note.notes }}</p>
-							</div>
-						</div>
-					</div>
-					<hr />
-				{% endfor %}
-			</div>		  	
-		  </div>
-		  <div class="tab-pane" id="interviews_5">
-			<div id="interviewSelect_5">
-				{% for interview in mediaInterview %}
-					<div id="{{ interview.id }}" title="{{ interview.title }}" class="container-fluid interviewSelect_5 mediaSelect">
-						<div class="row">
-							<div class="col-xs-4">
-								<img class="imageSelect" src="{% cropped_thumbnail interview 'cropped_image_w640_h480' scale=0.25 %}">
-							</div>
-							<div class="col-xs-3">
-								<p><strong>{{ interview.title }}</strong></p>
-							</div>
-							<div class="col-xs-5">
-								<p>{{ interview.caption }}</p>
-							</div>
-						</div>
-					</div>
-					<hr />
-				{% endfor %}
-			</div>		  			  	
-		  </div>
-		</div>		
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="submit_5">Select</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="sectionmapsnaps_5" tabindex="-1" role="dialog" aria-labelledby="sectionmapsnaps_5" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    <div class="modal-header">
-      <div class="snaps-button"></div> <strong>Map Snaps</strong>
-    </div>
-      <div class="modal-body">
-		<div class="mapSnaps-content-container">	
-
-		<!-- load thumbnail mini-maps -->
-		{% for mapSnap in mapSnaps %}
-			<div id="map{{ mapSnap.id }}_5" num="{{ mapSnap.id }}" class="map-thumbnail mediaSelect mapSnapSelect_5"></div>
-		{% endfor %}
-
-			<script type="text/javascript">	
-			{% for mapSnap in mapSnaps %}
-				var activeMap{{ mapSnap.id }}_5 = null;
-			{% endfor %}
-			
-				function getMapSnaps5() {
-					{% for mapSnap in mapSnaps %}
-				    	var map{{ mapSnap.id }}_5 = new CityDigitsMapThumb({{ mapSnap.id }},'_5',{{ mapSnap.latitude }},{{ mapSnap.longitude }},{{ mapSnap.zoom }});
-						activeMap{{ mapSnap.id }}_5 = map{{ mapSnap.id }}_5;
+							
+							// ensure thumbnail maps render in modals
+							$('#sectionmapsnaps_'+{{ forloop.counter }}).on('shown.bs.modal', function (e) {
+								// use invalidate size to make maps show appropriately
+								{% for mapSnap in mapSnaps %}
+									map{{ mapSnap.id }}{{ forloop.parentloop.counter }}.map.invalidateSize(false);
+								{% endfor %}
+							});
 					
-						var MapLayer{{ mapSnap.id }}_5 = '{{ mapSnap.MapLayer }}';	
-						var LOC1{{ mapSnap.id }}_5 = '{{ mapSnap.PawnShops }}';
-						var LOC2{{ mapSnap.id }}_5 = '{{ mapSnap.CheckCashing }}';
-						var LOC3{{ mapSnap.id }}_5 = '{{ mapSnap.WireTransfer }}';
-						var LOC4{{ mapSnap.id }}_5 = '{{ mapSnap.Banks }}';
-						var LOC5{{ mapSnap.id }}_5 = '{{ mapSnap.McDonalds }}';
-						var LOC6{{ mapSnap.id }}_5 = '{{ mapSnap.SubwayLines }}';
-						var MEDIA{{ mapSnap.id }}_5= '{{ mapSnap.MEDIA }}';
-						
-						// add in layers that were turned on
-						if (MapLayer{{ mapSnap.id }}_5 == 'legendpoverty') {
-							map{{ mapSnap.id }}_5.load_MAP1_POP_POVERTY(activeMap{{ mapSnap.id }}_5);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_5 == 'legendmedhhinc') {
-							map{{ mapSnap.id }}_5.load_MAP2_MED_HH_INCOME(activeMap{{ mapSnap.id }}_5);	
-						}
-						if (MapLayer{{ mapSnap.id }}_5 == 'legendunemploy') {
-							map{{ mapSnap.id }}_5.load_MAP3_PCT_UNEMPLOYED(activeMap{{ mapSnap.id }}_5);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_5 == 'legendforeignborn') {
-							map{{ mapSnap.id }}_5.load_MAP4_PCT_FOREIGN_BORN(activeMap{{ mapSnap.id }}_5);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_5 == 'legendAFIpersqmi') {
-							map{{ mapSnap.id }}_5.load_CREATEMAP1_AFI_PER_SQMILE(activeMap{{ mapSnap.id }}_5);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_5 == 'legendbankspersqmi') {
-							map{{ mapSnap.id }}_5.load_CREATEMAP2_BANKS_PER_SQMILE(activeMap{{ mapSnap.id }}_5);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_5 == 'legendpawnsqmi') {
-							map{{ mapSnap.id }}_5.load_CREATEMAP3_PAWN_SHOPS_PER_SQMILE(activeMap{{ mapSnap.id }}_5);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_5 == 'legendmcdonaldspersqi') {
-							map{{ mapSnap.id }}_5.load_CREATEMAP4_MCDONALDS_PER_SQMILE(activeMap{{ mapSnap.id }}_5);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_5 == 'legendhouseholdsperAFI') {
-							map{{ mapSnap.id }}_5.load_CREATEMAP5_HH_PER_AFI(activeMap{{ mapSnap.id }}_5);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_5 == 'legendhouseholdsperbank') {
-							map{{ mapSnap.id }}_5.load_CREATEMAP6_HH_PER_BANK(activeMap{{ mapSnap.id }}_5);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_5 == 'legendhouseholdsperMcD') {
-							map{{ mapSnap.id }}_5.load_CREATEMAP7_HH_PER_MCDONALDS(activeMap{{ mapSnap.id }}_5);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_5 == 'legendhouseholdsperpawn') {
-							map{{ mapSnap.id }}_5.load_CREATEMAP8_HH_PER_PAWN_SHOP(activeMap{{ mapSnap.id }}_5);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_5 == 'legendAFIsperbank') {
-							map{{ mapSnap.id }}_5.load_CREATEMAP9_AFIS_PER_BANK(activeMap{{ mapSnap.id }}_5);	
-						} 
-						if (MapLayer{{ mapSnap.id }}_5 == 'legendbanksperAFIs') {
-							map{{ mapSnap.id }}_5.load_CREATEMAP10_BANKS_PER_AFI(activeMap{{ mapSnap.id }}_5);	
-						}
-
-						function addLocations{{ mapSnap.id }}_5() {
-							if (LOC1{{ mapSnap.id }}_5 == 'True') {
-								map{{ mapSnap.id }}_5.load_LOC1_PAWN_SHOPS(activeMap{{ mapSnap.id }}_5);
-							}
-							// add in layers that were turned on
-							if (LOC2{{ mapSnap.id }}_5 == 'True') {
-								map{{ mapSnap.id }}_5.load_LOC2_CHECK_CASHING(activeMap{{ mapSnap.id }}_5);	
-							}
-							// add in layers that were turned on
-							if (LOC3{{ mapSnap.id }}_5 == 'True') {
-								map{{ mapSnap.id }}_5.load_LOC3_WIRE_TRANSFER(activeMap{{ mapSnap.id }}_5);	
-							}
-							// add in layers that were turned on
-							if (LOC4{{ mapSnap.id }}_5 == 'True') {
-								map{{ mapSnap.id }}_5.load_LOC4_BANKS(activeMap{{ mapSnap.id }}_5);
-							}	
-							// add in layers that were turned on
-							if (LOC5{{ mapSnap.id }}_5 == 'True') {
-								map{{ mapSnap.id }}_5.load_LOC5_MCDONALDS(activeMap{{ mapSnap.id }}_5);
-							}
-							// add in layers that were turned on
-							if (LOC6{{ mapSnap.id }}_5 == 'True') {
-								map{{ mapSnap.id }}_5.load_LOC6_SUBWAY_LINES(activeMap{{ mapSnap.id }}_5);	
-							}			
-
-							// add in layers that were turned on
-							if (MEDIA{{ mapSnap.id }}_5 == 'True') {
-								map{{ mapSnap.id }}_5.loadMEDIA(activeMap{{ mapSnap.id }}_5);	
-							}
-			
-						}
-
-						setTimeout ( addLocations{{ mapSnap.id }}_5, 3000 );	
-			
-						{% endfor %}
-						
-						// ensure thumbnail maps render in modals
-						$('#sectionmapsnaps_5').on('shown.bs.modal', function (e) {
-							// use invalidate size to make maps show appropriately
-							{% for mapSnap in mapSnaps %}
-								map{{ mapSnap.id }}_5.map.invalidateSize(false);
-							{% endfor %}
-						});
 				
+						}					
 			
-					}					
-		
-					$('#addMapSnaps_5').click(function() {
-						getMapSnaps5();
-					});
-				</script>
+						$('#addMapSnaps_'+{{ forloop.counter }}).click(function() {
+							getMapSnaps{{ forloop.counter }}();
+						});
+					</script>
 
 
-		</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="submitmap_5">Select</button>
-      </div>
-    </div>
-  </div>
-</div>
+			</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	        <button type="button" class="btn btn-primary" id="submitmap_{{ forloop.counter }}">Select</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+{% endfor %}
 
 
 	
@@ -1425,6 +495,363 @@
 		var mediaInterviewGeojson = {% include 'CashCity/mapFilterMediaInterview.html' %};		
 	</script>
 	<script type="text/javascript" src="{% static 'CashCity/js/CityDigitsMapThumb.js' %}"></script>	
-	<script type="text/javascript" src="{% static 'CashCity/js/opinionForm.js' %}"></script>
-	<!-- set opinion number in each section -->	
+	<!--<script type="text/javascript" src="{% static 'CashCity/js/opinionForm.js' %}"></script>-->
+	
+	<!-- set up form js -->	
+	<script type="text/javascript">
+
+		$(document).ready( function() {
+			// outside loop js
+			// select image tab on page load
+			$('.shouldbeActive').addClass('active');
+
+			//cover photo submit button
+			var selected_coverPhoto = false;
+			$('#submit_coverPhoto').click(function() {
+				// alert if nothing selected 
+				if (selected_coverPhoto) {
+					// close modal
+					$('#coverphoto').modal('hide')
+				} else {
+					// alert
+					alert('Nothing has been selected. Please select a cover photo.');
+				}
+			});
+
+			// highlighting for cover photo
+			$(".coverPhotoSelect").click(function() {
+				if ($(this).hasClass("active")) {
+					$(this).removeClass('active');
+					$('#id_coverPhoto').val(null);
+					$('#coverPhotoPlaceholder').attr('placeholder', 'Nothing Selected');
+					selected_coverPhoto = false;
+				} else {			
+					// remove all other active classes and set clicked to active
+			        $(".coverPhotoSelect").removeClass('active');
+					$(this).addClass('active');
+					// set other values to null
+					$('#id_coverPhoto').val(this.id);
+					// set name of selected in the form field
+					$('#coverPhotoPlaceholder').attr('placeholder', this.title);
+					selected_coverPhoto = true;			
+				}
+			});
+
+			// set class to active on edit form if cover photo
+			if ( $('#id_coverPhoto').val() != '' ) {
+				$( "#coverPhotoGallery > #" + $('#id_coverPhoto').val() ).addClass('active');	
+				$('#coverPhotoPlaceholder').attr('placeholder', $( "#coverPhotoGallery > #" + $('#id_coverPhoto').val() )[0].title);
+			}
+
+			// loop through sections creating section specific js
+			{% for form in opinionSectionsFormset %}			
+
+				{% if forloop.first %}
+				{% else %}
+					if ( ( $('#id_form-'+{{ forloop.counter0 }}+'-image').val() == '' ) && ( $('#id_form-'+{{ forloop.counter0 }}+'-audio').val() == '' ) && ( $('#id_form-'+{{ forloop.counter0 }}+'-note').val() == '' ) &&  ( $('#id_form-'+{{ forloop.counter0 }}+'-interview').val() == '' ) && ( $('#id_form-'+{{ forloop.counter0 }}+'-mapSnap').val() == '' ) && ( $('#readonlyField_'+{{ forloop.counter }}).attr('placeholder') == 'Nothing Selected' )  ){
+						$('#section_'+{{ forloop.counter0 }}).hide();		
+					}
+				{% endif %}
+
+				// hide form fields that django needs for storing opinions
+				$('#id_coverPhoto').hide();
+				
+				$('#id_form-'+{{ forloop.counter0 }}+'-sectionNumber').hide();
+				$('#id_form-'+{{ forloop.counter0 }}+'-image').hide();
+				$('#id_form-'+{{ forloop.counter0 }}+'-audio').hide();
+				$('#id_form-'+{{ forloop.counter0 }}+'-note').hide();
+				$('#id_form-'+{{ forloop.counter0 }}+'-interview').hide();
+				$('#id_form-'+{{ forloop.counter0 }}+'-mapSnap').hide();
+
+				// add section numbers to form field
+				$('#id_form-'+{{ forloop.counter0 }}+'-sectionNumber').val({{ forloop.counter }});
+				$('#id_form-'+{{ forloop.counter0 }}+'-sectionNumber').val({{ forloop.counter }});
+				$('#id_form-'+{{ forloop.counter0 }}+'-sectionNumber').val({{ forloop.counter }});
+				$('#id_form-'+{{ forloop.counter0 }}+'-sectionNumber').val({{ forloop.counter }});
+				$('#id_form-'+{{ forloop.counter0 }}+'-sectionNumber').val({{ forloop.counter }});
+
+				// add sections
+				$('#addSection_'+{{ forloop.counter }}).click(function() {
+					$('#section_'+{{ forloop.counter }}).show();
+					$('#addSection_'+{{ forloop.counter }}).attr("disabled","disabled");
+				});	
+
+				// remove sections
+				$('#removeSection_'+{{ forloop.counter0 }}).click(function() {
+					// set form data to null
+					$('#id_form-'+{{ forloop.counter0 }}+'-image').val(null);
+					$('#id_form-'+{{ forloop.counter0 }}+'-audio').val(null);
+					$('#id_form-'+{{ forloop.counter0 }}+'-note').val(null);
+					$('#id_form-'+{{ forloop.counter0 }}+'-interview').val(null);
+					$('#id_form-'+{{ forloop.counter0 }}+'-mapSnap').val(null);
+					$('#id_form-'+{{ forloop.counter0 }}+'-text').val(null);
+					// ensure all media is deselected
+			        $(".imageSelect_"+{{ forloop.counter }}).removeClass('active');
+			        $(".audioSelect_"+{{ forloop.counter }}).removeClass('active');
+			        $(".noteSelect_"+{{ forloop.counter }}).removeClass('active');
+			        $(".interviewSelect_"+{{ forloop.counter }}).removeClass('active');
+					// ensure map snap is not selected
+			        $(".mapSnapSelect_"+{{ forloop.counter }}).removeClass('active');
+					// remove any uploaded images
+					resetFormElement( $('#id_form-'+{{ forloop.counter0 }}+'-uploadImage') );			
+					resetFormElement( $('#readonlyField_'+{{ forloop.counter }}) );			
+					// reset the name of selected in the form field to "Nothing selected"
+					$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', 'Nothing Selected');
+					selected_{{ forloop.counter }} = false;				
+				});	
+
+				//submit buttons
+				var selected_{{ forloop.counter }} = false;
+				$('#submit_'+{{ forloop.counter }}).click(function() {
+					// alert if nothing selected 
+					if (selected_{{ forloop.counter }}) {
+						// close modal
+						$('#sectionmedia_'+{{ forloop.counter }}).modal('hide')
+					} else {
+						// alert
+						alert('Nothing has been selected. Please select media, map snaps or upload a new image.');
+					}
+				});
+
+				$('#submitmap_'+{{ forloop.counter }}).click(function() {
+					// alert if nothing selected 
+					if (selected_{{ forloop.counter }}) {
+						// close modal
+						$('#sectionmapsnaps_'+{{ forloop.counter }}).modal('hide')
+					} else {
+						// alert
+						alert('Nothing has been selected. Please select media, map snaps or upload a new image.');
+					}
+				});
+
+				// highlighting for section 1
+				$(".imageSelect_"+{{ forloop.counter }}).click(function() {
+					if ($(this).hasClass("active")) {
+						$(this).removeClass('active');
+						$('#id_form-'+{{ forloop.counter0 }}+'-image').val(null);
+						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', 'Nothing Selected');
+						selected_{{ forloop.counter }} = false;
+					} else {			
+						// remove all other active classes and set clicked to active
+				        $(".imageSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".audioSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".noteSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".interviewSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".mapSnapSelect_"+{{ forloop.counter }}).removeClass('active');
+						$(this).addClass('active');
+						// set other values to null
+						$('#id_form-'+{{ forloop.counter0 }}+'-image').val(this.id);
+						$('#id_form-'+{{ forloop.counter0 }}+'-audio').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-note').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-interview').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-mapSnap').val(null);
+						// remove any uploaded images
+						resetFormElement( $('#id_form-'+{{ forloop.counter0 }}+'-uploadImage') );			
+						resetFormElement( $('#readonlyField_'+{{ forloop.counter }}) );			
+						// set name of selected in the form field
+						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', this.title);
+						selected_{{ forloop.counter }} = true;			
+					}
+				});
+
+				$(".audioSelect_"+{{ forloop.counter }}).click(function() {
+					if ($(this).hasClass("active")) {
+						$(this).removeClass('active');
+						$('#id_form-0-audio').val(null);
+						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', 'Nothing Selected');
+						selected_{{ forloop.counter }} = false;
+					} else {
+						// remove all other active classes and set clicked to active
+				        $(".imageSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".audioSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".noteSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".interviewSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".mapSnapSelect_"+{{ forloop.counter }}).removeClass('active');
+						$(this).addClass('active');
+						// set other values to null
+						$('#id_form-'+{{ forloop.counter0 }}+'-image').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-audio').val(this.id);
+						$('#id_form-'+{{ forloop.counter0 }}+'-note').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-interview').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-mapSnap').val(null);
+						// remove any uploaded images
+						resetFormElement( $('#id_form-'+{{ forloop.counter0 }}+'-uploadImage') );			
+						resetFormElement( $('#readonlyField_'+{{ forloop.counter }}) );			
+						// set name of selected in the form field
+						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', this.title);
+						selected_{{ forloop.counter }} = true;
+					}
+				});
+
+				$(".noteSelect_"+{{ forloop.counter }}).click(function() {
+					if ($(this).hasClass("active")) {
+						$(this).removeClass('active');
+						$('#id_form-0-note').val(null);
+						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', 'Nothing Selected');
+						selected_{{ forloop.counter }} = false;
+					} else {
+						// remove all other active classes and set clicked to active
+				        $(".imageSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".audioSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".noteSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".interviewSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".mapSnapSelect_"+{{ forloop.counter }}).removeClass('active');
+						$(this).addClass('active');
+						// set other values to null
+						$('#id_form-'+{{ forloop.counter0 }}+'-image').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-audio').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-note').val(this.id);
+						$('#id_form-'+{{ forloop.counter0 }}+'-interview').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-mapSnap').val(null);
+						// remove any uploaded images
+						resetFormElement( $('#id_form-'+{{ forloop.counter0 }}+'-uploadImage') );			
+						resetFormElement( $('#readonlyField_'+{{ forloop.counter }}) );			
+						// set name of selected in the form field
+						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', this.title);
+						selected_{{ forloop.counter }} = true;
+					}
+				});
+				
+				$(".interviewSelect_"+{{ forloop.counter }}).click(function() {
+					if ($(this).hasClass("active")) {
+						$(this).removeClass('active');
+						$('#id_form-0-interview').val(null);
+						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', 'Nothing Selected');
+						selected_{{ forloop.counter }} = false;
+					} else {			
+						// remove all other active classes and set clicked to active
+				        $(".imageSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".audioSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".noteSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".interviewSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".mapSnapSelect_"+{{ forloop.counter }}).removeClass('active');
+						$(this).addClass('active');
+						// set other values to null
+						$('#id_form-'+{{ forloop.counter0 }}+'-image').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-audio').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-note').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-interview').val(this.id);
+						$('#id_form-'+{{ forloop.counter0 }}+'-mapSnap').val(null);
+						// remove any uploaded images
+						resetFormElement( $('#id_form-'+{{ forloop.counter0 }}+'-uploadImage') );			
+						resetFormElement( $('#readonlyField_'+{{ forloop.counter }}) );			
+						// set name of selected in the form field
+						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', this.title);
+						selected_{{ forloop.counter }} = true;
+					}
+				});
+				
+				$(".mapSnapSelect_"+{{ forloop.counter }}).click(function() {
+					if ($(this).hasClass("active")) {
+						$(this).removeClass('active');
+						$('#id_form-0-mapSnap').val(null);
+						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', 'Nothing Selected');
+						selected_{{ forloop.counter }} = false;
+					} else {
+						// remove all other active classes and set clicked to active
+				        $(".imageSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".audioSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".noteSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".interviewSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".mapSnapSelect_"+{{ forloop.counter }}).removeClass('active');
+						$(this).addClass('active');
+						// get id num
+						var id = this.id.replace("map", "");
+						id = id.substr(0, 1);
+										
+						// set other values to null
+						$('#id_form-'+{{ forloop.counter0 }}+'-image').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-audio').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-note').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-interview').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-mapSnap').val(id);
+						// remove any uploaded images
+						resetFormElement( $('#id_form-'+{{ forloop.counter0 }}+'-uploadImage') );			
+						resetFormElement( $('#readonlyField_'+{{ forloop.counter }}) );			
+						// set name of selected in the form field
+						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', "Map: " + $("p", this).text());
+						selected_{{ forloop.counter }} = true;
+					}
+				});
+
+				// set class to active on edit form if media or map snap was selected previously
+				if ( $('#id_form-'+{{ forloop.counter0 }}+'-image').val() != '' ) {
+					$( "#imageSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-image').val() ).addClass('active');	
+					$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', $( "#imageSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-image').val() )[0].title);
+				}
+
+				if ( $('#id_form-'+{{ forloop.counter0 }}+'-audio').val() != '' ) {
+					$( "#audioSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-audio').val() ).addClass('active');
+					$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', $( "#audioSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-audio').val() )[0].title);
+				}
+				if ( $('#id_form-'+{{ forloop.counter0 }}+'-note').val() != '' ) {
+					$( "#noteSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-note').val() ).addClass('active');
+					$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', $( "#noteSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-note').val() )[0].title);
+				}
+				if ( $('#id_form-'+{{ forloop.counter0 }}+'-interview').val() != '' ) {
+					$( "#interviewSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-interview').val() ).addClass('active');
+					$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', $( "#interviewSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-interview').val() )[0].title);
+				}
+				if ( $('#id_form-'+{{ forloop.counter0 }}+'-mapSnap').val() != '' ) {
+					$( "#map" + $('#id_form-'+{{ forloop.counter0 }}+'-mapSnap').val() + {{ forloop.counter }} ).addClass('active');
+					// get id num
+					var id = $("#map" + $('#id_form-'+{{ forloop.counter0 }}+'-mapSnap').val() + {{ forloop.counter }} )[0].id.replace("map", "");
+					id = id.substr(0, 1);
+					
+					$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', "Map: " + $("p", this).text());
+				}
+
+			{% endfor %}
+
+
+			// set up but-file type listener on fileselect
+		    $('.btn-file :file').on('fileselect', function(event, numFiles, label) {       
+		        var input = $(this).parents('.fileGroup').find(':text'),
+		            log = numFiles > 1 ? numFiles + ' files selected' : label;        
+		        if( input.length ) {
+		            input.val(log);
+		        } else {
+		            if( log ) alert(log);
+		        }
+		        {% for form in opinionSectionsFormset %}
+					// deselect all other areas
+					if (this.id == 'id_form-'+{{ forloop.counter0 }}+'-uploadImage') {
+						// remove all other active classes and set clicked to active
+				        $(".imageSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".audioSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".noteSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".interviewSelect_"+{{ forloop.counter }}).removeClass('active');
+				        $(".mapSnapSelect_"+{{ forloop.counter }}).removeClass('active');
+						// set other values to null
+						$('#id_form-'+{{ forloop.counter0 }}+'-image').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-audio').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-note').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-interview').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-mapSnap').val(null);			
+					}       
+		        {% endfor %}
+
+		    });
+
+			// when file select buttons are clicked add in the file name
+			$(document).on('change', '.btn-file :file', function() {
+				var input = $(this),
+				numFiles = input.get(0).files ? input.get(0).files.length : 1,
+				label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+				input.trigger('fileselect', [numFiles, label]);
+			});
+
+
+		});
+
+		// for clearing upload input elements	
+		function resetFormElement(e) {
+		    e.wrap('<form>').closest('form').get(0).reset();
+		    e.unwrap();	
+		}
+
+
+	</script>
+
+
 {% endblock %}

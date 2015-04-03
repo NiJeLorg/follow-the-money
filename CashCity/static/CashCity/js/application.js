@@ -40,7 +40,7 @@ $().ready(new function(){
     var myMap = new CityDigitsMap();
     myMap.loadMarkers();
     myMap.loadMedia();
-	myMap.showLocationsOnPageLoad();
+    myMap.showLocationsOnPageLoad();
     MY_MAP = myMap;	
 		
 });

@@ -2,8 +2,12 @@
 
 <!-- load thumbnail mini-maps -->
 {% for mapSnap in mapSnaps %}
-	<span id="{{ mapSnap.id }}" class="removeMapSnap trash-icon"></span>
-	<div id="map{{ mapSnap.id }}" title="Remove this map." class="map-thumbnail mediaSelect"></div>
+	<div id="map{{ mapSnap.id }}" title="Remove this map." class="map-thumbnail mediaSelect">
+		<span id="{{ mapSnap.id }}" class="removeMapSnap trash-icon"></span>
+		{% if mapSnap.title %}
+			<span class="mapSnapTitle"><p class="mapSnapTitleText">{{ mapSnap.title }}</p></span>
+		{% endif %}		
+	</div>
 	{{ id }}
 {% endfor %}
 
@@ -26,6 +30,11 @@
 				var LOC5{{ mapSnap.id }} = '{{ mapSnap.McDonalds }}';
 				var LOC6{{ mapSnap.id }} = '{{ mapSnap.SubwayLines }}';
 				var MEDIA{{ mapSnap.id }} = '{{ mapSnap.MEDIA }}';
+				var title{{ mapSnap.id }} = '{{ mapSnap.title }}';
+				var popup2Content{{ mapSnap.id }} = '{{ mapSnap.popup2Content }}';
+				var popup2LatLon{{ mapSnap.id }} = '{{ mapSnap.popup2LatLon }}';
+				var chartOn{{ mapSnap.id }} = '{{ mapSnap.chartOn }}';
+
 				
 				// load map layers if not loaded yet
 				if (layersLoaded == false) {
@@ -126,6 +135,11 @@
 						// remove all other active classes and set clicked to active
 				        $(".mediaSelect").removeClass('active');
 						$(this).addClass('active');
+
+						// close any open charts
+						if (mainChart == 1) {
+							CityDigitsMap.removeChart();
+						}
 						
 						// set map zoom and center
 						var zoom = {{ mapSnap.zoom }} + 3;
@@ -274,6 +288,43 @@
 							$("#var2Select").selectpicker('refresh');
 							$('#var2Select').selectpicker('val', 'Alternative Financial Insitutions');
 							$("#normalizationText").html('Banks per Alternative Financial Insitution');	
+						}
+
+						// open the legend
+						if (mainLayer) {
+							$('#legendid').attr('class', mainLayer._leaflet_id);
+						} else {
+							$('#legendid').attr('class', 'legendClosed');
+						}
+
+						// open chart if chartOn is true
+						if (chartOn{{ mapSnap.id }} == 'True') {
+							var layerId = mainLayer._leaflet_id;
+							if (!mainChart) {
+								// draw chart
+								CityDigitsMap.drawChart(layerId);
+							}							
+						}
+
+						// if there's popup content open popup and fill it with that content
+						if (popup2Content{{ mapSnap.id }} && popup2LatLon{{ mapSnap.id }}) {
+							// close any popups
+							if (!MY_MAP.popup2._isOpen) {
+								// close all popups first
+								MY_MAP.map.closePopup();
+							}
+
+							var popup2LatLon = popup2LatLon{{ mapSnap.id }}.split(',');
+							var popup2Lat = parseFloat(popup2LatLon[0]);
+							var popup2Lon = parseFloat(popup2LatLon[1]);
+							var latlonObject = L.latLng(popup2Lat, popup2Lon);
+							var txt = document.createElement("textarea");
+							txt.innerHTML = popup2Content{{ mapSnap.id }};
+							s = txt.value;
+							MY_MAP.popup2.setLatLng(latlonObject);
+							MY_MAP.popup2.setContent(s);
+							MY_MAP.popup2.openOn(MY_MAP.map);
+							MY_MAP.popup2.update();
 						}
 
 

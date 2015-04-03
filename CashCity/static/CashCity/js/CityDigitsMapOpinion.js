@@ -3,13 +3,29 @@
 */
 
 function CityDigitsMapOpinion(id, lat, lon, zoom) {
+    //initial values
+    this.neighborhoodLayer = null;
+	this.markerLayer = null;
+	var topojsonLayer = null;
 	
     //set base Mapbox tiles
     var basemap = "sw2279.NYCLotto";
 
     //where brooklyn at?!40.7429 N, 73.9188
     this.map = L.mapbox.map('map_'+id, basemap,{minZoom:10,maxZoom:17}).setView([lat,lon], zoom);
-	
+
+    //load chart-icon
+    $("#citydigits-charts"+id).attr({'class':'citydigits-charts'});
+
+	//load legend
+	$("#citydigits-legend"+id).attr({'class':'citydigits-legend'});
+
+	//load geocoder control
+	this.map.addControl(L.Control.geocoder());
+
+	//load mapbox scale bars
+	this.map.addControl(L.control.scale());
+
     //disable unwanted events
     this.map.doubleClickZoom.enable();
     this.map.scrollWheelZoom.enable();
@@ -2600,7 +2616,7 @@ CityDigitsMapOpinion.getStyleFor_MEDIA = function(feature, latlng){
 }
 
 
-CityDigitsMapOpinion.loadLayerFor = function(layerId, activeMap){
+CityDigitsMapOpinion.loadLayerFor = function(layerId, activeMap, sectionNumber){
 	
     if(layerId == "MAP1"){
         mainLayer = activeMap.MAP1_POP_POVERTY;
@@ -2673,6 +2689,21 @@ CityDigitsMapOpinion.loadLayerFor = function(layerId, activeMap){
 				mainLayer.addTo(activeMap.map).bringToBack();
     }
 
+   	//allow legend button to be clicked and show/hide legend
+	$('#legend'+sectionNumber).click(function() {
+		if (mainLayer != null) {
+			var mapid = mainLayer._leaflet_id;
+			if ($( "#legendid"+sectionNumber ).hasClass( "legendClosed" )) {
+				// change to legend AFI
+				$('#legendid'+sectionNumber).attr('class', mapid);	
+			} else {
+				//Switch back to legend
+				$('#legendid'+sectionNumber).attr('class', 'legendClosed');	
+			}			
+		}
+	});
+
+
 }
 
 CityDigitsMapOpinion.loadLocationsLayerFor = function(layerId, activeMap){
@@ -2707,6 +2738,236 @@ CityDigitsMapOpinion.loadMediaLayers = function(activeMap){
 	MEDIA_NOTE = activeMap.MEDIA_NOTE.addTo(activeMap.map).bringToFront();
 	MEDIA_INTERVIEW = activeMap.MEDIA_INTERVIEW.addTo(activeMap.map).bringToFront();		
 
+}
+
+
+CityDigitsMapOpinion.drawChart = function(layerId, sectionNumber){
+	// remove chart a tag, which we repace with the svg drawn below
+	$("#chart"+sectionNumber).remove();
+	
+	// change class of chartId div to enlarge and set background white
+	$('#chartid'+sectionNumber).attr('class', 'chartDiv opinion');	
+	
+	//set up container for mouseover interaction
+	var div = d3.select("body").append("div")
+	    .attr("class", "barchartTooltip")
+	    .style("opacity", 1e-6);
+		
+	//set properties depending on layerid selected	
+	if (layerId == 'legendpoverty') {
+		var propertyName = 'PovertyPer';
+		var formatter = d3.format(".0%");
+		var title = 'Percent Population in Poverty';
+		var yMin = 0;
+	} 
+	if (layerId == 'legendmedhhinc') {
+		var propertyName = 'MedHouInco';
+		var formatNumber = d3.format(",.0f")
+		var formatter = function(d) { return "$" + formatNumber(d); };
+		var title = 'Median Household Income';
+		var yMin = 0;
+	}
+	if (layerId == 'legendunemploy') {
+		var propertyName = 'UnempRate';
+		var formatter = d3.format(".1%");
+		var title = 'Percent Unemployed';
+		var yMin = 0;
+	} 
+	if (layerId == 'legendforeignborn') {
+		var propertyName = 'ForBornPer';
+		var formatter = d3.format(".0%");
+		var title = 'Percent Population Foreign Born';
+		var yMin = 0;
+	} 
+	if (layerId == 'legendAFIpersqmi') {
+		var propertyName = 'AFS_SQMI';
+		var formatter = d3.format(",.2f")
+		var title = 'Alternative Financial Insitutions per Square Mile';
+		var yMin = -1;
+	} 
+	if (layerId == 'legendbankspersqmi') {
+		var propertyName = 'BANK_SQMI';
+		var formatter = d3.format(",.2f")
+		var title = 'Banks per Square Mile';
+		var yMin = -1;
+	} 
+	if (layerId == 'legendpawnsqmi') {
+		var propertyName = 'PAWN_SQMI';
+		var formatter = d3.format(",.2f")
+		var title = 'Pawn Shops per Square Mile';
+		var yMin = -1;
+	} 
+	if (layerId == 'legendmcdonaldspersqi') {
+		var propertyName = 'McD_SQMI';
+		var formatter = d3.format(",.2f")
+		var title = 'McDonald\'s per Square Mile';
+		var yMin = -1;
+	} 
+	if (layerId == 'legendhouseholdsperAFI') {
+		var propertyName = 'HH_AFS';
+		var formatter = d3.format(",.2f")
+		var title = 'Households per Alternative Financial Insitution';
+		var yMin = -500;
+	} 
+	if (layerId == 'legendhouseholdsperbank') {
+		var propertyName = 'HH_BANK';
+		var formatter = d3.format(",.2f")
+		var title = 'Households per Bank';
+		var yMin = -500;
+	} 
+	if (layerId == 'legendhouseholdsperMcD') {
+		var propertyName = 'HH_McD';
+		var formatter = d3.format(",.2f")
+		var title = 'Households per McDonald\'s';
+		var yMin = -500;
+	} 
+	if (layerId == 'legendhouseholdsperpawn') {
+		var propertyName = 'HH_PAWN';
+		var formatter = d3.format(",.2f")
+		var title = 'Households per Pawn Shop';
+		var yMin = -999;
+	} 
+	if (layerId == 'legendAFIsperbank') {
+		var propertyName = 'AFS_BANK';
+		var formatter = d3.format(",.2f")
+		var title = 'Alternative Financial Insitutions per Bank';
+		var yMin = -1;
+	} 
+	if (layerId == 'legendbanksperAFIs') {
+		var propertyName = 'BANK_AFS';
+		var formatter = d3.format(",.2f")
+		var title = 'Banks per Alternative Financial Insitution';
+		var yMin = -1;
+	} 
+	
+	
+	var margin = {top: 50, right: 20, bottom: 30, left: 70},
+			width = 300 - margin.left - margin.right,
+	    height = 200 - margin.top - margin.bottom;
+	
+	var x = d3.scale.ordinal()
+	    .rangeBands([0, width], 0, 1);
+
+	var y = d3.scale.linear()
+	    .range([height, 0]);
+
+	var yAxis = d3.svg.axis()
+	    .scale(y)
+	    .orient("left")
+		.tickFormat(formatter);
+		
+	var svg = d3.select("#chartid"+sectionNumber).append("svg")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+		.attr("id", 'svgChart'+sectionNumber)
+	  .append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		
+	d3.json(neighborhoods, function(error, data) {
+	  var openedTopoJson = topojson.feature(data, data.objects.all_map_data_boundariesfixed_Nov13).features;
+	  
+	  // filter out over 1000 values for BANK_AFS and AFS_BANK to remove undefined values set in the data
+	  if (propertyName == 'BANK_AFS' || propertyName == 'AFS_BANK') {
+		  openedTopoJson = $.grep(openedTopoJson, function(d) {
+		      return d.properties[propertyName] > -1 && d.properties[propertyName] <= 999;
+		  });
+	  }  
+
+	  // filter out < -1s for household-level data
+	  if (propertyName == 'HH_AFS' || propertyName == 'HH_BANK' || propertyName == 'HH_McD' || propertyName == 'HH_PAWN') {
+		  openedTopoJson = $.grep(openedTopoJson, function(d) {
+		      return d.properties[propertyName] > -1;
+		  });
+	  }  
+
+	  	  
+	  openedTopoJson.sort(function (a, b) {
+	      if (Number(a.properties[propertyName]) > Number(b.properties[propertyName])) {
+			  return 1;	      	
+	      } else if (Number(a.properties[propertyName]) < Number(b.properties[propertyName])) {
+			  return -1;	      	
+	      } else {
+		      // a must be equal to b
+		      return 0;	      	
+	      }
+	  });
+	  x.domain(openedTopoJson.map(function(d) { return d.properties.Name; }));
+	  y.domain([yMin, d3.max(openedTopoJson, function(d) { return d.properties[propertyName]; })]);
+	  
+	  svg.append("g")
+	      .attr("class", "chartTitle")
+	    .append("text")
+	      .attr("y", -20)
+	      .attr("x", 80)
+	      .style("text-anchor", "middle")
+	      .text(title);
+		  		  
+	  svg.append("g")
+	      .attr("class", "chartCloseContainer")
+		 .append("image")
+		  .attr("id", "chartCloseButton"+sectionNumber)
+		  .attr("class", "pointer")
+		  .attr("xlink:href", closeButtonGray)
+		  .attr("y", -40)
+		  .attr("x", 200)
+		  .attr("width", 22)
+		  .attr("height", 22);
+	  
+	  svg.append("g")
+	      .attr("class", "y axis")
+	      .call(yAxis);
+
+	  svg.selectAll(".bar")
+	      .data(openedTopoJson)
+	    .enter().append("rect")
+	      .attr("class", "bar")
+	      .attr("x", function(d) { return x(d.properties.Name); })
+	      .attr("width", x.rangeBand())
+	      .attr("y", function(d) { return y(d.properties[propertyName]); })
+	      .attr("height", function(d) { return height - y(d.properties[propertyName]); })
+		  .attr("id", function(d) { return d.properties.Name })
+		  // set up on mouseover events
+		  .on("mouseover", function(d) {
+				//console.log(d);
+
+			    div.transition()
+			        .duration(250)
+			        .style("opacity", 1);
+					
+			      div.html(
+					'<h4 class="text-left">' + d.properties.Name + '</h4>' +
+					'<p class="text-center">' + formatter(d.properties[propertyName]) + '<br />' + title + '</p>'
+				  )  
+			      .style("left", (d3.event.pageX + 18) + "px")     
+			      .style("top", (d3.event.pageY - 60) + "px");
+
+		  })
+		  .on("mouseout", function() {
+			   div.transition()
+			       .duration(250)
+			       .style("opacity", 1e-6);
+		  });
+		  
+		  
+		  
+	  	// close chart when close chart button is clicked
+	  	$('#chartCloseButton'+sectionNumber).click(function() {
+	  		// remove chart
+	  		CityDigitsMapOpinion.removeChart(layerId, sectionNumber);
+	  	});
+
+	});
+			
+}
+
+CityDigitsMapOpinion.removeChart = function(layerId, sectionNumber){
+	$( "#svgChart"+sectionNumber ).remove();
+	$( "#chartid"+sectionNumber ).append( '<div id="chart'+sectionNumber+'" class="pointer"></div>' );
+	// draw chart based on layer selected
+	$('#chart'+sectionNumber).click(function() {
+		CityDigitsMapOpinion.drawChart(layerId, sectionNumber);
+	});
+	$( "#chartid"+sectionNumber ).attr('class', 'chart-icon');	
 }
 
 	

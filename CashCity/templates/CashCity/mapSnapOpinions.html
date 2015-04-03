@@ -15,6 +15,11 @@
 			var LOC5{{ mapSnap.id }} = '{{ mapSnap.McDonalds }}';
 			var LOC6{{ mapSnap.id }} = '{{ mapSnap.SubwayLines }}';
 			var MEDIA{{ mapSnap.id }} = '{{ mapSnap.MEDIA }}';
+			var title{{ mapSnap.id }} = '{{ mapSnap.title }}';
+			var popup2Content{{ mapSnap.id }} = '{{ mapSnap.popup2Content }}';
+			var popup2LatLon{{ mapSnap.id }} = '{{ mapSnap.popup2LatLon }}';
+			var chartOn{{ mapSnap.id }} = '{{ mapSnap.chartOn }}';
+
 			
 			// load the layers if neccesary
 			if (MapLayer{{ mapSnap.id }}) {
@@ -32,47 +37,89 @@
 						
 			// add in layers that were turned on
 			if (MapLayer{{ mapSnap.id }} == 'legendpoverty') {
-				CityDigitsMapOpinion.loadLayerFor('MAP1', map{{ mapSnap.id }});	
+				CityDigitsMapOpinion.loadLayerFor('MAP1', map{{ mapSnap.id }}, {{ section.sectionNumber }});	
 			} 
 			if (MapLayer{{ mapSnap.id }} == 'legendmedhhinc') {
-				CityDigitsMapOpinion.loadLayerFor('MAP2', map{{ mapSnap.id }});	
+				CityDigitsMapOpinion.loadLayerFor('MAP2', map{{ mapSnap.id }}, {{ section.sectionNumber }});	
 			}
 			if (MapLayer{{ mapSnap.id }} == 'legendunemploy') {
-				CityDigitsMapOpinion.loadLayerFor('MAP3', map{{ mapSnap.id }});	
+				CityDigitsMapOpinion.loadLayerFor('MAP3', map{{ mapSnap.id }}, {{ section.sectionNumber }});	
 			} 
 			if (MapLayer{{ mapSnap.id }} == 'legendforeignborn') {
-				CityDigitsMapOpinion.loadLayerFor('MAP4', map{{ mapSnap.id }});	
+				CityDigitsMapOpinion.loadLayerFor('MAP4', map{{ mapSnap.id }}, {{ section.sectionNumber }});	
 			} 
 			if (MapLayer{{ mapSnap.id }} == 'legendAFIpersqmi') {
-				CityDigitsMapOpinion.loadLayerFor('CREATEMAP1', map{{ mapSnap.id }});	
+				CityDigitsMapOpinion.loadLayerFor('CREATEMAP1', map{{ mapSnap.id }}, {{ section.sectionNumber }});	
 			} 
 			if (MapLayer{{ mapSnap.id }} == 'legendbankspersqmi') {
-				CityDigitsMapOpinion.loadLayerFor('CREATEMAP2', map{{ mapSnap.id }});	
+				CityDigitsMapOpinion.loadLayerFor('CREATEMAP2', map{{ mapSnap.id }}, {{ section.sectionNumber }});	
 			} 
 			if (MapLayer{{ mapSnap.id }} == 'legendpawnsqmi') {
-				CityDigitsMapOpinion.loadLayerFor('CREATEMAP3', map{{ mapSnap.id }});	
+				CityDigitsMapOpinion.loadLayerFor('CREATEMAP3', map{{ mapSnap.id }}, {{ section.sectionNumber }});	
 			} 
 			if (MapLayer{{ mapSnap.id }} == 'legendmcdonaldspersqi') {
-				CityDigitsMapOpinion.loadLayerFor('CREATEMAP4', map{{ mapSnap.id }});	
+				CityDigitsMapOpinion.loadLayerFor('CREATEMAP4', map{{ mapSnap.id }}, {{ section.sectionNumber }});	
 			} 
 			if (MapLayer{{ mapSnap.id }} == 'legendhouseholdsperAFI') {
-				CityDigitsMapOpinion.loadLayerFor('CREATEMAP5', map{{ mapSnap.id }});	
+				CityDigitsMapOpinion.loadLayerFor('CREATEMAP5', map{{ mapSnap.id }}, {{ section.sectionNumber }});	
 			} 
 			if (MapLayer{{ mapSnap.id }} == 'legendhouseholdsperbank') {
-				CityDigitsMapOpinion.loadLayerFor('CREATEMAP6', map{{ mapSnap.id }});	
+				CityDigitsMapOpinion.loadLayerFor('CREATEMAP6', map{{ mapSnap.id }}, {{ section.sectionNumber }});	
 			} 
 			if (MapLayer{{ mapSnap.id }} == 'legendhouseholdsperMcD') {
-				CityDigitsMapOpinion.loadLayerFor('CREATEMAP7', map{{ mapSnap.id }});	
+				CityDigitsMapOpinion.loadLayerFor('CREATEMAP7', map{{ mapSnap.id }}, {{ section.sectionNumber }});	
 			} 
 			if (MapLayer{{ mapSnap.id }} == 'legendhouseholdsperpawn') {
-				CityDigitsMapOpinion.loadLayerFor('CREATEMAP8', map{{ mapSnap.id }});	
+				CityDigitsMapOpinion.loadLayerFor('CREATEMAP8', map{{ mapSnap.id }}, {{ section.sectionNumber }});	
 			} 
 			if (MapLayer{{ mapSnap.id }} == 'legendAFIsperbank') {
-				CityDigitsMapOpinion.loadLayerFor('CREATEMAP9', map{{ mapSnap.id }});	
+				CityDigitsMapOpinion.loadLayerFor('CREATEMAP9', map{{ mapSnap.id }}, {{ section.sectionNumber }});	
 			} 
 			if (MapLayer{{ mapSnap.id }} == 'legendbanksperAFIs') {
-				CityDigitsMapOpinion.loadLayerFor('CREATEMAP10', map{{ mapSnap.id }});	
+				CityDigitsMapOpinion.loadLayerFor('CREATEMAP10', map{{ mapSnap.id }}, {{ section.sectionNumber }});	
 			}
+
+			// open the legend
+			if (MapLayer{{ mapSnap.id }}) {
+				$('#legendid'+{{ section.sectionNumber }}).attr('class', MapLayer{{ mapSnap.id }});
+			} else {
+				$('#legendid'+{{ section.sectionNumber }}).attr('class', 'legendClosed');
+			}
+
+			// open chart if chartOn is true
+			if (chartOn{{ mapSnap.id }} == 'True') {
+				console.log('Open Chart?', chartOn{{ mapSnap.id }});
+				CityDigitsMapOpinion.drawChart(MapLayer{{ mapSnap.id }}, {{ section.sectionNumber }});
+			} else {
+				$('#chart'+{{ section.sectionNumber }}).click(function() {
+					CityDigitsMapOpinion.drawChart(MapLayer{{ mapSnap.id }}, {{ section.sectionNumber }});
+				});
+
+			}
+
+			// if there's popup content open popup and fill it with that content
+			function addPopup(){
+				if (popup2Content{{ mapSnap.id }} && popup2LatLon{{ mapSnap.id }}) {
+					// close any popups
+					if (!activeMap{{ mapSnap.id }}.popup2._isOpen) {
+						// close all popups first
+						activeMap{{ mapSnap.id }}.map.closePopup();
+					}
+
+					var popup2LatLon = popup2LatLon{{ mapSnap.id }}.split(',');
+					var popup2Lat = parseFloat(popup2LatLon[0]);
+					var popup2Lon = parseFloat(popup2LatLon[1]);
+					var latlonObject = L.latLng(popup2Lat, popup2Lon);
+					var txt = document.createElement("textarea");
+					txt.innerHTML = popup2Content{{ mapSnap.id }};
+					s = txt.value;
+					activeMap{{ mapSnap.id }}.popup2.setLatLng(latlonObject);
+					activeMap{{ mapSnap.id }}.popup2.setContent(s);
+					activeMap{{ mapSnap.id }}.popup2.openOn(activeMap{{ mapSnap.id }}.map);
+					activeMap{{ mapSnap.id }}.popup2.update();
+				}	
+			}
+
 			
 			function addLocations() {
 				if (LOC1{{ mapSnap.id }} == 'True') {
@@ -107,6 +154,8 @@
 
 			
 			setTimeout ( addLocations, 5000);
+			setTimeout ( addPopup, 5000);
+
 		
 		});
 	</script>

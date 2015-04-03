@@ -2258,8 +2258,12 @@ def SaveMap(request):
     McDonalds= request.GET.get("McDonalds","") == 'true'
     SubwayLines= request.GET.get("SubwayLines","") == 'true'
     Media= request.GET.get("Media","") == 'true'
+    title = request.GET.get("title","")
+    popup2Content= request.GET.get("popup2Content","")
+    popup2LatLon= request.GET.get("popup2LatLon","")
+    chartOn= request.GET.get("chartOn","") == 'true'
     
-    MapDetails = MapSettings(latitude=latitude, longitude=longitude, zoom=zoom, MapLayer=MapLayer, PawnShops=PawnShops, CheckCashing=CheckCashing, WireTransfer=WireTransfer, Banks=Banks, McDonalds=McDonalds, SubwayLines=SubwayLines, Media=Media, user=request.user)
+    MapDetails = MapSettings(latitude=latitude, longitude=longitude, zoom=zoom, MapLayer=MapLayer, PawnShops=PawnShops, CheckCashing=CheckCashing, WireTransfer=WireTransfer, Banks=Banks, McDonalds=McDonalds, SubwayLines=SubwayLines, Media=Media, title=title, popup2Content=popup2Content, popup2LatLon=popup2LatLon, chartOn=chartOn, user=request.user)
     
     MapDetails.save()
     

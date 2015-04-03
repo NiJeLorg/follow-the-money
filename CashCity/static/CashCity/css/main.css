@@ -363,7 +363,6 @@ hr {
     right: 7px;
 }
 
-
 .citydigits-charts {
     position: absolute;
     z-index: 110;
@@ -473,6 +472,11 @@ hr {
 	height: 400px;
 	background: none repeat scroll 0 0 #fff;
 	box-shadow: 5px 5px 15px;
+}
+
+.citydigits-charts .chartDiv.opinion {
+	width: 300px;
+	height: 200px;
 }
 
 .citydigits-charts .chartDiv > a {
@@ -615,6 +619,21 @@ audio {
 	display: inline-block;
 }
 
+.mapSnapTitle {
+	display: inline-block;
+	position: absolute;
+	z-index: 1000;
+	bottom: 0;
+    width: 160px;
+    height: auto;
+    padding: 0 5px;
+	background-color: rgba(255,255,255,0.75);
+}
+
+.mapSnapTitleText {
+	margin: 0 !important;
+}
+
 
 /*
 * loading screen modals
@@ -711,4 +730,9 @@ body.loading .loading-modal {
 	width: 640px;
 	height: 480px;
 }
+
+.pointer {
+	cursor: pointer;
+}
+
 

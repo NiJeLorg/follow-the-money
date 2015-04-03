@@ -25,6 +25,10 @@ class MapSettings(models.Model):
     McDonalds= models.BooleanField()
     SubwayLines= models.BooleanField()
     Media= models.BooleanField()
+    title = models.CharField(max_length=1000, null=True, blank=True)
+    popup2Content= models.CharField(max_length=10000, null=True, blank=True)
+    popup2LatLon= models.CharField(max_length=10000, null=True, blank=True)
+    chartOn= models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
     
@@ -35,7 +39,7 @@ class MapSettings(models.Model):
         return ExUserProfile.objects.get(user=self.user)
        
     def __unicode__(self):
-        return self.MapLayer
+        return self.title
 
 # Model that stores user profile info beyond username, password, email -- includes teacher and student group data
 class ExUserProfile(models.Model):
