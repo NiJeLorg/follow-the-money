@@ -3,8 +3,28 @@
 *  Bootstrap Overrides
 */
 
+@font-face {
+    font-family: 'Apercu Regular';
+    src: url('http://f.fontdeck.com/f/1/RFBoR2F2aFgAAbaB1ebkDL58Bo+jQAF4eUjx969DnjyGpbTsFR8ZJJFdblBs9wOpI6ejHeWgCeBQteDp3/XZ4aC7.eot');
+    src: url('http://f.fontdeck.com/f/1/RFBoR2F2aFgAAbaB1ebkDL58Bo+jQAF4eUjx969DnjyGpbTsFR8ZJJFdblBs9wOpI6ejHeWgCeBQteDp3/XZ4aC7.eot?') format('embedded-opentype'),
+    url('http://f.fontdeck.com/f/1/RFBoR2F2aFgAAbaB1ebkDL58Bo+jQAF4eUjx969DnjyGpbTsFR8ZJJFdblBs9wOpI6ejHeWgCeBQteDp3/XZ4aC7.woff') format('woff'),
+    url('http://f.fontdeck.com/f/1/RFBoR2F2aFgAAbaB1ebkDL58Bo+jQAF4eUjx969DnjyGpbTsFR8ZJJFdblBs9wOpI6ejHeWgCeBQteDp3/XZ4aC7.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Apercu Bold';
+    src: url('http://f.fontdeck.com/f/1/Q3o0dU51ZloAAZiHfoKnUKFIYllmG+W+Sv4E2/80XrTh1q5sTdJFa0nsj93J4zYpZwvn6v4zlI64WOI/chUKMoyl.eot');
+    src: url('http://f.fontdeck.com/f/1/Q3o0dU51ZloAAZiHfoKnUKFIYllmG+W+Sv4E2/80XrTh1q5sTdJFa0nsj93J4zYpZwvn6v4zlI64WOI/chUKMoyl.eot?') format('embedded-opentype'),
+    url('http://f.fontdeck.com/f/1/Q3o0dU51ZloAAZiHfoKnUKFIYllmG+W+Sv4E2/80XrTh1q5sTdJFa0nsj93J4zYpZwvn6v4zlI64WOI/chUKMoyl.woff') format('woff'),
+    url('http://f.fontdeck.com/f/1/Q3o0dU51ZloAAZiHfoKnUKFIYllmG+W+Sv4E2/80XrTh1q5sTdJFa0nsj93J4zYpZwvn6v4zlI64WOI/chUKMoyl.ttf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
 body {
-    background-color: #B0B6BD;
+    background-color: #E5E5E5;
 }
 
 .map-container {
@@ -116,6 +136,7 @@ hr {
 	.navbar-default .navbar-center {
 		text-align: left;
 		z-index: -1;
+    padding-left:10px;
 	}
 
 }
@@ -565,9 +586,9 @@ hr {
 .media-stub {
     display: inline-block;
 	padding: 10px;
-    width: 300px;
-    height: 400px;
-    background-color: #ffffff;
+    /*width: 300px;*/
+    /*height: 400px;*/
+    /*background-color: #ffffff;*/
     border-radius: 5px;
     margin-top: 3%;
     margin-right: 2%;
@@ -579,7 +600,7 @@ audio {
 
 .filter-container {
 	display: inline-block;
-	margin: 10px 10px 20px 0px;
+	margin: 10px 0px 10px 0px;
 }
 
 .noDecoration {
@@ -730,8 +751,8 @@ body.loading .loading-modal {
 */
 
 .map-opinion {
-    border: 1px solid #ccc;
-	width: 640px;
+  border: 1px solid #ccc;
+	width: 100%;
 	height: 480px;
 }
 
@@ -740,3 +761,151 @@ body.loading .loading-modal {
 }
 
 
+/*PIERRE CSS*/
+
+.section_subtitle {
+  text-align:center;
+  font-style: italic;
+  padding:0px 20px;
+}
+
+.section_header {
+  font-size:30px;
+  font-weight:300;
+  margin-top:0px;
+}
+
+.media_search_header {
+  background-color: whitesmoke;
+  /*height: 56px;*/
+}
+
+.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+  width: 100%;
+}
+
+li.tagit-new {
+  padding: 3px 4px 2px 0;
+}
+
+.media-stub {
+  display: inline-block;
+  padding: 10px;
+  background-color: none; 
+  border-radius: 5px;
+  margin-top: 3%;
+  margin-right: 0%; 
+/*  height:380px;
+  max-height:415px;
+  overflow-y:hidden;*/
+}
+
+.media-stub img, .media-stub audio {
+  width:100%;
+}
+
+.inner-media-stub {
+  width:100%;
+  background-color:white;
+  padding:10px;
+  height:90%;
+}
+
+.form-control-feedback {
+  top:0px;
+}
+
+.medium-container {
+  background-color: whitesmoke;
+  margin-top:90px;
+  margin-bottom:90px;
+  padding:10px 20px;
+}
+
+.opinion-container {
+  background-color: whitesmoke;
+  margin-top:90px;
+  margin-bottom:90px;
+  padding:20px 15px;
+}
+
+.opinion-container h3 {
+  font-size:30px;
+  font-weight:300;
+  margin-top:0px;
+  text-align: center;
+}
+
+.opinion-container .row {
+  margin:0px
+}
+
+.opinion-container img {
+  width:100%;
+}
+
+.profile-menu-buttons {
+  padding:10px;
+}
+
+.about-page h1 {
+  font-size: 28px;
+  margin-top: 25px;
+  margin-bottom: 18px;
+  text-align: left;
+  font-weight: 300;
+}
+
+.about-page h2 {
+  font-size: 20px;
+  margin-top: 25px;
+  margin-bottom: 18px;
+  text-align: left;
+  font-weight: 300;
+}
+.about-page p {
+  text-align: left;
+}
+
+.about-page li {
+  text-align: left;
+}
+
+.media-page {
+  padding:10px 20px;
+}
+
+.media-page .row {
+  margin:0px;
+}
+
+.media-page img, .media-page audio, .media-page #mediaMap {
+  width:100%;
+}
+
+.media-page h3 {
+  font-size:30px;
+  font-weight:300;
+  /*text-align: center;*/
+}
+
+.citydigits-font {
+  font-family:"Apercu Bold", Helvetica, Arial, sans-serif; font-size-adjust:0.508; font-weight:bold; font-style:normal;
+}
+
+.account-menu {
+  background-color: #B0B6BD;
+  /*height: 56px;*/
+}
+
+.media-table-custom img {
+  width:100%;
+}
+
+.row-no-margin {
+  margin:0px;
+}
+
+.account-header {
+  font-weight:300;
+}

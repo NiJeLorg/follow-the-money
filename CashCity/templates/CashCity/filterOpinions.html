@@ -3,21 +3,59 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			<h3 class="text-center"><u>Opinions</u></h3>
+			<h3 class="text-center section_header">Opinions</h3>
 			<div class="container-fluid padding10bottom">
-				<small><em>Explore the various opinions posted to the Cash City platform below.</em></small>
+				<div class="section_subtitle">Explore the various opinions posted to the Cash City platform below.</div>
 			</div>
-			<div class="col-xs-12">
+			<div class="container-fluid media_search_header">
+				<div class='col-xs-12 col-sm-4 col-md-4 col-lg-4 filter-container'>
+					<select id="class" name="class">
+	            {%  if toolbar.searchClass == 'All' %}
+	                <option value="All" selected>All Classes</option>
+	            {% else %}
+	                <option value="All">All Classes</option>
+	            {% endif %}
+	            {% for class in classes %}
+	                {% if toolbar.searchClass == class.teacherId|stringformat:"s_"|add:class.section %}
+	                    <option value="{{ class.teacherId }}_{{ class.section }}" selected>{{ class.teacherName }} - Section {{ class.section }}</option>
+	                {% else %}
+	                    <option value="{{ class.teacherId }}_{{ class.section }}">{{ class.teacherName }} - Section {{ class.section }} </option>
+	                {% endif %}
+	            {% endfor %}
+	        </select>
+				</div>
+				<div class='col-xs-12 col-sm-4 col-md-4 col-lg-4 filter-container'>
+					<select id="team" name="team">
+		            {%  if toolbar.searchTeam == 'All' %}
+		                <option value="All" selected>All Teams</option>
+		            {% else %}
+		                <option value="All">All Teams</option>
+		            {% endif %}
+		            {% for team in teams %}
+		                {% if toolbar.searchTeam == team %}
+		                    <option value="{{ team }}" selected>{{ team|title }}</option>
+		                {% else %}
+		                    <option value="{{ team }}">{{ team|title }}</option>
+		                {% endif %}
+		            {% endfor %}
+		        </select>
+				</div>
+				<div class='col-xs-12 col-sm-4 col-md-4 col-lg-4 filter-container'>
+					<a href="{% url 'opinionForm' %}" class="pull-right"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" style="margin-right:6px;"></span>Add Opinion</button></a>
+				</div>
+			</div>
+
+
+			<!-- <div class="col-xs-12">
 				<div class='filter-container'>
-					<a href="{% url 'opinionForm' %}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Opinion</button></a>
+					<a href="{% url 'opinionForm' %}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" style="margin-right:6px;"></span>Add Opinion</button></a>
 				</div>
 				<div class='filter-container'>
-			        <label for="class"><b>Class:</b></label>
 			        <select id="class" name="class">
 			            {%  if toolbar.searchClass == 'All' %}
-			                <option value="All" selected>All</option>
+			                <option value="All" selected>All Classes</option>
 			            {% else %}
-			                <option value="All">All</option>
+			                <option value="All">All Classes</option>
 			            {% endif %}
 			            {% for class in classes %}
 			                {% if toolbar.searchClass == class.teacherId|stringformat:"s_"|add:class.section %}
@@ -29,12 +67,11 @@
 			        </select>
 				</div>
 				<div class='filter-container'>
-			        <label for="team"><b>Team:</b></label>
 			        <select id="team" name="team">
 			            {%  if toolbar.searchTeam == 'All' %}
-			                <option value="All" selected>All</option>
+			                <option value="All" selected>All Teams</option>
 			            {% else %}
-			                <option value="All">All</option>
+			                <option value="All">All Teams</option>
 			            {% endif %}
 			            {% for team in teams %}
 			                {% if toolbar.searchTeam == team %}
@@ -45,35 +82,37 @@
 			            {% endfor %}
 			        </select>
 				</div>
-			</div>
+			</div> -->
 			<div id="media-content" class="container-fluid">
 				{% for opinion in opinions %}
-					<div class="col-xs-4 media-stub">
-						<a href="{{ opinion.id }}/" style="text-decoration:none; color:inherit">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 media-stub">
+						<div class="inner-media-stub">
+							<a href="{{ opinion.id }}/" style="text-decoration:none; color:inherit">
 						
-							<div class="opinion_{{ opinion.getUserProfile.color }} pull-left margin-right"></div>
-							{% if opinion.getUserProfile.color == None %}
-								<p><strong>Teacher Added</strong><span class="pull-right">{{ opinion.last_modified|date:"F j" }}</span><br />Teacher: {{ opinion.getUserProfile.teacherName }}</p>
-							{% else %}
-								<p><strong>{{ opinion.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ opinion.last_modified|date:"F j" }}</span><br />{{ opinion.getUserProfile.teacherName }}'s Section {{ opinion.getUserProfile.section }}</p>
-							{% endif %}
-							{% if opinion.teamImage %}
-					            <div style="height: 280px; width: 280px; margin-right: auto; margin-left: auto; margin-bottom: 5px; overflow: hidden;">
-					            	<img src="{% cropped_thumbnail opinion 'cropped_teamImage' %}">
-					            </div>
-							{% elif opinion.coverPhoto %}
-									{% for image in coverPhotoImages %}
-										{% if image.id == opinion.coverPhoto.id %}
-											<div style="height: 280px; width: 280px; margin-right: auto; margin-left: auto; margin-bottom: 5px; overflow: hidden;">									
-												<img src="{% cropped_thumbnail image 'cropped_image' %}">
-					            			</div>
-										{% endif %}
-									{% endfor %}
-							{% else %}
-							{% endif %}														
-							<h4>{{ opinion.title }}</h4>
-						</a>
+								<div class="opinion_{{ opinion.getUserProfile.color }} pull-left margin-right"></div>
+								{% if opinion.getUserProfile.color == None %}
+									<p><strong>Teacher Added</strong><span class="pull-right">{{ opinion.last_modified|date:"F j" }}</span><br />Teacher: {{ opinion.getUserProfile.teacherName }}</p>
+								{% else %}
+									<p><strong>{{ opinion.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ opinion.last_modified|date:"F j" }}</span><br />{{ opinion.getUserProfile.teacherName }}'s Section {{ opinion.getUserProfile.section }}</p>
+								{% endif %}
+								{% if opinion.teamImage %}
+						            <!-- <div style="height: 280px; width: 280px; margin-right: auto; margin-left: auto; margin-bottom: 5px; overflow: hidden;"> -->
+						            	<img src="{% cropped_thumbnail opinion 'cropped_teamImage' %}">
+						            <!-- </div> -->
+								{% elif opinion.coverPhoto %}
+										{% for image in coverPhotoImages %}
+											{% if image.id == opinion.coverPhoto.id %}
+												<!-- <div style="height: 280px; width: 280px; margin-right: auto; margin-left: auto; margin-bottom: 5px; overflow: hidden;">									 -->
+													<img src="{% cropped_thumbnail image 'cropped_image' %}">
+						            			<!-- </div> -->
+											{% endif %}
+										{% endfor %}
+								{% else %}
+								{% endif %}														
+								<h4>{{ opinion.title }}</h4>
+							</a>
 					</div>
+				</div>
 				{% endfor %}
 			</div>
 		</div>

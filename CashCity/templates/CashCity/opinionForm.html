@@ -93,7 +93,7 @@
 
 
 {% block body_block %}
-<div class="half-container">
+<div  class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 medium-container media-page">
 	<div class="row">
 		<h3>Add Your Opinion</h3>
 		<small><em>Use this form to add your opinion. Make sure to include all the fields below.</em></small>
@@ -142,17 +142,48 @@
 					<h4>SECTION {{ forloop.counter }}</h4>
 					<p><strong>Media</strong></p>
 					<div class="fileGroup">
-						<div class="btn-group btn-group-lg">
-							<button id="addMedia_{{ forloop.counter }}" type="button" class="btn btn-default opinion-form-button" data-toggle="modal" data-target="#sectionmedia_{{ forloop.counter }}">
+						<div class="row">
+							<div class="col-xs-4" style="padding:0px;">
+								<button id="addMedia_{{ forloop.counter }}" type="button" class="btn btn-default opinion-form-button" data-toggle="modal" data-target="#sectionmedia_{{ forloop.counter }}" style="width:100%">
+									<div class="image-button-media"></div>
+									<br />
+									Media
+								</button>
+							</div>
+							<div class="col-xs-4" style="padding:0px;">
+								<button id="addMapSnaps_{{ forloop.counter }}" type="button" class="btn btn-default opinion-form-button refreshMap" data-toggle="modal" data-target="#sectionmapsnaps_{{ forloop.counter }}" style="width:100%;">
+									<div class="snaps-button"></div>
+									<br />
+									Map Snaps
+								</button>
+							</div>
+							<div class="col-xs-4" style="padding:0px;">
+								<div class="input-group">				
+				                <span class="input-group-btn">
+				                    <button class="btn btn-default btn-file btn-lg upload-button-rounding">
+										<span class="glyphicon glyphicon-upload darkgrey"></span>
+										<br />
+				                        Upload Image {{ form.uploadImage }}
+										</button>
+					                </span>
+								</div>
+							</div>
+						</div>
+						
+
+						<!-- <div class="btn-group btn-group-lg btn-group-justified">
+							<button id="addMedia_{{ forloop.counter }}" type="button" class="btn btn-default opinion-form-button" data-toggle="modal" data-target="#sectionmedia_{{ forloop.counter }}" style="width:33%">
 								<div class="image-button-media"></div>
 								<br />
 								Media
 							</button>
-							<button id="addMapSnaps_{{ forloop.counter }}" type="button" class="btn btn-default opinion-form-button refreshMap" data-toggle="modal" data-target="#sectionmapsnaps_{{ forloop.counter }}">
+
+							<button id="addMapSnaps_{{ forloop.counter }}" type="button" class="btn btn-default opinion-form-button refreshMap" data-toggle="modal" data-target="#sectionmapsnaps_{{ forloop.counter }}"  style="width:33%">
 								<div class="snaps-button"></div>
 								<br />
 								Map Snaps
 							</button>
+
 							<div class="input-group">				
 				                <span class="input-group-btn">
 				                    <button class="btn btn-default btn-file btn-lg upload-button-rounding">
@@ -162,7 +193,7 @@
 									</button>
 				                </span>
 							</div>
-						</div>
+						</div> -->
 						<div class="clearfix"></div>
 						<br />
 						{% if form.errors %}

@@ -3,46 +3,45 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			<h3 class="text-center"><u>Media</u></h3>
+			<h3 class="text-center section_header">Media</h3>
 			<div class="container-fluid padding10bottom">
-				<small><em>Search through the various media added to the Cash City platform using their type, the teams that added them, or tags.</em></small>
+				<div class="section_subtitle">Search through the various media added to the Cash City platform using their type, the teams that added them, or tags.</div>
 			</div>
-			<div class="container-fluid">
-				<div class='filter-container'>	
-			        <label for="type"><b>Type:</b></label>
+			<div class="container-fluid media_search_header">
+				<div class='col-xs-12 col-sm-6 col-md-3 col-lg-3 filter-container'>	
 			        <select id="type" name="type">
 			            {%  if toolbar.searchType == 'All' %}
-			                <option value="All" selected>All</option>
+			                <option value="All" selected>All Media Types</option>
 			                <option value="Images">Images</option>
 			                <option value="Audio">Audio</option>
 			                <option value="Notes">Notes</option>
 			                <option value="Interviews">Interviews</option>
 			            {% elif toolbar.searchType == 'Images' %}
-			                <option value="All">All</option>
+			                <option value="All">All Media Types</option>
 			                <option value="Images" selected>Images</option>
 			                <option value="Audio">Audio</option>
 			                <option value="Notes">Notes</option>
 			                <option value="Interviews">Interviews</option>
 			            {% elif toolbar.searchType == 'Audio' %}
-			                <option value="All">All</option>
+			                <option value="All">All Media Types</option>
 			                <option value="Images">Images</option>
 			                <option value="Audio" selected>Audio</option>
 			                <option value="Notes">Notes</option>
 			                <option value="Interviews">Interviews</option>
 			            {% elif toolbar.searchType == 'Notes' %}
-			                <option value="All">All</option>
+			                <option value="All">All Media Types</option>
 			                <option value="Images">Images</option>
 			                <option value="Audio">Audio</option>
 			                <option value="Notes" selected>Notes</option>
 			                <option value="Interviews">Interviews</option>
 			            {% elif toolbar.searchType == 'Interviews' %}
-			                <option value="All">All</option>
+			                <option value="All">All Media Types</option>
 			                <option value="Images">Images</option>
 			                <option value="Audio">Audio</option>
 			                <option value="Notes" >Notes</option>
 			                <option value="Interviews" selected>Interviews</option>
 			            {% else %}
-			                <option value="All" selected>All</option>
+			                <option value="All" selected>All Media Types</option>
 			                <option value="Images">Images</option>
 			                <option value="Audio">Audio</option>
 			                <option value="Notes">Notes</option>
@@ -50,13 +49,12 @@
 			            {% endif %}
 			        </select>
 				</div>
-				<div class='filter-container'>
-			        <label for="class"><b>Class:</b></label>
+				<div class='col-xs-12 col-sm-6 col-md-3 col-lg-3 filter-container'>
 			        <select id="class" name="class">
 			            {%  if toolbar.searchClass == 'All' %}
-			                <option value="All" selected>All</option>
+			                <option value="All" selected>All Classes</option>
 			            {% else %}
-			                <option value="All">All</option>
+			                <option value="All">All Classes</option>
 			            {% endif %}
 			            {% for class in classes %}
 			                {% if toolbar.searchClass == class.teacherId|stringformat:"s_"|add:class.section %}
@@ -67,13 +65,12 @@
 			            {% endfor %}
 			        </select>
 				</div>
-				<div class='filter-container'>
-			        <label for="team"><b>Team:</b></label>
+				<div class='col-xs-12 col-sm-6 col-md-3 col-lg-3 filter-container'>
 			        <select id="team" name="team">
 			            {%  if toolbar.searchTeam == 'All' %}
-			                <option value="All" selected>All</option>
+			                <option value="All" selected>All Teams</option>
 			            {% else %}
-			                <option value="All">All</option>
+			                <option value="All">All Teams</option>
 			            {% endif %}
 			            {% for team in teams %}
 			                {% if toolbar.searchTeam == team %}
@@ -84,9 +81,9 @@
 			            {% endfor %}
 			        </select>
 				</div>
-				<div class='filter-container pull-right'>
+				<div class='col-xs-12 col-sm-6 col-md-3 col-lg-3 filter-container pull-right'>
 					<form class="form-inline">
-					  <div class="form-group has-feedback">
+					  <div class="form-group has-feedback" style="width:100%;">
 						  {{ form.tags|attr:"id:tags" }}
 					    <span class="glyphicon glyphicon-search form-control-feedback"></span>
 					  </div>
@@ -96,83 +93,96 @@
 			<div id="media-content" class="container-fluid">
 				{% for mediaResult in mediaResults %}
 					{% if mediaResult.image and mediaResult.audio %}
-							<div class="col-xs-4 media-stub">
-								<a href="/cashcity/media/interview/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
-								
-									<div class="interview_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div>
-								{% if mediaResult.getUserProfile.color == None %}
-									<p><strong>Teacher Added</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />Teacher: {{ mediaResult.getUserProfile.teacherName }}</p>
-								{% else %}
-									<p><strong>{{ mediaResult.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />{{ mediaResult.getUserProfile.teacherName }}'s Section {{ mediaResult.getUserProfile.section }}</p>
-								{% endif %}							
-						            <div style="height: 241px; width: 280px; margin-right: auto; margin-left: auto; margin-bottom: 5px; overflow: hidden;">
-						            	<img src="{% cropped_thumbnail mediaResult 'cropped_image' %}">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 media-stub">
+								<div class="inner-media-stub">
+									<a href="/cashcity/media/interview/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
+									
+										<div class="interview_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div>
+									{% if mediaResult.getUserProfile.color == None %}
+										<p><strong>Teacher Added</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />Teacher: {{ mediaResult.getUserProfile.teacherName }}</p>
+									{% else %}
+										<p><strong>{{ mediaResult.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />{{ mediaResult.getUserProfile.teacherName }}'s Section {{ mediaResult.getUserProfile.section }}</p>
+									{% endif %}							
+							            <!-- <div style="height: 241px; width: 280px; margin-right: auto; margin-left: auto; margin-bottom: 5px; overflow: hidden;"> -->
+							            	<img src="{% cropped_thumbnail mediaResult 'cropped_image' %}">
+							            <!-- </div> -->
+									</a>
+						            <div style="margin: auto;margin-top:-30px;height:30px;">
+									{% if ".amr" in mediaResult.audio.path or ".mov" in mediaResult.audio.path or ".MOV" in mediaResult.audio.path or ".gp3" in mediaResult.audio.path or ".mp4" in mediaResult.audio.path %}								
+						            	<audio src="/media/CashCity/{{ mediaResult.audio }}.mp3" preload="auto" controls></audio>
+									{% else %}
+						            	<audio src="/media/CashCity/{{ mediaResult.audio }}" preload="auto" controls></audio>
+									{% endif %}
 						            </div>
-								</a>
-					            <div style="margin: auto;">
-								{% if ".amr" in mediaResult.audio.path or ".mov" in mediaResult.audio.path or ".MOV" in mediaResult.audio.path or ".gp3" in mediaResult.audio.path or ".mp4" in mediaResult.audio.path %}								
-					            	<audio src="/media/CashCity/{{ mediaResult.audio }}.mp3" preload="auto" controls></audio>
-								{% else %}
-					            	<audio src="/media/CashCity/{{ mediaResult.audio }}" preload="auto" controls></audio>
-								{% endif %}
-					            </div>
-								<a href="/cashcity/media/interview/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
-									<h4>{{ mediaResult.title }}</h4>
-								</a>
+									<a href="/cashcity/media/interview/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
+										<h4>{{ mediaResult.title }}</h4>
+									</a>
+								</div>
 							</div>
 					{% elif mediaResult.image %}
-						<a href="/cashcity/media/image/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
-							<div class="col-xs-4 media-stub">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 media-stub">
+							<div class="inner-media-stub">
+								<a href="/cashcity/media/image/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
 								<div class="image_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div>
 							{% if mediaResult.getUserProfile.color == None %}
 								<p><strong>Teacher Added</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />Teacher: {{ mediaResult.getUserProfile.teacherName }}</p>
 							{% else %}
 								<p><strong>{{ mediaResult.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />{{ mediaResult.getUserProfile.teacherName }}'s Section {{ mediaResult.getUserProfile.section }}</p>
 							{% endif %}							
-					            <div style="height: 280px; width: 280px; margin: auto; overflow: hidden;">
+					            <!-- <div style="height: 280px; width: 280px; margin: auto; overflow: hidden;"> -->
 					            	<img src="{% cropped_thumbnail mediaResult 'cropped_image' %}">
-					            </div>
+					            <!-- </div> -->
 								<h4>{{ mediaResult.title }}</h4>
-							</div>
-						</a>
-					{% elif mediaResult.audio %}
-							<div class="col-xs-4 media-stub">
-								<a href="/cashcity/media/audio/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
-									<div class="audio_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div>
-								{% if mediaResult.getUserProfile.color == None %}
-									<p><strong>Teacher Added</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />Teacher: {{ mediaResult.getUserProfile.teacherName }}</p>
-								{% else %}
-									<p><strong>{{ mediaResult.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />{{ mediaResult.getUserProfile.teacherName }}'s Section {{ mediaResult.getUserProfile.section }}</p>
-								{% endif %}	
-								</a>						
-					            <div style="margin-right: auto; margin-left: auto; margin-top: 10px;">
-								{% if ".amr" in mediaResult.audio.path or ".mov" in mediaResult.audio.path or ".MOV" in mediaResult.audio.path or ".gp3" in mediaResult.audio.path or ".mp4" in mediaResult.audio.path %}								
-					            	<audio src="/media/CashCity/{{ mediaResult.audio }}.mp3" preload="auto" controls></audio>
-								{% else %}
-					            	<audio src="/media/CashCity/{{ mediaResult.audio }}" preload="auto" controls></audio>
-								{% endif %}
-					            </div>
-								<a href="/cashcity/media/audio/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
-								
-									<h4>{{ mediaResult.title }}</h4>
+							
 								</a>
+							</div>
+						</div>
+					{% elif mediaResult.audio %}
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 media-stub">
+								<div class="inner-media-stub">
+									<a href="/cashcity/media/audio/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
+										<div class="audio_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div>
+									{% if mediaResult.getUserProfile.color == None %}
+										<p><strong>Teacher Added</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />Teacher: {{ mediaResult.getUserProfile.teacherName }}</p>
+									{% else %}
+										<p><strong>{{ mediaResult.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />{{ mediaResult.getUserProfile.teacherName }}'s Section {{ mediaResult.getUserProfile.section }}</p>
+									{% endif %}	
+									<img src="http://placehold.it/250x250">
+									</a>						
+						            <div style="margin-right: auto; margin-left: auto; margin-top: -30px;height:30px;">
+									{% if ".amr" in mediaResult.audio.path or ".mov" in mediaResult.audio.path or ".MOV" in mediaResult.audio.path or ".gp3" in mediaResult.audio.path or ".mp4" in mediaResult.audio.path %}								
+						            	<audio src="/media/CashCity/{{ mediaResult.audio }}.mp3" preload="auto" controls></audio>
+									{% else %}
+						            	<audio src="/media/CashCity/{{ mediaResult.audio }}" preload="auto" controls></audio>
+									{% endif %}
+						            </div>
+									<a href="/cashcity/media/audio/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
+									
+										<h4>{{ mediaResult.title }}</h4>
+									</a>
+								</div>
 							</div>
 						
 					{% else %}
-						<a href="/cashcity/media/note/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
-							<div class="col-xs-4 media-stub">
-								<div class="note_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div>
-							{% if mediaResult.getUserProfile.color == None %}
-								<p><strong>Teacher Added</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />Teacher: {{ mediaResult.getUserProfile.teacherName }}</p>
-							{% else %}
-								<p><strong>{{ mediaResult.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />{{ mediaResult.getUserProfile.teacherName }}'s Section {{ mediaResult.getUserProfile.section }}</p>
-							{% endif %}							
-								<h4>{{ mediaResult.title }}</h4>
-					            <div style="height: 280px; width: 280px; margin: auto; overflow: hidden;">
-									<p>{{ mediaResult.notes }}</p>
-					            </div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 media-stub">
+							<div class="inner-media-stub">
+								<a href="/cashcity/media/note/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
+
+										<div class="note_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div>
+									{% if mediaResult.getUserProfile.color == None %}
+										<p><strong>Teacher Added</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />Teacher: {{ mediaResult.getUserProfile.teacherName }}</p>
+									{% else %}
+										<p><strong>{{ mediaResult.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />{{ mediaResult.getUserProfile.teacherName }}'s Section {{ mediaResult.getUserProfile.section }}</p>
+									{% endif %}		
+									<img src="http://placehold.it/250x250">					
+										<h4>{{ mediaResult.title }}</h4>
+							            <!-- <div style="height: 280px; width: 280px; margin: auto; overflow: hidden;"> -->
+											<!-- <p>{{ mediaResult.notes }}</p> -->
+							            <!-- </div> -->
+
+								</a>
 							</div>
-						</a>
+						</div>
 					{% endif %}
 				{% endfor %}
 			</div>

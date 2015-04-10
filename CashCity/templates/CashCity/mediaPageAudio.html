@@ -93,8 +93,9 @@
 
 
 {% block body_block %}
-<div class="half-container">
+<div  class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 medium-container media-page">
 	<div class="row">
+		<h3>{{ mediaAudioObject.title|title }}</h3>
 		{% if mediaAudioObject.getUserProfile.color == None %}
 			<p><strong>Teacher Added</strong><span class="pull-right">{{ mediaAudioObject.last_modified|date:"F j, Y" }}</span><br />Teacher: {{ mediaAudioObject.getUserProfile.teacherName }}</p>
 		{% else %}
@@ -106,7 +107,7 @@
 		<hr />
 	</div>	
 	<div class="row">
-		<h3>{{ mediaAudioObject.title|title }}</h3>
+		
 		{% if ".amr" in mediaAudioObject.audio.path or ".mov" in mediaAudioObject.audio.path or ".MOV" in mediaAudioObject.audio.path or ".gp3" in mediaAudioObject.audio.path or ".mp4" in mediaAudioObject.audio.path %}
 			<audio src="/media/CashCity/{{ mediaAudioObject.audio }}.mp3" preload="auto" controls></audio>
 		{% else %}
