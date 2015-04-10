@@ -33,6 +33,8 @@
 				var title{{ mapSnap.id }} = '{{ mapSnap.title }}';
 				var popup2Content{{ mapSnap.id }} = '{{ mapSnap.popup2Content }}';
 				var popup2LatLon{{ mapSnap.id }} = '{{ mapSnap.popup2LatLon }}';
+				var popup3Content{{ mapSnap.id }} = '{{ mapSnap.popup3Content }}';
+				var popup3LatLon{{ mapSnap.id }} = '{{ mapSnap.popup3LatLon }}';
 				var chartOn{{ mapSnap.id }} = '{{ mapSnap.chartOn }}';
 
 				
@@ -306,13 +308,17 @@
 							}							
 						}
 
+						// close all open popups in layers
+						if (MY_MAP.map.hasLayer(MY_MAP.popup2)) {
+							MY_MAP.map.removeLayer(MY_MAP.popup2);
+						}
+
+						if (MY_MAP.map.hasLayer(MY_MAP.popup3)) {
+							MY_MAP.map.removeLayer(MY_MAP.popup3);
+						}
+
 						// if there's popup content open popup and fill it with that content
 						if (popup2Content{{ mapSnap.id }} && popup2LatLon{{ mapSnap.id }}) {
-							// close any popups
-							if (!MY_MAP.popup2._isOpen) {
-								// close all popups first
-								MY_MAP.map.closePopup();
-							}
 
 							var popup2LatLon = popup2LatLon{{ mapSnap.id }}.split(',');
 							var popup2Lat = parseFloat(popup2LatLon[0]);
@@ -323,10 +329,22 @@
 							s = txt.value;
 							MY_MAP.popup2.setLatLng(latlonObject);
 							MY_MAP.popup2.setContent(s);
-							MY_MAP.popup2.openOn(MY_MAP.map);
-							MY_MAP.popup2.update();
+							MY_MAP.map.addLayer(MY_MAP.popup2);
 						}
 
+						if (popup3Content{{ mapSnap.id }} && popup3LatLon{{ mapSnap.id }}) {
+
+							var popup3LatLon = popup3LatLon{{ mapSnap.id }}.split(',');
+							var popup3Lat = parseFloat(popup3LatLon[0]);
+							var popup3Lon = parseFloat(popup3LatLon[1]);
+							var latlonObject = L.latLng(popup3Lat, popup3Lon);
+							var txt = document.createElement("textarea");
+							txt.innerHTML = popup3Content{{ mapSnap.id }};
+							s = txt.value;
+							MY_MAP.popup3.setLatLng(latlonObject);
+							MY_MAP.popup3.setContent(s);
+							MY_MAP.map.addLayer(MY_MAP.popup3);
+						}
 
 						function addLocations() {
 							if (LOC1{{ mapSnap.id }} == 'True') {

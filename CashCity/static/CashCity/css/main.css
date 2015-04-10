@@ -70,6 +70,14 @@ body {
 	margin-right: auto;
 }
 
+.enormous {
+	font-size: 200px;
+}
+
+.lessenormous {
+	font-size: 170px;
+}
+
 hr {
 	margin-bottom: 10px;
 	margin-top: 10px;	
@@ -152,32 +160,48 @@ hr {
 	margin-right: 100px;			
 }
 
-.nav-tabs.nav-mapui > li {
-	background-color: #025ff1;
+.panel-heading {
+	background-color: #025ff1 !important;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
 }
 
-.nav-tabs.nav-mapui > li > a {
+a:hover > .panel-heading {
+	background-color: #fff !important;
+}
+
+a > .panel-heading > .panel-title {
 	color: #fff;
 	border-radius: 0px;
-	padding: 10px 5px;
+	padding: 0px 5px;
+	text-decoration: none;
 }
 
-.nav-tabs.nav-mapui > li > a:hover,
-.nav-tabs.nav-mapui > li > a:focus {
-	background-color: #fff;
+a:hover > .panel-heading > .panel-title {
 	color: #333;
 	border-radius: 0px;
+	text-decoration: none;
 }
 
-.nav-tabs.nav-mapui > .active > a,
-.nav-tabs.nav-mapui > .active > a:hover,
-.nav-tabs.nav-mapui > .active > a:focus {
-	color: #333;
+.panel {
+	border: 0px;
 }
+
+.panel-group {
+  margin-bottom: 0px;
+}
+
+.panel-group .panel+.panel {
+	margin-top: 0px;
+}
+
 
 .nav-mapui-width {
-	width: 620px;
+	width: 250px;
 }
+
+
+
 
 .nav-tabs.nav-tabs-media {
 	margin-bottom: 20px;
@@ -226,6 +250,10 @@ hr {
 
 .padding10bottom {
 	padding-bottom: 10px;
+}
+
+.padding10top {
+	padding-top: 10px;
 }
 
 .grey {
@@ -371,9 +399,9 @@ hr {
 
 .map-ui {
     position: absolute;
-    left: 25px;
+    left: 10px;
     top: 60px;
-    width: 535px;
+    width: 250px;
     margin: 0;
     padding: 0;
     z-index: 100;
@@ -458,7 +486,7 @@ hr {
 }
 
 .map-tag-search-box {
-	width: 100%;
+	width: 220px;
 }
 
 .tagit {
@@ -475,6 +503,7 @@ hr {
     text-align: center;
     top: 0px;
     z-index: 2;
+    cursor: pointer;
 }
 
 
@@ -494,7 +523,7 @@ hr {
 
 .citydigits-charts .chartDiv {
 	width: 500px;
-	height: 400px;
+	height: 300px;
 	background: none repeat scroll 0 0 #fff;
 	box-shadow: 5px 5px 15px;
 }
@@ -515,6 +544,20 @@ hr {
 .bar:hover {
   fill: #9c9c9c;
 }
+
+.pinkbar {
+	fill: rgb(181,119,155);
+}
+
+.pinkbarlegend {
+	fill: rgb(181,119,155);
+}
+
+.brightpinkbar {
+	fill: rgb(219,46,147);
+	/*fill:#ffff99;*/
+}
+
 
 .axis {
   font-family: "Apercu Regular", Calibri, sans-serif; font-size-adjust:0.508; font-weight:normal; font-style:normal;
@@ -676,10 +719,26 @@ body.loading .loading-modal {
 * opinion form css
 */
 
+.greyBackground {
+	background-color: #B0B6BD;
+	margin: -10px;
+	padding: 10px;
+}
 
 .opinion-form-button {
 	width: 33%;
 	height: 100px;
+}
+
+.opinionPreviewMap {
+	margin-bottom: 20px;
+    width:200px;
+    height:150px;
+}
+
+.moveSection {
+	cursor: move;
+	padding-right: 5px;
 }
 
 .upload-button-rounding {

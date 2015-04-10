@@ -12,52 +12,43 @@
     <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/MarkerCluster.Default.css' %}">	
 	<!-- style embedded in django template for static file usage -->
 	<style type="text/css">		
-		.nav-tabs.nav-mapui > li > a > .edit-button {
+		a > .panel-heading > .panel-title > .edit-button {
 			display: inline-block;
 			width: 22px;
 			height: 17px;
 			background-image: url({% static 'CashCity/img/edit_white.png' %})
 		}
 		
-		.nav-tabs.nav-mapui > .active > a > .edit-button,
-		.nav-tabs.nav-mapui > .active > a:hover > .edit-button,
-		.nav-tabs.nav-mapui > .active > a:focus > .edit-button, 
-		.nav-tabs.nav-mapui > li > a:hover > .edit-button,
-		.nav-tabs.nav-mapui > li > a:focus > .edit-button {
+		a:hover > .panel-heading > .panel-title > .edit-button,
+		a:focus > .panel-heading > .panel-title > .edit-button {
 			background-image: url({% static 'CashCity/img/edit_gray.png' %})
 		}
 		
-		.nav-tabs.nav-mapui > li > a > .image-button {
+		a > .panel-heading > .panel-title > .image-button {
 			display: inline-block;
 			width: 22px;
 			height: 17px;
 			background-image: url({% static 'CashCity/img/image_white.png' %})
 		}
 		
-		.nav-tabs.nav-mapui > .active > a > .image-button,
-		.nav-tabs.nav-mapui > .active > a:hover > .image-button,
-		.nav-tabs.nav-mapui > .active > a:focus > .image-button, 
-		.nav-tabs.nav-mapui > li > a:hover > .image-button,
-		.nav-tabs.nav-mapui > li > a:focus > .image-button {
+		a:hover > .panel-heading > .panel-title > .image-button,
+		a:hover > .panel-heading > .panel-title > .image-button {
 			background-image: url({% static 'CashCity/img/image_gray.png' %})
 		}
 		
-		.nav-tabs.nav-mapui > li > a > .location-button {
+		a > .panel-heading > .panel-title > .location-button {
 			display: inline-block;
 			width: 22px;
 			height: 17px;
 			background-image: url({% static 'CashCity/img/locations_white.png' %})
 		}
 		
-		.nav-tabs.nav-mapui > .active > a > .location-button,
-		.nav-tabs.nav-mapui > .active > a:hover > .location-button,
-		.nav-tabs.nav-mapui > .active > a:focus > .location-button, 
-		.nav-tabs.nav-mapui > li > a:hover > .location-button,
-		.nav-tabs.nav-mapui > li > a:focus > .location-button {
+		a:hover > .panel-heading > .panel-title > .location-button,
+		a:hover > .panel-heading > .panel-title > .location-button {
 			background-image: url({% static 'CashCity/img/locations_gray.png' %})
 		}
 		
-		.nav-tabs.nav-mapui > li > a > .map-button {
+		a > .panel-heading > .panel-title > .map-button {
 			display: inline-block;
 			margin-right: 3px;
 			width: 22px;
@@ -65,11 +56,8 @@
 			background-image: url({% static 'CashCity/img/map_white.png' %})
 		}
 		
-		.nav-tabs.nav-mapui > .active > a > .map-button,
-		.nav-tabs.nav-mapui > .active > a:hover > .map-button,
-		.nav-tabs.nav-mapui > .active > a:focus > .map-button, 
-		.nav-tabs.nav-mapui > li > a:hover > .map-button,
-		.nav-tabs.nav-mapui > li > a:focus > .map-button {
+		a:hover > .panel-heading > .panel-title > .map-button,
+		a:hover > .panel-heading > .panel-title > .map-button {
 			background-image: url({% static 'CashCity/img/map_gray.png' %})
 		}
 		
@@ -342,157 +330,179 @@
 
 <div class="map-container">
     <div class="row">
-        <div class="col-xs-6 col-md-4">
-           <div id="map-nav" class="map-nav map-ui">
-			<ul id="navTabs" class="nav nav-tabs nav-mapui nav-justified" role="tablist">
-			  <li id='locations-tab'><a href="#locations" role="tab" data-toggle="tab"><div class="location-button"></div>LOCATIONS</a></li>
-			  <li id='maps-tab'><a href="#maps" role="tab" data-toggle="tab"><div class="map-button"></div>MAPS</a></li>
-			  <li id='createMap-tab'><a href="#createMap" role="tab" data-toggle="tab"><div class="edit-button"></div>CREATE MAP</a></li>
-			</ul>
-
-			<!-- Tab panes -->
-			<div class="tab-content">
-			  <div class="tab-pane fade in active" id="locations">
-				  <div class="container nav-mapui-width">
-					<div class="row">
-						<div class="col-xs-10">
-							<small><em>Toggle different layers to view banks, AFIs, transportation or user-uploaded media.</em></small>
+		<div id="map-nav" class="map-nav map-ui">
+		  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+		    <div class="panel panel-default">
+			  <a id='locations-tab' data-toggle="collapse" data-parent="#accordion" href="#locations" aria-expanded="true" aria-controls="locations">
+			      <div class="panel-heading" role="tab" id="headingOne">
+			        <h4 class="panel-title">
+			            <div class="location-button"></div>LOCATIONS
+			        </h4>
+			      </div>
+		      </a>
+		      <div id="locations" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+		        <div class="panel-body">
+		          <div class="container nav-mapui-width">
+		            <div class="row">
+		              <div class="col-xs-12">
+		                <small><em>Toggle different layers to view banks, AFIs, transportation or user-uploaded media.</em></small>
+		              </div>
+		            </div>
+		              <div class="row">
+		                <div class="checkbox">
+		                  <label>
+		                    <input name='locations' type="checkbox" id="All_AFS" value="All_AFS">
+		                    <abbr title="Checking this box will turn on Pawn Shops, Check Cashing and Wire Transfer locations, which are Alternative Financial Insitutions.">Alternative Financial Insitutions</abbr>
+		                  </label>
+		                </div>
+		              <div class="checkbox">
+		                <label>
+		                  <input name='locations' type="checkbox" id="LOC1" value="LOC1">
+		                  <img src="{% static 'CashCity/img/pawn_sm.png' %}" /> Pawn Shops
+		                </label>
+		              </div>
+		              <div class="checkbox">
+		                <label>
+		                  <input name='locations' type="checkbox" id="LOC2" value="LOC2">
+		                <img src="{% static 'CashCity/img/check_sm.png' %}" /> Check Cashing
+		                </label>
+		              </div>
+		              <div class="checkbox">
+		                <label>
+		                  <input name='locations' type="checkbox" id="LOC3" value="LOC3">
+		                <img src="{% static 'CashCity/img/wire_sm.png' %}" /> Wire Transfer
+		                </label>
+		              </div>
+		              <div class="checkbox">
+		                <label>
+		                  <input name='locations' type="checkbox" id="LOC4" value="LOC4">
+		                  <img src="{% static 'CashCity/img/banks_sm.png' %}" /> Banks
+		                </label>
+		              </div>
+		              <div class="checkbox">
+		                <label>
+		                  <input name='locations' type="checkbox" id="LOC5" value="LOC5">
+		                <img src="{% static 'CashCity/img/mcd_sm.png' %}" /> McDonald's
+		                </label>
+		              </div>
+		              <div class="checkbox">
+		                <label>
+		                  <input name='locations' type="checkbox" id="LOC6" value="LOC6">
+		                Subway Lines
+		                </label>
+		              </div>
+		              <div class="checkbox">
+		                <label>
+		                  <input name='media' type="checkbox" id="MEDIA" value="MEDIA">
+		                Media 
+		                </label>
+		              </div>
+		              <div class="checkbox">
+		                <label>
+		                  <input name='locations' type="checkbox" id="NYC_BORO" value="NYC_BORO">
+		                NYC Boroughs
+		                </label>
+		              </div>
+		              <form class="form">
+		                <div class="form-group has-feedback map-tag-search-box">
+		                  {{ form.tags|attr:"id:tags" }}
+		                  <span class="glyphicon glyphicon-search form-control-feedback-media"></span>
+		                <small>Search for specific media by tag.</small>  
+		                </div>
+		              </form>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		    <div class="panel panel-default">
+		      <a id='maps-tab' class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#maps" aria-expanded="false" aria-controls="maps">
+			      <div class="panel-heading" role="tab" id="headingTwo">
+			        <h4 class="panel-title">
+			          <div class="map-button"></div>MAPS
+			        </h4>
+			      </div>
+		      </a>
+		      <div id="maps" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+		        <div class="panel-body">
+		          <div class="container nav-mapui-width">
+			        <div class="row">
+			          <div class="col-xs-12">
+			            <small><em>Toggle between the following map layers to explore a variety of base layer information in the area.</em></small>
+			          </div>
+			        </div>
+			        <div class="row">
+			            <div class="checkbox">
+			              <label>
+			                <input type="checkbox" name="maps" id="MAP1" value="MAP1_POP_POVERTY">
+			                % Population in Poverty
+			              </label>
+			            </div>
+			            <div class="checkbox">
+			              <label>
+			                <input type="checkbox" name="maps" id="MAP2" value="MAP2_MED_HH_INCOME">
+			                Median Household Income
+			              </label>
+			            </div>
+			            <div class="checkbox">
+			              <label>
+			                <input type="checkbox" name="maps" id="MAP3" value="MAP3_PCT_UNEMPLOYED">
+			                % Unemployment
+			              </label>
+			            </div>
+			            <div class="checkbox">
+			              <label>
+			                <input type="checkbox" name="maps" id="MAP4" value="MAP4_PCT_FOREIGN_BORN">
+			                % Population Foreign Born
+			              </label>
+			            </div>
+			          </div> 
+		        	</div>
+		      	</div>
+		      </div>
+		    </div>
+		    <div class="panel panel-default">
+			  <a id='createMap-tab' class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#createMap" aria-expanded="false" aria-controls="createMap">
+			      <div class="panel-heading" role="tab" id="headingThree">
+			        <h4 class="panel-title">
+			          <div class="edit-button"></div>CREATE MAP
+			        </h4>
+			      </div>
+		      </a>
+		      <div id="createMap" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+				<div class="panel-body">
+					<div class="container nav-mapui-width">
+						<div class="row">
+							<div class="col-xs-12">
+								<small><em>Select between the options below to further explore the relationship between data and geography.</em></small>
+							</div>
 						</div>
-					</div>
-				    <div class="row">
-				      <div class="col-xs-5">
-			  			<div class="checkbox">
-			  			  <label>
-			  			    <input name='locations' type="checkbox" id="All_AFS" value="All_AFS">
-			  			    <abbr title="Checking this box will turn on Pawn Shops, Check Cashing and Wire Transfer locations, which are Alternative Financial Insitutions.">Alternative Financial Insitutions</abbr>
-			  			  </label>
-			  			</div>
-						<div class="checkbox">
-						  <label>
-						    <input name='locations' type="checkbox" id="LOC1" value="LOC1">
-						   	<img src="{% static 'CashCity/img/pawn_sm.png' %}" /> Pawn Shops
-						  </label>
-						</div>
-						<div class="checkbox">
-						  <label>
-						    <input name='locations' type="checkbox" id="LOC2" value="LOC2">
-							<img src="{% static 'CashCity/img/check_sm.png' %}" /> Check Cashing
-						  </label>
-						</div>
-						<div class="checkbox">
-						  <label>
-						    <input name='locations' type="checkbox" id="LOC3" value="LOC3">
-							<img src="{% static 'CashCity/img/wire_sm.png' %}" /> Wire Transfer
-						  </label>
-						</div>
-				      </div>
-					  <div class="col-xs-5">
-						<div class="checkbox">
-						  <label>
-						    <input name='locations' type="checkbox" id="LOC4" value="LOC4">
-						   	<img src="{% static 'CashCity/img/banks_sm.png' %}" /> Banks
-						  </label>
-						</div>
-						<div class="checkbox">
-						  <label>
-						    <input name='locations' type="checkbox" id="LOC5" value="LOC5">
-							<img src="{% static 'CashCity/img/mcd_sm.png' %}" /> McDonald's
-						  </label>
-						</div>
-						<div class="checkbox">
-						  <label>
-						    <input name='locations' type="checkbox" id="LOC6" value="LOC6">
-							Subway Lines
-						  </label>
-						</div>
-						<div class="checkbox">
-						  <label>
-						    <input name='media' type="checkbox" id="MEDIA" value="MEDIA">
-							Media 
-						  </label>
-						</div>
-						<form class="form">
-						  <div class="form-group has-feedback map-tag-search-box">
-							  {{ form.tags|attr:"id:tags" }}
-						    <span class="glyphicon glyphicon-search form-control-feedback-media"></span>
-							<small>Search for specific media by tag.</small>	
-						  </div>
+						<br />
+						<form class="form-inline" role="form">
+							<label class="sr-only" for="var1Select">Select Variable One</label>
+								<select id="var1Select" data-width="85%" class="selectpicker show-tick form-control">
+									<option value="Variable 1" class="grey">Variable 1</option>
+									<option value="Pawn Shops">Pawn Shops</option>
+									<option value="Alternative Financial Insitutions">Alternative Financial Insitutions</option>
+									<option value="Banks">Banks</option>
+									<option value="McDonalds">McDonald's</option>
+									<option value="Households">Households</option>
+								</select>
+							<hr style="border-top: 2px solid #000; width:85%" class="pull-left"/>
+							<label class="sr-only" for="var2Select">Select Variable Two</label>
+								<select id="var2Select" data-width="85%" class="selectpicker show-tick form-control">
+								<option value="Variable 2" class="grey">Variable 2</option>
+							</select>
 						</form>
-					  </div>
-				    </div>
-				  </div>
-			  </div>
-			  <div class="tab-pane fade" id="maps">
-			  <div class="container nav-mapui-width">
-				<div class="row">
-					<div class="col-xs-10">
-						<small><em>Toggle between the following map layers to explore a variety of base layer information in the area.</em></small>
 					</div>
+					<p class="text-center padding10top"><strong>Equals</strong></p>
+					<p id="normalizationText" class="lowFontWeight text-center"></p>
 				</div>
-			    <div class="row">
-				      <div class="col-xs-5">
-						<div class="checkbox">
-						  <label>
-						    <input type="checkbox" name="maps" id="MAP1" value="MAP1_POP_POVERTY">
-						    % Population in Poverty
-						  </label>
-						</div>
-						<div class="checkbox">
-						  <label>
-						    <input type="checkbox" name="maps" id="MAP2" value="MAP2_MED_HH_INCOME">
-						    Median Household Income
-						  </label>
-						</div>
-				      </div>
-					  <div class="col-xs-5">
-						<div class="checkbox">
-						  <label>
-						    <input type="checkbox" name="maps" id="MAP3" value="MAP3_PCT_UNEMPLOYED">
-						    % Unemployment
-						  </label>
-						</div>
-						<div class="checkbox">
-						  <label>
-						    <input type="checkbox" name="maps" id="MAP4" value="MAP4_PCT_FOREIGN_BORN">
-						    % Population Foreign Born
-						  </label>
-						</div>
-					  </div>
-			    </div>
 			  </div>
-			  </div>
-			  <div class="tab-pane fade" id="createMap">
-				<div class="container nav-mapui-width">
-					<div class="row">
-						<div class="col-xs-10">
-							<small><em>Select between the options below to further explore the relationship between data and geography.</em></small>
-						</div>
-					</div>
-				</div>
-			  	<div class="padding10">	
-			        <form class="form-inline" role="form">
-						<label class="sr-only" for="var1Select">Select Variable One</label>
-	                    <select id="var1Select" data-width="22%" class="selectpicker show-tick form-control">
-	                        <option value="Variable 1" class="grey">Variable 1</option>
-	                        <option value="Pawn Shops">Pawn Shops</option>
-	                        <option value="Alternative Financial Insitutions">Alternative Financial Insitutions</option>
-	                        <option value="Banks">Banks</option>
-	                        <option value="McDonalds">McDonald's</option>
-	                        <option value="Households">Households</option>
-	                    </select>
-						 / 
-						<label class="sr-only" for="var2Select">Select Variable Two</label>
-	                    <select id="var2Select" data-width="22%" class="selectpicker show-tick form-control">
-	                        <option value="Variable 2" class="grey">Variable 2</option>
-	                    </select>
-						= 
-						<label id="normalizationText" class="lowFontWeight"></label>
-			        <form>
-				</div>
-
-			</div>           	
-           </div><!-- map-nav -->		  
-        </div>
+			</div>
+		  </div>
+	    </div>
+	  </div>
     </div>
     <div id="citydigits-zoomer" class="citydigits-zoomer hidden">
 		<div class="zoom-out">
@@ -527,9 +537,11 @@
 	<script type="text/javascript" src="{% static 'CashCity/js/Control.Geocoder.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/leaflet.markercluster.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/accounting.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/L.Path.Drag.js' %}"></script>
 	<!-- set varible for topojson and csv urls -->
 	<script type="text/javascript">
 	var neighborhoods = "{% static 'CashCity/topojson/neighborhoods.json' %}";	
+	var nyc_boro = "{% static 'CashCity/topojson/nyc_borough.json' %}";	
 	var SubwayLines = "{% static 'CashCity/topojson/mta_subway_only_june2014.geojson' %}";	
 	var SubwayStations = "{% static 'CashCity/topojson/subway_stations.geojson' %}";	
 	var CheckCashing = "{% static 'CashCity/locationData/CheckCashing.csv' %}";	
@@ -579,6 +591,8 @@
 			var title{{ mapSnapBookmark.id }} = '{{ mapSnapBookmark.title }}';
 			var popup2Content{{ mapSnapBookmark.id }} = '{{ mapSnapBookmark.popup2Content }}';
 			var popup2LatLon{{ mapSnapBookmark.id }} = '{{ mapSnapBookmark.popup2LatLon }}';
+			var popup3Content{{ mapSnapBookmark.id }} = '{{ mapSnapBookmark.popup3Content }}';
+			var popup3LatLon{{ mapSnapBookmark.id }} = '{{ mapSnapBookmark.popup3LatLon }}';
 			var chartOn{{ mapSnapBookmark.id }} = '{{ mapSnapBookmark.chartOn }}';
 
 			// set map zoom and center
@@ -749,13 +763,17 @@
 				}							
 			}
 
+			// close all open popups in layers
+			if (MY_MAP.map.hasLayer(MY_MAP.popup2)) {
+				MY_MAP.map.removeLayer(MY_MAP.popup2);
+			}
+
+			if (MY_MAP.map.hasLayer(MY_MAP.popup3)) {
+				MY_MAP.map.removeLayer(MY_MAP.popup3);
+			}
+
 			// if there's popup content open popup and fill it with that content
 			if (popup2Content{{ mapSnapBookmark.id }} && popup2LatLon{{ mapSnapBookmark.id }}) {
-				// close any popups
-				if (!MY_MAP.popup2._isOpen) {
-					// close all popups first
-					MY_MAP.map.closePopup();
-				}
 
 				var popup2LatLon = popup2LatLon{{ mapSnapBookmark.id }}.split(',');
 				var popup2Lat = parseFloat(popup2LatLon[0]);
@@ -766,10 +784,22 @@
 				s = txt.value;
 				MY_MAP.popup2.setLatLng(latlonObject);
 				MY_MAP.popup2.setContent(s);
-				MY_MAP.popup2.openOn(MY_MAP.map);
-				MY_MAP.popup2.update();
+				MY_MAP.map.addLayer(MY_MAP.popup2);
 			}
 
+			if (popup3Content{{ mapSnapBookmark.id }} && popup3LatLon{{ mapSnapBookmark.id }}) {
+
+				var popup3LatLon = popup3LatLon{{ mapSnapBookmark.id }}.split(',');
+				var popup3Lat = parseFloat(popup3LatLon[0]);
+				var popup3Lon = parseFloat(popup3LatLon[1]);
+				var latlonObject = L.latLng(popup3Lat, popup3Lon);
+				var txt = document.createElement("textarea");
+				txt.innerHTML = popup3Content{{ mapSnapBookmark.id }};
+				s = txt.value;
+				MY_MAP.popup3.setLatLng(latlonObject);
+				MY_MAP.popup3.setContent(s);
+				MY_MAP.map.addLayer(MY_MAP.popup3);
+			}
 
 			function addLocations() {
 				if (LOC1{{ mapSnapBookmark.id }} == 'True') {
@@ -827,6 +857,17 @@
 
 
 {% block modal_block %}
+<div class="modal fade" id="introduction" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <input type="text" class="form-control">
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div class="modal fade" id="mapSnapsTitle" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

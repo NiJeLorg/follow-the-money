@@ -4,6 +4,7 @@
 {% load staticfiles %}
 
 {% block css_block %}
+    <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/jquery-ui.css' %}">	
     <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/mapbox.css' %}">	
 	<!-- style embedded in django template for static file usage -->
 	<style type="text/css">		
@@ -83,6 +84,7 @@
 			display: inline-block;
 			width: 22px;
 			height: 17px;
+			margin-bottom: 10px;
 			background-image: url({% static 'CashCity/img/trash.png' %})
 		}
 		
@@ -133,13 +135,23 @@
 				{{ opinionsForm.opinionText|add_class:"form-control" }}
 			</div>
 			<br />
+			<div id='sortable'>
 		    {{ opinionSectionsFormset.management_form }}
 		    {% for form in opinionSectionsFormset %}
 				{{ form.id }}
-				<div id="section_{{ forloop.counter0 }}">
+				<div id="section_{{ forloop.counter0 }}" class='greyBackground'>
 					<hr />
-					<div id="removeSection_{{ forloop.counter0 }}" class="trash-button pull-right" title="Remove Section {{ forloop.counter }}"></div>
-					<h4>SECTION {{ forloop.counter }}</h4>
+					<div class="padding10bottom pull-right">
+						<p class="moveSection"><small><em>Click and drag to reorder your opinion.</em></small>  
+							<span class="glyphicon glyphicon-move moveSection" aria-hidden="true" title="Move This Section"></span>
+							<span id="removeSection_{{ forloop.counter0 }}" class="glyphicon glyphicon-trash mediaSelect" aria-hidden="true" title="Remove This Section"></span>
+						</p>
+					</div>
+					<div class="form-group">
+						{% if form.text.errors %} 
+						<span class="text-danger">{{ form.sectionTitle.errors|join:", " }}</span>{% endif %}
+						{{ form.sectionTitle|add_class:"form-control"|attr:"placeholder:SECTION TITLE" }}
+					</div>					
 					<p><strong>Media</strong></p>
 					<div class="fileGroup">
 						<div class="row">
@@ -196,17 +208,77 @@
 						</div> -->
 						<div class="clearfix"></div>
 						<br />
+						<div class="form-group">
+							<label for="text">Media Title</label>{% if form.text.errors %} <span class="text-danger">{{ form.text.errors|join:", " }}</span>{% endif %}
+							{{ form.mediaTitle|add_class:"form-control"|attr:"placeholder:Media Title" }}
+						</div>				
+						<div class="clearfix"></div>
+						<div id="uploadPreview_{{ forloop.counter }}">
+							{% if form.uploadImage.value %}
+								<img src="/media/CashCity/ {{ form.uploadImage.value }}" class="padding10bottom" width="100%" />
+							{% endif %}
+						</div>
+						<div id="mapSnapPreview_{{ forloop.counter }}"></div>
+						<div id="mediaPreview_{{ forloop.counter }}">
+							<div id="mediaImagePreview_{{ forloop.counter }}">
+							{% for image in mediaImages %}
+								<div class="padding10bottom" id="{{ image.id }}" style="display:none;">
+				            		<img src="{% cropped_thumbnail image 'cropped_image_w640_h480' %} " />
+				            	</div>
+							{% endfor %}
+							</div>
+							<div id="mediaAudioPreview_{{ forloop.counter }}">
+							{% for audio in mediaAudio %}
+								<div id="{{ audio.id }}" title="{{ audio.title }}" class="padding10bottom" style="display:none;">
+									<p><strong>{{ audio.title }}</strong></p>
+									{% if ".amr" in audio.audio.path or ".mov" in audio.audio.path or ".MOV" in audio.audio.path or ".gp3" in audio.audio.path or ".mp4" in audio.audio.path %}
+										<audio src="/media/CashCity/{{ audio.audio }}.mp3" preload="auto" controls></audio>
+									{% else %}
+										<audio src="/media/CashCity/{{ audio.audio }}" preload="auto" controls></audio>
+									{% endif %}
+									<p>{{ audio.caption }}</p>
+								</div>
+							{% endfor %}
+							</div>
+							<div id="mediaNotePreview_{{ forloop.counter }}">
+							{% for note in mediaNote %}
+								<div id="{{ note.id }}" title="{{ note.title }}" class="padding10bottom" style="display:none;">
+									<p><strong>{{ note.title }}</strong></p>
+									<p>{{ note.notes }}</p>
+								</div>
+							{% endfor %}
+							</div>
+							<div id="mediaInterviewPreview_{{ forloop.counter }}">
+							{% for interview in mediaInterview %}
+								<div id="{{ interview.id }}" title="{{ interview.title }}" class="padding10bottom" style="display:none;">
+									<p><strong>{{ interview.title }}</strong></p>
+									<img class="imageSelect" src="{% cropped_thumbnail interview 'cropped_image_w640_h480' %}" />
+									<div class="clearfix"></div>
+									<br />
+									{% if ".amr" in interview.audio.path or ".mov" in interview.audio.path or ".MOV" in interview.audio.path or ".gp3" in interview.audio.path or ".mp4" in interview.audio.path %}
+										<audio src="/media/CashCity/{{ interview.audio }}.mp3" preload="auto" controls></audio>
+									{% else %}
+										<audio src="/media/CashCity/{{ interview.audio }}" preload="auto" controls></audio>
+									{% endif %}
+									<p>{{ interview.caption }}</p>
+								</div>
+							{% endfor %}
+							</div>
+							
+						</div>
+
+
 						{% if form.errors %}
-							<input type="text" class="form-control" placeholder='No File Chosen' readonly>
+							<input type="text" class="form-control filename" placeholder='No File Chosen' readonly>
 						{% elif form.uploadImage.value %}
-		               		<input id="readonlyField_{{ forloop.counter }}" type="text" class="form-control" placeholder='{{ form.uploadImage.value }}' readonly>
+		               		<input id="readonlyField_{{ forloop.counter }}" type="text" class="form-control filename" placeholder='{{ form.uploadImage.value }}' readonly>
 						{% else %}
-		               		<input id="readonlyField_{{ forloop.counter }}" type="text" class="form-control" placeholder='Nothing Selected' readonly>
+		               		<input id="readonlyField_{{ forloop.counter }}" type="text" class="form-control filename" placeholder='Nothing Selected' readonly>
 						{% endif %}
 						<br />
 					</div>
 					<div class="form-group">
-						<label for="text">Text</label>{% if form.text.errors %} <span class="text-danger">{{ form.text.errors|join:", " }}</span>{% endif %}
+						<label for="text">Say Something About Your Media</label>{% if form.text.errors %} <span class="text-danger">{{ form.text.errors|join:", " }}</span>{% endif %}
 						{{ form.text|add_class:"form-control" }}
 					</div>
 				<hr />
@@ -226,7 +298,7 @@
 				</div>
 				
 		    {% endfor %}
-
+			</div>
 	
 			<button type="submit" class="btn btn-primary" name="publish" value="submit">Publish</button>
 			<button type="submit" class="btn btn-default" name="saveDraft" value="saveDraft">Save Draft</button>
@@ -247,7 +319,7 @@
 		<div class="modal-body">
 			<div id='coverPhotoGallery'>
 				{% for image in mediaImages %}
-					<img class="imageSelect coverPhotoSelect" id="{{ image.id }}" title="{{ image.title }}" src="{% cropped_thumbnail image 'cropped_image_w640_h480' scale=0.25 %}">
+					<img class="imageSelect coverPhotoSelect" id="{{ image.id }}" title="{{ image.title }}" src="{% cropped_thumbnail image 'cropped_image_w640_h480' scale=0.25 %}" />
 				{% endfor %}
 			</div>
 		</div>
@@ -278,14 +350,14 @@
 			  <div class="tab-pane active" id="images_{{ forloop.counter }}">
 				<div id="imageSelect_{{ forloop.counter }}">
 					{% for image in mediaImages %}
-		            	<img class="imageSelect imageSelect_{{ forloop.counter }}" id="{{ image.id }}" title="{{ image.title }}" src="{% cropped_thumbnail image 'cropped_image_w640_h480' scale=0.25 %}">
+		            	<img class="imageSelect imageSelect_{{ forloop.parentloop.counter }}" id="{{ image.id }}" title="{{ image.title }}" src="{% cropped_thumbnail image 'cropped_image_w640_h480' scale=0.25 %}" />
 					{% endfor %}
 				</div>
 			  </div>
 			  <div class="tab-pane" id="audio_{{ forloop.counter }}">
 				<div id="audioSelect_{{ forloop.counter }}">
 					{% for audio in mediaAudio %}
-						<div id="{{ audio.id }}" title="{{ audio.title }}" class="container-fluid audioSelect_{{ forloop.counter }} mediaSelect">
+						<div id="{{ audio.id }}" title="{{ audio.title }}" class="container-fluid audioSelect_{{ forloop.parentloop.counter }} mediaSelect">
 							<div class="row">
 								<div class="col-xs-7">
 									<p><strong>{{ audio.title }}</strong></p>
@@ -307,7 +379,7 @@
 			  <div class="tab-pane" id="notes_{{ forloop.counter }}">
 				<div id="noteSelect_{{ forloop.counter }}">
 					{% for note in mediaNote %}
-						<div id="{{ note.id }}" title="{{ note.title }}" class="container-fluid noteSelect_{{ forloop.counter }} mediaSelect">
+						<div id="{{ note.id }}" title="{{ note.title }}" class="container-fluid noteSelect_{{ forloop.parentloop.counter }} mediaSelect">
 							<div class="row">
 								<div class="col-xs-6">
 									<p><strong>{{ note.title }}</strong></p>
@@ -324,10 +396,10 @@
 			  <div class="tab-pane" id="interviews_{{ forloop.counter }}">
 				<div id="interviewSelect_{{ forloop.counter }}">
 					{% for interview in mediaInterview %}
-						<div id="{{ interview.id }}" title="{{ interview.title }}" class="container-fluid interviewSelect_{{ forloop.counter }} mediaSelect">
+						<div id="{{ interview.id }}" title="{{ interview.title }}" class="container-fluid interviewSelect_{{ forloop.parentloop.counter }} mediaSelect">
 							<div class="row">
 								<div class="col-xs-4">
-									<img class="imageSelect" src="{% cropped_thumbnail interview 'cropped_image_w640_h480' scale=0.25 %}">
+									<img class="imageSelect" src="{% cropped_thumbnail interview 'cropped_image_w640_h480' scale=0.25 %}" />
 								</div>
 								<div class="col-xs-3">
 									<p><strong>{{ interview.title }}</strong></p>
@@ -503,6 +575,7 @@
 
 
 {% block js_block %}
+	<script type="text/javascript" src="{% static 'CashCity/js/jquery-ui.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/mapbox.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/leaflet-omnivore.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/topojson.js' %}"></script>
@@ -532,6 +605,23 @@
 	<script type="text/javascript">
 
 		$(document).ready( function() {
+			// set divs to sortable
+			$( "#sortable" ).sortable();
+			$( "#sortable" ).disableSelection();
+
+			// update section number count when resorted
+			$( "#sortable" ).on( "sortstop", function( event, ui ) {
+				var sorted = $( "#sortable" ).sortable( "serialize", { key: "section" } );
+				sorted = sorted.replace(/FORMS/g, '');
+				sorted = sorted.replace(/id/g, '');
+				sorted = sorted.replace(/section=/g, '');
+				sorted = sorted.replace(/&/g, '');
+				sorted = sorted.split('');
+				for (var i = sorted.length - 1; i >= 0; i--) {
+					$('#id_form-'+sorted[i]+'-sectionNumber').val(i);
+				};
+			});
+
 			// outside loop js
 			// select image tab on page load
 			$('.shouldbeActive').addClass('active');
@@ -596,10 +686,6 @@
 
 				// add section numbers to form field
 				$('#id_form-'+{{ forloop.counter0 }}+'-sectionNumber').val({{ forloop.counter }});
-				$('#id_form-'+{{ forloop.counter0 }}+'-sectionNumber').val({{ forloop.counter }});
-				$('#id_form-'+{{ forloop.counter0 }}+'-sectionNumber').val({{ forloop.counter }});
-				$('#id_form-'+{{ forloop.counter0 }}+'-sectionNumber').val({{ forloop.counter }});
-				$('#id_form-'+{{ forloop.counter0 }}+'-sectionNumber').val({{ forloop.counter }});
 
 				// add sections
 				$('#addSection_'+{{ forloop.counter }}).click(function() {
@@ -616,6 +702,8 @@
 					$('#id_form-'+{{ forloop.counter0 }}+'-interview').val(null);
 					$('#id_form-'+{{ forloop.counter0 }}+'-mapSnap').val(null);
 					$('#id_form-'+{{ forloop.counter0 }}+'-text').val(null);
+					$('#id_form-'+{{ forloop.counter0 }}+'-sectionTitle').val(null);
+					$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').val(null);
 					// ensure all media is deselected
 			        $(".imageSelect_"+{{ forloop.counter }}).removeClass('active');
 			        $(".audioSelect_"+{{ forloop.counter }}).removeClass('active');
@@ -625,10 +713,21 @@
 			        $(".mapSnapSelect_"+{{ forloop.counter }}).removeClass('active');
 					// remove any uploaded images
 					resetFormElement( $('#id_form-'+{{ forloop.counter0 }}+'-uploadImage') );			
-					resetFormElement( $('#readonlyField_'+{{ forloop.counter }}) );			
+					resetFormElement( $('#readonlyField_'+{{ forloop.counter }}) );
+								
 					// reset the name of selected in the form field to "Nothing selected"
 					$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', 'Nothing Selected');
-					selected_{{ forloop.counter }} = false;				
+					$('#id_form-'+{{ forloop.counter0 }}+'-sectionTitle').attr('placeholder', 'SECTION TITLE');
+					$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').attr('placeholder', 'Media Title');
+					// remove anything from the preview area
+					$('#uploadPreview_'+{{ forloop.counter }}).html('');
+					$('#mediaPreview_'+{{ forloop.counter }}+' > div > div').hide();
+					$('#mapSnapPreview_'+{{ forloop.counter }}).html('');
+
+					// flag value as not selected
+					selected_{{ forloop.counter }} = false;	
+
+
 				});	
 
 				//submit buttons
@@ -655,12 +754,17 @@
 					}
 				});
 
-				// highlighting for section 1
+				// highlighting 
 				$(".imageSelect_"+{{ forloop.counter }}).click(function() {
 					if ($(this).hasClass("active")) {
 						$(this).removeClass('active');
 						$('#id_form-'+{{ forloop.counter0 }}+'-image').val(null);
 						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', 'Nothing Selected');
+						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').attr('placeholder', 'Media Title');
+						// hide preview
+						$('#mediaPreview_'+{{ forloop.counter }}+' > div > div').hide();
+
 						selected_{{ forloop.counter }} = false;
 					} else {			
 						// remove all other active classes and set clicked to active
@@ -681,6 +785,16 @@
 						resetFormElement( $('#readonlyField_'+{{ forloop.counter }}) );			
 						// set name of selected in the form field
 						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', this.title);
+						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').val(this.title);
+						// remove anything from the preview area
+						$('#uploadPreview_'+{{ forloop.counter }}).html('');
+						$('#mediaPreview_'+{{ forloop.counter }}+' > div > div').hide();
+						$('#mapSnapPreview_'+{{ forloop.counter }}).html('');
+
+						// add image to the preview area
+						$('#mediaImagePreview_'+{{ forloop.counter }}+' > #'+this.id).show();
+
+						// flag as selected
 						selected_{{ forloop.counter }} = true;			
 					}
 				});
@@ -690,6 +804,11 @@
 						$(this).removeClass('active');
 						$('#id_form-0-audio').val(null);
 						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', 'Nothing Selected');
+						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').attr('placeholder', 'Media Title');
+						// hide preview
+						$('#mediaPreview_'+{{ forloop.counter }}+' > div > div').hide();
+
 						selected_{{ forloop.counter }} = false;
 					} else {
 						// remove all other active classes and set clicked to active
@@ -710,6 +829,15 @@
 						resetFormElement( $('#readonlyField_'+{{ forloop.counter }}) );			
 						// set name of selected in the form field
 						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', this.title);
+						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').val(this.title);
+						// remove anything from the preview area
+						$('#uploadPreview_'+{{ forloop.counter }}).html('');
+						$('#mediaPreview_'+{{ forloop.counter }}+' > div > div').hide();
+						$('#mapSnapPreview_'+{{ forloop.counter }}).html('');
+
+						// add audio to the preview area
+						$('#mediaAudioPreview_'+{{ forloop.counter }}+' > #'+this.id).show();
+
 						selected_{{ forloop.counter }} = true;
 					}
 				});
@@ -719,6 +847,11 @@
 						$(this).removeClass('active');
 						$('#id_form-0-note').val(null);
 						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', 'Nothing Selected');
+						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').attr('placeholder', 'Media Title');
+						// hide preview
+						$('#mediaPreview_'+{{ forloop.counter }}+' > div > div').hide();
+
 						selected_{{ forloop.counter }} = false;
 					} else {
 						// remove all other active classes and set clicked to active
@@ -739,6 +872,18 @@
 						resetFormElement( $('#readonlyField_'+{{ forloop.counter }}) );			
 						// set name of selected in the form field
 						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', this.title);
+						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').val(this.title);
+						// remove anything from the preview area
+						$('#uploadPreview_'+{{ forloop.counter }}).html('');
+						$('#mediaPreview_'+{{ forloop.counter }}+' > div > div').hide();
+						$('#mapSnapPreview_'+{{ forloop.counter }}).html('');
+
+						// add audio to the preview area
+						$('#mediaNotePreview_'+{{ forloop.counter }}+' > #'+this.id).show();
+
+						// remove anything from the preview area
+						$('#uploadPreview_'+{{ forloop.counter }}).html('');
+
 						selected_{{ forloop.counter }} = true;
 					}
 				});
@@ -748,6 +893,11 @@
 						$(this).removeClass('active');
 						$('#id_form-0-interview').val(null);
 						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', 'Nothing Selected');
+						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').attr('placeholder', 'Media Title');
+						// hide preview
+						$('#mediaPreview_'+{{ forloop.counter }}+' > div > div').hide();
+
 						selected_{{ forloop.counter }} = false;
 					} else {			
 						// remove all other active classes and set clicked to active
@@ -768,6 +918,18 @@
 						resetFormElement( $('#readonlyField_'+{{ forloop.counter }}) );			
 						// set name of selected in the form field
 						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', this.title);
+						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').val(this.title);
+						// remove anything from the preview area
+						$('#uploadPreview_'+{{ forloop.counter }}).html('');
+						$('#mediaPreview_'+{{ forloop.counter }}+' > div > div').hide();
+						$('#mapSnapPreview_'+{{ forloop.counter }}).html('');
+
+						// add audio to the preview area
+						$('#mediaInterviewPreview_'+{{ forloop.counter }}+' > #'+this.id).show();
+						// remove anything from the preview area
+						$('#uploadPreview_'+{{ forloop.counter }}).html('');
+
+
 						selected_{{ forloop.counter }} = true;
 					}
 				});
@@ -777,6 +939,11 @@
 						$(this).removeClass('active');
 						$('#id_form-0-mapSnap').val(null);
 						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', 'Nothing Selected');
+						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').attr('placeholder', 'Media Title');
+						// hide preview
+						$('#mediaPreview_'+{{ forloop.counter }}+' > div > div').hide();
+
 						selected_{{ forloop.counter }} = false;
 					} else {
 						// remove all other active classes and set clicked to active
@@ -801,6 +968,17 @@
 						resetFormElement( $('#readonlyField_'+{{ forloop.counter }}) );			
 						// set name of selected in the form field
 						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', "Map: " + $("p", this).text());
+						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').val($("p", this).text());
+						// remove anything from the preview area
+						$('#uploadPreview_'+{{ forloop.counter }}).html('');
+						$('#mediaPreview_'+{{ forloop.counter }}+' > div > div').hide();
+						$('#mapSnapPreview_'+{{ forloop.counter }}).html('');
+
+						// add map snap to the preview area
+						var mapSnapPreview = $(this).clone().appendTo($('#mapSnapPreview_'+{{ forloop.counter }}));
+						mapSnapPreview.removeClass('active map-thumbnail mediaSelect mapSnapSelect_1');
+						mapSnapPreview.addClass('opinionPreviewMap');
+
 						selected_{{ forloop.counter }} = true;
 					}
 				});
@@ -809,35 +987,90 @@
 				if ( $('#id_form-'+{{ forloop.counter0 }}+'-image').val() != '' ) {
 					$( "#imageSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-image').val() ).addClass('active');	
 					$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', $( "#imageSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-image').val() )[0].title);
+					// add image to the preview area
+					$('#mediaImagePreview_'+{{ forloop.counter }}+' > #'+$( "#imageSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-image').val() )[0].id).show();
 				}
 
 				if ( $('#id_form-'+{{ forloop.counter0 }}+'-audio').val() != '' ) {
+
+					$( "#audioSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-audio').val() )[0].id
+
 					$( "#audioSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-audio').val() ).addClass('active');
 					$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', $( "#audioSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-audio').val() )[0].title);
+					// add audio to the preview area
+					$('#mediaAudioPreview_'+{{ forloop.counter }}+' > #'+$( "#audioSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-audio').val() )[0].id).show();
 				}
 				if ( $('#id_form-'+{{ forloop.counter0 }}+'-note').val() != '' ) {
 					$( "#noteSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-note').val() ).addClass('active');
 					$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', $( "#noteSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-note').val() )[0].title);
+					// add note to the preview area
+					$('#mediaNotePreview_'+{{ forloop.counter }}+' > #'+$( "#noteSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-note').val() )[0].id).show();
+
 				}
 				if ( $('#id_form-'+{{ forloop.counter0 }}+'-interview').val() != '' ) {
 					$( "#interviewSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-interview').val() ).addClass('active');
 					$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', $( "#interviewSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-interview').val() )[0].title);
+					// add interview to the preview area
+					$('#mediaInterviewPreview_'+{{ forloop.counter }}+' > #'+$( "#interviewSelect_"+{{ forloop.counter }}+" > #" + $('#id_form-'+{{ forloop.counter0 }}+'-interview').val() )[0].id).show();
 				}
 				if ( $('#id_form-'+{{ forloop.counter0 }}+'-mapSnap').val() != '' ) {
-					$( "#map" + $('#id_form-'+{{ forloop.counter0 }}+'-mapSnap').val() + {{ forloop.counter }} ).addClass('active');
+
+					var mapSelector = $( "#map" + $('#id_form-'+{{ forloop.counter0 }}+'-mapSnap').val() + {{ forloop.counter }} )['selector'];
+					
+					$( mapSelector ).addClass('active');
 					// get id num
-					var id = $("#map" + $('#id_form-'+{{ forloop.counter0 }}+'-mapSnap').val() + {{ forloop.counter }} )[0].id.replace("map", "");
+					var id = $( mapSelector )[0].id.replace("map", "");
 					id = id.substr(0, 1);
 					
-					$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', "Map: " + $("p", this).text());
+					$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', "Map: " + $( mapSelector + " > span > p").text());
+
+
+					// add map snap to the preview area
+					function addMapToPreview() {
+						// add map snap to the preview area
+						var mapSnapPreview = $( mapSelector ).clone().appendTo($('#mapSnapPreview_'+{{ forloop.counter }}));
+						mapSnapPreview.removeClass('active map-thumbnail mediaSelect mapSnapSelect_1');
+						mapSnapPreview.addClass('opinionPreviewMap');
+					}
+					// TODO: map snap preview when editing forms not working.
+					//setTimeout ( addMapToPreview, 3000 );
+
+
 				}
+
+				//if upload button clicked, populate with image
+
+				$('#id_form-'+{{ forloop.counter0 }}+'-uploadImage').change(function(){
+					if (this.files && this.files[0]) {
+						// remove any previews
+						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').attr('placeholder', 'Media Title');
+						// hide preview
+						$('#mediaPreview_'+{{ forloop.counter }}+' > div > div').hide();
+						$('#mapSnapPreview_'+{{ forloop.counter }}).html('');
+
+						// select media preview div and append an IMG tag
+						$('#preview_'+{{ forloop.counter }}).remove();
+						$('#uploadPreview_'+{{ forloop.counter }}).append('<img id="preview_'+{{ forloop.counter }}+'" width="100%" style="padding-bottom: 10px;" src="#" />');
+						$()
+
+			            var reader = new FileReader();
+			            
+			            reader.onload = function (e) {
+			                $('#preview_'+{{ forloop.counter }}).attr('src', e.target.result);
+			            }
+			            
+			            reader.readAsDataURL(this.files[0]);
+			        }
+			    });
+
 
 			{% endfor %}
 
 
 			// set up but-file type listener on fileselect
 		    $('.btn-file :file').on('fileselect', function(event, numFiles, label) {       
-		        var input = $(this).parents('.fileGroup').find(':text'),
+		        var input = $(this).parents('.fileGroup').find('.filename'),
 		            log = numFiles > 1 ? numFiles + ' files selected' : label;        
 		        if( input.length ) {
 		            input.val(log);
@@ -845,6 +1078,7 @@
 		            if( log ) alert(log);
 		        }
 		        {% for form in opinionSectionsFormset %}
+
 					// deselect all other areas
 					if (this.id == 'id_form-'+{{ forloop.counter0 }}+'-uploadImage') {
 						// remove all other active classes and set clicked to active

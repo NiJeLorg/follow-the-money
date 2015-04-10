@@ -45,8 +45,8 @@ $(function() {
 		var SubwayLines =MY_MAP.map.hasLayer(LOC6);
 		var Media =MY_MAP.map.hasLayer(MEDIA_IMAGES);
 
-		// get popup, legend and chart state
-		if (MY_MAP.popup2._isOpen) {
+		// get popup and chart state
+		if (MY_MAP.map.hasLayer(MY_MAP.popup2)) {
 			var popup2Content = MY_MAP.popup2.getContent();
 			var popup2Lat = MY_MAP.popup2.getLatLng().lat;
 			var popup2Lon = MY_MAP.popup2.getLatLng().lng;
@@ -54,6 +54,16 @@ $(function() {
 		} else {
 			var popup2Content = '';
 			var popup2LatLon = '';
+		}
+
+		if (MY_MAP.map.hasLayer(MY_MAP.popup3)) {
+			var popup3Content = MY_MAP.popup3.getContent();
+			var popup3Lat = MY_MAP.popup3.getLatLng().lat;
+			var popup3Lon = MY_MAP.popup3.getLatLng().lng;
+			var popup3LatLon = popup3Lat + ',' + popup3Lon;
+		} else {
+			var popup3Content = '';
+			var popup3LatLon = '';
 		}
 
 		// is chart on?
@@ -66,13 +76,14 @@ $(function() {
 
 		// legend on the opinion maps will be on on page load
 						
-		loadMedia(latitude,longitude,zoom,MapLayer,PawnShops,CheckCashing,WireTransfer,Banks,McDonalds,SubwayLines,Media,popup2Content,popup2LatLon,chartOn);
+		loadMedia(latitude,longitude,zoom,MapLayer,PawnShops,CheckCashing,WireTransfer,Banks,McDonalds,SubwayLines,Media,popup2Content,popup2LatLon,popup3Content,popup3LatLon,chartOn);
 		
 		// function to save the map settings
-		function loadMedia(latitude,longitude,zoom,MapLayer,PawnShops,CheckCashing,WireTransfer,Banks,McDonalds,SubwayLines,Media,popup2Content,popup2LatLon,chartOn){
+		function loadMedia(latitude,longitude,zoom,MapLayer,PawnShops,CheckCashing,WireTransfer,Banks,McDonalds,SubwayLines,Media,popup2Content,popup2LatLon,popup3Content,popup3LatLon,chartOn){
+			console.log(popup3Content);
 		    $.ajax({
 		        type: 'GET',
-		        url:  'savemap/?latitude=' + latitude + '&longitude=' + longitude + '&zoom=' + zoom + '&MapLayer=' + MapLayer + '&PawnShops=' + PawnShops + '&CheckCashing=' + CheckCashing + '&WireTransfer=' + WireTransfer + '&Banks=' + Banks + '&McDonalds=' + McDonalds + '&SubwayLines=' + SubwayLines + '&Media=' + Media + '&title=' + title + '&popup2Content=' + popup2Content + '&popup2LatLon=' + popup2LatLon + '&chartOn=' + chartOn, 
+		        url:  'savemap/?latitude=' + latitude + '&longitude=' + longitude + '&zoom=' + zoom + '&MapLayer=' + MapLayer + '&PawnShops=' + PawnShops + '&CheckCashing=' + CheckCashing + '&WireTransfer=' + WireTransfer + '&Banks=' + Banks + '&McDonalds=' + McDonalds + '&SubwayLines=' + SubwayLines + '&Media=' + Media + '&title=' + title + '&popup2Content=' + popup2Content + '&popup2LatLon=' + popup2LatLon + '&popup3Content=' + popup3Content + '&popup3LatLon=' + popup3LatLon + '&chartOn=' + chartOn, 
 		        success: function(data){
 		            $(".mapSnaps-content-container").html(data);
 					// unbind event handler on the drop down so we can reinitiate it later
