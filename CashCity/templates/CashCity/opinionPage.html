@@ -324,7 +324,14 @@
 			{% for image in mediaImages %}
 				{% if image.id == section.image.id %}
 					<div class="row">
-						<h4>SECTION {{ section.sectionNumber }}</h4>
+						{% if section.sectionTitle %}
+							<h4>{{ section.sectionTitle }}</h4>
+						{% else %}
+							<h4>SECTION {{ section.sectionNumber }}</h4>
+						{% endif %}	
+						{% if section.mediaTitle %}
+							<p><strong>{{ section.mediaTitle }}</strong></p>
+						{% endif %}
 						<img src="{% cropped_thumbnail image 'cropped_image_w640_h480' %}">
 						<br /><br />
 						<p>{{ section.text }}</p>
@@ -337,7 +344,14 @@
 			{% for audio in mediaAudio %}
 				{% if audio.id == section.audio.id %}
 					<div class="row">
-						<h4>SECTION {{ section.sectionNumber }}</h4>
+						{% if section.sectionTitle %}
+							<h4>{{ section.sectionTitle }}</h4>
+						{% else %}
+							<h4>SECTION {{ section.sectionNumber }}</h4>
+						{% endif %}
+						{% if section.mediaTitle %}
+							<p><strong>{{ section.mediaTitle }}</strong></p>
+						{% endif %}
 						{% if ".amr" in audio.audio.path or ".mov" in audio.audio.path or ".MOV" in audio.audio.path or ".gp3" in audio.audio.path or ".mp4" in audio.audio.path %}
 							<audio src="/media/CashCity/{{ audio.audio }}.mp3" preload="auto" controls></audio>
 						{% else %}
@@ -354,8 +368,15 @@
 			{% for note in mediaNotes %}
 				{% if note.id == section.note.id %}
 					<div class="row">
-						<h4>SECTION {{ section.sectionNumber }}</h4>
-						<p><i><strong>Notes: </strong>{{ note.notes }}</i></p>
+						{% if section.sectionTitle %}
+							<h4>{{ section.sectionTitle }}</h4>
+						{% else %}
+							<h4>SECTION {{ section.sectionNumber }}</h4>
+						{% endif %}
+						{% if section.mediaTitle %}
+							<p><strong>{{ section.mediaTitle }}</strong></p>
+						{% endif %}
+						<p>{{ note.notes }}</p>
 						<br /><br />
 						<p>{{ section.text }}</p>
 						<hr />
@@ -367,7 +388,14 @@
 			{% for interview in mediaInterviews %}
 				{% if interview.id == section.interview.id %}
 					<div class="row">
-						<h4>SECTION {{ section.sectionNumber }}</h4>
+						{% if section.sectionTitle %}
+							<h4>{{ section.sectionTitle }}</h4>
+						{% else %}
+							<h4>SECTION {{ section.sectionNumber }}</h4>
+						{% endif %}
+						{% if section.mediaTitle %}
+							<p><strong>{{ section.mediaTitle }}</strong></p>
+						{% endif %}
 						<img src="{% cropped_thumbnail interview 'cropped_image_w640_h480' %}">
 						<br /><br />
 						{% if ".amr" in interview.audio.path or ".mov" in interview.audio.path or ".MOV" in interview.audio.path or ".gp3" in interview.audio.path or ".mp4" in interview.audio.path %}
@@ -386,7 +414,14 @@
 			{% for mapSnap in mapSnaps %}
 				{% if mapSnap.id == section.mapSnap.id %}
 					<div class="row">
-						<h4>SECTION {{ section.sectionNumber }}</h4>
+						{% if section.sectionTitle %}
+							<h4>{{ section.sectionTitle }}</h4>
+						{% else %}
+							<h4>SECTION {{ section.sectionNumber }}</h4>
+						{% endif %}
+						{% if section.mediaTitle %}
+							<p><strong>{{ section.mediaTitle }}</strong></p>
+						{% endif %}
 						<div id="map_{{ section.sectionNumber }}" class="map-opinion">
 						    <div id="citydigits-charts{{ section.sectionNumber }}" class="citydigits-charts hidden">
 								<div id="chartid{{ section.sectionNumber }}" class="chart-icon">
@@ -410,7 +445,14 @@
 			{% endfor %}
 		{% elif section.uploadImage %}
 			<div class="row">
-				<h4>SECTION {{ section.sectionNumber }}</h4>
+				{% if section.sectionTitle %}
+					<h4>{{ section.sectionTitle }}</h4>
+				{% else %}
+					<h4>SECTION {{ section.sectionNumber }}</h4>
+				{% endif %}
+				{% if section.mediaTitle %}
+					<p><strong>{{ section.mediaTitle }}</strong></p>
+				{% endif %}
 				<img src="{% cropped_thumbnail section 'cropped_uploadImage_w640_h480' %}">
 				<br /><br />
 				<p>{{ section.text }}</p>

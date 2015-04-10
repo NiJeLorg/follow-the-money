@@ -21,6 +21,7 @@ var LOC4 = null;
 var LOC5 = null;
 var LOC6 = null;
 var LOC7 = null;
+var NYC_BORO = null;
 var MEDIA_IMAGES = null;
 var MEDIA_AUDIO = null;
 var MEDIA_NOTE = null;

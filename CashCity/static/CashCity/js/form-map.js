@@ -26,7 +26,7 @@ function FormMap() {
 		marker = L.marker([lat, lng]).addTo(this.map);
 	} else {
 		// attempt to locate user with set view only if lat/lng is not already set
-		this.map.locate({setView: true, maxZoom: 16});
+		this.map.locate({watch: true, setView: true, maxZoom: 16});
 	}
 	
 	

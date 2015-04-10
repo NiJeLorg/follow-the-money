@@ -144,6 +144,7 @@
 								{% else %}
 									<p><strong>{{ mediaResult.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />{{ mediaResult.getUserProfile.teacherName }}'s Section {{ mediaResult.getUserProfile.section }}</p>
 								{% endif %}	
+								<p class="text-center lessenormous"> <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span></p>
 								</a>						
 					            <div style="margin-right: auto; margin-left: auto; margin-top: 10px;">
 								{% if ".amr" in mediaResult.audio.path or ".mov" in mediaResult.audio.path or ".MOV" in mediaResult.audio.path or ".gp3" in mediaResult.audio.path or ".mp4" in mediaResult.audio.path %}								
@@ -177,4 +178,42 @@
 				{% endfor %}
 			</div>
 		</div>
+	  <nav>
+	    <ul class="pagination">
+	      {% if mediaResults.has_previous %}
+	      <li>
+	        <a href="?page={{ mediaResults.previous_page_number }}" aria-label="Previous">
+	          <span aria-hidden="true">&laquo;</span>
+	        </a>
+	      </li>
+	      <li><a href="?page=1">1</a></li>
+	      <li class="disabled"><a href="#">...</a></li>
+	      <li><a href="?page={{ mediaResults.previous_page_number }}">{{ mediaResults.previous_page_number }}</a></li>
+	      <li><a href="?page={{ mediaResults.number }}">{{ mediaResults.number }}</a></li>    
+	      {% else %}
+	      <li class="disabled">
+	        <a href="#" aria-label="Previous">
+	          <span aria-hidden="true">&laquo;</span>
+	        </a>
+	      </li>
+	      <li><a href="?page={{ mediaResults.number }}">{{ mediaResults.number }}</a></li>
+	      {% endif %}
+	      {% if mediaResults.has_next %}
+	      <li><a href="?page={{ mediaResults.next_page_number }}">{{ mediaResults.next_page_number }}</a></li>
+	      <li class="disabled"><a href="#">...</a></li>
+	      <li><a href="?page={{ number_of_pages }}">{{ number_of_pages }}</a></li>
+	      <li>
+	        <a href="?page={{ mediaResults.next_page_number }}" aria-label="Next">
+	          <span aria-hidden="true">&raquo;</span>
+	        </a>
+	      </li>
+	      {% else %}
+	      <li class="disabled">
+	        <a href="#" aria-label="Next">
+	          <span aria-hidden="true">&laquo;</span>
+	        </a>
+	      </li>    
+	      {% endif %}
+	    </ul>
+	  </nav>		
 	</div>

@@ -18,6 +18,8 @@
 			var title{{ mapSnap.id }} = '{{ mapSnap.title }}';
 			var popup2Content{{ mapSnap.id }} = '{{ mapSnap.popup2Content }}';
 			var popup2LatLon{{ mapSnap.id }} = '{{ mapSnap.popup2LatLon }}';
+			var popup3Content{{ mapSnap.id }} = '{{ mapSnap.popup3Content }}';
+			var popup3LatLon{{ mapSnap.id }} = '{{ mapSnap.popup3LatLon }}';
 			var chartOn{{ mapSnap.id }} = '{{ mapSnap.chartOn }}';
 
 			
@@ -100,11 +102,6 @@
 			// if there's popup content open popup and fill it with that content
 			function addPopup(){
 				if (popup2Content{{ mapSnap.id }} && popup2LatLon{{ mapSnap.id }}) {
-					// close any popups
-					if (!activeMap{{ mapSnap.id }}.popup2._isOpen) {
-						// close all popups first
-						activeMap{{ mapSnap.id }}.map.closePopup();
-					}
 
 					var popup2LatLon = popup2LatLon{{ mapSnap.id }}.split(',');
 					var popup2Lat = parseFloat(popup2LatLon[0]);
@@ -115,9 +112,23 @@
 					s = txt.value;
 					activeMap{{ mapSnap.id }}.popup2.setLatLng(latlonObject);
 					activeMap{{ mapSnap.id }}.popup2.setContent(s);
-					activeMap{{ mapSnap.id }}.popup2.openOn(activeMap{{ mapSnap.id }}.map);
-					activeMap{{ mapSnap.id }}.popup2.update();
-				}	
+					activeMap{{ mapSnap.id }}.map.addLayer(activeMap{{ mapSnap.id }}.popup2);
+				}
+
+				if (popup3Content{{ mapSnap.id }} && popup3LatLon{{ mapSnap.id }}) {
+
+					var popup3LatLon = popup3LatLon{{ mapSnap.id }}.split(',');
+					var popup3Lat = parseFloat(popup3LatLon[0]);
+					var popup3Lon = parseFloat(popup3LatLon[1]);
+					var latlonObject = L.latLng(popup3Lat, popup3Lon);
+					var txt = document.createElement("textarea");
+					txt.innerHTML = popup3Content{{ mapSnap.id }};
+					s = txt.value;
+					activeMap{{ mapSnap.id }}.popup3.setLatLng(latlonObject);
+					activeMap{{ mapSnap.id }}.popup3.setContent(s);
+					activeMap{{ mapSnap.id }}.map.addLayer(activeMap{{ mapSnap.id }}.popup3);
+				}
+
 			}
 
 			

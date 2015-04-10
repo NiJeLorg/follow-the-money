@@ -28,6 +28,8 @@ class MapSettings(models.Model):
     title = models.CharField(max_length=1000, null=True, blank=True)
     popup2Content= models.CharField(max_length=10000, null=True, blank=True)
     popup2LatLon= models.CharField(max_length=10000, null=True, blank=True)
+    popup3Content= models.CharField(max_length=10000, null=True, blank=True)
+    popup3LatLon= models.CharField(max_length=10000, null=True, blank=True)
     chartOn= models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
@@ -359,6 +361,8 @@ class Opinions(models.Model):
 class OpinionSections(models.Model):
     opinion = models.ForeignKey(Opinions)
     sectionNumber = models.IntegerField()
+    sectionTitle = models.CharField(max_length=2000, null=True, blank=True)
+    mediaTitle = models.CharField(max_length=2000, null=True, blank=True)
     image = models.ForeignKey(MediaImage, null=True, blank=True)
     audio = models.ForeignKey(MediaAudio, null=True, blank=True)
     note = models.ForeignKey(MediaNote, null=True, blank=True)

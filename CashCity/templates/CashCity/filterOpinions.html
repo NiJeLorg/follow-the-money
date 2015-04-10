@@ -70,6 +70,7 @@
 										{% endif %}
 									{% endfor %}
 							{% else %}
+								<p class="text-center enormous"> <span class="glyphicon glyphicon-picture" aria-hidden="true"></span></p>
 							{% endif %}														
 							<h4>{{ opinion.title }}</h4>
 						</a>
@@ -77,4 +78,42 @@
 				{% endfor %}
 			</div>
 		</div>
+		<nav>
+		    <ul class="pagination">
+		      {% if opinions.has_previous %}
+		      <li>
+		        <a href="?page={{ opinions.previous_page_number }}" aria-label="Previous">
+		          <span aria-hidden="true">&laquo;</span>
+		        </a>
+		      </li>
+		      <li><a href="?page=1">1</a></li>
+		      <li class="disabled"><a href="#">...</a></li>
+		      <li><a href="?page={{ opinions.previous_page_number }}">{{ opinions.previous_page_number }}</a></li>
+		      <li><a href="?page={{ opinions.number }}">{{ opinions.number }}</a></li>    
+		      {% else %}
+		      <li class="disabled">
+		        <a href="#" aria-label="Previous">
+		          <span aria-hidden="true">&laquo;</span>
+		        </a>
+		      </li>
+		      <li><a href="?page={{ opinions.number }}">{{ opinions.number }}</a></li>
+		      {% endif %}
+		      {% if opinions.has_next %}
+		      <li><a href="?page={{ opinions.next_page_number }}">{{ opinions.next_page_number }}</a></li>
+		      <li class="disabled"><a href="#">...</a></li>
+		      <li><a href="?page={{ number_of_pages }}">{{ number_of_pages }}</a></li>
+		      <li>
+		        <a href="?page={{ opinions.next_page_number }}" aria-label="Next">
+		          <span aria-hidden="true">&raquo;</span>
+		        </a>
+		      </li>
+		      {% else %}
+		      <li class="disabled">
+		        <a href="#" aria-label="Next">
+		          <span aria-hidden="true">&laquo;</span>
+		        </a>
+		      </li>    
+		      {% endif %}
+		    </ul>
+		</nav>
 	</div>
