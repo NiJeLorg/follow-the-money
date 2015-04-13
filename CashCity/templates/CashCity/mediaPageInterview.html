@@ -156,7 +156,7 @@
 			</div>
 		{% endif %}
 		{% if comment_form %}
-			<form role="form" method="post" action="/cashcity/media/interview/{{ mediaInterviewObject.id }}/" >{% csrf_token %}
+			<form id="commentSubmit" role="form" method="post" action="/cashcity/media/interview/{{ mediaInterviewObject.id }}/" >{% csrf_token %}
 				<div class="form-group">
 					<label for="comment">Add A Comment</label>{% if comment_form.comment.errors %} <span class="text-danger">{{ comment_form.comment.errors|join:", " }}</span>{% endif %}
 					{{ comment_form.comment|add_class:"form-control" }}
@@ -184,6 +184,14 @@
 			var iconUrl = "{% static image_static %}";
 		{% endwith %}
 	{% endif %}
+	// don't allow blank comment fields
+	$('#commentSubmit').submit(function(ev) {
+		if (!$('#id_comment').val()) {
+			alert("Please add a comment.");
+			ev.preventDefault();
+		}
+	});
+
 	</script>
 	<script type="text/javascript" src="{% static 'CashCity/js/mapbox.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/media-map.js' %}"></script>

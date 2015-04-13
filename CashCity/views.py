@@ -73,8 +73,7 @@ def index(request):
 	#new query for mapSnaps
 	kwargs = {}
 
-	#get user profile data and pass to view
-	if request.user.id:
+	if request.user.id and not request.user_agent.is_mobile:
 		# show only map snaps tied to this student group's account
 		kwargs['user__exact'] = request.user.id
 		#get mapSnaps
@@ -2498,8 +2497,8 @@ def opinionForm(request, id=None):
 	#get user profile data and pass to view
 	profile = ExUserProfile.objects.get(user=request.user) 
 	
-	#set Opinions Sections up as a formset -- 5 total repetitons of form
-	OpinionSectionsFormset = modelformset_factory(OpinionSections, extra=5, max_num=5, form=OpinionSectionsForm)
+	#set Opinions Sections up as a formset -- 15 total repetitons of form
+	OpinionSectionsFormset = modelformset_factory(OpinionSections, extra=15, max_num=15, form=OpinionSectionsForm)
 	
 	# get ALL media and map snaps for opinions
 	#build query

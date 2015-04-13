@@ -3,26 +3,6 @@
 *  Bootstrap Overrides
 */
 
-@font-face {
-    font-family: 'Apercu Regular';
-    src: url('http://f.fontdeck.com/f/1/RFBoR2F2aFgAAbaB1ebkDL58Bo+jQAF4eUjx969DnjyGpbTsFR8ZJJFdblBs9wOpI6ejHeWgCeBQteDp3/XZ4aC7.eot');
-    src: url('http://f.fontdeck.com/f/1/RFBoR2F2aFgAAbaB1ebkDL58Bo+jQAF4eUjx969DnjyGpbTsFR8ZJJFdblBs9wOpI6ejHeWgCeBQteDp3/XZ4aC7.eot?') format('embedded-opentype'),
-    url('http://f.fontdeck.com/f/1/RFBoR2F2aFgAAbaB1ebkDL58Bo+jQAF4eUjx969DnjyGpbTsFR8ZJJFdblBs9wOpI6ejHeWgCeBQteDp3/XZ4aC7.woff') format('woff'),
-    url('http://f.fontdeck.com/f/1/RFBoR2F2aFgAAbaB1ebkDL58Bo+jQAF4eUjx969DnjyGpbTsFR8ZJJFdblBs9wOpI6ejHeWgCeBQteDp3/XZ4aC7.ttf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Apercu Bold';
-    src: url('http://f.fontdeck.com/f/1/Q3o0dU51ZloAAZiHfoKnUKFIYllmG+W+Sv4E2/80XrTh1q5sTdJFa0nsj93J4zYpZwvn6v4zlI64WOI/chUKMoyl.eot');
-    src: url('http://f.fontdeck.com/f/1/Q3o0dU51ZloAAZiHfoKnUKFIYllmG+W+Sv4E2/80XrTh1q5sTdJFa0nsj93J4zYpZwvn6v4zlI64WOI/chUKMoyl.eot?') format('embedded-opentype'),
-    url('http://f.fontdeck.com/f/1/Q3o0dU51ZloAAZiHfoKnUKFIYllmG+W+Sv4E2/80XrTh1q5sTdJFa0nsj93J4zYpZwvn6v4zlI64WOI/chUKMoyl.woff') format('woff'),
-    url('http://f.fontdeck.com/f/1/Q3o0dU51ZloAAZiHfoKnUKFIYllmG+W+Sv4E2/80XrTh1q5sTdJFa0nsj93J4zYpZwvn6v4zlI64WOI/chUKMoyl.ttf') format('opentype');
-    font-weight: bold;
-    font-style: normal;
-}
-
 body {
     background-color: #E5E5E5;
 }
@@ -419,7 +399,7 @@ a:hover > .panel-heading > .panel-title {
 .citydigits-charts {
     position: absolute;
     z-index: 110;
-    bottom: 60px;
+    bottom: 10px;
     left: 10px;
 }
 
@@ -720,7 +700,7 @@ body.loading .loading-modal {
 */
 
 .greyBackground {
-	background-color: #B0B6BD;
+	background-color: whitesmoke;
 	margin: -10px;
 	padding: 10px;
 }

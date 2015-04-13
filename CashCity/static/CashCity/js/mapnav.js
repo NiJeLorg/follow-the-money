@@ -10,7 +10,7 @@
  */
 
 $( document ).ready(function() {
-	
+
 	// ensure AFS location boxes are checked and the rest are unchecked
 	$('#All_AFS').prop('checked', true);
 	$('#LOC1').prop('checked', true);
@@ -304,6 +304,8 @@ $( document ).ready(function() {
 	// draw chart based on layer selected
 	$('#chart').click(function() {
 		if (mainLayer != null) {
+			// close the accordion menu
+			$('.panel-collapse').removeClass('in');
 			// get id of layer selected
 			var layerId = mainLayer._leaflet_id;
 			if (!mainChart) {

@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="stylesheet" href="//f.fontdeck.com/s/css/zH28mslJNSfrEtk/N8vkA5GMvEQ/citydigits.org/35051.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/jquery-ui.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/jquery-ui.theme.css' %}">
@@ -80,6 +79,19 @@
     ================================================== -->
     <!-- Only jquery goes here to load autocomplete on forms-->	
 	<script type="text/javascript" src="{% static 'CashCity/js/jquery-1.11.1.min.js' %}"></script>
+	<script type="text/javascript">
+	WebFontConfig = { fontdeck: { id: '35051' } };
+
+	(function() {
+	  var wf = document.createElement('script');
+	  wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+	  '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+	  wf.type = 'text/javascript';
+	  wf.async = 'true';
+	  var s = document.getElementsByTagName('script')[0];
+	  s.parentNode.insertBefore(wf, s);
+	})();
+	</script>
 	{% block head_js_block %}
 	{% endblock %}
 		

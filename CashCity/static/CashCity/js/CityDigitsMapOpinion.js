@@ -20,9 +20,6 @@ function CityDigitsMapOpinion(id, lat, lon, zoom) {
 	//load legend
 	$("#citydigits-legend"+id).attr({'class':'citydigits-legend'});
 
-	//load mapbox scale bars
-	this.map.addControl(L.control.scale());
-
     //disable unwanted events
     this.map.doubleClickZoom.enable();
     this.map.scrollWheelZoom.enable();

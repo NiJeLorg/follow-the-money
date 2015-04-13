@@ -112,20 +112,29 @@
 				{% if opinionsForm.teamImage.errors %} <span class="text-danger">{{ opinionsForm.teamImage.errors|join:", " }}</span>{% endif %}
 				<div class="input-group">				
 	                <span class="input-group-btn">
-						<button id="addCoverPhoto" type="button" class="btn btn-default" data-toggle="modal" data-target="#coverphoto">Add Image</button>
+						<span class="btn btn-default btn-file">
+	                        Add Image {{ opinionsForm.teamImage|attr:"accept:image/*"|attr:"capture:camera" }}
+	                    </span>						
+	                    <!--<button id="addCoverPhoto" type="button" class="btn btn-default" data-toggle="modal" data-target="#coverphoto">Add Image</button>-->
 	                </span>
 					{% if opinionsForm.errors %}
-	               		<input type="text" id="coverPhotoPlaceholder" class="form-control" placeholder='No File Chosen' readonly>
+	               		<input type="text" id="coverPhotoPlaceholder" class="form-control filename" placeholder='No File Chosen' readonly>
 					{% elif opinionsForm.teamImage.value %}
-	               		<input type="text" id="coverPhotoPlaceholder" class="form-control" placeholder='{{ opinionsForm.teamImage.value }}' readonly>
+	               		<input type="text" id="coverPhotoPlaceholder" class="form-control filename" placeholder='{{ opinionsForm.teamImage.value }}' readonly>
 					{% else %}
-	               		<input type="text" id="coverPhotoPlaceholder" class="form-control" placeholder='No File Chosen' readonly>
+	               		<input type="text" id="coverPhotoPlaceholder" class="form-control filename" placeholder='No File Chosen' readonly>
 					{% endif %}
 					<!-- will hide this form field from view with jQuery -->
 					{{ opinionsForm.coverPhoto }}
 				</div>
 				
 			</div>
+			<div id="teamImagePreview">
+				{% if opinionsForm.teamImage.value %}
+					<img src="/media/CashCity/ {{ opinionsForm.teamImage.value }}" class="padding10bottom" width="100%" />
+				{% endif %}
+			</div>
+
 			<div class="form-group">
 				<label for="title">Title</label>{% if opinionsForm.title.errors %} <span class="text-danger">{{ opinionsForm.title.errors|join:", " }}</span>{% endif %}
 				{{ opinionsForm.title|add_class:"form-control" }}
@@ -664,6 +673,24 @@
 				$('#coverPhotoPlaceholder').attr('placeholder', $( "#coverPhotoGallery > #" + $('#id_coverPhoto').val() )[0].title);
 			}
 
+			// if teamImage uploaded, show a preview
+				$('#id_teamImage').change(function(){
+					if (this.files && this.files[0]) {
+						// select media preview div and append an IMG tag
+						$('#preview_teamImage').remove();
+						$('#teamImagePreview').append('<img id="preview_teamImage" width="100%" style="padding-bottom: 10px;" src="#" />');
+						$()
+
+			            var reader = new FileReader();
+			            
+			            reader.onload = function (e) {
+			                $('#preview_teamImage').attr('src', e.target.result);
+			            }
+			            
+			            reader.readAsDataURL(this.files[0]);
+			        }
+			    });
+
 			// loop through sections creating section specific js
 			{% for form in opinionSectionsFormset %}			
 
@@ -726,6 +753,14 @@
 
 					// flag value as not selected
 					selected_{{ forloop.counter }} = false;	
+
+
+					// if any section by section 1, hide the div
+					{% if not forloop.first %} 
+						$('#section_'+{{ forloop.counter0 }}).hide();
+						$('#addSection_'+{{ forloop.counter0 }}).removeAttr("disabled")
+					{% endif %}
+
 
 
 				});	
@@ -1039,7 +1074,6 @@
 				}
 
 				//if upload button clicked, populate with image
-
 				$('#id_form-'+{{ forloop.counter0 }}+'-uploadImage').change(function(){
 					if (this.files && this.files[0]) {
 						// remove any previews

@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/Control.Geocoder.css' %}">	
     <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/MarkerCluster.css' %}">	
     <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/MarkerCluster.Default.css' %}">	
+    <link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/leaflet.label.css' %}">	
 	<!-- style embedded in django template for static file usage -->
 	<style type="text/css">		
 		a > .panel-heading > .panel-title > .edit-button {
@@ -529,6 +530,37 @@
 
 
 {% block js_block %}
+	<!--  -->
+	<script type="text/javascript">
+		//add loading class to body
+		$("body").addClass("loading");
+		// remove when widdow is fully loaded
+		window.onload = function() {
+		  $("body").removeClass("loading");
+		}
+
+	</script>
+	<!-- open introductory modal on page load -->
+	<script type="text/javascript">
+		$( document ).ready(function() {
+			if (!$.cookie('noIntro')) {
+				$('#introduction').modal('show');
+				// close if button clicked
+				$('#closeIntroModal').click(function() {
+					$('#introduction').modal('hide');
+				});
+				// set cookie if don't show this message is checked
+				$('#toggleIntroCookie').change(function() {
+					if($(this).is(":checked")) {
+						$.cookie('noIntro', 'noIntro', { expires: 365, path: '/' });
+					} else {
+						$.removeCookie('noIntro', { path: '/' });
+					}
+				});
+			}
+		});
+	</script>
+
 	<script type="text/javascript" src="{% static 'CashCity/js/bootstrap-select.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/d3.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/mapbox.js' %}"></script>
@@ -538,6 +570,8 @@
 	<script type="text/javascript" src="{% static 'CashCity/js/leaflet.markercluster.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/accounting.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'CashCity/js/L.Path.Drag.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/leaflet.label.js' %}"></script>
+	<script type="text/javascript" src="{% static 'CashCity/js/jquery.cookie.js' %}"></script>
 	<!-- set varible for topojson and csv urls -->
 	<script type="text/javascript">
 	var neighborhoods = "{% static 'CashCity/topojson/neighborhoods.json' %}";	
@@ -857,11 +891,32 @@
 
 
 {% block modal_block %}
+<!-- ajax loading page modal -->
 <div class="modal fade" id="introduction" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-        <input type="text" class="form-control">
+      	<h3 class="text-center text-uppercase">Welcome to Cash City</h3>
+      	<p class="text-center text-uppercase">
+	      	This tool allows you to explore the location and types of banks and alternative financial institutions (AFIs) in New York City.
+	    </p>
+	   	<p class="text-center text-uppercase">
+			As you explore the map, you can add your own images, information, or other media concerning banks or AFIs you might want to share.
+		</p>
+	   	<p class="text-center text-uppercase">
+			Using media uploaded to the map, you can begin to generate opinion pieces to share your thoughts on financial institutions, their geographic distribution, or their impact on the city.
+		</p>
+	   	<h4 class="text-center text-uppercase">
+			Enjoy!
+		</h4>
+		<div class="clearfix"></div>
+        <button id="closeIntroModal" class="btn btn-primary center-block" type="submit">START USING TOOL</button>
+        <div class="checkbox text-center text-uppercase">
+		  <label>
+		    <input type="checkbox" id="toggleIntroCookie" value="NoShow">
+		   Don't Show This Message
+		  </label>
+		</div>
       </div>
     </div>
   </div>
