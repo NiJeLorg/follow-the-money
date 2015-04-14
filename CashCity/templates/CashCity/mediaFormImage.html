@@ -64,7 +64,7 @@
 		<small><em>Add media to the map. Make sure to include all the fields below.</em></small>
 	</div>
 	<div class="row">
-		<form role="form" enctype="multipart/form-data" method="post" action="." >{% csrf_token %}
+		<form id="imageForm" role="form" enctype="multipart/form-data" method="post" action="." >{% csrf_token %}
 			<div class="form-group">
 				<label for="title">Title</label>{% if form.title.errors %} <span class="text-danger">{{ form.title.errors|join:", " }}</span>{% endif %}
 				{{ form.title|add_class:"form-control" }}

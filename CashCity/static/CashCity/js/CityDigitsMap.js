@@ -3398,6 +3398,11 @@ CityDigitsMap.loadLayerFor = function(layerId){
 				}
     }
 
+    // ensure NYC boro layer is at the back
+    if (MY_MAP.map.hasLayer(MY_MAP.NYC_BORO_LAYER)) {
+    	MY_MAP.NYC_BORO_LAYER.bringToBack();
+    }
+
 }
 
 CityDigitsMap.prototype.showLocationsOnPageLoad = function(){
@@ -3716,6 +3721,7 @@ CityDigitsMap.drawChart = function(layerId){
 		  .attr("id", function(d) { return d.properties.Name })
 		  .on("click", function(d) {
 			  CityDigitsMap.zoomToNeighborhoodAndPopup(d.properties.Name);
+			  CityDigitsMap.highlightBars(d.properties.Name);
 		  })
 		  // set up on mouseover events
 		  .on("mouseover", function(d) {
@@ -3839,6 +3845,31 @@ CityDigitsMap.zoomToNeighborhoodAndPopup = function(neighborhoodName) {
 		 
 	});
 	
+}
+
+CityDigitsMap.highlightBars = function(neighborhoodName) {
+	// reset all bars
+	d3.select('#chartid svg g').selectAll('rect').classed({'bar': true, 'pinkbar': false, 'brightpinkbar': false});
+	// select this bar clicked
+	var boroSelector = neighborhoodName.split(',');
+	d3.selectAll('#chartid svg g rect[id*="'+boroSelector[1]+'"]').classed({'pinkbar': true, 'bar': false});
+	d3.select('#chartid svg g rect[id="'+neighborhoodName+'"]').classed({'brightpinkbar': true, 'bar': false});
+
+	// show the legend
+	var legendText;
+	if (boroSelector[1] == ' MN') {
+		legendText = "Manhattan Neighborhoods";
+	} else if (boroSelector[1] == ' BX') {
+		legendText = "Bronx Neighborhoods";
+	} else if (boroSelector[1] == ' QNS') {
+		legendText = "Queens Neighborhoods";
+	} else if (boroSelector[1] == ' SI') {
+		legendText = "Staten Island Neighborhoods";
+	} else if (boroSelector[1] == ' BK') {
+		legendText = "Brooklyn Neighborhoods";
+	} else {}
+	d3.select('.chartLegend text').text(legendText);
+	d3.select('.chartLegend').classed({'show': true, 'hidden': false});
 }
 
 CityDigitsMap.setPopUpContent = function(layer,layerId) {
