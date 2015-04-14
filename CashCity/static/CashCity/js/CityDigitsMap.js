@@ -111,6 +111,10 @@ function CityDigitsMap() {
 
 	var thismap = this.map;
 	this.map.on('zoomend', moveSQMIRECT);
+	this.map.on('resize', moveSQMIRECT);
+	this.map.on('moveend', moveSQMIRECT);
+	this.map.on('viewreset', moveSQMIRECT);
+
 
 	function moveSQMIRECT() {
 		// get zoom
