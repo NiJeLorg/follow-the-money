@@ -131,7 +131,7 @@
 			</div>
 			<div id="teamImagePreview">
 				{% if opinionsForm.teamImage.value %}
-					<img src="/media/CashCity/ {{ opinionsForm.teamImage.value }}" class="padding10bottom" width="100%" />
+					<img src="/media/CashCity/{{ opinionsForm.teamImage.value }}" class="padding10bottom" width="100%" />
 				{% endif %}
 			</div>
 
@@ -156,6 +156,7 @@
 							<span id="removeSection_{{ forloop.counter0 }}" class="glyphicon glyphicon-trash mediaSelect" aria-hidden="true" title="Remove This Section"></span>
 						</p>
 					</div>
+					<div class="clearfix"></div>
 					<div class="form-group">
 						{% if form.text.errors %} 
 						<span class="text-danger">{{ form.sectionTitle.errors|join:", " }}</span>{% endif %}
@@ -224,7 +225,7 @@
 						<div class="clearfix"></div>
 						<div id="uploadPreview_{{ forloop.counter }}">
 							{% if form.uploadImage.value %}
-								<img src="/media/CashCity/ {{ form.uploadImage.value }}" class="padding10bottom" width="100%" />
+								<img src="/media/CashCity/{{ form.uploadImage.value }}" class="padding10bottom" width="100%" />
 							{% endif %}
 						</div>
 						<div id="mapSnapPreview_{{ forloop.counter }}"></div>
@@ -616,7 +617,6 @@
 		$(document).ready( function() {
 			// set divs to sortable
 			$( "#sortable" ).sortable();
-			$( "#sortable" ).disableSelection();
 
 			// update section number count when resorted
 			$( "#sortable" ).on( "sortstop", function( event, ui ) {

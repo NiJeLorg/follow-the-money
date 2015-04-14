@@ -101,11 +101,49 @@ function CityDigitsMap() {
 	this.map.locate({watch: true});
 
 	// make a square mile size box and place it in the lower left corner
-	var sqmiCircle = L.circle([40.658,-74.055], 805);
+	var SCorner = this.map.getBounds().pad(-0.06).getSouth();
+	var WCorner = this.map.getBounds().pad(-0.08).getWest();
+	var sqmiCircle = L.circle([SCorner,WCorner], 805);
 	var rectBounds = sqmiCircle.getBounds();
-	var rect = L.rectangle(rectBounds, {color: "#000", weight: 2, fillColor: '#fff', fillOpacity: 0.1, draggable: true})
+	var SQMIRECT = L.rectangle(rectBounds, {color: "#000", weight: 2, fillColor: '#fff', fillOpacity: 0.1, draggable: true})
 		.bindLabel('1 square mile')
 		.addTo(this.map);
+
+	var thismap = this.map;
+	this.map.on('zoomend', moveSQMIRECT);
+
+	function moveSQMIRECT() {
+		// get zoom
+		var zoom = thismap.getZoom();
+		if (zoom == 11) {
+			sPad = -0.05;
+			wPad = -0.07;
+		} else if (zoom == 12) {
+			sPad = -0.06;
+			wPad = -0.08;			
+		} else if (zoom == 13) {
+			sPad = -0.10;
+			wPad = -0.095;						
+		} else if (zoom == 14) {
+			sPad = -0.17;
+			wPad = -0.14;						
+		} else if (zoom == 15) {
+			sPad = -0.31;
+			wPad = -0.23;						
+		} else if (zoom == 16) {
+			sPad = -0.50;
+			wPad = -0.41;						
+		} else if (zoom == 17) {
+			sPad = 0.4;
+			wPad = 0.2;						
+		}
+
+		SCorner = thismap.getBounds().pad(sPad).getSouth();
+		WCorner = thismap.getBounds().pad(wPad).getWest();
+		sqmiCircle = L.circle([SCorner,WCorner], 805);
+		rectBounds = sqmiCircle.getBounds();
+		SQMIRECT.setBounds(rectBounds);
+	}
 
 	
 }

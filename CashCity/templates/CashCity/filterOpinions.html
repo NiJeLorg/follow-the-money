@@ -128,14 +128,14 @@
 		      <li><a href="?page=1">1</a></li>
 		      <li class="disabled"><a href="#">...</a></li>
 		      <li><a href="?page={{ opinions.previous_page_number }}">{{ opinions.previous_page_number }}</a></li>
-		      <li><a href="?page={{ opinions.number }}">{{ opinions.number }}</a></li>    
+		      <li class="active"><a href="?page={{ opinions.number }}">{{ opinions.number }}</a></li>    
 		      {% else %}
 		      <li class="disabled">
 		        <a href="#" aria-label="Previous">
 		          <span aria-hidden="true">&laquo;</span>
 		        </a>
 		      </li>
-		      <li><a href="?page={{ opinions.number }}">{{ opinions.number }}</a></li>
+		      <li class="active"><a href="?page={{ opinions.number }}">{{ opinions.number }}</a></li>
 		      {% endif %}
 		      {% if opinions.has_next %}
 		      <li><a href="?page={{ opinions.next_page_number }}">{{ opinions.next_page_number }}</a></li>

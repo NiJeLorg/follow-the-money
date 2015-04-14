@@ -198,14 +198,14 @@
 	      <li><a href="?page=1">1</a></li>
 	      <li class="disabled"><a href="#">...</a></li>
 	      <li><a href="?page={{ mediaResults.previous_page_number }}">{{ mediaResults.previous_page_number }}</a></li>
-	      <li><a href="?page={{ mediaResults.number }}">{{ mediaResults.number }}</a></li>    
+	      <li class="active"><a href="?page={{ mediaResults.number }}">{{ mediaResults.number }}</a></li>    
 	      {% else %}
 	      <li class="disabled">
 	        <a href="#" aria-label="Previous">
 	          <span aria-hidden="true">&laquo;</span>
 	        </a>
 	      </li>
-	      <li><a href="?page={{ mediaResults.number }}">{{ mediaResults.number }}</a></li>
+	      <li class="active"><a href="?page={{ mediaResults.number }}">{{ mediaResults.number }}</a></li>
 	      {% endif %}
 	      {% if mediaResults.has_next %}
 	      <li><a href="?page={{ mediaResults.next_page_number }}">{{ mediaResults.next_page_number }}</a></li>
