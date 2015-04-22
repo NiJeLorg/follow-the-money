@@ -14,6 +14,7 @@
 	{% block css_block %}
 	{% endblock %}
 	<link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/main.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'CashCity/css/extra.css' %}">
 	<style type="text/css">
 	
 		/*
@@ -111,7 +112,7 @@
 	      </button>
 	    </div>
 		<div class="navbar-center navbar-brand">
-		  <a class="navbar-brand citydigits-font" href="{% url 'index' %}">City Digits:</a><span class="brand-fade">Cash City</span>
+		  <a class="navbar-brand citydigits-font" href="{% url 'index' %}"><span class="hidden-sm" style="margin-right:10px;">City Digits:</span><span class="brand-fade">Cash City</span></a>
 		</div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->

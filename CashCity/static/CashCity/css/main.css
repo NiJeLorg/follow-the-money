@@ -50,13 +50,13 @@ body {
 	margin-right: auto;
 }
 
-.enormous {
+/*.enormous {
 	font-size: 200px;
 }
 
 .lessenormous {
 	font-size: 170px;
-}
+}*/
 
 hr {
 	margin-bottom: 10px;
@@ -188,7 +188,7 @@ a:hover > .panel-heading > .panel-title {
 }
 
 .nav-tabs.nav-tabs-media > li {
-	background-color: #B0B6BD;
+	background-color: whitesmoke;
 }
 
 .nav-tabs.nav-tabs-media > li > a {
@@ -653,13 +653,13 @@ audio {
     border-bottom: 1px solid #ccc;
     display: none;
     font-weight: 300;
-    padding: 20px 28px;
+    padding: 20px 28px 0px;
     position: absolute;
     z-index: 1001;
 }
 
 .map-thumbnail {
-	margin: 0px 20px 0px 0px;
+	margin: 0px 20px 20px 0px;
     border: 1px solid #ccc;
 	width: 160px;
 	height: 120px;
@@ -948,3 +948,24 @@ li.tagit-new {
 .account-header {
   font-weight:300;
 }
+
+#sectionmapsnaps_1 .modal-body {
+  padding: 15px 55px;
+  overflow-y: auto;
+  height: 315px;
+}
+
+#sectionmapsnaps_1 .modal-body .map-thumbnail {
+  margin: 0px 10px 20px 0px;
+  border: 1px solid #ccc;
+  width: 150px;
+  height: 120px;
+  float: left;
+  display: inline-block;
+}
+
+.media-stub h4 {
+  height:19px;
+  overflow-y:hidden;
+}
+

@@ -15,7 +15,7 @@
 			                <option value="Images">Images</option>
 			                <option value="Audio">Audio</option>
 			                <option value="Notes">Notes</option>
-			                <option value="Interviews">Interviews</option>
+			                <option value="Interviews">Interviews</option>  
 			            {% elif toolbar.searchType == 'Images' %}
 			                <option value="All">All Media Types</option>
 			                <option value="Images" selected>Images</option>
@@ -147,9 +147,13 @@
 								{% else %}
 									<p><strong>{{ mediaResult.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />{{ mediaResult.getUserProfile.teacherName }}'s Section {{ mediaResult.getUserProfile.section }}</p>
 								{% endif %}	
-								<p class="text-center lessenormous"> <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span></p>
+								<p class="text-center lessenormous"> 
+									<!-- /static/CashCity/img/chart_whitebutton.png -->
+									<img src="/static/CashCity/img/interview_icon.png" style="opacity:0.5">
+									<!-- <span class="glyphicon glyphicon-volume-up" style="color:#e3e3e3;font-size:40px;" aria-hidden="true"></span> -->
+								</p>
 								</a>						
-					            <div style="margin-right: auto; margin-left: auto; margin-top: 10px;">
+					            <div style="margin: auto;margin-top:-40px;height:30px;">
 								{% if ".amr" in mediaResult.audio.path or ".mov" in mediaResult.audio.path or ".MOV" in mediaResult.audio.path or ".gp3" in mediaResult.audio.path or ".mp4" in mediaResult.audio.path %}								
 					            	<audio src="/media/CashCity/{{ mediaResult.audio }}.mp3" preload="auto" controls></audio>
 								{% else %}
@@ -174,7 +178,8 @@
 									{% else %}
 										<p><strong>{{ mediaResult.getUserProfile.color|title }} Team</strong><span class="pull-right">{{ mediaResult.last_modified|date:"F j" }}</span><br />{{ mediaResult.getUserProfile.teacherName }}'s Section {{ mediaResult.getUserProfile.section }}</p>
 									{% endif %}		
-									<img src="http://placehold.it/250x250">					
+									<img src="/static/CashCity/img/image_icon.png" style="opacity:0.5">
+									<!-- <img src="http://placehold.it/250x250">					 -->
 										<h4>{{ mediaResult.title }}</h4>
 							            <!-- <div style="height: 280px; width: 280px; margin: auto; overflow: hidden;"> -->
 											<!-- <p>{{ mediaResult.notes }}</p> -->
