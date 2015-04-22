@@ -20,10 +20,11 @@ function FormMap() {
     //where brooklyn at?!40.7429 N, 73.9188
     this.map = L.mapbox.map('formMap', basemap,{minZoom:11,maxZoom:16,zoomControl:false}).setView([lat,lng], zoom);
 	var mapObject = this.map; 
-	
+	var locateMarker = L.marker(0, 0]).addTo(this.map);
 	if ( (initialLat != 'None' && initialLat != '') && (initialLng != 'None' && initialLng != '') ) {
 		// add marker if lat/lon is already set
-		marker = L.marker([lat, lng]).addTo(this.map);
+		this.map.removeLayer(locateMarker);	
+		locateMarker = L.marker([lat, lng]).addTo(this.map);
 	} else {
 		// attempt to locate user with set view only if lat/lng is not already set
 		this.map.locate({watch: true, setView: true, maxZoom: 16});
@@ -31,7 +32,8 @@ function FormMap() {
 	
 	
 	function onLocationFound(e) {
-		marker = L.marker(e.latlng).addTo(mapObject);
+		this.map.removeLayer(locateMarker);
+		locateMarker = L.marker(e.latlng).addTo(mapObject);
 		//set latitude and longitude for hidden form
 		var latitude = e.latlng.lat;
 		var longitude = e.latlng.lng;

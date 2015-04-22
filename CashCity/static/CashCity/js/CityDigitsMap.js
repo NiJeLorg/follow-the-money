@@ -92,10 +92,12 @@ function CityDigitsMap() {
 
 	// locate and continue to watch location
 	var map = this.map;
+	var locateCircle = L.circle([0, 0], 1).addTo(this.map);
 	this.map.on('locationfound', onLocationFound);
 	function onLocationFound(e) {
+		map.removeLayer(locateCircle);
 		var radius = e.accuracy / 2;
-	    L.circle(e.latlng, radius).addTo(map);
+	    locateCircle = L.circle(e.latlng, radius).addTo(map);
 	}
 
 	this.map.locate({watch: true});

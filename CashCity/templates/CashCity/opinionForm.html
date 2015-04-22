@@ -837,7 +837,7 @@
 				$(".audioSelect_"+{{ forloop.counter }}).click(function() {
 					if ($(this).hasClass("active")) {
 						$(this).removeClass('active');
-						$('#id_form-0-audio').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-audio').val(null);
 						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', 'Nothing Selected');
 						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').val(null);
 						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').attr('placeholder', 'Media Title');
@@ -880,7 +880,7 @@
 				$(".noteSelect_"+{{ forloop.counter }}).click(function() {
 					if ($(this).hasClass("active")) {
 						$(this).removeClass('active');
-						$('#id_form-0-note').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-note').val(null);
 						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', 'Nothing Selected');
 						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').val(null);
 						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').attr('placeholder', 'Media Title');
@@ -926,7 +926,7 @@
 				$(".interviewSelect_"+{{ forloop.counter }}).click(function() {
 					if ($(this).hasClass("active")) {
 						$(this).removeClass('active');
-						$('#id_form-0-interview').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-interview').val(null);
 						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', 'Nothing Selected');
 						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').val(null);
 						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').attr('placeholder', 'Media Title');
@@ -972,7 +972,7 @@
 				$(".mapSnapSelect_"+{{ forloop.counter }}).click(function() {
 					if ($(this).hasClass("active")) {
 						$(this).removeClass('active');
-						$('#id_form-0-mapSnap').val(null);
+						$('#id_form-'+{{ forloop.counter0 }}+'-mapSnap').val(null);
 						$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', 'Nothing Selected');
 						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').val(null);
 						$('#id_form-'+{{ forloop.counter0 }}+'-mediaTitle').attr('placeholder', 'Media Title');
@@ -991,7 +991,7 @@
 						// get id num
 						var id = this.id.replace("map", "");
 						id = id.substr(0, 1);
-										
+						console.log(id);
 						// set other values to null
 						$('#id_form-'+{{ forloop.counter0 }}+'-image').val(null);
 						$('#id_form-'+{{ forloop.counter0 }}+'-audio').val(null);
@@ -1011,7 +1011,7 @@
 
 						// add map snap to the preview area
 						var mapSnapPreview = $(this).clone().appendTo($('#mapSnapPreview_'+{{ forloop.counter }}));
-						mapSnapPreview.removeClass('active map-thumbnail mediaSelect mapSnapSelect_1');
+						mapSnapPreview.removeClass('active map-thumbnail mediaSelect mapSnapSelect_'+{{ forloop.counter }});
 						mapSnapPreview.addClass('opinionPreviewMap');
 
 						selected_{{ forloop.counter }} = true;
@@ -1064,7 +1064,7 @@
 					function addMapToPreview() {
 						// add map snap to the preview area
 						var mapSnapPreview = $( mapSelector ).clone().appendTo($('#mapSnapPreview_'+{{ forloop.counter }}));
-						mapSnapPreview.removeClass('active map-thumbnail mediaSelect mapSnapSelect_1');
+						mapSnapPreview.removeClass('active map-thumbnail mediaSelect mapSnapSelect_'+{{ forloop.counter }});
 						mapSnapPreview.addClass('opinionPreviewMap');
 					}
 					// TODO: map snap preview when editing forms not working.
