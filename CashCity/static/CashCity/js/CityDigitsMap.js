@@ -212,7 +212,12 @@ CityDigitsMap.onEachFeature_MAP1_POP_POVERTY = function(feature,layer){
 	
     layer.on('mouseout', function(ev) {
 		//remove highlight for polygon
-		layer.setStyle(noHighlight);		
+		layer.setStyle(noHighlight);
+
+		// close popup
+		if (!MY_MAP.map.hasLayer(MY_MAP.popup2)) {
+			MY_MAP.map.closePopup();
+		}		
     });	
 	
 	// add on click popups for each layer -- these will be different
@@ -314,6 +319,10 @@ CityDigitsMap.onEachFeature_MAP2_MED_HH_INCOME = function(feature,layer){
     layer.on('mouseout', function(ev) {
 		//remove highlight for polygon
 		layer.setStyle(noHighlight);		
+		// close popup
+		if (!MY_MAP.map.hasLayer(MY_MAP.popup2)) {
+			MY_MAP.map.closePopup();
+		}
     });
 	
 	// add on click popups for each layer -- these will be different
@@ -413,6 +422,10 @@ CityDigitsMap.onEachFeature_MAP3_PCT_UNEMPLOYED = function(feature,layer){
     layer.on('mouseout', function(ev) {
 		//remove highlight for polygon
 		layer.setStyle(noHighlight);		
+		// close popup
+		if (!MY_MAP.map.hasLayer(MY_MAP.popup2)) {
+			MY_MAP.map.closePopup();
+		}
     });
 	
 	// add on click popups for each layer -- these will be different
@@ -514,6 +527,10 @@ CityDigitsMap.onEachFeature_MAP4_PCT_FOREIGN_BORN = function(feature,layer){
     layer.on('mouseout', function(ev) {
 		//remove highlight for polygon
 		layer.setStyle(noHighlight);		
+		// close popup
+		if (!MY_MAP.map.hasLayer(MY_MAP.popup2)) {
+			MY_MAP.map.closePopup();
+		}
     });
 	
 	// add on click popups for each layer -- these will be different
@@ -615,6 +632,10 @@ CityDigitsMap.onEachFeature_CREATEMAP1_AFI_PER_SQMILE = function(feature,layer){
     layer.on('mouseout', function(ev) {
 		//remove highlight for polygon
 		layer.setStyle(noHighlight);		
+		// close popup
+		if (!MY_MAP.map.hasLayer(MY_MAP.popup2)) {
+			MY_MAP.map.closePopup();
+		}
     });
 	
 	// add on click popups for each layer -- these will be different
@@ -744,6 +765,10 @@ CityDigitsMap.onEachFeature_CREATEMAP2_BANKS_PER_SQMILE = function(feature,layer
     layer.on('mouseout', function(ev) {
 		//remove highlight for polygon
 		layer.setStyle(noHighlight);		
+		// close popup
+		if (!MY_MAP.map.hasLayer(MY_MAP.popup2)) {
+			MY_MAP.map.closePopup();
+		}
     });
 	
 	// add on click popups for each layer -- these will be different
@@ -866,6 +891,10 @@ CityDigitsMap.onEachFeature_CREATEMAP3_PAWN_SHOPS_PER_SQMILE = function(feature,
     layer.on('mouseout', function(ev) {
 		//remove highlight for polygon
 		layer.setStyle(noHighlight);		
+		// close popup
+		if (!MY_MAP.map.hasLayer(MY_MAP.popup2)) {
+			MY_MAP.map.closePopup();
+		}
     });
 	
 	// add on click popups for each layer -- these will be different
@@ -988,6 +1017,10 @@ CityDigitsMap.onEachFeature_CREATEMAP4_MCDONALDS_PER_SQMILE = function(feature,l
     layer.on('mouseout', function(ev) {
 		//remove highlight for polygon
 		layer.setStyle(noHighlight);		
+		// close popup
+		if (!MY_MAP.map.hasLayer(MY_MAP.popup2)) {
+			MY_MAP.map.closePopup();
+		}
     });
 	
 	// add on click popups for each layer -- these will be different
@@ -1109,6 +1142,10 @@ CityDigitsMap.onEachFeature_CREATEMAP5_HH_PER_AFI = function(feature,layer){
     layer.on('mouseout', function(ev) {
 		//remove highlight for polygon
 		layer.setStyle(noHighlight);		
+		// close popup
+		if (!MY_MAP.map.hasLayer(MY_MAP.popup2)) {
+			MY_MAP.map.closePopup();
+		}
     });
 	
 	// add on click popups for each layer -- these will be different
@@ -1214,6 +1251,10 @@ CityDigitsMap.onEachFeature_CREATEMAP6_HH_PER_BANK = function(feature,layer){
     layer.on('mouseout', function(ev) {
 		//remove highlight for polygon
 		layer.setStyle(noHighlight);		
+		// close popup
+		if (!MY_MAP.map.hasLayer(MY_MAP.popup2)) {
+			MY_MAP.map.closePopup();
+		}
     });
 	
 	// add on click popups for each layer -- these will be different
@@ -1311,6 +1352,10 @@ CityDigitsMap.onEachFeature_CREATEMAP7_HH_PER_MCDONALDS = function(feature,layer
     layer.on('mouseout', function(ev) {
 		//remove highlight for polygon
 		layer.setStyle(noHighlight);		
+		// close popup
+		if (!MY_MAP.map.hasLayer(MY_MAP.popup2)) {
+			MY_MAP.map.closePopup();
+		}
     });
 	
 	// add on click popups for each layer -- these will be different
@@ -1408,6 +1453,10 @@ CityDigitsMap.onEachFeature_CREATEMAP8_HH_PER_PAWN_SHOP = function(feature,layer
     layer.on('mouseout', function(ev) {
 		//remove highlight for polygon
 		layer.setStyle(noHighlight);		
+		// close popup
+		if (!MY_MAP.map.hasLayer(MY_MAP.popup2)) {
+			MY_MAP.map.closePopup();
+		}
     });
 	
 	// add on click popups for each layer -- these will be different
@@ -1505,6 +1554,10 @@ CityDigitsMap.onEachFeature_CREATEMAP9_AFIS_PER_BANK = function(feature,layer){
     layer.on('mouseout', function(ev) {
 		//remove highlight for polygon
 		layer.setStyle(noHighlight);		
+		// close popup
+		if (!MY_MAP.map.hasLayer(MY_MAP.popup2)) {
+			MY_MAP.map.closePopup();
+		}
     });
 	
 	// add on click popups for each layer -- these will be different
@@ -1610,6 +1663,10 @@ CityDigitsMap.onEachFeature_CREATEMAP10_BANKS_PER_AFI = function(feature,layer){
     layer.on('mouseout', function(ev) {
 		//remove highlight for polygon
 		layer.setStyle(noHighlight);		
+		// close popup
+		if (!MY_MAP.map.hasLayer(MY_MAP.popup2)) {
+			MY_MAP.map.closePopup();
+		}
     });
 	
 	// add on click popups for each layer -- these will be different
@@ -2803,6 +2860,65 @@ CityDigitsMap.onEachFeatureFor_LOC6_SUBWAY_LINES = function(feature,layer){
 	
 }
 
+CityDigitsMap.onEachFeatureFor_NYC_BORO_LAYER = function(feature,layer){
+
+	var highlight = {
+	    weight: 5,
+	};
+	var noHighlight = {
+        weight: 3,
+	};
+	
+    //add on hover -- same on hover and mousemove for each layer
+    layer.on('mouseover', function(ev) {
+		// only have on mouseover work if popup2 isn't open
+		if (!MY_MAP.map.hasLayer(MY_MAP.popup2)) {
+	    	MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+			MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.BORONAME + '</div>');
+		
+			//display popup
+	        if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.BORONAME,open_tooltips)<0)){
+	            MY_MAP.popup.openOn(MY_MAP.map);
+	        }else{
+	            MY_MAP.map.closePopup();
+	        }			
+		}
+		
+		//highlight polygon
+		layer.setStyle(highlight);		
+		
+    });
+		
+    layer.on('mousemove', function(ev) {
+		
+		// only have on mousemove work if popup2 isn't open
+		if (!MY_MAP.map.hasLayer(MY_MAP.popup2)) {
+	        //get lat/long
+	        if(($.inArray(feature.properties.BORONAME,open_tooltips)<0)){
+				MY_MAP.popup.setLatLng(MY_MAP.map.layerPointToLatLng(ev.layerPoint));
+				MY_MAP.popup.setContent('<div class="rollover-tooltip text-capitalize">'+feature.properties.BORONAME + '</div>');
+	    	}
+
+	        //display popup
+			if (!MY_MAP.popup._isOpen && ($.inArray(feature.properties.BORONAME,open_tooltips)<0)){
+				MY_MAP.popup.openOn(MY_MAP.map);
+			}			
+		}
+    });
+	
+    layer.on('mouseout', function(ev) {
+		//remove highlight for polygon
+		layer.setStyle(noHighlight);
+		// close popup
+		if (!MY_MAP.map.hasLayer(MY_MAP.popup2)) {
+			MY_MAP.map.closePopup();
+		}
+		
+    });
+
+
+}
+
 CityDigitsMap.prototype.loadMarkers = function(){
 		
 	this.LOC1_PAWN_SHOPS = null;
@@ -2845,6 +2961,7 @@ CityDigitsMap.prototype.loadMarkers = function(){
 	});	
 	this.NYC_BORO_LAYER_style = L.geoJson(null, {
 		style: CityDigitsMap.getStyleFor_NYC_BORO_LAYER_style,
+		onEachFeature: CityDigitsMap.onEachFeatureFor_NYC_BORO_LAYER
 	});	
 	
 	// load layers

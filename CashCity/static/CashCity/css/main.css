@@ -180,7 +180,9 @@ a:hover > .panel-heading > .panel-title {
 	width: 250px;
 }
 
-
+.indent {
+	margin-left: 15px;
+}
 
 
 .nav-tabs.nav-tabs-media {
