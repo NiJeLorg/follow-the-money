@@ -20,7 +20,7 @@ $(document).ready( function() {
 			alert("Your file may be too big to upload on cellular network. Please consider uploading your file later over wifi.");
 		}
 
-		if (this.files[0].type != "video/quicktime" && this.files[0].type != "video/mp4" && this.files[0].type != "video/gp3" && this.files[0].type != "audio/mpeg" && this.files[0].type != "audio/amr" && this.files[0].type != "image/gif" && this.files[0].type != "image/jpeg" && this.files[0].type != "image/png" && this.files[0].type != "image/tiff" && this.files[0].type != "image/bmp") {
+		if (this.files[0].type != "video/quicktime" && this.files[0].type != "video/mp4" && this.files[0].type != "video/gp3" && this.files[0].type != "audio/mpeg" && this.files[0].type != "audio/amr" && this.files[0].type != "audio/mp3" && this.files[0].type != "image/gif" && this.files[0].type != "image/jpeg" && this.files[0].type != "image/png" && this.files[0].type != "image/tiff" && this.files[0].type != "image/bmp") {
 			alert("The type of file you're trying to upload is not supported. Please try another type of file.");
 		}
 		
