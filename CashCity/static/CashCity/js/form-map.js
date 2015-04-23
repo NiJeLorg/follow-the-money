@@ -32,7 +32,7 @@ function FormMap() {
 	
 	
 	function onLocationFound(e) {
-		this.map.removeLayer(locateMarker);
+		mapObject.removeLayer(locateMarker);
 		locateMarker = L.marker(e.latlng).addTo(mapObject);
 		//set latitude and longitude for hidden form
 		var latitude = e.latlng.lat;
