@@ -20,7 +20,7 @@ function FormMap() {
     //where brooklyn at?!40.7429 N, 73.9188
     this.map = L.mapbox.map('formMap', basemap,{minZoom:11,maxZoom:16,zoomControl:false}).setView([lat,lng], zoom);
 	var mapObject = this.map; 
-	var locateMarker = L.marker(0, 0]).addTo(this.map);
+	var locateMarker = L.marker([0, 0]).addTo(this.map);
 	if ( (initialLat != 'None' && initialLat != '') && (initialLng != 'None' && initialLng != '') ) {
 		// add marker if lat/lon is already set
 		this.map.removeLayer(locateMarker);	
