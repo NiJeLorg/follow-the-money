@@ -47,13 +47,13 @@ function FormMap() {
 	
 	this.map.on('locationfound', onLocationFound);
 	
-	
+/*	
 	function onLocationError(e) {
 	    alert(e.message);
 	}
 
 	this.map.on('locationerror', onLocationError);
-	
+*/	
 }
 
 FormMap.prototype.addGeoSearch = function(){

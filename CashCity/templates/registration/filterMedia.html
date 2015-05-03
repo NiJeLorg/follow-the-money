@@ -132,12 +132,12 @@
 
 
 {% if mediaResults %}
-<table class="table media-table-custom">
+<table class="table table-condensed table-responsive table-striped media-table-custom">
 	<thead>
-		<th>Section</th>
-		<th>Team Color</th>
+		<th class="hidden-xs">Section</th>
+		<th class="hidden-xs">Team Color</th>
 		<th>Media</th>
-		<th>Privacy/Visibility</th>
+		<th>Privacy<span class="hidden-xs">/Visibility</span></th>
 		<th>Name</th>
 		<th>Date Added</th>
 		<th>Options</th>
@@ -146,8 +146,8 @@
 		{% for mediaResult in mediaResults %}
 			{% if mediaResult.image and mediaResult.audio %}
 				<tr>
-					<td>{{ mediaResult.getUserProfile.section }}</td>
-					<td><div class="interview_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></td>
+					<td class="hidden-xs">{{ mediaResult.getUserProfile.section }}</td>
+					<td class="hidden-xs"><div class="interview_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></td>
 					<td>
 						{% if mediaResult.published %}
 							<a href="/cashcity/media/interview/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
@@ -168,9 +168,9 @@
 					</td>
 					<td>
 						{% if mediaResult.shared %}
-							All My Teams <input type="checkbox" class="interviewShare" value="{{ mediaResult.id }}" checked>
+							All<span class="hidden-xs"> My Teams</span> <input type="checkbox" class="interviewShare" value="{{ mediaResult.id }}" checked>
 						{% else %}
-							All My Teams <input type="checkbox" class="interviewShare" value="{{ mediaResult.id }}" >
+							All<span class="hidden-xs"> My Teams</span> <input type="checkbox" class="interviewShare" value="{{ mediaResult.id }}" >
 						{% endif %}						
 					</td>
 					<td>
@@ -199,8 +199,8 @@
 				</tr>
 			{% elif mediaResult.image %}
 				<tr>
-					<td>{{ mediaResult.getUserProfile.section }}</td>
-					<td><div class="image_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></td>
+					<td class="hidden-xs">{{ mediaResult.getUserProfile.section }}</td>
+					<td class="hidden-xs"><div class="image_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></td>
 					<td>
 						{% if mediaResult.published %}
 							<a href="/cashcity/media/image/{{ mediaResult.id }}/" style="text-decoration:none; color:inherit">
@@ -214,9 +214,9 @@
 					</td>
 					<td>
 						{% if mediaResult.shared %}
-							All My Teams <input type="checkbox" class="imageShare" value="{{ mediaResult.id }}" checked>
+							All<span class="hidden-xs"> My Teams</span> <input type="checkbox" class="imageShare" value="{{ mediaResult.id }}" checked>
 						{% else %}
-							All My Teams <input type="checkbox" class="imageShare" value="{{ mediaResult.id }}" >
+							All<span class="hidden-xs"> My Teams</span> <input type="checkbox" class="imageShare" value="{{ mediaResult.id }}" >
 						{% endif %}						
 					</td>
 					<td>
@@ -245,8 +245,8 @@
 				</tr>
 			{% elif mediaResult.audio %}
 				<tr>
-					<td>{{ mediaResult.getUserProfile.section }}</td>
-					<td><div class="audio_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></td>
+					<td class="hidden-xs">{{ mediaResult.getUserProfile.section }}</td>
+					<td class="hidden-xs"><div class="audio_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></td>
 					<td>
 				            <div style="margin: auto;">
 								{% if ".amr" in mediaResult.audio.path or ".mov" in mediaResult.audio.path or ".MOV" in mediaResult.audio.path or ".gp3" in mediaResult.audio.path or ".mp4" in mediaResult.audio.path %}
@@ -258,9 +258,9 @@
 					</td>
 					<td>
 						{% if mediaResult.shared %}
-							All My Teams <input type="checkbox" class="audioShare" value="{{ mediaResult.id }}" checked>
+							All<span class="hidden-xs"> My Teams</span> <input type="checkbox" class="audioShare" value="{{ mediaResult.id }}" checked>
 						{% else %}
-							All My Teams <input type="checkbox" class="audioShare" value="{{ mediaResult.id }}" >
+							All<span class="hidden-xs"> My Teams</span> <input type="checkbox" class="audioShare" value="{{ mediaResult.id }}" >
 						{% endif %}						
 					</td>
 					<td>
@@ -289,14 +289,14 @@
 				</tr>
 			{% else %}
 				<tr>
-					<td>{{ mediaResult.getUserProfile.section }}</td>
-					<td><div class="note_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></td>
+					<td class="hidden-xs">{{ mediaResult.getUserProfile.section }}</td>
+					<td class="hidden-xs"><div class="note_{{ mediaResult.getUserProfile.color }} pull-left margin-right"></div></td>
 					<td></td>
 					<td>
 						{% if mediaResult.shared %}
-							All My Teams <input type="checkbox" class="noteShare" value="{{ mediaResult.id }}" checked>
+							All<span class="hidden-xs"> My Teams</span> <input type="checkbox" class="noteShare" value="{{ mediaResult.id }}" checked>
 						{% else %}
-							All My Teams <input type="checkbox" class="noteShare" value="{{ mediaResult.id }}" >
+							All<span class="hidden-xs"> My Teams</span> <input type="checkbox" class="noteShare" value="{{ mediaResult.id }}" >
 						{% endif %}							
 					</td>
 					<td>

@@ -15,3 +15,11 @@
   font-weight:300;
   font-size:13px;
 }
+
+audio {
+  width:100%;
+}
+
+.my-opinion-table img {
+  width:100%;
+}

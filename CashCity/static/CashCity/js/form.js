@@ -17,7 +17,7 @@ $(document).ready( function() {
 		
 		console.log(this.files[0].type);
 		if (this.files[0].size > 20000000) {
-			alert("Your file may be too big to upload on cellular network. Please consider uploading your file later over wifi.");
+			//alert("Your file may be too big to upload on cellular network. Please consider uploading your file later over wifi.");
 		}
 
 		if (this.files[0].type != "video/quicktime" && this.files[0].type != "video/mp4" && this.files[0].type != "video/gp3" && this.files[0].type != "audio/mpeg" && this.files[0].type != "audio/amr" && this.files[0].type != "audio/mp3" && this.files[0].type != "image/gif" && this.files[0].type != "image/jpeg" && this.files[0].type != "image/png" && this.files[0].type != "image/tiff" && this.files[0].type != "image/bmp") {
