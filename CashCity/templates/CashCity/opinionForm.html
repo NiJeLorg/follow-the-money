@@ -292,12 +292,6 @@
 						{{ form.text|add_class:"form-control" }}
 					</div>
 				<hr />
-				{% if forloop.last %}
-				{% else %}
-					<button id="addSection_{{ forloop.counter }}" type="button" class="btn btn-default">Add Section</button>
-				{% endif %}
-				<br />
-				<br />
 				<!-- hidden form fields -->
 				{{ form.sectionNumber }}
 				{{ form.image }}
@@ -309,7 +303,9 @@
 				
 		    {% endfor %}
 			</div>
-	
+			<button type="button" class="btn btn-default addSection">Add Section</button>	
+			<br />
+			<br />
 			<button type="submit" class="btn btn-primary" name="publish" value="submit">Publish</button>
 			<button type="submit" class="btn btn-default" name="saveDraft" value="saveDraft">Save Draft</button>
 			<button type="submit" class="btn btn-default" name="cancel" value="cancel">Cancel</button>
@@ -620,12 +616,7 @@
 
 			// update section number count when resorted
 			$( "#sortable" ).on( "sortstop", function( event, ui ) {
-				var sorted = $( "#sortable" ).sortable( "serialize", { key: "section" } );
-				sorted = sorted.replace(/FORMS/g, '');
-				sorted = sorted.replace(/id/g, '');
-				sorted = sorted.replace(/section=/g, '');
-				sorted = sorted.replace(/&/g, '');
-				sorted = sorted.split('');
+				var sorted = sectionOrder();
 				for (var i = sorted.length - 1; i >= 0; i--) {
 					$('#id_form-'+sorted[i]+'-sectionNumber').val(i);
 				};
@@ -674,22 +665,56 @@
 			}
 
 			// if teamImage uploaded, show a preview
-				$('#id_teamImage').change(function(){
-					if (this.files && this.files[0]) {
-						// select media preview div and append an IMG tag
-						$('#preview_teamImage').remove();
-						$('#teamImagePreview').append('<img id="preview_teamImage" width="100%" style="padding-bottom: 10px;" src="#" />');
-						$()
+			$('#id_teamImage').change(function(){
+				if (this.files && this.files[0]) {
+					// select media preview div and append an IMG tag
+					$('#preview_teamImage').remove();
+					$('#teamImagePreview').append('<img id="preview_teamImage" width="100%" style="padding-bottom: 10px;" src="#" />');
+					$()
 
-			            var reader = new FileReader();
-			            
-			            reader.onload = function (e) {
-			                $('#preview_teamImage').attr('src', e.target.result);
-			            }
-			            
-			            reader.readAsDataURL(this.files[0]);
-			        }
-			    });
+		            var reader = new FileReader();
+		            
+		            reader.onload = function (e) {
+		                $('#preview_teamImage').attr('src', e.target.result);
+		            }
+		            
+		            reader.readAsDataURL(this.files[0]);
+		        }
+		    });
+
+			// add sections
+			$('.addSection').click(function() {
+				var sorted = sectionOrder();
+				n = 0;
+				i = 0;
+				while (n == 0) {
+					if (!$('#section_' + sorted[i]).is(":visible")) {
+						console.log(sorted[i]);
+						$('#section_' + sorted[i]).show();
+						n = 1;
+					}
+					i++;
+				}
+
+			});	
+
+			function sectionOrder() {
+				var sorted = $( "#sortable" ).sortable( "serialize", { key: "section" } );
+				sorted = sorted.replace(/FORMS/g, '');
+				sorted = sorted.replace(/id/g, '');
+				sorted = sorted.replace(/section=/g, '');
+				sorted = sorted.split('&');
+				var unique=sorted.filter(function(itm,i,a){
+				    return i==a.indexOf(itm);
+				});
+				// remove ""
+				var index = unique.indexOf("");
+				if (index > -1) {
+					unique.splice(index, 1);
+				}
+				return unique;			
+			}
+
 
 			// loop through sections creating section specific js
 			{% for form in opinionSectionsFormset %}			
@@ -713,12 +738,6 @@
 
 				// add section numbers to form field
 				$('#id_form-'+{{ forloop.counter0 }}+'-sectionNumber').val({{ forloop.counter }});
-
-				// add sections
-				$('#addSection_'+{{ forloop.counter }}).click(function() {
-					$('#section_'+{{ forloop.counter }}).show();
-					$('#addSection_'+{{ forloop.counter }}).attr("disabled","disabled");
-				});	
 
 				// remove sections
 				$('#removeSection_'+{{ forloop.counter0 }}).click(function() {

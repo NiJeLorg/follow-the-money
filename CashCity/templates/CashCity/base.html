@@ -127,6 +127,7 @@
 	        <li><a href="{% url 'opinion' %}">OPINIONS</a></li>
 	        <li><a href="{% url 'about' %}">ABOUT</a></li>
 	        {% if user.is_authenticated %}
+		        <li class="showMobile"><a href="{% url 'accountProfile' %}">MY ACCOUNT</a></li>
 		        <li class="showMobile"><a href="{% url 'auth_logout' %}">LOGOUT</a></li>
 	        {% else %}
 		        <li class="showMobile"><a href="{% url 'auth_login' %}">LOGIN</a></li>
