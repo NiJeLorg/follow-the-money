@@ -112,10 +112,13 @@ function CityDigitsMap() {
 		.addTo(this.map);
 
 	var thismap = this.map;
+
+	/* Don't move the square mile box around the screen
 	this.map.on('zoomend', moveSQMIRECT);
 	this.map.on('resize', moveSQMIRECT);
 	this.map.on('moveend', moveSQMIRECT);
 	this.map.on('viewreset', moveSQMIRECT);
+	*/
 
 
 	function moveSQMIRECT() {
@@ -3595,7 +3598,18 @@ CityDigitsMap.loadLocationsLayerFor = function(layerId){
 	if (layerId == "LOC6") {
 		// load subway lines and stops together
 		LOC7 = MY_MAP.LOC7_SUBWAY_STATIONS.addTo(MY_MAP.map).bringToFront();
-		LOC6 = MY_MAP.LOC6_SUBWAY_LINES.addTo(MY_MAP.map).bringToFront();
+		LOC6 = MY_MAP.LOC6_SUBWAY_LINES.addTo(MY_MAP.map).bringToBack();
+
+		// ensure subway lines are above mainLayer layer 
+	    if (MY_MAP.map.hasLayer(mainLayer)) {
+	    	mainLayer.bringToBack();
+	    }
+
+		// ensure subway lines are above boro layer 
+	    if (MY_MAP.map.hasLayer(MY_MAP.NYC_BORO_LAYER)) {
+	    	MY_MAP.NYC_BORO_LAYER.bringToBack();
+	    }
+	
 	}
 	if (layerId == "NYC_BORO") {
 		NYC_BORO = MY_MAP.NYC_BORO_LAYER.addTo(MY_MAP.map).bringToBack();
