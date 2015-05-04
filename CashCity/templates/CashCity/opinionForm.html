@@ -1009,7 +1009,7 @@
 						$(this).addClass('active');
 						// get id num
 						var id = this.id.replace("map", "");
-						id = id.substr(0, 1);
+						id = id.slice(0, -1);
 						console.log(id);
 						// set other values to null
 						$('#id_form-'+{{ forloop.counter0 }}+'-image').val(null);
@@ -1075,7 +1075,8 @@
 					$( mapSelector ).addClass('active');
 					// get id num
 					var id = $( mapSelector )[0].id.replace("map", "");
-					id = id.substr(0, 1);
+					id = id.slice(0, -1);
+
 					
 					$('#readonlyField_'+{{ forloop.counter }}).attr('placeholder', "Map: " + $( mapSelector + " > span > p").text());
 
