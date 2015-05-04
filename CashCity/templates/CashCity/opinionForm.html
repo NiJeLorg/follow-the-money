@@ -262,7 +262,7 @@
 							{% for interview in mediaInterview %}
 								<div id="{{ interview.id }}" title="{{ interview.title }}" class="padding10bottom" style="display:none;">
 									<p><strong>{{ interview.title }}</strong></p>
-									<img class="imageSelect" src="{% cropped_thumbnail interview 'cropped_image_w640_h480' %}" />
+									<img src="{% cropped_thumbnail interview 'cropped_image_w640_h480' %}" />
 									<div class="clearfix"></div>
 									<br />
 									{% if ".amr" in interview.audio.path or ".mov" in interview.audio.path or ".MOV" in interview.audio.path or ".gp3" in interview.audio.path or ".mp4" in interview.audio.path %}
@@ -1017,6 +1017,7 @@
 						$('#id_form-'+{{ forloop.counter0 }}+'-note').val(null);
 						$('#id_form-'+{{ forloop.counter0 }}+'-interview').val(null);
 						$('#id_form-'+{{ forloop.counter0 }}+'-mapSnap').val(id);
+						console.log($('#id_form-'+{{ forloop.counter0 }}+'-mapSnap').val());
 						// remove any uploaded images
 						resetFormElement( $('#id_form-'+{{ forloop.counter0 }}+'-uploadImage') );			
 						resetFormElement( $('#readonlyField_'+{{ forloop.counter }}) );			

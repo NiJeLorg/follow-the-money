@@ -807,7 +807,7 @@
 			}
 
 			// if there's popup content open popup and fill it with that content
-			if (popup2Content{{ mapSnapBookmark.id }} && popup2LatLon{{ mapSnapBookmark.id }}) {
+			if (popup2Content{{ mapSnapBookmark.id }} != 'None' && popup2LatLon{{ mapSnapBookmark.id }} != 'None') {
 
 				var popup2LatLon = popup2LatLon{{ mapSnapBookmark.id }}.split(',');
 				var popup2Lat = parseFloat(popup2LatLon[0]);
@@ -821,7 +821,7 @@
 				MY_MAP.map.addLayer(MY_MAP.popup2);
 			}
 
-			if (popup3Content{{ mapSnapBookmark.id }} && popup3LatLon{{ mapSnapBookmark.id }}) {
+			if (popup3Content{{ mapSnapBookmark.id }} != 'None' && popup3LatLon{{ mapSnapBookmark.id }} != 'None') {
 
 				var popup3LatLon = popup3LatLon{{ mapSnapBookmark.id }}.split(',');
 				var popup3Lat = parseFloat(popup3LatLon[0]);

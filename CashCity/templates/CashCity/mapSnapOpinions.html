@@ -101,7 +101,8 @@
 
 			// if there's popup content open popup and fill it with that content
 			function addPopup(){
-				if (popup2Content{{ mapSnap.id }} && popup2LatLon{{ mapSnap.id }}) {
+				if (popup2Content{{ mapSnap.id }} != 'None' && popup2LatLon{{ mapSnap.id }} != 'None') {
+					console.log(popup2LatLon{{ mapSnap.id }});
 
 					var popup2LatLon = popup2LatLon{{ mapSnap.id }}.split(',');
 					var popup2Lat = parseFloat(popup2LatLon[0]);
@@ -115,7 +116,7 @@
 					activeMap{{ mapSnap.id }}.map.addLayer(activeMap{{ mapSnap.id }}.popup2);
 				}
 
-				if (popup3Content{{ mapSnap.id }} && popup3LatLon{{ mapSnap.id }}) {
+				if (popup3Content{{ mapSnap.id }} != 'None' && popup3LatLon{{ mapSnap.id }} != 'None') {
 
 					var popup3LatLon = popup3LatLon{{ mapSnap.id }}.split(',');
 					var popup3Lat = parseFloat(popup3LatLon[0]);
