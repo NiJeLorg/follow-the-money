@@ -766,33 +766,13 @@ body.loading .loading-modal {
 }
 
 
-.imageSelect {
-	display: inline-block;
-	height: 128px; 
-	width: 168px; 
-	margin: 8px;
-	overflow: hidden;
-	cursor: pointer;
-}
-
-.imageSelect.active {
-	border: 4px solid steelblue;
-}
-
-.mediaSelect {
-	cursor: pointer;
-}
-
-.mediaSelect.active {
-	border: 4px solid steelblue;
-}
 
 /*
 * maps on opinion page css
 */
 
 .map-opinion {
-  border: 1px solid #ccc;
+  	border: 1px solid #ccc;
 	width: 100%;
 	height: 480px;
 }
@@ -969,5 +949,31 @@ li.tagit-new {
 .media-stub h4 {
   height:19px;
   overflow-y:hidden;
+}
+
+/*
+* ensure that active selections show up
+*/
+
+
+.imageSelect {
+	display: inline-block;
+	height: 128px; 
+	width: 168px; 
+	margin: 8px;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.imageSelect.active {
+	border: 4px solid steelblue;
+}
+
+.mediaSelect {
+	cursor: pointer;
+}
+
+.mediaSelect.active {
+	border: 4px solid steelblue;
 }
 
