@@ -966,7 +966,7 @@ li.tagit-new {
 }
 
 .imageSelect.active {
-	border: 4px solid steelblue;
+	border: 4px solid steelblue !important;
 }
 
 .mediaSelect {
@@ -974,6 +974,6 @@ li.tagit-new {
 }
 
 .mediaSelect.active {
-	border: 4px solid steelblue;
+	border: 4px solid steelblue !important;
 }
 
