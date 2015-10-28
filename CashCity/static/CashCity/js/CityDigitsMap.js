@@ -2395,6 +2395,7 @@ CityDigitsMap.onEachFeatureFor_LOC1_PAWN_SHOPS = function(feature,layer){
 		layer.setStyle(highlight);		
 		
 		// only have on mousemove work if popup2 isn't open
+		console.log($.inArray(feature.properties.name,open_tooltips));
 		if (!MY_MAP.map.hasLayer(MY_MAP.popup2)) {
 	        //get lat/long
 	        if(($.inArray(feature.properties.name,open_tooltips)<0)){

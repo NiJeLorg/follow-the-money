@@ -50,7 +50,7 @@ $(document).ready( function() {
 	$('#audioForm').submit(function(ev) {
 		var btn = $(document.activeElement);
 		console.log(btn[0].value);
-		if (btn[0].value != "cancel") {
+		if (btn[0].value != "cancel" && $('#id_audio').val() != '') {
 			// check extension and alert if unsupported extension
 			var ext = $('#id_audio').val().split('.').pop().toLowerCase();
 			if($.inArray(ext, ['mov','gp3','mp4','amr', 'mp3']) == -1) {
@@ -64,7 +64,8 @@ $(document).ready( function() {
 	$('#imageForm').submit(function(ev) {
 		var btn = $(document.activeElement);
 		console.log(btn[0].value);
-		if (btn[0].value != "cancel") {
+
+		if (btn[0].value != "cancel" && $('#id_image').val() != '') {
 			// check extension and alert if unsupported extension
 			var ext = $('#id_image').val().split('.').pop().toLowerCase();
 			if($.inArray(ext, ['gif','jpg','jpeg','png','tiff','tif','bmp']) == -1) {
@@ -79,20 +80,25 @@ $(document).ready( function() {
 		var btn = $(document.activeElement);
 		console.log(btn[0].value);
 		if (btn[0].value != "cancel") {
-			// check extension and alert if unsupported extension
-			var extImg = $('#id_image').val().split('.').pop().toLowerCase();
-			if($.inArray(extImg, ['gif','jpg','jpeg','png','tiff','tif','bmp']) == -1) {
-				$("body").removeClass("loading");
-			    alert('The type of file you\'re trying to upload is not supported. You can upload .gif, .jpg/.jpeg, .png, .tif/.tiff, or .bmp files when adding images. Please try again.');
-			    ev.preventDefault();
+			if ($('#id_image').val() != '') {
+				// check extension and alert if unsupported extension
+				var extImg = $('#id_image').val().split('.').pop().toLowerCase();
+				if($.inArray(extImg, ['gif','jpg','jpeg','png','tiff','tif','bmp']) == -1) {
+					$("body").removeClass("loading");
+				    alert('The type of file you\'re trying to upload is not supported. You can upload .gif, .jpg/.jpeg, .png, .tif/.tiff, or .bmp files when adding images. Please try again.');
+				    ev.preventDefault();
+				}				
 			}
 
-			var extAud = $('#id_audio').val().split('.').pop().toLowerCase();
-			if($.inArray(extAud, ['mov','gp3','mp4','amr', 'mp3']) == -1) {
-				$("body").removeClass("loading");
-			    alert('The type of file you\'re trying to upload is not supported. You can upload .mov, .gp3, .mp4, .amr, or .mp3 files when adding audio. Please try again.');
-			    ev.preventDefault();
+			if ($('#id_audio').val() != '') {
+				var extAud = $('#id_audio').val().split('.').pop().toLowerCase();
+				if($.inArray(extAud, ['mov','gp3','mp4','amr', 'mp3']) == -1) {
+					$("body").removeClass("loading");
+				    alert('The type of file you\'re trying to upload is not supported. You can upload .mov, .gp3, .mp4, .amr, or .mp3 files when adding audio. Please try again.');
+				    ev.preventDefault();
+				}
 			}
+
 		}
 	});
 	
